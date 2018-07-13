@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".WelcomeActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
 
             <intent-filter>
@@ -17,12 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".LogInActivity"
-            android:parentActivityName=".WelcomeActivity"/>
+            android:parentActivityName=".WelcomeActivity"
+            android:label="Log In"/>
+
         <activity
             android:name=".RegisterActivity"
-            android:parentActivityName=".WelcomeActivity"/>
+            android:parentActivityName=".WelcomeActivity"
+            android:label="Register" />
 
     </application>
 
