@@ -16,7 +16,7 @@ public class LogInActivity extends AppCompatActivity {
     EditText emailField;
     EditText passwordField;
     Button logInBtn;
-    String authUrl = "https://testkapok.us1.cloud.realm.io";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class LogInActivity extends AppCompatActivity {
 
                 if (isValidRequest(email, password)){
                     SyncCredentials credentials = SyncCredentials.usernamePassword(email, password, false);
-                    SyncUser.logInAsync(credentials, authUrl, new SyncUser.Callback<SyncUser>() {
+                    SyncUser.logInAsync(credentials, Constants.AUTH_URL, new SyncUser.Callback<SyncUser>() {
                         @Override
                         public void onSuccess(SyncUser user) {
                             // User is logged

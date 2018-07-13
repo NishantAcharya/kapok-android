@@ -39,7 +39,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if (isValidRequest(email, password, confirmPass)){
                     SyncCredentials credentials = SyncCredentials.usernamePassword(email, password, true);
-                    SyncUser.logInAsync(credentials, authUrl, new SyncUser.Callback<SyncUser>() {
+                    SyncUser.logInAsync(credentials, Constants.AUTH_URL, new SyncUser.Callback<SyncUser>() {
                         @Override
                         public void onSuccess(SyncUser user) {
                             // User is logged
