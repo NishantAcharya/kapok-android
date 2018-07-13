@@ -1,6 +1,7 @@
 package com.kapok.brianramirez.kapok;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,26 +26,22 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
 
 
-        Realm.init(this);
-
         signInBtn = findViewById(R.id.sign_in_btn);
         registerBtn = findViewById(R.id.register_btn);
 
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent goToLogInIntent = new Intent(WelcomeActivity.this, LogInActivity.class);
-                startActivity(goToLogInIntent);
-
+            Intent goToLogInIntent = new Intent(WelcomeActivity.this, LogInActivity.class);
+            startActivity(goToLogInIntent);
             }
         });
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent goToRegisterIntent = new Intent(WelcomeActivity.this, RegisterActivity.class);
-                startActivity(goToRegisterIntent);
+            Intent goToRegisterIntent = new Intent(WelcomeActivity.this, RegisterActivity.class);
+            startActivity(goToRegisterIntent);
             }
         });
 
