@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import io.realm.ObjectServerError;
+import io.realm.Realm;
 import io.realm.SyncCredentials;
 import io.realm.SyncUser;
 
@@ -26,6 +27,8 @@ public class LogInActivity extends AppCompatActivity {
         emailField = (EditText) findViewById(R.id.email_text_field);
         passwordField = (EditText) findViewById(R.id.password_text_field);
         logInBtn = (Button) findViewById(R.id.log_in_btn);
+
+        Realm.init(this);
 
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override

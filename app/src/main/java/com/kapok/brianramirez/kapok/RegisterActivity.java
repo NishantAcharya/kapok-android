@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import io.realm.ObjectServerError;
+import io.realm.Realm;
 import io.realm.SyncCredentials;
 import io.realm.SyncUser;
 
@@ -18,12 +19,12 @@ public class RegisterActivity extends AppCompatActivity {
     EditText confirmPassField;
     Button registerBtn;
 
-    String authUrl = "https://testkapok.us1.cloud.realm.io";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        Realm.init(this);
 
         emailField = (EditText)findViewById(R.id.email_text_field);
         passwordField = (EditText)findViewById(R.id.password_text_field);
@@ -48,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         @Override
                         public void onError(ObjectServerError error) {
-                            System.out.println(error);
+                            System.out.println(error.getLocalizedMessage());
                             Toast.makeText(RegisterActivity.this, "Registering  failed....     :(", Toast.LENGTH_SHORT).show();
                         }
                     });
