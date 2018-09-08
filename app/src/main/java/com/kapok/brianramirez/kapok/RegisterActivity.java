@@ -1,5 +1,6 @@
 package com.kapok.brianramirez.kapok;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -44,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(SyncUser user) {
                             // User is logged
-                            Toast.makeText(RegisterActivity.this, "User registered & signed in successful", Toast.LENGTH_SHORT).show();
+                            goToProfileSetup();
                         }
 
                         @Override
@@ -59,6 +60,11 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void goToProfileSetup(){
+        Intent goToProfileSetupIntent = new Intent(this , ProfileSetupActivity.class);
+        startActivity(goToProfileSetupIntent);
     }
 
     public static boolean isValidRequest(String email, String password, String confirmPass){

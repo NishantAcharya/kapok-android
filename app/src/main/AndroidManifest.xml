@@ -29,6 +29,12 @@
             android:parentActivityName=".WelcomeActivity"
             android:label="Register" />
 
+        <activity
+            android:name=".ProfileSetupActivity"
+            android:parentActivityName=".RegisterActivity"
+            android:label="Profile Setup"
+            />
+
     </application>
 
 </manifest>
