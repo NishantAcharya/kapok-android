@@ -35,6 +35,9 @@
             android:label="Profile Setup"
             />
 
+        <activity android:name=".TeamWelcomeActivity"
+            android:label="Teams"/>
+
     </application>
 
 </manifest>
