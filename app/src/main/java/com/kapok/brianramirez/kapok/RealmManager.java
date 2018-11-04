@@ -2,28 +2,33 @@ package com.kapok.brianramirez.kapok;
 
 
 import io.realm.Realm;
-import io.realm.ObjectServerError;
-import io.realm.Realm;
+import io.realm.RealmAsyncTask;
 import io.realm.RealmObject;
 import io.realm.SyncConfiguration;
-import io.realm.SyncCredentials;
 import io.realm.SyncUser;
 
 public class RealmManager {
 
-    static SyncConfiguration config = new SyncConfiguration.Builder(SyncUser.current(), Constants.REALM_URL).build();
+    public static void add(final RealmObject toAdd){
 
-    public static void add(RealmObject toAdd){
-        Realm realm = Realm.getInstance(config);
+        SyncConfiguration config = SyncUser.current().createConfiguration(Constants.REALM_URL).waitForInitialRemoteData().build();
 
-        try {
-            realm.beginTransaction();
-            realm.copyToRealm(toAdd);
-            realm.commitTransaction();
-        } catch (Error e) {
-            System.out.println("There was an error adding this object to realm. Here's the stack trace:");
-            System.out.println(e);
-        }
+        // Open the remote Realm
+        RealmAsyncTask realm = Realm.getInstanceAsync(config, new Realm.Callback() {
+            @Override
+            public void onSuccess(Realm realm) {
+                // Realm is ready
+                realm.beginTransaction();
+                realm.insert(toAdd);
+                realm.commitTransaction();
+            }
+
+            @Override
+            public void onError(Throwable exception) {
+                // Handle error
+                System.out.println("error ---------------");
+            }
+        });
     }
 
 }

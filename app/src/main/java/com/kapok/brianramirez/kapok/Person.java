@@ -4,19 +4,22 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
 
-public class User extends RealmObject {
+public class Person extends RealmObject {
 
 
     @PrimaryKey
     @Required
     public String id;
-
+    @Required
     private String fullName;
+    @Required
     private String occupation;
+    @Required
     private String contactInformation;
+    @Required
     private String aboutMe;
 
-    public User(){
+    public Person(){
         this.id = null;
         this.fullName = null;
         this.occupation = null;
@@ -24,7 +27,7 @@ public class User extends RealmObject {
         this.aboutMe = null;
     }
 
-    public User(String id, String fullName, String occupation, String contactInformation, String aboutMe) {
+    public Person(String id, String fullName, String occupation, String contactInformation, String aboutMe) {
         this.id = id;
         this.fullName = fullName;
         this.occupation = occupation;

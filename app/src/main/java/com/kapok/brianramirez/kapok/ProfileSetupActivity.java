@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import io.realm.SyncUser;
+
 public class ProfileSetupActivity extends AppCompatActivity {
     EditText fullNameField;
     EditText occupationField;
@@ -29,7 +31,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
         finishProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               User brian = new User("id", "Siddartha Ramirez", "occpuation", "contactInfo", "aboutme");
+               Person brian = new Person(SyncUser.current().getIdentity(), "Brian Ramirez", "Software Developer", "contactInfo", "aboutme");
                RealmManager.add(brian);
                goToTeamWelcome();
             }

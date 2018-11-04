@@ -35,6 +35,10 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (SyncUser.current() != null){
+                    SyncUser.current().logOut();
+                }
+
                 String email = emailField.getText().toString();
                 String password = passwordField.getText().toString();
                 String confirmPass = confirmPassField.getText().toString();
