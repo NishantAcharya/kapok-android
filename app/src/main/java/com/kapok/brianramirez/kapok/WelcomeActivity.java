@@ -25,6 +25,10 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
+        if (SyncUser.current()!=null){
+            Intent i = new Intent(this, TeamWelcomeActivity.class);
+            startActivity(i);
+        }
 
         signInBtn = findViewById(R.id.sign_in_btn);
         registerBtn = findViewById(R.id.register_btn);
