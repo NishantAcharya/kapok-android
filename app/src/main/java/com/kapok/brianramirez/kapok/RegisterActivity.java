@@ -25,7 +25,6 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        Realm.init(this);
 
         emailField = (EditText)findViewById(R.id.email_text_field);
         passwordField = (EditText)findViewById(R.id.password_text_field);

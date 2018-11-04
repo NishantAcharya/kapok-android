@@ -39,6 +39,9 @@
         <activity android:name=".TeamWelcomeActivity"
             android:label="Teams"/>
 
+        <activity android:name=".MapActivity"
+            android:label="Map"/>
+
     </application>
 
 </manifest>

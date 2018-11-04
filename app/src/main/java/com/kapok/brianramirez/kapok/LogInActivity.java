@@ -1,5 +1,6 @@
 package com.kapok.brianramirez.kapok;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -28,8 +29,6 @@ public class LogInActivity extends AppCompatActivity {
         passwordField = (EditText) findViewById(R.id.password_text_field);
         logInBtn = (Button) findViewById(R.id.log_in_btn);
 
-        Realm.init(this);
-
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,6 +42,8 @@ public class LogInActivity extends AppCompatActivity {
                         public void onSuccess(SyncUser user) {
                             // User is logged
                             Toast.makeText(LogInActivity.this, "User Signed in successful", Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(LogInActivity.this, TeamWelcomeActivity.class);
+                            startActivity(i);
                         }
 
                         @Override
