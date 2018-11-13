@@ -42,6 +42,9 @@
         <activity android:name=".MapActivity"
             android:label="Map"/>
 
+        <activity android:name=".openLogMaking"
+            android:label="Log Maker"/>
+
     </application>
 
 </manifest>
