@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <TextView
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:textColor="#e5e5e5"
+        android:textStyle="bold"
+        android:text="Hang On Tight..."
+        android:textSize="30dp"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:text="We're downloading the map of your location"
+        android:textColor="#e5e5e5"
+        android:layout_marginTop="120dp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_wait"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="180dp"/>
+    <TextView
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:text="In the mean time, you should share this code with the members of your team"
+        android:textColor="#e5e5e5"
+        android:layout_marginTop="390dp"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"/>
+    <TextView
+        android:id = "@+id/teamCodeDisplay"
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="480dp"
+        android:layout_centerHorizontal="true"
+        android:background="#FFFF"
+        android:textSize="60dp"/>
+
+    <TextView
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:text="Team Code"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="560dp"/>
+
+
+</RelativeLayout>
