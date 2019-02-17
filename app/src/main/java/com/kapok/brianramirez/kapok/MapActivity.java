@@ -6,6 +6,10 @@ import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.mapbox.geojson.Feature;
 import com.mapbox.mapboxsdk.Mapbox;
@@ -29,6 +33,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private MapboxMap mapboxMap;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mymenu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id)
+        {
+            case R.id.list_view_logs:
+                LoglistOpen();
+                break;
+        }
+
+
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -38,6 +63,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 // This contains the MapView in XML and needs to be called after the access token is configured.
         setContentView(R.layout.activity_map);
+
+
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -83,6 +110,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
 
+    void LoglistOpen(){
+        Intent i = new Intent(this, LogListViewActivity.class);
+        startActivity(i);
+    }
     void startOpenLog(){
     Intent i = new Intent(this, openLogMaking.class);
     startActivity(i);

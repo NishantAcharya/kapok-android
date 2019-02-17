@@ -31,8 +31,8 @@ public class ProfileSetupActivity extends AppCompatActivity {
         finishProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Person brian = new Person(SyncUser.current().getIdentity(), "Brian Ramirez", "Software Developer", "contactInfo", "aboutme");
-               RealmManager.add(brian);
+               Person newP = new Person(SyncUser.current().getIdentity(), fullNameField.getText().toString(), occupationField.getText().toString(), contactInfoField.getText().toString(), aboutMeField.getText().toString());
+               RealmManager.add(newP);
                goToTeamWelcome();
             }
         });

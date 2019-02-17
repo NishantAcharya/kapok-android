@@ -39,11 +39,20 @@
         <activity android:name=".TeamWelcomeActivity"
             android:label="Teams"/>
 
+        <activity android:name=".CreateTeam"
+            android:label="CreateTeam"/>
+
         <activity android:name=".MapActivity"
             android:label="Map"/>
 
+        <activity android:name=".LogListViewActivity"
+            android:label="Log: List View"/>
+
         <activity android:name=".openLogMaking"
             android:label="Log Maker"/>
+
+        <activity android:name=".ShowLogActivity"
+            android:label="Log"/>
 
     </application>
 

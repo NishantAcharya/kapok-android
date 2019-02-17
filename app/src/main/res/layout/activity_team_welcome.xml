@@ -15,6 +15,11 @@
         android:textColor="@color/colorPrimaryDark" />
 
     <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log Out"
+        android:id="@+id/logOut"/>
+    <Button
         android:id="@+id/cteam_btn"
         android:layout_width="339dp"
         android:layout_height="wrap_content"
