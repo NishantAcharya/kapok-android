@@ -24,8 +24,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="101dp"
-        android:layout_marginEnd="59dp"
+        android:layout_marginTop="90dp"
         android:ems="10"
         android:hint="Location"
         android:inputType="textEmailAddress" />
@@ -35,8 +34,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="165dp"
-        android:layout_marginEnd="57dp"
+        android:layout_marginTop="150dp"
         android:ems="10"
         android:hint="Category"
         android:inputType="textEmailAddress" />
@@ -46,8 +44,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="225dp"
-        android:layout_marginEnd="27dp"
+        android:layout_marginTop="210dp"
         android:ems="10"
         android:hint="Notes"
         android:inputType="textEmailAddress" />
@@ -57,7 +54,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
+        android:layout_marginTop="30dp"
         android:text="Tell us as much as you can about what's happening at this location."
         android:textAlignment="center" />
 

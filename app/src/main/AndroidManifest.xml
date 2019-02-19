@@ -54,6 +54,9 @@
         <activity android:name=".ShowLogActivity"
             android:label="Log"/>
 
+        <activity android:name=".CodeDisplay"
+            android:label="Team Code"/>
+
     </application>
 
 </manifest>

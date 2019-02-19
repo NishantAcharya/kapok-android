@@ -18,11 +18,19 @@ public class RealmManager {
             @Override
             public void onSuccess(Realm realm) {
                 // Realm is ready
-                realm.beginTransaction();
-                realm.insert(toAdd);
-                realm.commitTransaction();
+                try { // I could use try-with-resources here
+                    realm.executeTransaction(new Realm.Transaction() {
+                        @Override
+                        public void execute(Realm realm) {
+                            realm.insertOrUpdate(toAdd);
+                        }
+                    });
+                } finally {
+                    if(realm != null) {
+                        realm.close();
+                    }
+                }
             }
-
             @Override
             public void onError(Throwable exception) {
                 // Handle error

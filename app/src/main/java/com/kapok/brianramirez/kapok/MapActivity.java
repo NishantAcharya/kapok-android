@@ -9,7 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import com.mapbox.geojson.Feature;
 import com.mapbox.mapboxsdk.Mapbox;
@@ -27,7 +31,8 @@ import java.util.List;
  */
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
         MapboxMap.OnMapClickListener {
-
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
     private MapView mapView;
     private Marker featureMarker;
     private MapboxMap mapboxMap;
@@ -53,8 +58,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         return true;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mDrawerList = (ListView)findViewById(R.id.navList);
         super.onCreate(savedInstanceState);
 
 // Mapbox access token is configured here. This needs to be called either in your application
@@ -161,6 +168,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             mapboxMap.removeOnMapClickListener(this);
         }
         mapView.onDestroy();
+    }
+    private void addDrawerItems() {
+        String[] osArray = { "Team", "Team Code", "Requests", "Settings", "Log Out" };
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
+        mDrawerList.setAdapter(mAdapter);
     }
 
     @Override
