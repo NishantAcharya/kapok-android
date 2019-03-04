@@ -58,7 +58,7 @@ public class TeamWelcomeActivity extends AppCompatActivity {
     }
 
     public  void openjteeam(){
-        Intent intent = new Intent(this, JoinTeam.class);
+        Intent intent = new Intent(this, JoinTeamActivity.class);
         startActivity(intent);
     }
         public void logOutOption(){

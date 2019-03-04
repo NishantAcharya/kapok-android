@@ -57,7 +57,7 @@
         <activity android:name=".WaitingScreenActivity"
             android:label="Team Code"/>
 
-        <activity android:name=".JoinTeam"
+        <activity android:name=".JoinTeamActivity"
             android:label="Join Team"/>
 
         <activity android:name=".JoinWaitActivity"

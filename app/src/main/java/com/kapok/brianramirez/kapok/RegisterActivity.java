@@ -47,7 +47,6 @@ public class RegisterActivity extends AppCompatActivity {
                     SyncUser.logInAsync(credentials, Constants.AUTH_URL, new SyncUser.Callback<SyncUser>() {
                         @Override
                         public void onSuccess(SyncUser user) {
-                            // User is logged
                             goToProfileSetup();
                         }
 
