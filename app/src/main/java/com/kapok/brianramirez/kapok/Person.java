@@ -3,6 +3,7 @@ package com.kapok.brianramirez.kapok;
 import java.util.UUID;
 
 import io.realm.RealmObject;
+import io.realm.SyncUser;
 import io.realm.annotations.LinkingObjects;
 import io.realm.annotations.PrimaryKey;
 import io.realm.annotations.Required;
@@ -38,8 +39,8 @@ public class Person extends RealmObject {
         this.status = null;
     }
 
-    public Person(String id, String fullName, String occupation, String contactInformation, String aboutMe, Boolean isAdmin, String status){
-        this.id = id;
+    public Person(String fullName, String occupation, String contactInformation, String aboutMe, Boolean isAdmin, String status){
+        this.id = SyncUser.current().getIdentity();
         this.team = null;
         this.fullName = fullName;
         this.occupation = occupation;

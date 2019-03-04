@@ -8,10 +8,9 @@ import io.realm.SyncConfiguration;
 import io.realm.SyncUser;
 
 public class RealmManager {
+    static SyncConfiguration config = SyncUser.current().createConfiguration(Constants.REALM_URL).waitForInitialRemoteData().build();
 
     public static void add(final RealmObject toAdd){
-
-        SyncConfiguration config = SyncUser.current().createConfiguration(Constants.REALM_URL).waitForInitialRemoteData().build();
 
         // Open the remote Realm
         RealmAsyncTask realm = Realm.getInstanceAsync(config, new Realm.Callback() {
@@ -39,4 +38,7 @@ public class RealmManager {
         });
     }
 
-}
+
+    }
+
+

@@ -10,13 +10,29 @@ import android.widget.TextView;
 
 import java.util.Random;
 
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
+import io.realm.SyncUser;
+
 public class CodeDisplay extends AppCompatActivity {
+
+    Random rand = new Random();
+    int number = rand.nextInt(1000000)+100000;
+    Realm realm = Realm.getDefaultInstance();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_code_display);
+
+        realm.beginTransaction();
+        Person currentUser = realm.where(Person.class).equalTo("id", SyncUser.current().getIdentity()).findFirst();
+        currentUser.getTeam().setTeam_join_code(number);
+
+        realm.commitTransaction();
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -33,8 +49,7 @@ public class CodeDisplay extends AppCompatActivity {
         Intent intent = new Intent(this,MapActivity.class).putExtra("team_join_id", number);
         startActivity(intent);
         }
-        Random rand = new Random();
-        int number = rand.nextInt(1000000)+100000;
+
 
 
 
