@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
 import io.realm.SyncUser;
 
 public class TeamWelcomeActivity extends AppCompatActivity {
