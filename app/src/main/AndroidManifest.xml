@@ -57,6 +57,13 @@
         <activity android:name=".CodeDisplay"
             android:label="Team Code"/>
 
+        <activity android:name=".JoinTeam"
+            android:label="Join Team"/>
+
+        <activity android:name=".JoinWaitActivity"
+            android:theme="@style/FullScreen"
+            android:label="Waiting Screen"/>
+
     </application>
 
 </manifest>

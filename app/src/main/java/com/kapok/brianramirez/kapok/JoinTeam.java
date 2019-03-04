@@ -27,23 +27,23 @@ public class JoinTeam extends AppCompatActivity {
         joinTeam = (Button) findViewById(R.id.joinRequest);
         counter =0;
 
+
         joinTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StringBuilder stringBuilder = new StringBuilder();
-                for (int i = 0; i <teamCodes.size(); i++) {
-                    if (teamCodes.get(i).equals(edit_team_code)) {
-                        Toast.makeText(JoinTeam.this, "Sending Request...", Toast.LENGTH_SHORT).show();
-                        counter = 1;
-                        openJoinWait();
-                    }
-                }
+             //   StringBuilder stringBuilder = new StringBuilder();
+              //  for (int i = 0; i <teamCodes.size(); i++) {
+                    //if (teamCodes.get(i).equals(edit_team_code)) {
+                    Toast.makeText(JoinTeam.this, "Sending Request...", Toast.LENGTH_SHORT).show();
+                    counter = 1;
+                    openJoinWait();
+               // }
 
-                if (counter == 0)
-                {
-                    Toast.makeText(JoinTeam.this, "Requesting failed", Toast.LENGTH_SHORT).show();
+           //     if (counter == 0)
+             //   {
+               //     Toast.makeText(JoinTeam.this, "Requesting failed", Toast.LENGTH_SHORT).show();
 
-                }
+                //}
             }
         });
     }
