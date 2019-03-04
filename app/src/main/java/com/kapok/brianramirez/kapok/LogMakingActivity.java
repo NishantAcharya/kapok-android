@@ -14,7 +14,7 @@ import java.util.UUID;
 
 import io.realm.SyncUser;
 
-public class openLogMaking extends AppCompatActivity {
+public class LogMakingActivity extends AppCompatActivity {
 
     EditText locationTxtField;
     EditText categoryTxtField;
@@ -30,17 +30,17 @@ public class openLogMaking extends AppCompatActivity {
         sensitiveInfoBtn = findViewById(R.id.sensitiveInfoBtn);
 
 
-        Button btn=(Button) findViewById(R.id.create_log);
+        Button btn = (Button) findViewById(R.id.create_log);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ResLog resLog = new ResLog(null, null,  locationTxtField.getText().toString(), categoryTxtField.getText().toString(), infoTxtField.getText().toString(), sensitiveInfoBtn.isActivated());
-                RealmManager.add(resLog);
-                Log.d("THIS IS  A TEST", UUID.randomUUID().toString() + " " + locationTxtField.getText().toString() + "  " + categoryTxtField.getText().toString() + "  " + infoTxtField.getText().toString() + "  " + sensitiveInfoBtn.isActivated());
-                finish();
+                RealmManager manager = new RealmManager();
+                manager.add(resLog);
+
             }
         });
     }
-    }
+}
 
 

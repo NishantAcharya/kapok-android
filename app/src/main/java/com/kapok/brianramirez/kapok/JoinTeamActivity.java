@@ -9,10 +9,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 
-public class JoinTeam extends AppCompatActivity {
+public class JoinTeamActivity extends AppCompatActivity {
     Button joinTeam;
     EditText edit_team_code;
     Realm realm = Realm.getDefaultInstance();
@@ -33,7 +32,7 @@ public class JoinTeam extends AppCompatActivity {
                 StringBuilder stringBuilder = new StringBuilder();
                 for (int i = 0; i <teamCodes.size(); i++) {
                     if (teamCodes.get(i).equals(edit_team_code)) {
-                        Toast.makeText(JoinTeam.this, "Sending Request...", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(JoinTeamActivity.this, "Sending Request...", Toast.LENGTH_SHORT).show();
                         counter = 1;
                         openJoinWait();
                     }
@@ -41,7 +40,7 @@ public class JoinTeam extends AppCompatActivity {
 
                 if (counter == 0)
                 {
-                    Toast.makeText(JoinTeam.this, "Requesting failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(JoinTeamActivity.this, "Requesting failed", Toast.LENGTH_SHORT).show();
 
                 }
             }

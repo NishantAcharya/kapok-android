@@ -15,7 +15,7 @@ import io.realm.RealmQuery;
 import io.realm.RealmResults;
 import io.realm.SyncUser;
 
-public class CodeDisplay extends AppCompatActivity {
+public class WaitingScreenActivity extends AppCompatActivity {
 
     Random rand = new Random();
     int number = rand.nextInt(1000000)+100000;
@@ -30,7 +30,6 @@ public class CodeDisplay extends AppCompatActivity {
         realm.beginTransaction();
         Person currentUser = realm.where(Person.class).equalTo("id", SyncUser.current().getIdentity()).findFirst();
         currentUser.getTeam().setTeam_join_code(number);
-
         realm.commitTransaction();
 
         Handler handler = new Handler();
@@ -46,7 +45,7 @@ public class CodeDisplay extends AppCompatActivity {
     }
 
         public void openMaps(int number){
-        Intent intent = new Intent(this,MapActivity.class).putExtra("team_join_id", number);
+        Intent intent = new Intent(this, MapActivity.class).putExtra("team_join_id", number);
         startActivity(intent);
         }
 

@@ -8,12 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.mapbox.geojson.Feature;
 import com.mapbox.mapboxsdk.Mapbox;
@@ -122,12 +118,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         startActivity(i);
     }
     void startOpenLog(){
-    Intent i = new Intent(this, openLogMaking.class);
+    Intent i = new Intent(this, LogMakingActivity.class);
     startActivity(i);
     }
 
     void openLogMaker(){
-        Intent i = new Intent(this, openLogMaking.class);
+        Intent i = new Intent(this, LogMakingActivity.class);
         startActivity(i);
     }
 

@@ -33,8 +33,7 @@ public class LogListViewActivity extends AppCompatActivity {
         ListView LogListView = (ListView) findViewById(R.id.LogListView);
         LogListView.setAdapter(listAdapter);
 
-        LogListView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener(){
+        LogListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         openLogView(position);
@@ -43,10 +42,10 @@ public class LogListViewActivity extends AppCompatActivity {
         );
     }
 
-            public void openLogView(int position){
-                Intent i = new Intent(this, ShowLogActivity.class);
-                startActivity(i);
-            }
+    public void openLogView(int position){
+        Intent i = new Intent(this, ShowLogActivity.class);
+        startActivity(i);
+    }
 
 
 

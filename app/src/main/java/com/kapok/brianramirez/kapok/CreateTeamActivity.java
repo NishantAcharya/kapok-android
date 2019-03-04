@@ -3,22 +3,16 @@ package com.kapok.brianramirez.kapok;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import java.util.Random;
-import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmAsyncTask;
 import io.realm.RealmList;
-import io.realm.RealmQuery;
 import io.realm.SyncUser;
 
-public class CreateTeam extends AppCompatActivity {
+public class CreateTeamActivity extends AppCompatActivity {
 
     Button confirmTeam;
     EditText team_name;
@@ -61,7 +55,7 @@ public class CreateTeam extends AppCompatActivity {
     }
 
     public void openCodeDisplay(){
-        Intent i = new Intent(this, CodeDisplay.class);
+        Intent i = new Intent(this, WaitingScreenActivity.class);
         startActivity(i);
     }
 }
