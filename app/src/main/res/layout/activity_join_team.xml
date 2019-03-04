@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:text="You can get a team code from a site leader."
+        android:layout_marginTop="150dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="106dp" />
+
+    <EditText
+        android:id="@+id/teamCode"
+        android:layout_centerHorizontal="true"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:hint="Team Code"
+        android:textAlignment="center"
+        android:layout_marginTop="300dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="106dp" />
+
+    <Button
+        android:id="@+id/joinRequest"
+        android:layout_centerHorizontal="true"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:text="Request to Join"
+        android:textColor="#FFF"
+        android:backgroundTint="@color/colorPrimary"
+        android:textAlignment="center"
+        android:layout_marginTop="480dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="106dp" />
+
+</RelativeLayout>
