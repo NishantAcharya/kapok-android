@@ -26,6 +26,7 @@ public class JoinTeamActivity extends AppCompatActivity {
         joinTeam = (Button) findViewById(R.id.joinRequest);
         counter =0;
 
+
         joinTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

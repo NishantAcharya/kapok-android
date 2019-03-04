@@ -12,6 +12,7 @@ public class TeamWelcomeActivity extends AppCompatActivity {
 
     Button mapBtn;
     Button cteamBtn;
+    Button jteamBtn;
     Button LogOut;
 
     @Override
@@ -19,8 +20,8 @@ public class TeamWelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_welcome);
 
-
         cteamBtn = (Button) findViewById(R.id.cteam_btn);
+        jteamBtn = (Button) findViewById(R.id.jteam_btn);
         mapBtn = (Button) findViewById(R.id.map_btn);
         LogOut =  (Button) findViewById(R.id.logOut);
 
@@ -47,8 +48,19 @@ public class TeamWelcomeActivity extends AppCompatActivity {
             }
         });
 
+        jteamBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openjteeam();
+            }
+        });
+
     }
 
+    public  void openjteeam(){
+        Intent intent = new Intent(this, JoinTeam.class);
+        startActivity(intent);
+    }
         public void logOutOption(){
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);

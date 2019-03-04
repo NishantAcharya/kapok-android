@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/textView6"
@@ -21,10 +21,16 @@
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:hint="Team Code"
+        android:maxLength="7"
+        android:textSize="30dp"
         android:textAlignment="center"
         android:layout_marginTop="300dp"
+        android:inputType="number"
         tools:layout_editor_absoluteX="16dp"
+        android:ems="10"
         tools:layout_editor_absoluteY="106dp" />
+
+
 
     <Button
         android:id="@+id/joinRequest"
@@ -38,5 +44,6 @@
         android:layout_marginTop="480dp"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="106dp" />
+
 
 </RelativeLayout>
