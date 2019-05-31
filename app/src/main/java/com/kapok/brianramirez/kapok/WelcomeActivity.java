@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import io.realm.ObjectServerError;
 import io.realm.Realm;
 import io.realm.SyncCredentials;
@@ -17,6 +20,8 @@ public class WelcomeActivity extends AppCompatActivity {
 
     Button signInBtn;
     Button registerBtn;
+    private FirebaseAuth mAuth;
+
 
 
 
@@ -24,35 +29,38 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        // Initialize Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         Realm.init(this);
 
 
-        if (SyncUser.current() != null) {
+        if (currentUser != null) {
             Intent i = new Intent(WelcomeActivity.this, TeamWelcomeActivity.class);
             startActivity(i);
         }
 
-       else{
-        signInBtn = findViewById(R.id.sign_in_btn);
-        registerBtn = findViewById(R.id.register_btn);
+        else{
+            signInBtn = findViewById(R.id.sign_in_btn);
+            registerBtn = findViewById(R.id.register_btn);
 
-        signInBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent goToLogInIntent = new Intent(WelcomeActivity.this, LogInActivity.class);
-                startActivity(goToLogInIntent);
-            }
-        });
+            signInBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent goToLogInIntent = new Intent(WelcomeActivity.this, LogInActivity.class);
+                    startActivity(goToLogInIntent);
+                }
+            });
 
-        registerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent goToRegisterIntent = new Intent(WelcomeActivity.this, RegisterActivity.class);
-                startActivity(goToRegisterIntent);
-            }
-        });
-    }
+            registerBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent goToRegisterIntent = new Intent(WelcomeActivity.this, RegisterActivity.class);
+                    startActivity(goToRegisterIntent);
+                }
+            });
+        }
 
     }
 }
