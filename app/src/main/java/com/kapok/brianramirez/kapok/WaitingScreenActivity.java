@@ -19,7 +19,7 @@ public class WaitingScreenActivity extends AppCompatActivity {
 
     Random rand = new Random();
     int number = rand.nextInt(1000000)+100000;
-    Realm realm = Realm.getDefaultInstance();
+//    Realm realm = Realm.getDefaultInstance();
 
 
     @Override
@@ -27,10 +27,10 @@ public class WaitingScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_code_display);
 
-        realm.beginTransaction();
-        Person currentUser = realm.where(Person.class).equalTo("id", SyncUser.current().getIdentity()).findFirst();
-        currentUser.getTeam().setTeam_join_code(number);
-        realm.commitTransaction();
+//        realm.beginTransaction();
+//        Person currentUser = realm.where(Person.class).equalTo("id", SyncUser.current().getIdentity()).findFirst();
+//        currentUser.getTeam().setTeam_join_code(number);
+//        realm.commitTransaction();
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

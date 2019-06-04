@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +49,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
 //               Person newP = new Person(fullNameField.getText().toString(), occupationField.getText().toString(), contactInfoField.getText().toString(), aboutMeField.getText().toString(), false, "None");
 //               RealmManager.add(newP);
 //               goToTeamWelcome();
+                ArrayList<String> team = new ArrayList<String>(1);
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 // Create a new user with a first and last name
@@ -57,7 +59,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 user.put("contactInfo", contactInfoField.getText().toString());
                 user.put("about", aboutMeField.getText().toString());
                 user.put("isAdmin", false);
-                user.put("team", null);
+                user.put("team", team);
                 user.put("status", "None");
 
                 db.collection("Profiles").document(currentUser)
