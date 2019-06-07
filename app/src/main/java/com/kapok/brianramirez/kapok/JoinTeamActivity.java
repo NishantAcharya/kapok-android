@@ -66,8 +66,7 @@ public class JoinTeamActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                docRef
-                                        .update("members", FieldValue.arrayUnion(currentUser))
+                                docRef.update("members", FieldValue.arrayUnion(currentUser))
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
@@ -77,6 +76,7 @@ public class JoinTeamActivity extends AppCompatActivity {
                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                             @Override
                                                             public void onSuccess(Void aVoid) {
+                                                                //TODO
                                                             }
                                                         })
                                                         .addOnFailureListener(new OnFailureListener() {

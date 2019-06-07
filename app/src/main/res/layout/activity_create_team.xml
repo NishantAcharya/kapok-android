@@ -41,17 +41,17 @@
         android:layout_marginTop="300dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/location"/>
-    
+
     <Button
         android:id="@+id/create_NewTeam"
-        android:layout_width="352dp"
+        android:layout_width="347dp"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:textColor="#FFFF"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="45dp"
+        android:backgroundTint="@color/colorPrimary"
         android:text="Get set... Go!"
-        android:layout_marginTop="600dp"
-        android:layout_centerHorizontal="true"/>
-
+        android:textColor="@android:color/background_light" />
 
 
 

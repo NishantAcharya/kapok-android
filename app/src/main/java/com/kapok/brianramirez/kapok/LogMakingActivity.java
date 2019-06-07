@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.UUID;
 
 import io.realm.SyncUser;
@@ -20,6 +22,7 @@ public class LogMakingActivity extends AppCompatActivity {
     EditText categoryTxtField;
     EditText infoTxtField;
     Switch sensitiveInfoBtn;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +37,10 @@ public class LogMakingActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ResLog resLog = new ResLog(null, null,  locationTxtField.getText().toString(), categoryTxtField.getText().toString(), infoTxtField.getText().toString(), sensitiveInfoBtn.isActivated());
-                RealmManager manager = new RealmManager();
-                manager.add(resLog);
+//                ResLog resLog = new ResLog(null, null,  locationTxtField.getText().toString(), categoryTxtField.getText().toString(), infoTxtField.getText().toString(), sensitiveInfoBtn.isActivated());
+//                RealmManager manager = new RealmManager();
+//                manager.add(resLog);
+
 
             }
         });

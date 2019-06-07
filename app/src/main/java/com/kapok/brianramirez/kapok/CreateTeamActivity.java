@@ -68,7 +68,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                 //create list containing the user
                 ArrayList<String> members = new ArrayList<String>(1);
                 members.add(currentUser);
-                String teamID = getTeamCode(db);
+                String teamID = genTeamCode(db);
 
                 // Create a new user with a first and last name
                 Map<String, Object> team = new HashMap<>();
@@ -140,7 +140,7 @@ public class CreateTeamActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    private String getTeamCode(FirebaseFirestore db){
+    private String genTeamCode(FirebaseFirestore db){
         do{
             Random rand = new Random();
             int number = rand.nextInt(1000000)+100000;
