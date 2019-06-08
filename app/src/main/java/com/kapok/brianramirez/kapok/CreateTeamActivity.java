@@ -36,6 +36,7 @@ public class CreateTeamActivity extends AppCompatActivity {
     EditText team_name;
     private RealmAsyncTask asyncTransaction;
     EditText team_location;
+    String teamID;
     private FirebaseAuth mAuth;
 
     @Override
@@ -68,7 +69,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                 //create list containing the user
                 ArrayList<String> members = new ArrayList<String>(1);
                 members.add(currentUser);
-                String teamID = genTeamCode(db);
+                teamID = genTeamCode(db);
                 ArrayList<Map<String, Object>> logs = new ArrayList<Map<String, Object>>(1);
 
                 // Create a new user with a first and last name
@@ -138,7 +139,7 @@ public class CreateTeamActivity extends AppCompatActivity {
     }
 
     public void openCodeDisplay(){
-        Intent i = new Intent(this, WaitingScreenActivity.class);
+        Intent i = new Intent(this, WaitingScreenActivity.class).putExtra("Team Code", teamID);
         startActivity(i);
     }
 

@@ -45,6 +45,9 @@
         <activity android:name=".MapActivity"
             android:label="Map"/>
 
+        <activity android:name=".TeamDIsplayActivity"
+            android:label="Team Members"/>
+
         <activity android:name=".LogListViewActivity"
             android:label="Log: List View"/>
 
@@ -53,6 +56,10 @@
 
         <activity android:name=".ShowLogActivity"
             android:label="Log"/>
+
+
+        <activity android:name=".TeamCodeDisplayActivity"
+            android:label="Team Code"/>
 
         <activity android:name=".WaitingScreenActivity"
             android:label="Team Code"/>

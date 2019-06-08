@@ -70,9 +70,7 @@ public class WelcomeActivity extends AppCompatActivity {
                         }
 
                     }
-                    else {
 
-                    }
                 }
             });
 

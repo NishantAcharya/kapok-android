@@ -94,12 +94,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 int id = menuItem.getItemId();
                 switch (id)
                 {
+                    case R.id.navTeam:
+                        goToTeamDisplay();
+                        break;
+
+                    case R.id.navTeamCode:
+                        goToTeamCodeDisplay();
+                        break;
+
                     case R.id.navLogOut:
                         logOutOption();
+                        break;
+
                     default:
                         return true;
 
                 }
+                return true;
             }
         });
 
@@ -180,14 +191,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             StringBuilder stringBuilder = new StringBuilder();
             if (feature.properties() != null) {
-                for (int i = 0; i < 100; i++) {
-                    featureMarker = mapboxMap.addMarker(new MarkerOptions()
-                            .position(point)
-                            .title("Location:")
-                            .snippet(point.getLatitude() + "," + point.getLongitude())
-                    );
-                    //  openLogMaker();
-                }
+//                for (int i = 0; i < 100; i++) {
+//                    featureMarker = mapboxMap.addMarker(new MarkerOptions()
+//                            .position(point)
+//                            .title("Location:")
+//                            .snippet(point.getLatitude() + "," + point.getLongitude())
+//                    );
+//
+//                    //  openLogMaker();
+//                }
+
+                featureMarker = mapboxMap.addMarker(new MarkerOptions()
+                        .position(point)
+                        .title("Location:")
+                        .snippet(point.getLatitude() + "," + point.getLongitude())
+                );
             }
         }
         mapboxMap.selectMarker(featureMarker);
@@ -332,6 +350,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             mAuth.signOut();
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
+    }
+
+    public void goToTeamDisplay() {
+        Intent intent = new Intent(this, TeamDIsplayActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToTeamCodeDisplay() {
+        Intent intent = new Intent(this, TeamCodeDisplayActivity.class);
+        startActivity(intent);
     }
 
     @Override
