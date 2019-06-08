@@ -18,8 +18,13 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.mapbox.geojson.Feature;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
@@ -29,7 +34,9 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.realm.SyncUser;
 
@@ -53,10 +60,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private Marker featureMarker;
     private MapboxMap mapboxMap;
 
+    private FirebaseAuth mAuth;
+    private String currentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser().getEmail();
 
    //     mDrawerList = (ListView)findViewById(R.id.drawer_layout);
 
@@ -133,9 +146,29 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onMapClick(@NonNull LatLng point) {
 
+
         if (featureMarker != null) {
             mapboxMap.removeMarker(featureMarker);
         }
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        DocumentReference userProf = db.collection("Profiles").document(currentUser);
+
+        // Set the admin field of the current user to true
+        userProf
+                .update("recentMapPoint", point)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                    }
+                });
 
         final PointF pixel = mapboxMap.getProjection().toScreenLocation(point);
         List<Feature> features = mapboxMap.queryRenderedFeatures(pixel);

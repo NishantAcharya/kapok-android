@@ -69,6 +69,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                 ArrayList<String> members = new ArrayList<String>(1);
                 members.add(currentUser);
                 String teamID = genTeamCode(db);
+                ArrayList<Map<String, Object>> logs = new ArrayList<Map<String, Object>>(1);
 
                 // Create a new user with a first and last name
                 Map<String, Object> team = new HashMap<>();
@@ -76,6 +77,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                 team.put("location", team_location.getText().toString());
                 team.put("members", members);
                 team.put("id", teamID);
+                team.put("logs", logs);
 
 
                 db.collection("Teams").document(teamID)

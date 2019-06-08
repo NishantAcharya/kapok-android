@@ -61,6 +61,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 user.put("isAdmin", false);
                 user.put("team", team);
                 user.put("status", "None");
+                user.put("recentMapPoint", null);
 
                 db.collection("Profiles").document(currentUser)
                         .set(user)
