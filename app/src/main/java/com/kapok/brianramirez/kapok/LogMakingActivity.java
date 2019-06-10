@@ -44,7 +44,6 @@ public class LogMakingActivity extends AppCompatActivity {
         locationTxtField = findViewById(R.id.location_txt);
         categoryTxtField= findViewById(R.id.category_txt);
         infoTxtField= findViewById(R.id.notes_txt);
-        sensitiveInfoBtn = findViewById(R.id.sensitiveInfoBtn);
         mAuth = FirebaseAuth.getInstance();
         String currentUser = mAuth.getCurrentUser().getEmail();
 
@@ -90,15 +89,17 @@ public class LogMakingActivity extends AppCompatActivity {
                                         });
 
                             }
-                        } else {
                         }
                     }
                 });
-
-
-
+                openMapDisplay();
             }
         });
+    }
+
+    public void openMapDisplay(){
+        Intent i = new Intent(this, MapActivity.class);
+        startActivity(i);
     }
 }
 

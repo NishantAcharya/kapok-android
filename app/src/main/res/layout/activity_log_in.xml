@@ -30,7 +30,7 @@
 
     <EditText
         android:id="@+id/password_text_field"
-        android:layout_width="337dp"
+        android:layout_width="339dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:ems="10"

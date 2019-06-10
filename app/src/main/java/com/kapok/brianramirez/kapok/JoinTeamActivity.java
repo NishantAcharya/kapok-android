@@ -66,38 +66,52 @@ public class JoinTeamActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
-                                docRef.update("members", FieldValue.arrayUnion(currentUser))
+                                String admin = (String) document.getData().get("admin");
+                                DocumentReference adminRef = db.collection("Profiles").document(admin);
+                                adminRef.update("requests", FieldValue.arrayUnion(currentUser))
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                DocumentReference userProf = db.collection("Profiles").document(currentUser);
-                                                userProf
-                                                        .update("team", FieldValue.arrayUnion(edit_team_code.getText().toString()))
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void aVoid) {
-                                                                //TODO
-                                                            }
-                                                        })
-                                                        .addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
-                                                            }
-                                                        });
-                                            }
-                                        })
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+
+                                    }
+                                })
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
                                             }
                                         });
+//                                docRef.update("members", FieldValue.arrayUnion(currentUser))
+//                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                            @Override
+//                                            public void onSuccess(Void aVoid) {
+//                                                DocumentReference userProf = db.collection("Profiles").document(currentUser);
+//                                                userProf
+//                                                        .update("team", FieldValue.arrayUnion(edit_team_code.getText().toString()))
+//                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                                            @Override
+//                                                            public void onSuccess(Void aVoid) {
+//                                                                //TODO
+//                                                            }
+//                                                        })
+//                                                        .addOnFailureListener(new OnFailureListener() {
+//                                                            @Override
+//                                                            public void onFailure(@NonNull Exception e) {
+//                                                            }
+//                                                        });
+//                                            }
+//                                        })
+//                                        .addOnFailureListener(new OnFailureListener() {
+//                                            @Override
+//                                            public void onFailure(@NonNull Exception e) {
+//                                            }
+//                                        });
 
                             }
                             else {
                                 Toast.makeText(JoinTeamActivity.this, "Team Does not exist",
                                         Toast.LENGTH_SHORT).show();
                             }
-                            openJoinWait();
+                            openJoinWait(edit_team_code.getText().toString());
                         }
                         else {
 
@@ -107,9 +121,9 @@ public class JoinTeamActivity extends AppCompatActivity {
             }
         });
     }
-    public void openJoinWait(){
+    public void openJoinWait(String team){
 
-        Intent i = new Intent(this, JoinWaitActivity.class);
+        Intent i = new Intent(this, JoinWaitActivity.class).putExtra("teamid", team);
         startActivity(i);
 
     }

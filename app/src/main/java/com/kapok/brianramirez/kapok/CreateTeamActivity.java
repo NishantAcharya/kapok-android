@@ -34,7 +34,6 @@ public class CreateTeamActivity extends AppCompatActivity {
 
     Button confirmTeam;
     EditText team_name;
-    private RealmAsyncTask asyncTransaction;
     EditText team_location;
     String teamID;
     private FirebaseAuth mAuth;
@@ -79,6 +78,7 @@ public class CreateTeamActivity extends AppCompatActivity {
                 team.put("members", members);
                 team.put("id", teamID);
                 team.put("logs", logs);
+                team.put("admin",currentUser);
 
 
                 db.collection("Teams").document(teamID)
@@ -114,7 +114,18 @@ public class CreateTeamActivity extends AppCompatActivity {
                                             }
                                         });
 //
-
+                                userProf
+                                        .update("status", FieldValue.arrayUnion("accepted"))
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                            }
+                                        });
                                 openCodeDisplay();
                             }
                         })
@@ -125,6 +136,8 @@ public class CreateTeamActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
+
+
 
 
 /*              Person currentUser = realm.where(Person.class).equalTo("id", currentId).findFirst();

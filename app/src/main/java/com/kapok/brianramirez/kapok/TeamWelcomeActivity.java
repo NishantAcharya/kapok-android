@@ -22,31 +22,15 @@ public class TeamWelcomeActivity extends AppCompatActivity {
 
         cteamBtn = (Button) findViewById(R.id.cteam_btn);
         jteamBtn = (Button) findViewById(R.id.jteam_btn);
-        mapBtn = (Button) findViewById(R.id.map_btn);
-        LogOut =  (Button) findViewById(R.id.logOut);
 
-        LogOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            SyncUser syncUser = SyncUser.current();
-            if (syncUser != null){
-                syncUser.logOut();
-                logOutOption();
-            }
-            }
-        });
+
+
         cteamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { opencteam(); }
         });
 
 
-        mapBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openMaps();
-            }
-        });
 
         jteamBtn.setOnClickListener(new View.OnClickListener() {
             @Override

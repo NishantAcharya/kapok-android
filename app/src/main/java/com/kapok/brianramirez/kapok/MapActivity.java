@@ -10,21 +10,23 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 import com.mapbox.geojson.Feature;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
@@ -34,11 +36,9 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import io.realm.SyncUser;
 
 /**
  * Display map property information for a clicked map feature
@@ -46,10 +46,6 @@ import io.realm.SyncUser;
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
         MapboxMap.OnMapClickListener {
     private ListView mDrawerList;
-
-
- 
-
     private DrawerLayout mDrawerLayout;
     private NavigationView navView;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -62,14 +58,28 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private FirebaseAuth mAuth;
     private String currentUser;
+    private ArrayList<Marker> curMarkers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        Button displayListViewBtn = findViewById(R.id.listView);
+
+        displayListViewBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MapActivity.this, LogListViewActivity.class);
+                startActivity(intent);
+            }
+        });
+
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser().getEmail();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
 
    //     mDrawerList = (ListView)findViewById(R.id.drawer_layout);
 
@@ -106,6 +116,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         logOutOption();
                         break;
 
+                    case R.id.navRequests:
+                        goToTeamJoinRequest();
+                        break;
+
+
                     default:
                         return true;
 
@@ -113,6 +128,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 return true;
             }
         });
+
+
 
 // Mapbox access token is configured here. This needs to be called either in your application
 // object or in the same activity which contains the mapview.
@@ -124,14 +141,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+
     }
 
-   /* @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_main_drawer,menu);
-        return true;
-    }
-*/
+
     @Override
     public void onBackPressed() {
 
@@ -152,6 +165,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(MapboxMap mapboxMap) {
         MapActivity.this.mapboxMap = mapboxMap;
         mapboxMap.addOnMapClickListener(this);
+        refreshMarkers();
     }
 
     @Override
@@ -209,6 +223,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         }
         mapboxMap.selectMarker(featureMarker);
+        refreshMarkers();
         startOpenLog();
     }
 
@@ -362,9 +377,66 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         startActivity(intent);
     }
 
+    public void goToTeamJoinRequest() {
+        Intent intent = new Intent(this, TeamJoinRequestActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
+    }
+
+    private void refreshMarkers(){
+
+        mapboxMap.clear();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        ArrayList<MarkerOptions> allMarkers = new ArrayList<MarkerOptions>(1);
+
+        DocumentReference userProf = db.collection("Profiles").document(currentUser);
+        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        ArrayList<String> team = (ArrayList<String>)document.getData().get("team");
+
+                        DocumentReference docRef = db.collection("Teams").document(team.get(0));
+//
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot teamDoc = task.getResult();
+                                    if (teamDoc.exists()) {
+                                        ArrayList<Map<String, Object>> points = (ArrayList<Map<String, Object>>) teamDoc.get("logs");
+                                        for (Map<String, Object> currLog : points){
+                                            Map<String, Object> currPoint = (Map<String, Object>) currLog.get("point");
+                                            double lat = (double) currPoint.get("latitude");
+                                            double lon = (double) currPoint.get("longitude");
+                                            String name = (String) currLog.get("location");
+                                            Log.d("Lets", name+lat+lon);
+//                                            allMarkers.add(new MarkerOptions().position(new LatLng(lat, lon))
+//                                                    .title(name));
+                                            mapboxMap.addMarker(new MarkerOptions()
+                                                    .position(new LatLng(lat, lon))
+                                                    .title(name)
+                                                    .snippet(name)
+                                            );
+                                        }
+                                    }
+                                } else {
+                                }
+                            }
+                        });
+
+
+                    }
+                } else {
+                }
+            }
+        });
     }
 }

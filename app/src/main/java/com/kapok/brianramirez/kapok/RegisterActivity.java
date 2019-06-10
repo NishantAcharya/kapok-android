@@ -52,19 +52,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String confirmPass = confirmPassField.getText().toString();
 
                 if (isValidRequest(email, password, confirmPass)){
-//                    SyncCredentials credentials = SyncCredentials.usernamePassword(email, password, true);
-//                    SyncUser.logInAsync(credentials, Constants.AUTH_URL, new SyncUser.Callback<SyncUser>() {
-//                        @Override
-//                        public void onSuccess(SyncUser user) {
-//                            goToProfileSetup();
-//                        }
-//
-//                        @Override
-//                        public void onError(ObjectServerError error) {
-//                            System.out.println(error.getLocalizedMessage());
-//                            Toast.makeText(RegisterActivity.this, "Registering  failed....     :(", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
                     mAuth.createUserWithEmailAndPassword(email, password)
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override

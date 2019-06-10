@@ -62,6 +62,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 user.put("team", team);
                 user.put("status", "None");
                 user.put("recentMapPoint", null);
+                user.put("requests", new ArrayList<String>(1));
 
                 db.collection("Profiles").document(currentUser)
                         .set(user)

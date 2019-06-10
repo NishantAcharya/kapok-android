@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/textView4"
-        android:layout_marginBottom="178dp"
+        android:layout_marginBottom="170dp"
         android:ems="10"
         android:hint="About Me"
         android:inputType="textMultiLine" />

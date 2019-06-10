@@ -4,22 +4,6 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/map_btn"
-        android:layout_width="339dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="#FFFFFF"
-        android:text="Shortcut to Map"
-        android:textColor="@color/colorPrimaryDark" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Log Out"
-        android:id="@+id/logOut"/>
-    <Button
         android:id="@+id/cteam_btn"
         android:layout_width="339dp"
         android:layout_height="wrap_content"

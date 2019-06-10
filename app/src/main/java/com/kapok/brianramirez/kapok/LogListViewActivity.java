@@ -2,8 +2,11 @@ package com.kapok.brianramirez.kapok;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,45 +14,80 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class LogListViewActivity extends AppCompatActivity {
 
-
+    private ListView lv;
+    private FirebaseAuth mAuth;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_list_view);
-        ResLog TestLog1 = new ResLog(null, null, "FuckItPlace1", null, null, false);
-        ResLog TestLog2 = new ResLog(null, null, "FuckItPlace1", null, null, false);
-        ResLog TestLog3 = new ResLog(null, null, "FuckItPlace1", null, null, false);
-        ResLog TestLog4 = new ResLog(null, null, "FuckItPlace1", null, null, false);
-        ResLog TestLog5 = new ResLog(null, null, "FuckItPlace1", null, null, false);
-        ResLog TestLog6 = new ResLog(null, null, "FuckItPlace1", null, null, false);
+        lv = findViewById(R.id.LogListView);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                ArrayList<String> location = new ArrayList<>();
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                        String TeamCode = userCurrentTeam.get(0);
+                        DocumentReference docRef = db.collection("Teams").document(TeamCode);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
+                                        for (Map<String, Object> currLog : locations) {
+                                            location.add((String) currLog.get("location"));
 
-        ResLog[] resLogs1 = {TestLog1, TestLog2, TestLog3, TestLog4, TestLog5, TestLog6};
-        String resLogs2 [] = {TestLog1.getLocation().concat(TestLog1.getCategory()), TestLog2.getLocation().concat(TestLog2.getCategory()), TestLog3.getLocation().concat(TestLog3.getCategory()), TestLog4.getLocation(), TestLog5.getLocation(), TestLog6.getLocation()};
-        ListAdapter listAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, resLogs2);
-        ListView LogListView = (ListView) findViewById(R.id.LogListView);
-        LogListView.setAdapter(listAdapter);
+                                        }
+                                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(LogListViewActivity.this, android.R.layout.simple_list_item_1, location);
+                                        lv.setAdapter(arrayAdapter);
+                                        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                openLogView(position);
 
-        LogListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        openLogView(position);
+                                        }
+                                    });
+                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        });
                     }
-                }
-        );
+
+        public void openLogView (int position){
+            Intent i = new Intent(this, ShowLogActivity.class).putExtra("Log Position", position);
+            startActivity(i);
+        }
+
+
     }
 
-    public void openLogView(int position){
-        Intent i = new Intent(this, ShowLogActivity.class);
-        startActivity(i);
-    }
 
 
-
-
-
-}
 

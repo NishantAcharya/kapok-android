@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kapok.brianramirez.kapok">
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -10,67 +11,68 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".WelcomeActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
-
+        <activity
+            android:name=".TeamJoinRequestActivity"
+            android:label="@string/title_activity_team_join_request"
+            android:parentActivityName=".MapActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".LogInActivity"
-            android:parentActivityName=".WelcomeActivity"
-            android:label="Log In"/>
-
+            android:label="Log In"
+            android:parentActivityName=".WelcomeActivity" />
         <activity
             android:name=".RegisterActivity"
-            android:parentActivityName=".WelcomeActivity"
-            android:label="Register" />
-
+            android:label="Register"
+            android:parentActivityName=".WelcomeActivity" />
         <activity
             android:name=".ProfileSetupActivity"
-            android:parentActivityName=".RegisterActivity"
             android:label="Profile Setup"
-            />
-
-        <activity android:name=".TeamWelcomeActivity"
-            android:label="Teams"/>
-
-        <activity android:name=".CreateTeamActivity"
-            android:label="CreateTeam"/>
-
-        <activity android:name=".MapActivity"
-            android:label="Map"/>
-
-        <activity android:name=".TeamDIsplayActivity"
-            android:label="Team Members"/>
-
-        <activity android:name=".LogListViewActivity"
-            android:label="Log: List View"/>
-
-        <activity android:name=".LogMakingActivity"
-            android:label="Log Maker"/>
-
-        <activity android:name=".ShowLogActivity"
-            android:label="Log"/>
-
-
-        <activity android:name=".TeamCodeDisplayActivity"
-            android:label="Team Code"/>
-
-        <activity android:name=".WaitingScreenActivity"
-            android:label="Team Code"/>
-
-        <activity android:name=".JoinTeamActivity"
-            android:label="Join Team"/>
-
-        <activity android:name=".JoinWaitActivity"
-            android:theme="@style/FullScreen"
-            android:label="Waiting Screen"/>
-
+            android:parentActivityName=".RegisterActivity" />
+        <activity
+            android:name=".TeamWelcomeActivity"
+            android:label="Teams" />
+        <activity
+            android:name=".CreateTeamActivity"
+            android:label="CreateTeam" />
+        <activity
+            android:name=".MapActivity"
+            android:label="Map" />
+        <activity
+            android:name=".TeamDIsplayActivity"
+            android:label="Team Members" />
+        <activity
+            android:name=".LogListViewActivity"
+            android:label="Log: List View"
+            android:parentActivityName=".MapActivity"/>
+        <activity
+            android:name=".LogMakingActivity"
+            android:label="Log Maker" />
+        <activity
+            android:name=".ShowLogActivity"
+            android:label="Log"
+            android:parentActivityName=".LogListViewActivity"/>
+        <activity
+            android:name=".TeamCodeDisplayActivity"
+            android:label="Team Code" />
+        <activity
+            android:name=".WaitingScreenActivity"
+            android:label="Team Code" />
+        <activity
+            android:name=".JoinTeamActivity"
+            android:label="Join Team" />
+        <activity
+            android:name=".JoinWaitActivity"
+            android:label="Waiting Screen"
+            android:theme="@style/FullScreen" />
     </application>
 
 </manifest>

@@ -54,11 +54,7 @@ public class TeamDIsplayActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
-                                    List<String> members = new ArrayList<String>();
-                                    String temp = (document.getData().get("members").toString());
-                                    String temp2 = temp.trim();
-                                    String temp3 = temp2.substring(1,temp2.length()-1);
-                                    members = Arrays.asList(temp3.split(","));
+                                    List<String> members = (List<String>) document.getData().get("members");
                                     ArrayAdapter<String> arrayAdapter;
                                     arrayAdapter = new ArrayAdapter<String>(TeamDIsplayActivity.this, android.R.layout.simple_list_item_1,members);
                                     lv.setAdapter(arrayAdapter);
