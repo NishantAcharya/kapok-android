@@ -15,11 +15,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import io.realm.ObjectServerError;
-import io.realm.Realm;
-import io.realm.SyncCredentials;
-import io.realm.SyncUser;
-
 public class RegisterActivity extends AppCompatActivity {
 
     EditText emailField;
@@ -43,10 +38,6 @@ public class RegisterActivity extends AppCompatActivity {
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (SyncUser.current() != null){
-                    SyncUser.current().logOut();
-                }
-
                 String email = emailField.getText().toString();
                 String password = passwordField.getText().toString();
                 String confirmPass = confirmPassField.getText().toString();

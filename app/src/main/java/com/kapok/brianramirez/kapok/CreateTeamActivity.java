@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,11 +24,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import io.realm.Realm;
-import io.realm.RealmAsyncTask;
-import io.realm.RealmList;
-import io.realm.SyncUser;
-
 public class CreateTeamActivity extends AppCompatActivity {
 
     Button confirmTeam;
@@ -43,10 +37,10 @@ public class CreateTeamActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_team);
 
-        team_name = (EditText) findViewById(R.id.teamName);
-        team_location = (EditText) findViewById(R.id.location);
-        confirmTeam = (Button) findViewById(R.id.create_NewTeam);
-//        Realm realm = Realm.getDefaultInstance();
+        team_name = findViewById(R.id.teamName);
+        team_location = findViewById(R.id.location);
+        confirmTeam = findViewById(R.id.create_NewTeam);
+
         mAuth = FirebaseAuth.getInstance();
         String currentUser = mAuth.getCurrentUser().getEmail();
 
@@ -54,14 +48,6 @@ public class CreateTeamActivity extends AppCompatActivity {
         confirmTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                RealmList<Person> b  = new RealmList<>();
-//                Team newTeam = new Team(0, team_name.getText().toString(), team_location.getText().toString());
-                //RealmManager.add(newTeam);
-               // String currentUserAboutme = realm.where(Person.class).equalTo("id", SyncUser.current().getIdentity()).findFirstAsync().getAboutMe();
-                //realm.commitTransaction();
-              //  int twen=0;
-//                String currentId = SyncUser.current().getIdentity();
-//                final Person[] currentUser = null;
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -80,52 +66,19 @@ public class CreateTeamActivity extends AppCompatActivity {
                 team.put("logs", logs);
                 team.put("admin",currentUser);
 
-
                 db.collection("Teams").document(teamID)
                         .set(team)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 DocumentReference userProf = db.collection("Profiles").document(currentUser);
-
                                 // Set the admin field of the current user to true
                                 userProf
-                                        .update("isAdmin", true)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                            }
-                                        });
+                                        .update("isAdmin", true);
                                 userProf
-                                        .update("team", FieldValue.arrayUnion(teamID))
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                            }
-                                        });
-//
+                                        .update("team", FieldValue.arrayUnion(teamID));
                                 userProf
-                                        .update("status", FieldValue.arrayUnion("accepted"))
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                            }
-                                        });
+                                        .update("status", "accepted");
                                 openCodeDisplay();
                             }
                         })
@@ -136,20 +89,9 @@ public class CreateTeamActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
-
-
-
-
-/*              Person currentUser = realm.where(Person.class).equalTo("id", currentId).findFirst();
-                currentUser.setTeam(newTeam);
-                currentUser.setAdmin(true);
-                currentUser.setStatus("joined");
-                realm.commitTransaction();
-                realm.close();
-                openCodeDisplay();*/
-            }
-        });
-    }
+                }
+            });
+        }
 
     public void openCodeDisplay(){
         Intent i = new Intent(this, WaitingScreenActivity.class).putExtra("Team Code", teamID);
@@ -180,5 +122,4 @@ public class CreateTeamActivity extends AppCompatActivity {
         }
         while(true);
     }
-
 }

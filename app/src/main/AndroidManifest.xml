@@ -25,27 +25,34 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".LogInActivity"
             android:label="Log In"
             android:parentActivityName=".WelcomeActivity" />
+
         <activity
             android:name=".RegisterActivity"
             android:label="Register"
             android:parentActivityName=".WelcomeActivity" />
+
         <activity
             android:name=".ProfileSetupActivity"
             android:label="Profile Setup"
             android:parentActivityName=".RegisterActivity" />
+
         <activity
             android:name=".TeamWelcomeActivity"
             android:label="Teams" />
+
         <activity
             android:name=".CreateTeamActivity"
             android:label="CreateTeam" />
+
         <activity
             android:name=".MapActivity"
             android:label="Map" />
+
         <activity
             android:name=".TeamDIsplayActivity"
             android:label="Team Members" />
@@ -53,6 +60,7 @@
             android:name=".LogListViewActivity"
             android:label="Log: List View"
             android:parentActivityName=".MapActivity"/>
+
         <activity
             android:name=".LogMakingActivity"
             android:label="Log Maker" />
@@ -60,19 +68,24 @@
             android:name=".ShowLogActivity"
             android:label="Log"
             android:parentActivityName=".LogListViewActivity"/>
+
         <activity
             android:name=".TeamCodeDisplayActivity"
             android:label="Team Code" />
+
         <activity
             android:name=".WaitingScreenActivity"
             android:label="Team Code" />
+
         <activity
             android:name=".JoinTeamActivity"
             android:label="Join Team" />
+
         <activity
             android:name=".JoinWaitActivity"
             android:label="Waiting Screen"
             android:theme="@style/FullScreen" />
+
     </application>
 
 </manifest>

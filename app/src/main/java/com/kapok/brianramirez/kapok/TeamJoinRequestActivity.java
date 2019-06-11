@@ -1,18 +1,16 @@
 package com.kapok.brianramirez.kapok;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -23,18 +21,15 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.mapbox.mapboxsdk.annotations.MarkerOptions;
-import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class TeamJoinRequestActivity extends AppCompatActivity {
 
     private ArrayList<String> allRequests;
     private FirebaseAuth mAuth;
     private ListView lv;
-    private ArrayList<String> teamid;
+    private ArrayList<String> teamId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,91 +47,85 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         allRequests = (ArrayList<String>) document.getData().get("requests");
-                        teamid = (ArrayList<String>) document.getData().get("team");
+                        teamId = (ArrayList<String>) document.getData().get("team");
                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(TeamJoinRequestActivity.this, android.R.layout.simple_list_item_1, allRequests);
                         lv.setAdapter(arrayAdapter);
                         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                                String requester = allRequests.get(position);
-                                DocumentReference docRef = db.collection("Profiles").document(requester);
-                                docRef.update("status", "accepted")
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                AlertDialog.Builder a = new AlertDialog.Builder(TeamJoinRequestActivity.this);
+                                a.setMessage("This member wants to join the team").setCancelable(true)
+                                        .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
                                             @Override
-                                            public void onSuccess(Void aVoid) {
-                                                DocumentReference teamRef = db.collection("Teams").document(teamid.get(0));
-                                                teamRef
-                                                        .update("members", FieldValue.arrayUnion(requester))
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                String requester = allRequests.get(position);
+                                                DocumentReference docRef = db.collection("Profiles").document(requester);
+                                                docRef.update("status", "accepted")
                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                             @Override
                                                             public void onSuccess(Void aVoid) {
-                                                                //TODO
+                                                                DocumentReference teamRef = db.collection("Teams").document(teamId.get(0));
+                                                                teamRef
+                                                                        .update("members", FieldValue.arrayUnion(requester))
+                                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            @Override
+                                                                            public void onSuccess(Void aVoid) {
+                                                                                Toast.makeText(TeamJoinRequestActivity.this, "Request accepted!",
+                                                                                        Toast.LENGTH_SHORT).show();
+                                                                            }
+                                                                        });
                                                             }
                                                         })
                                                         .addOnFailureListener(new OnFailureListener() {
                                                             @Override
                                                             public void onFailure(@NonNull Exception e) {
+                                                                Toast.makeText(TeamJoinRequestActivity.this, "Request failed!",
+                                                                        Toast.LENGTH_SHORT).show();
+
                                                             }
                                                         });
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                            }
-                                        });
-                                docRef.update("team", FieldValue.arrayUnion(teamid.get(0)))
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                DocumentReference teamRef = db.collection("Teams").document(teamid.get(0));
-                                                teamRef
-                                                        .update("members", FieldValue.arrayUnion(requester))
+                                                docRef.update("team", FieldValue.arrayUnion(teamId.get(0)))
                                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                             @Override
                                                             public void onSuccess(Void aVoid) {
-                                                                //TODO
-                                                            }
-                                                        })
-                                                        .addOnFailureListener(new OnFailureListener() {
-                                                            @Override
-                                                            public void onFailure(@NonNull Exception e) {
+                                                                DocumentReference teamRef = db.collection("Teams").document(teamId.get(0));
+                                                                teamRef
+                                                                        .update("members", FieldValue.arrayUnion(requester));
                                                             }
                                                         });
+
                                             }
                                         })
-                                        .addOnFailureListener(new OnFailureListener() {
+                                        .setNegativeButton("Deny", new DialogInterface.OnClickListener() {
                                             @Override
-                                            public void onFailure(@NonNull Exception e) {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                String requester = allRequests.get(position);
+                                                DocumentReference docRef = db.collection("Profiles").document(requester);
+                                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                        if (task.isSuccessful()) {
+                                                            DocumentSnapshot document = task.getResult();
+                                                            if (document.exists()) {
+                                                                allRequests.remove(position);
+                                                                docRef.update("requests", FieldValue.arrayRemove(requester));
+                                                                Toast.makeText(TeamJoinRequestActivity.this, "Request denied!",
+                                                                        Toast.LENGTH_SHORT).show();
+                                                                TeamJoinRequestActivity.this.recreate();
+                                                            }
+                                                        }
+                                                    }
+                                                });
+
                                             }
-                                        });
-//                                AlertDialog.Builder a = new AlertDialog.Builder(TeamJoinRequestActivity.this);
-//                                a.setMessage("This member wants to join the team").setCancelable(true)
-//                                        .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(DialogInterface dialog, int which) {
-//
-//
-//                                            }
-//                                        })
-//                                        .setNegativeButton("Deny", new DialogInterface.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(DialogInterface dialog, int which) {
-//
-//                                            }
-//                                        });
-
-
+                                        }).show();
                             }
-                        });
 
+                        });
                     }
                 }
             }
         });
-
-
-        }
     }
+}
 
 

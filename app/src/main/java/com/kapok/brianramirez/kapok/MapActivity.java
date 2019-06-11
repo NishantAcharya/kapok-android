@@ -2,7 +2,6 @@ package com.kapok.brianramirez.kapok;
 
 
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,18 +9,11 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -45,20 +37,19 @@ import java.util.Map;
  */
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
         MapboxMap.OnMapClickListener {
-    private ListView mDrawerList;
-    private DrawerLayout mDrawerLayout;
-    private NavigationView navView;
-    private ActionBarDrawerToggle mDrawerToggle;
 
-    private ArrayAdapter<String> mAdapter;
-    private String mActivityTitle;
+    private DrawerLayout dl;
+    private ActionBarDrawerToggle t;
+    private NavigationView navView;
+
     private MapView mapView;
     private Marker featureMarker;
     private MapboxMap mapboxMap;
 
     private FirebaseAuth mAuth;
     private String currentUser;
-    private ArrayList<Marker> curMarkers;
+    private int numOfReq;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,26 +69,31 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser().getEmail();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userProf = db.collection("Profiles").document(currentUser);
+        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        numOfReq = ((ArrayList<String>)document.getData().get("requests")).size();
 
+                    }
+                }
+            }
+        });
 
-
-   //     mDrawerList = (ListView)findViewById(R.id.drawer_layout);
-
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
-
-        //mActivityTitle = getTitle().toString();
-
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
-
-        //addDrawerItems();
-        //setupDrawer();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setHomeButtonEnabled(true);
 
-        navView = (NavigationView)findViewById(R.id.navList);
+        dl = (DrawerLayout)findViewById(R.id.drawer_layout);
+        t = new ActionBarDrawerToggle(this, dl,R.string.drawer_open, R.string.drawer_close);
+
+        dl.addDrawerListener(t);
+        t.syncState();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        navView = (NavigationView)findViewById(R.id.navListAdmin);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -118,6 +114,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     case R.id.navRequests:
                         goToTeamJoinRequest();
+
+                    case R.id.navLeaveTeam:
+                        removeFromTeam();
+
                         break;
 
 
@@ -129,37 +129,26 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-
-
 // Mapbox access token is configured here. This needs to be called either in your application
 // object or in the same activity which contains the mapview.
         Mapbox.getInstance(this, "pk.eyJ1Ijoia2Fwb2stZGV2ZWxvcGVyIiwiYSI6ImNqbzFscjE2ejBjd2Mza210amdtN252OXYifQ.0gR_XnITpdJF-RquzFfIcQ");
-
 // This contains the MapView in XML and needs to be called after the access token is configured.
-
-
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-
-    }
-
-
-    @Override
-    public void onBackPressed() {
-
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(mDrawerToggle.onOptionsItemSelected(item))
+
+        if(t.onOptionsItemSelected(item))
             return true;
 
         return super.onOptionsItemSelected(item);
     }
 
 
-
+    //MAPBOX METHODS///////////////////////////////////////////////////////////////
 
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
@@ -170,51 +159,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onMapClick(@NonNull LatLng point) {
-
-
         if (featureMarker != null) {
             mapboxMap.removeMarker(featureMarker);
         }
 
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
         DocumentReference userProf = db.collection("Profiles").document(currentUser);
-
         // Set the admin field of the current user to true
         userProf
-                .update("recentMapPoint", point)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                    }
-                });
+                .update("recentMapPoint", point);
 
         final PointF pixel = mapboxMap.getProjection().toScreenLocation(point);
         List<Feature> features = mapboxMap.queryRenderedFeatures(pixel);
 
         if (features.size() > 0) {
             Feature feature = features.get(0);
-
-            String property;
-
             StringBuilder stringBuilder = new StringBuilder();
             if (feature.properties() != null) {
-//                for (int i = 0; i < 100; i++) {
-//                    featureMarker = mapboxMap.addMarker(new MarkerOptions()
-//                            .position(point)
-//                            .title("Location:")
-//                            .snippet(point.getLatitude() + "," + point.getLongitude())
-//                    );
-//
-//                    //  openLogMaker();
-//                }
-
                 featureMarker = mapboxMap.addMarker(new MarkerOptions()
                         .position(point)
                         .title("Location:")
@@ -225,22 +186,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapboxMap.selectMarker(featureMarker);
         refreshMarkers();
         startOpenLog();
-    }
-
-
-
-    void LoglistOpen(){
-        Intent i = new Intent(this, LogListViewActivity.class);
-        startActivity(i);
-    }
-    void startOpenLog(){
-    Intent i = new Intent(this, LogMakingActivity.class);
-    startActivity(i);
-    }
-
-    void openLogMaker(){
-        Intent i = new Intent(this, LogMakingActivity.class);
-        startActivity(i);
     }
 
     @Override
@@ -281,90 +226,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
         mapView.onDestroy();
     }
-
-
-    private void addDrawerItems() {
-        String[] osArray = { "Team", "Team Code", "Requests", "Settings", "Log Out" };
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
-        mDrawerList.setAdapter(mAdapter);
-
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MapActivity .this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-    private void setupDrawer() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Feed");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(mActivityTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-    }
+    //MAPBOX METHODS///////////////////////////////////////////////////////////////
 
 
 
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // Sync the toggle state after onRestoreInstanceState has occurred.
-        mDrawerToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-/*
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
-
-        switch (id)
-        {
-            case R.id.navLogOut:
-                logOutOption();
-                break;
-        }
-
-        // Activate the navigation drawer toggle
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-*/
     public void logOutOption() {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             mAuth.signOut();
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
+    }
+
+    void startOpenLog(){
+        Intent i = new Intent(this, LogMakingActivity.class);
+        startActivity(i);
     }
 
     public void goToTeamDisplay() {
@@ -388,12 +263,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapView.onSaveInstanceState(outState);
     }
 
-    private void refreshMarkers(){
+    public void removeFromTeam(){
+        //TODO
+    }
 
+    @Override
+    public void onBackPressed() {
+        //DO NOTHING HERE//
+    }
+
+    private void refreshMarkers(){
         mapboxMap.clear();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        ArrayList<MarkerOptions> allMarkers = new ArrayList<MarkerOptions>(1);
-
         DocumentReference userProf = db.collection("Profiles").document(currentUser);
         userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -402,9 +283,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         ArrayList<String> team = (ArrayList<String>)document.getData().get("team");
-
                         DocumentReference docRef = db.collection("Teams").document(team.get(0));
-//
                         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -417,9 +296,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                             double lat = (double) currPoint.get("latitude");
                                             double lon = (double) currPoint.get("longitude");
                                             String name = (String) currLog.get("location");
-                                            Log.d("Lets", name+lat+lon);
-//                                            allMarkers.add(new MarkerOptions().position(new LatLng(lat, lon))
-//                                                    .title(name));
                                             mapboxMap.addMarker(new MarkerOptions()
                                                     .position(new LatLng(lat, lon))
                                                     .title(name)
@@ -427,14 +303,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                             );
                                         }
                                     }
-                                } else {
                                 }
                             }
                         });
 
-
                     }
-                } else {
                 }
             }
         });

@@ -27,15 +27,16 @@ public class ShowLogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_log);
 
         Intent intent = getIntent();
-        logPos = (int) intent.getIntExtra("Log Position", 0);
+        logPos = intent.getIntExtra("Log Position", 0);
         mAuth = FirebaseAuth.getInstance();
-        TextView locationText = (TextView)findViewById(R.id.location_txt_display);
-        TextView categoryText = (TextView)findViewById(R.id.category_txt_display);
-        TextView notesText = (TextView)findViewById(R.id.notes_txt_display);
-        TextView creatorText = (TextView)findViewById(R.id.creator_txt_display);
+        TextView locationText = findViewById(R.id.location_txt_display);
+        TextView categoryText = findViewById(R.id.category_txt_display);
+        TextView notesText = findViewById(R.id.notes_txt_display);
+        TextView creatorText = findViewById(R.id.creator_txt_display);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -75,4 +76,4 @@ public class ShowLogActivity extends AppCompatActivity {
             }
         });
     }
-    }
+}

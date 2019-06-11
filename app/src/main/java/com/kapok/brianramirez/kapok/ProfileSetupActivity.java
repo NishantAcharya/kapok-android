@@ -13,14 +13,12 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.realm.SyncUser;
 
 public class ProfileSetupActivity extends AppCompatActivity {
     EditText fullNameField;
@@ -34,11 +32,13 @@ public class ProfileSetupActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_setup);
+
         fullNameField = findViewById(R.id.full_name_text_field);
         occupationField = findViewById(R.id.occupation_text_field);
         contactInfoField = findViewById(R.id.contact_info_text_field);
         aboutMeField = findViewById(R.id.about_me_text_field);
         finishProfileBtn = findViewById(R.id.finish_profile_btn);
+
         mAuth = FirebaseAuth.getInstance();
         String currentUser = mAuth.getCurrentUser().getEmail();
 
@@ -46,12 +46,9 @@ public class ProfileSetupActivity extends AppCompatActivity {
         finishProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//               Person newP = new Person(fullNameField.getText().toString(), occupationField.getText().toString(), contactInfoField.getText().toString(), aboutMeField.getText().toString(), false, "None");
-//               RealmManager.add(newP);
-//               goToTeamWelcome();
                 ArrayList<String> team = new ArrayList<String>(1);
-
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
+
                 // Create a new user with a first and last name
                 Map<String, Object> user = new HashMap<>();
                 user.put("name", fullNameField.getText().toString());
@@ -69,7 +66,8 @@ public class ProfileSetupActivity extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                goToTeamWelcome();
+                                Intent goToTeamIntent = new Intent(ProfileSetupActivity.this, TeamWelcomeActivity.class);
+                                startActivity(goToTeamIntent);
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
@@ -79,19 +77,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
-
-
-
-
             }
         });
     }
-
-    public void goToTeamWelcome(){
-        Intent goToTeamIntent = new Intent(this, TeamWelcomeActivity.class);
-        startActivity(goToTeamIntent);
-    }
-
-
-
 }

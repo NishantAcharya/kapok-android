@@ -3,9 +3,7 @@ package com.kapok.brianramirez.kapok;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,29 +19,29 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.mapbox.mapboxsdk.geometry.LatLng;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-import io.realm.SyncUser;
 
 public class LogMakingActivity extends AppCompatActivity {
 
     EditText locationTxtField;
     EditText categoryTxtField;
     EditText infoTxtField;
-    Switch sensitiveInfoBtn;
+
     private FirebaseAuth mAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_log);
+
         locationTxtField = findViewById(R.id.location_txt);
         categoryTxtField= findViewById(R.id.category_txt);
         infoTxtField= findViewById(R.id.notes_txt);
+
         mAuth = FirebaseAuth.getInstance();
         String currentUser = mAuth.getCurrentUser().getEmail();
 
@@ -52,10 +50,6 @@ public class LogMakingActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ResLog resLog = new ResLog(null, null,  locationTxtField.getText().toString(), categoryTxtField.getText().toString(), infoTxtField.getText().toString(), sensitiveInfoBtn.isActivated());
-//                RealmManager manager = new RealmManager();
-//                manager.add(resLog);
-
                 Map<String, Object> log = new HashMap<>();
                 log.put("creator", currentUser);
                 log.put("location", locationTxtField.getText().toString());
@@ -73,18 +67,20 @@ public class LogMakingActivity extends AppCompatActivity {
                                 log.put("point", document.getData().get("recentMapPoint"));
 
                                 DocumentReference docRef = db.collection("Teams").document(team.get(0));
-//                                Toast.makeText(LogMakingActivity.this, team.get(0),
-//                                        Toast.LENGTH_SHORT).show();
                                 docRef
                                         .update("logs", FieldValue.arrayUnion(log))
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
+                                                Toast.makeText(LogMakingActivity.this, "Log created successfully!",
+                                                        Toast.LENGTH_SHORT).show();
                                             }
                                         })
                                         .addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(LogMakingActivity.this, "Log creation failed!.",
+                                                        Toast.LENGTH_SHORT).show();
                                             }
                                         });
 

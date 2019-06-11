@@ -20,11 +20,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-import io.realm.ObjectServerError;
-import io.realm.Realm;
-import io.realm.SyncCredentials;
-import io.realm.SyncUser;
-
 public class LogInActivity extends AppCompatActivity {
 
     EditText emailField;
@@ -40,9 +35,9 @@ public class LogInActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        emailField = (EditText) findViewById(R.id.email_text_field);
-        passwordField = (EditText) findViewById(R.id.password_text_field);
-        logInBtn = (Button) findViewById(R.id.log_in_btn);
+        emailField = findViewById(R.id.email_text_field);
+        passwordField = findViewById(R.id.password_text_field);
+        logInBtn = findViewById(R.id.log_in_btn);
 
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,30 +46,13 @@ public class LogInActivity extends AppCompatActivity {
                 String password = passwordField.getText().toString();
 
                 if (isValidRequest(email, password)){
-//                    SyncCredentials credentials = SyncCredentials.usernamePassword(email, password, false);
-//                    SyncUser.logInAsync(credentials, Constants.AUTH_URL, new SyncUser.Callback<SyncUser>() {
-//                        @Override
-//                        public void onSuccess(SyncUser user) {
-//                            // User is logged
-//                            Toast.makeText(LogInActivity.this, "User Signed in successful", Toast.LENGTH_SHORT).show();
-//                            Intent i = new Intent(LogInActivity.this, TeamWelcomeActivity.class);
-//                            startActivity(i);
-//                        }
-//
-//                        @Override
-//                        public void onError(ObjectServerError error) {
-//                            System.out.println(error);
-//                            Toast.makeText(LogInActivity.this, "Log in failed....     :(", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-
                     mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(LogInActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
+
                                         // Sign in success, update UI with the signed-in user's information
-                                        FirebaseUser user = mAuth.getCurrentUser();
                                         mAuth = FirebaseAuth.getInstance();
                                         FirebaseUser currentUser = mAuth.getCurrentUser();
                                         Toast.makeText(LogInActivity.this, "User Signed in successful", Toast.LENGTH_SHORT).show();

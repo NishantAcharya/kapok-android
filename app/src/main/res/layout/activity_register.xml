@@ -28,7 +28,7 @@
 
     <EditText
         android:id="@+id/password_text_field"
-        android:layout_width="332dp"
+        android:layout_width="339dp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:ems="10"
@@ -37,7 +37,7 @@
 
     <EditText
         android:id="@+id/confirm_pass_text_field"
-        android:layout_width="341dp"
+        android:layout_width="339dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/password_text_field"
         android:layout_centerHorizontal="true"

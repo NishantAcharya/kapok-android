@@ -29,16 +29,14 @@
             android:text="List View"
             android:textColor="@android:color/background_light" />
         </RelativeLayout>
-
     </com.mapbox.mapboxsdk.maps.MapView>
 
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:menu="@menu/activity_main_drawer"
+        app:menu="@menu/nav_drawer_admin"
         android:layout_gravity="start"
-        android:id="@+id/navList">
-
+        android:id="@+id/navListAdmin">
     </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

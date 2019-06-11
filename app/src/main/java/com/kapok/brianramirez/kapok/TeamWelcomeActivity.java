@@ -6,14 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import io.realm.SyncUser;
 
 public class TeamWelcomeActivity extends AppCompatActivity {
 
-    Button mapBtn;
     Button cteamBtn;
     Button jteamBtn;
-    Button LogOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +24,7 @@ public class TeamWelcomeActivity extends AppCompatActivity {
 
         cteamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { opencteam(); }
+            public void onClick(View view) { openCreateTeam(); }
         });
 
 
@@ -35,26 +32,18 @@ public class TeamWelcomeActivity extends AppCompatActivity {
         jteamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openjteeam();
+                openJoinTeam();
             }
         });
 
     }
 
-    public  void openjteeam(){
+    public  void openJoinTeam(){
         Intent intent = new Intent(this, JoinTeamActivity.class);
         startActivity(intent);
     }
-        public void logOutOption(){
-            Intent intent = new Intent(this, WelcomeActivity.class);
-            startActivity(intent);
-        }
-        public void openMaps(){
-            Intent i = new Intent(this, MapActivity.class);
-            startActivity(i);
-        }
 
-        public void opencteam(){
+        public void openCreateTeam(){
             Intent i = new Intent(this, CreateTeamActivity.class);
             startActivity(i);
         }

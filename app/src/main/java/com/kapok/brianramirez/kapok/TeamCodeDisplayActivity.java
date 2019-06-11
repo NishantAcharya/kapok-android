@@ -30,18 +30,17 @@ public class TeamCodeDisplayActivity extends AppCompatActivity {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                               @Override
-                                               public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                   if (task.isSuccessful()) {
-                                                       DocumentSnapshot document = task.getResult();
-                                                       if (document.exists()) {
-                                                           ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
-                                                           String TeamCode = userCurrentTeam.get(0);
-                                                           myText.setText(TeamCode);
-                                                       }
-                                                   }
-                                               }
-                                           });
-
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                        String TeamCode = userCurrentTeam.get(0);
+                        myText.setText(TeamCode);
+                    }
+                }
+            }
+        });
     }
 }

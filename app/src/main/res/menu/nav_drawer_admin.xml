@@ -12,11 +12,11 @@
             android:id="@+id/navRequests"
             android:title="Requests" />
         <item
-            android:id="@+id/navSettings"
-            android:title="Settings" />
-        <item
             android:id="@+id/navLogOut"
             android:title="Log Out" />
+        <item
+            android:id="@+id/navLeaveTeam"
+            android:title="Leave Team" />
     </group>
 
 </menu>
