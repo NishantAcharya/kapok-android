@@ -43,9 +43,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="80dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="Log In"
+        android:textColor="@android:color/background_light" />
+
+    <Button
+        android:id="@+id/resetBtn"
+        android:layout_width="347dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:text="Forgot Password"
         android:textColor="@android:color/background_light" />
 
 

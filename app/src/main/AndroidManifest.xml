@@ -64,6 +64,10 @@
         <activity
             android:name=".LogMakingActivity"
             android:label="Log Maker" />
+        <activity android:name=".ForgotPasswordActivity"
+            android:label="Forgot Password"
+            android:parentActivityName=".LogInActivity"/>
+
         <activity
             android:name=".ShowLogActivity"
             android:label="Log"

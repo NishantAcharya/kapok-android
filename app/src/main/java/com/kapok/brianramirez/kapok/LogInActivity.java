@@ -25,6 +25,7 @@ public class LogInActivity extends AppCompatActivity {
     EditText emailField;
     EditText passwordField;
     Button logInBtn;
+    Button resetBtn;
     private FirebaseAuth mAuth;
 
 
@@ -38,8 +39,19 @@ public class LogInActivity extends AppCompatActivity {
         emailField = findViewById(R.id.email_text_field);
         passwordField = findViewById(R.id.password_text_field);
         logInBtn = findViewById(R.id.log_in_btn);
+        resetBtn = findViewById(R.id.resetBtn);
 
-        logInBtn.setOnClickListener(new View.OnClickListener() {
+
+        resetBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LogInActivity.this, ForgotPasswordActivity.class);
+                startActivity(i);
+
+            }
+        });
+
+                logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String email = emailField.getText().toString();
