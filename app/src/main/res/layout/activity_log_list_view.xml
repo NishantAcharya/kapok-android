@@ -7,7 +7,7 @@ android:id="@+id/clayout"
 xmlns:android="http://schemas.android.com/apk/res/android">
 
 <android.support.design.widget.FloatingActionButton
-    android:id="@+id/addLogListView"
+    android:id="@+id/refreshButton"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
@@ -16,7 +16,7 @@ xmlns:android="http://schemas.android.com/apk/res/android">
     android:layout_marginBottom="20dp"
     android:clickable="true"
     android:focusable="true"
-    app:srcCompat="@android:drawable/ic_input_add" />
+    app:srcCompat="@android:drawable/ic_menu_rotate" />
 
 
 <LinearLayout

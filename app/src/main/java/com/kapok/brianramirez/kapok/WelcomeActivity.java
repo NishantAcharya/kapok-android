@@ -46,17 +46,17 @@ public class WelcomeActivity extends AppCompatActivity {
 
                             if (userCurrentTeam.isEmpty()) {
                                 if (status.equals("None")) {
-                                    if (userCurrentTeam.get(0) != null) {
+
                                         Intent i = new Intent(WelcomeActivity.this, TeamWelcomeActivity.class);
                                         startActivity(i);
-                                    }
+
                                 }
 
                                 if (status.equals("accepted")) {
-                                    if (userCurrentTeam.get(0) != null) {
+
                                         Intent i = new Intent(WelcomeActivity.this, MapActivity.class);
                                         startActivity(i);
-                                    }
+
                                 }
                                 if (status.equals("pending")) {
                                     Intent i = new Intent(WelcomeActivity.this, JoinWaitActivity.class);

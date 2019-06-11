@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -48,8 +49,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private FirebaseAuth mAuth;
     private String currentUser;
-    private int numOfReq;
-
+    int numOfReq;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
 
         Button displayListViewBtn = findViewById(R.id.listView);
+        FloatingActionButton refresh = findViewById(R.id.refreshButton);
+
+        refresh.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            refreshMarkers();
+        }
+    });
 
         displayListViewBtn.setOnClickListener(new View.OnClickListener() {
             @Override

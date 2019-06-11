@@ -29,8 +29,8 @@ public class JoinWaitActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         String currentUser = mAuth.getCurrentUser().getEmail();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Intent intent = getIntent();
-        final DocumentReference docRef = db.collection("Teams").document(intent.getStringExtra("teamid"));
+
+        DocumentReference docRef = db.collection("Profiles").document(currentUser);
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot,
@@ -43,8 +43,8 @@ public class JoinWaitActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
-                                    ArrayList<String> members = (ArrayList<String>) document.getData().get("members");
-                                    if(members.contains(currentUser)){
+                                    ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
+                                    if(!team.isEmpty()){
                                         openMaps();
                                     }
                                 }

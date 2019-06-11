@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,6 +33,14 @@ public class LogListViewActivity extends AppCompatActivity {
 
         lv = findViewById(R.id.LogListView);
         mAuth = FirebaseAuth.getInstance();
+        FloatingActionButton refresh = findViewById(R.id.refreshButton);
+
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                refreshLogs();
+            }
+        });
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -79,6 +88,11 @@ public class LogListViewActivity extends AppCompatActivity {
         public void openLogView (int position){
             Intent i = new Intent(this, ShowLogActivity.class).putExtra("Log Position", position);
             startActivity(i);     }
+
+
+    private void refreshLogs() {
+        LogListViewActivity.this.recreate();
+    }
 
 }
 

@@ -23,7 +23,6 @@ import java.util.List;
 
 
 public class TeamDIsplayActivity extends AppCompatActivity {
-    Button addLogListView;
     private ListView lv;
     private FirebaseAuth mAuth;
 
@@ -33,7 +32,6 @@ public class TeamDIsplayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_display);
         lv = findViewById(R.id.listView);
-        addLogListView = findViewById(R.id.addLogListView);
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
