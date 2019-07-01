@@ -61,6 +61,10 @@
             android:label="Log"
             android:parentActivityName=".LogListViewActivity"/>
         <activity
+            android:name=".ShowMemberActivity"
+            android:label="Member Info"
+            android:parentActivityName=".TeamDIsplayActivity"/>
+        <activity
             android:name=".TeamCodeDisplayActivity"
             android:label="Team Code" />
         <activity

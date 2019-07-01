@@ -18,7 +18,7 @@
         android:backgroundTint="@color/colorPrimary"
         android:text="Create Log"
         android:textColor="@android:color/background_light" />
-
+2q11
     <EditText
         android:id="@+id/location_txt"
         android:layout_width="352dp"
@@ -44,8 +44,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="400dp"
+        android:layout_marginTop="270dp"
         android:ems="10"
         android:hint="Notes"
         android:inputType="textMultiLine" />
@@ -63,10 +62,9 @@
         android:id="@+id/textView6"
         android:layout_width="352dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="390dp"
+        android:layout_marginTop="310dp"
         android:text="*Make sure to not include any sensitive information in this section"
         android:textSize="10dp"
-        android:layout_alignParentBottom="true"
         android:textAlignment="center" />
 
 </RelativeLayout>
