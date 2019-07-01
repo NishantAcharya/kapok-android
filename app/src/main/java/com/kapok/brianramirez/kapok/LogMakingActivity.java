@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -35,7 +36,7 @@ public class LogMakingActivity extends AppCompatActivity {
     EditText locationTxtField;
     EditText categoryTxtField;
     EditText infoTxtField;
-    Switch sensitiveInfoBtn;
+    RatingBar LogPriority;
     private FirebaseAuth mAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,7 @@ public class LogMakingActivity extends AppCompatActivity {
         locationTxtField = findViewById(R.id.location_txt);
         categoryTxtField= findViewById(R.id.category_txt);
         infoTxtField= findViewById(R.id.notes_txt);
+        LogPriority = findViewById(R.id.ratingBar);
         mAuth = FirebaseAuth.getInstance();
         String currentUser = mAuth.getCurrentUser().getEmail();
 
@@ -52,15 +54,13 @@ public class LogMakingActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ResLog resLog = new ResLog(null, null,  locationTxtField.getText().toString(), categoryTxtField.getText().toString(), infoTxtField.getText().toString(), sensitiveInfoBtn.isActivated());
-//                RealmManager manager = new RealmManager();
-//                manager.add(resLog);
 
                 Map<String, Object> log = new HashMap<>();
                 log.put("creator", currentUser);
                 log.put("location", locationTxtField.getText().toString());
                 log.put("category", categoryTxtField.getText().toString());
                 log.put("info", infoTxtField.getText().toString());
+                log.put("Log Rating", String.valueOf(LogPriority.getRating()));
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 DocumentReference userProf = db.collection("Profiles").document(currentUser);
                 userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

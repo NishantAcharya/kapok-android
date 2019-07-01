@@ -39,6 +39,7 @@
         android:hint="Category"
         android:inputType="textEmailAddress" />
 
+
     <EditText
         android:id="@+id/notes_txt"
         android:layout_width="352dp"
@@ -66,5 +67,21 @@
         android:text="*Make sure to not include any sensitive information in this section"
         android:textSize="10dp"
         android:textAlignment="center" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="340dp"
+        android:layout_centerHorizontal="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="390dp"
+        android:text="Log Priority"
+        android:layout_centerHorizontal="true"
+        />
 
 </RelativeLayout>

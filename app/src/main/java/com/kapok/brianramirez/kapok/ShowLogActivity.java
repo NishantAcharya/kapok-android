@@ -61,10 +61,24 @@ public class ShowLogActivity extends AppCompatActivity {
                                         Map<String, Object> currPoint = (Map<String, Object>) log.get("point");
                                         double lat = (double) currPoint.get("latitude");
                                         double lon = (double) currPoint.get("longitude");
-                                        locationText.setText(lat+","+lon);
-                                        creatorText.setText(creator);
-                                        categoryText.setText(category);
-                                        notesText.setText(notes);
+
+
+                                        DocumentReference docRef = db.collection("Profiles").document(creator);
+                                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if (document.exists()) {
+                                                        String creatorName = (String) document.getData().get("name");
+                                                        locationText.setText(lat+","+lon);
+                                                        creatorText.setText(creatorName + "\n" + "Email:" + creator);
+                                                        categoryText.setText(category);
+                                                        notesText.setText(notes);
+                                                    }
+                                                }
+                                            }
+                                        });
 
                                     }
                                 }
