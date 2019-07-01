@@ -44,43 +44,6 @@ public class WelcomeActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        Realm.init(this);
-
-
-        if (currentUser != null) {
-            FirebaseFirestore db = FirebaseFirestore.getInstance();
-            DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
-
-                            if (userCurrentTeam.get(0) != null){
-                                Intent i = new Intent(WelcomeActivity.this, MapActivity.class);
-                                startActivity(i);
-                            }
-
-                        }
-                        else {
-                            Intent i = new Intent(WelcomeActivity.this, JoinTeamActivity.class);
-                            startActivity(i);
-                        }
-
-                    }
-
-                }
-            });
-
-
-//            if (currentUser)
-//            Intent i = new Intent(WelcomeActivity.this, TeamWelcomeActivity.class);
-//            startActivity(i);
-        }
-
-        else{
             signInBtn = findViewById(R.id.sign_in_btn);
             registerBtn = findViewById(R.id.register_btn);
 
@@ -102,4 +65,4 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
     }
-}
+

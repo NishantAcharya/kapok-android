@@ -7,7 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -71,14 +73,14 @@ public class LogListViewActivity extends AppCompatActivity {
                                         }
                                     });
                                     }
-                                                }
-                                            }
-                                        });
-                                    }
                                 }
                             }
                         });
                     }
+                }
+            }
+        });
+    }
 
         public void openLogView (int position){
             Intent i = new Intent(this, ShowLogActivity.class).putExtra("Log Position", position);
