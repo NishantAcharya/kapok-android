@@ -18,7 +18,7 @@
         android:backgroundTint="@color/colorPrimary"
         android:text="Create Log"
         android:textColor="@android:color/background_light" />
-2q11
+
     <EditText
         android:id="@+id/location_txt"
         android:layout_width="352dp"
