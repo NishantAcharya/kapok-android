@@ -79,23 +79,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         currentUser = mAuth.getCurrentUser().getEmail();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-
-
-   //     mDrawerList = (ListView)findViewById(R.id.drawer_layout);
-
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
-
-        //mActivityTitle = getTitle().toString();
 
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
-        //addDrawerItems();
-        //setupDrawer();
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setHomeButtonEnabled(true);
 
         navView = (NavigationView)findViewById(R.id.navList);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -157,9 +147,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
 
     @Override
     public void onMapReady(MapboxMap mapboxMap) {
