@@ -192,7 +192,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         }
         mapboxMap.selectMarker(featureMarker);
-        refreshMarkers();
         startOpenLog();
     }
 
@@ -272,7 +271,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     public void removeFromTeam(){
-        //TODO
+     //TODO
     }
 
     @Override

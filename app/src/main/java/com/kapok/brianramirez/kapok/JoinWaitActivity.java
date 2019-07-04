@@ -55,6 +55,12 @@ public class JoinWaitActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        //DO NOTHING
+    }
+
     public void openMaps(){
         Intent intent = new Intent(this,MapActivity.class);
         startActivity(intent);

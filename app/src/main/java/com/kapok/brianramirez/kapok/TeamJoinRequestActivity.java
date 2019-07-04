@@ -175,10 +175,6 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
-        //DO NOTING
-    }
 }
 
 

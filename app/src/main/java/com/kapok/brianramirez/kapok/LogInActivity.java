@@ -67,7 +67,7 @@ public class LogInActivity extends AppCompatActivity {
                                         // Sign in success, update UI with the signed-in user's information
                                         mAuth = FirebaseAuth.getInstance();
                                         FirebaseUser currentUser = mAuth.getCurrentUser();
-                                        Toast.makeText(LogInActivity.this, "User Signed in successful", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(LogInActivity.this, "User sign in successful", Toast.LENGTH_SHORT).show();
                                         FirebaseFirestore db = FirebaseFirestore.getInstance();
                                         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
                                         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

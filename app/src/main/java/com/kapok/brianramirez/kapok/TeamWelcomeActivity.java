@@ -6,22 +6,36 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class TeamWelcomeActivity extends AppCompatActivity {
 
     Button cteamBtn;
     Button jteamBtn;
+    Button logOutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_welcome);
 
-        cteamBtn = (Button) findViewById(R.id.cteam_btn);
-        jteamBtn = (Button) findViewById(R.id.jteam_btn);
+        cteamBtn = findViewById(R.id.cteam_btn);
+        jteamBtn = findViewById(R.id.jteam_btn);
+        logOutBtn = findViewById(R.id.logOutBtn);
 
 
+        logOutBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view)
+            {
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
+                Intent intent = new Intent(TeamWelcomeActivity.this, WelcomeActivity.class);
+                startActivity(intent);
+            }
 
+        });
         cteamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { openCreateTeam(); }
@@ -48,5 +62,8 @@ public class TeamWelcomeActivity extends AppCompatActivity {
             startActivity(i);
         }
 
-
+    @Override
+    public void onBackPressed() {
+        //DO NOTHING
+    }
 }

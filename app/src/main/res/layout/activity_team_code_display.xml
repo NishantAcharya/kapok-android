@@ -31,6 +31,7 @@
         android:layout_marginTop="480dp"
         android:layout_centerHorizontal="true"
         android:background="#FFFF"
+        android:textAlignment="center"
         android:textSize="60dp"/>
 
     <TextView
