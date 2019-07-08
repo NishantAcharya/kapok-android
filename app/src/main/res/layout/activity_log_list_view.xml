@@ -7,7 +7,7 @@ android:id="@+id/clayout"
 xmlns:android="http://schemas.android.com/apk/res/android">
 
 <android.support.design.widget.FloatingActionButton
-    android:id="@+id/refreshButton"
+    android:id="@+id/addLogListView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"

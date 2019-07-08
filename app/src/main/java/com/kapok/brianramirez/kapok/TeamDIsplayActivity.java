@@ -98,4 +98,8 @@ public class TeamDIsplayActivity extends AppCompatActivity {
         Intent i = new Intent(this, ShowMemberActivity.class).putExtra("Member", clickedMember);
         startActivity(i);
     }
-}
+
+    }
+
+
+

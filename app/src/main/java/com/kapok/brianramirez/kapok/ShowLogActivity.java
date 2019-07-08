@@ -22,23 +22,25 @@ import java.util.Map;
 
 public class ShowLogActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+
     Map<String, Object> log;
     int logPos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_log);
+
+        Intent intent = getIntent();
+        logPos = intent.getIntExtra("Log Position", 0);
         mAuth = FirebaseAuth.getInstance();
+        TextView locationText = findViewById(R.id.location_txt_display);
+        TextView categoryText = findViewById(R.id.category_txt_display);
+        TextView notesText = findViewById(R.id.notes_txt_display);
+        TextView creatorText = findViewById(R.id.creator_txt_display);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        Intent intent = getIntent();
-        logPos = (int) intent.getIntExtra("Log Position", 0);
-        TextView locationText = (TextView)findViewById(R.id.location_txt_display);
-        TextView categoryText = (TextView)findViewById(R.id.category_txt_display);
-        TextView notesText = (TextView)findViewById(R.id.notes_txt_display);
-        TextView creatorText = (TextView)findViewById(R.id.creator_txt_display);
 
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
