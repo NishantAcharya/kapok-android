@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="Here is the selected log!"
+        android:text="Member Profile"
         android:textAlignment="center" />
 
 
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:layout_centerHorizontal="true"
-        android:text="Location:"
+        android:text="Name:"
         android:textSize="20dp"
         />
 
@@ -28,70 +28,78 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="110dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/location_txt_display"
+        android:id="@+id/full_name_text_field"
         android:textSize="20dp"/>
 
     <TextView
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:textColor="@color/colorPrimary"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="140dp"
         android:layout_centerHorizontal="true"
-        android:text="Category:"
+        android:text="Contact Info:"
         android:textSize="20dp"
         />
 
     <TextView
         android:layout_width="352dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="170dp"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/category_txt_display"/>
+        android:id="@+id/contact_info_text_field"/>
 
 
     <TextView
         android:layout_width="352dp"
         android:textColor="@color/colorPrimary"
         android:layout_height="wrap_content"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="200dp"
         android:layout_centerHorizontal="true"
         android:textSize="20dp"
-        android:text="Notes:"
+        android:text="Occupation:"
         />
+
+    <TextView
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="230dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/occupation_text_field"
+        android:textSize="20dp"/>
 
     <TextView
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="260dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/notes_txt_display"
+        android:text="Registered Email"
+        android:textColor="@color/colorPrimary"
         android:textSize="20dp"/>
 
     <TextView
         android:layout_width="352dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="410dp"
+        android:layout_marginTop="290dp"
         android:layout_centerHorizontal="true"
-        android:text="Creator:"
+        android:id="@+id/registered_email_text_field"
+        android:textSize="20dp"/>
+
+
+    <TextView
+        android:layout_width="352dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="320dp"
+        android:layout_centerHorizontal="true"
+        android:text="About:"
         android:textColor="@color/colorPrimary"
         android:textSize="20dp" />
 
     <TextView
         android:layout_width="352dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="440dp"
+        android:layout_marginTop="350dp"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/creator_txt_display"/>
-
-
-        <RatingBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/ratingBar"
-            android:layout_marginTop="510dp"
-
-            />
+        android:id="@+id/about_me_text_field"/>
 </RelativeLayout>
