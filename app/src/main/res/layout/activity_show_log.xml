@@ -84,4 +84,14 @@
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/creator_txt_display"/>
+
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/ratingBar"
+            android:layout_marginTop="510dp"
+
+            />
 </RelativeLayout>
