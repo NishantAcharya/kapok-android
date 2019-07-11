@@ -1,6 +1,7 @@
 package com.kapok.brianramirez.kapok;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.PointF;
@@ -10,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
@@ -27,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.mapbox.geojson.Feature;
 import com.mapbox.mapboxsdk.Mapbox;
@@ -67,6 +70,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser().getEmail();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         Button displayListViewBtn = findViewById(R.id.listView);
         FloatingActionButton refresh = findViewById(R.id.refreshButton);
@@ -86,9 +92,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser().getEmail();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
         DocumentReference userProf = db.collection("Profiles").document(currentUser);
         userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -141,6 +145,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     case R.id.navRequests:
                         goToTeamJoinRequest();
+                        break;
 
                     case R.id.navLeaveTeam:
                         removeFromTeam();
@@ -406,8 +411,36 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapView.onSaveInstanceState(outState);
     }
 
-    public void removeFromTeam(){
-     //TODO
+    public void removeFromTeam() {
+        //TODO
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference userProf = db.collection("Profiles").document(currentUser);
+        AlertDialog.Builder a = new AlertDialog.Builder(MapActivity.this);
+        a.setMessage("Are you sure you want to leave the team").setCancelable(true)
+                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+
+                    //If user accepts the request
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
+                                        DocumentReference teamRef = db.collection("Teams").document(team.get(0));
+                                        teamRef
+                                                .update("members", FieldValue.arrayRemove(currentUser));
+                                    }
+                                }
+                                userProf.update("status", "none");
+                                userProf.update("Teams", FieldValue.arrayRemove());
+
+                            }
+                        });
+                    }
+                });
     }
 
     private void refreshMarkers(){
