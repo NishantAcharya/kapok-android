@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/sort_oldest"
+        android:orderInCategory="100"
+        android:title="Oldest first"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sort_newest"
+        android:orderInCategory="100"
+        android:title="Newest first"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/sort_rating"
+        android:orderInCategory="100"
+        android:title="Sort by rating"
+        app:showAsAction="never" />
+</menu>
