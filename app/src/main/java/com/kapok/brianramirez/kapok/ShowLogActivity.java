@@ -129,7 +129,7 @@ public class ShowLogActivity extends AppCompatActivity {
     }
 
     public boolean can_edit(int index) {
-        final boolean[] result = {false};
+        final boolean[] result = new boolean[1];
         mAuth = FirebaseAuth.getInstance();
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -158,6 +158,8 @@ public class ShowLogActivity extends AppCompatActivity {
                                         String currentUserEmail = currentUser.getEmail();
                                         if (currentUserEmail.equals(creator) || currentUserEmail.equals(admin))
                                             result[0] = true;
+                                        else
+                                            result[0] = false;
 
                                     }
 

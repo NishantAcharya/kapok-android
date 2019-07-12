@@ -357,7 +357,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
 /*
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -366,7 +365,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-
 
         switch (id)
         {
@@ -430,13 +428,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     if (document.exists()) {
                                         ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
                                         DocumentReference teamRef = db.collection("Teams").document(team.get(0));
-                                        teamRef
-                                                .update("members", FieldValue.arrayRemove(currentUser));
+                                        teamRef.update("members", FieldValue.arrayRemove(currentUser));
                                     }
                                 }
                                 userProf.update("status", "none");
                                 userProf.update("Teams", FieldValue.arrayRemove());
-
+                                Intent intent = new Intent(MapActivity.this, TeamDIsplayActivity.class);
+                                startActivity(intent);
+                                finish();
                             }
                         });
                     }
