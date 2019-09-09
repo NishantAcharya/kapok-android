@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class ShowLogActivity extends AppCompatActivity {
         TextView categoryText = findViewById(R.id.category_txt_display);
         TextView notesText = findViewById(R.id.notes_txt_display);
         TextView creatorText = findViewById(R.id.creator_txt_display);
+        RatingBar Rating = findViewById(R.id.ratingBar);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -67,6 +69,8 @@ public class ShowLogActivity extends AppCompatActivity {
                                         Map<String, Object> currPoint = (Map<String, Object>) log.get("point");
                                         double lat = (double) currPoint.get("latitude");
                                         double lon = (double) currPoint.get("longitude");
+                                        //Object val = (log.get("Log Rating"));
+
 
 
                                         DocumentReference docRef = db.collection("Profiles").document(creator);
@@ -81,6 +85,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                                         creatorText.setText(creatorName + "\n" + "Email:" + creator);
                                                         categoryText.setText(category);
                                                         notesText.setText(notes);
+                                          //              Rating.setNumStars((Integer)val);
                                                     }
                                                 }
                                             }
