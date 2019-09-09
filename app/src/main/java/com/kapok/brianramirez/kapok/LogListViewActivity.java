@@ -49,12 +49,6 @@ public class LogListViewActivity extends AppCompatActivity {
 
         FloatingActionButton refresh = findViewById(R.id.refreshButton);
 
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                refreshLogs();
-            }
-        });
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = FirebaseFirestore.getInstance();
