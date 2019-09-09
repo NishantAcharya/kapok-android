@@ -47,14 +47,14 @@ public class RegisterActivity extends AppCompatActivity {
                             .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        // Sign in success
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        goToProfileSetup();
-                                    } else {
+                                    if (!task.isSuccessful()) {
                                         // If sign in fails, display a message to the user.
                                         Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                                 Toast.LENGTH_SHORT).show();
+                                        // Sign in success
+                                    } else {
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        goToProfileSetup();
                                     }
                                 }
                             });

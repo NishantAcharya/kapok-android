@@ -3,10 +3,19 @@ package com.kapok.brianramirez.kapok;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Map;
 
 
 public class TeamWelcomeActivity extends AppCompatActivity {
@@ -22,20 +31,7 @@ public class TeamWelcomeActivity extends AppCompatActivity {
 
         cteamBtn = findViewById(R.id.cteam_btn);
         jteamBtn = findViewById(R.id.jteam_btn);
-        logOutBtn = findViewById(R.id.logOutBtn);
 
-
-        logOutBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view)
-            {
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                mAuth.signOut();
-                Intent intent = new Intent(TeamWelcomeActivity.this, WelcomeActivity.class);
-                startActivity(intent);
-            }
-
-        });
         cteamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { openCreateTeam(); }
@@ -52,6 +48,24 @@ public class TeamWelcomeActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_logout, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.logOut) {
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            mAuth.signOut();
+            Intent intent = new Intent(TeamWelcomeActivity.this, WelcomeActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
     public  void openJoinTeam(){
         Intent intent = new Intent(this, JoinTeamActivity.class);
         startActivity(intent);

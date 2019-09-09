@@ -47,7 +47,6 @@ public class LogListViewActivity extends AppCompatActivity {
         lv = findViewById(R.id.LogListView);
         mAuth = FirebaseAuth.getInstance();
 
-        FloatingActionButton refresh = findViewById(R.id.refreshButton);
 
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -163,10 +162,6 @@ public class LogListViewActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-
-    private void refreshLogs() {
-        LogListViewActivity.this.recreate();
-    }
 
 }
 

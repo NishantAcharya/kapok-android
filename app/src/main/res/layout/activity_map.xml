@@ -15,9 +15,11 @@
         mapbox:mapbox_cameraTargetLat="40.73581"
         mapbox:mapbox_cameraTargetLng="-73.99155"
         mapbox:mapbox_styleUrl="@string/mapbox_style_mapbox_streets">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    </com.mapbox.mapboxsdk.maps.MapView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <Button
             android:id="@+id/listView"
             android:layout_width="90dp"
@@ -29,25 +31,19 @@
             android:text="List View"
             android:textColor="@android:color/background_light" />
 
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/refreshButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="45dp"
-                android:layout_marginRight="25dp"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/refreshButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="45dp"
+            android:layout_marginRight="25dp"
 
-                app:srcCompat="@android:drawable/ic_menu_rotate" />
+            app:srcCompat="@android:drawable/ic_menu_rotate" />
 
-        </RelativeLayout>
-
-
-
-
-
-    </com.mapbox.mapboxsdk.maps.MapView>
+    </RelativeLayout>
 
 
     <android.support.design.widget.NavigationView
