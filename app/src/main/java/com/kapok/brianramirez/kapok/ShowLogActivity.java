@@ -69,7 +69,9 @@ public class ShowLogActivity extends AppCompatActivity {
                                         Map<String, Object> currPoint = (Map<String, Object>) log.get("point");
                                         double lat = (double) currPoint.get("latitude");
                                         double lon = (double) currPoint.get("longitude");
-                                        //Object val = (log.get("Log Rating"));
+                                        String val = (String)(log.get("Log Rating"));
+                                        float floatval = Float.parseFloat(val);
+
 
 
 
@@ -85,7 +87,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                                         creatorText.setText(creatorName + "\n" + "Email:" + creator);
                                                         categoryText.setText(category);
                                                         notesText.setText(notes);
-                                          //              Rating.setNumStars((Integer)val);
+                                                        Rating.setRating(floatval);
                                                     }
                                                 }
                                             }
@@ -110,7 +112,7 @@ public class ShowLogActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.menu_add_notes) {
+            if (id == R.id.menu_add_notes) {
             if (can_edit(logPos)==true)
                 Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
             else
