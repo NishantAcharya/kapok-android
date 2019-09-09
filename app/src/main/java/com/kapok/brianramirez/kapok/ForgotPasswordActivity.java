@@ -28,7 +28,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         inputEmail = (EditText) findViewById(R.id.email_text_field);
         btnReset = (Button) findViewById(R.id.forgotPswdBtn);
-        auth = FirebaseAuth.getInstance();
+        auth = Database.mAuth;
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override

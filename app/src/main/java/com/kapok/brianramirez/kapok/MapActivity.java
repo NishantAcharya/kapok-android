@@ -23,8 +23,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -70,9 +68,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = Database.mAuth;
         currentUser = mAuth.getCurrentUser().getEmail();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = Database.db;
 
         Button displayListViewBtn = findViewById(R.id.listView);
         FloatingActionButton refresh = findViewById(R.id.refreshButton);

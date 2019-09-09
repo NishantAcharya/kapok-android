@@ -34,7 +34,7 @@ public class LogInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = Database.mAuth;
 
         emailField = findViewById(R.id.email_text_field);
         passwordField = findViewById(R.id.password_text_field);
@@ -68,7 +68,7 @@ public class LogInActivity extends AppCompatActivity {
                                         mAuth = FirebaseAuth.getInstance();
                                         FirebaseUser currentUser = mAuth.getCurrentUser();
                                         Toast.makeText(LogInActivity.this, "User sign in successful", Toast.LENGTH_SHORT).show();
-                                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+                                        FirebaseFirestore db = Database.db;
                                         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
                                         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                             @Override

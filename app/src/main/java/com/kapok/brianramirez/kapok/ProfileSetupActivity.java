@@ -39,7 +39,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
         aboutMeField = findViewById(R.id.about_me_text_field);
         finishProfileBtn = findViewById(R.id.finish_profile_btn);
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
 
 
@@ -47,7 +47,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ArrayList<String> team = new ArrayList<String>(1);
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                FirebaseFirestore db = Database.db;
 
                 // Create a new user with a first and last name
                 Map<String, Object> user = new HashMap<>();

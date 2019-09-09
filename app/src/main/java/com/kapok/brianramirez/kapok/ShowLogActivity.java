@@ -34,7 +34,7 @@ public class ShowLogActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         logPos = intent.getIntExtra("Log Position", 0);
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = Database.mAuth;
         TextView locationText = findViewById(R.id.location_txt_display);
         TextView categoryText = findViewById(R.id.category_txt_display);
         TextView notesText = findViewById(R.id.notes_txt_display);
@@ -42,7 +42,7 @@ public class ShowLogActivity extends AppCompatActivity {
         RatingBar Rating = findViewById(R.id.ratingBar);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = Database.db;
 
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -135,10 +135,10 @@ public class ShowLogActivity extends AppCompatActivity {
 
     public boolean can_edit(int index) {
         final boolean[] result = new boolean[1];
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = Database.mAuth;
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = Database.db;
 
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

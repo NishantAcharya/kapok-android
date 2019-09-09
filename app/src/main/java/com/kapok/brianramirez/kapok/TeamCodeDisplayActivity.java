@@ -25,9 +25,9 @@ public class TeamCodeDisplayActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_team_code_display);
         TextView myText = (TextView)findViewById(R.id.teamCodeDisplay);
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = Database.mAuth;
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = Database.db;
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

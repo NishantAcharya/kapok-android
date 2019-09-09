@@ -2,7 +2,6 @@ package com.kapok.brianramirez.kapok;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
@@ -11,15 +10,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.ArrayList;
-import java.util.Map;
-
-import io.realm.OrderedRealmCollectionSnapshot;
 
 public class ShowMemberActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -32,7 +25,7 @@ public class ShowMemberActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         member = intent.getStringExtra("Member");
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = Database.mAuth;
 
         TextView nameText = findViewById(R.id.full_name_text_field);
         TextView occupationText = findViewById(R.id.occupation_text_field);
@@ -41,7 +34,7 @@ public class ShowMemberActivity extends AppCompatActivity {
         TextView registeredEmailText = findViewById(R.id.registered_email_text_field);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = Database.db;
 
         DocumentReference docRef = db.collection("Profiles").document(member);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

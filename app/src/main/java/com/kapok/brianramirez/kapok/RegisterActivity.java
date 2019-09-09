@@ -27,7 +27,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = Database.mAuth;
 
 
         emailField = (EditText)findViewById(R.id.email_text_field);

@@ -26,9 +26,9 @@ public class JoinWaitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_waiting_to_join);
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = Database.db;
 
         DocumentReference docRef = db.collection("Profiles").document(currentUser);
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {

@@ -41,7 +41,7 @@ public class CreateTeamActivity extends AppCompatActivity {
         team_location = findViewById(R.id.location);
         confirmTeam = findViewById(R.id.create_NewTeam);
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
 
 
@@ -49,7 +49,7 @@ public class CreateTeamActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                FirebaseFirestore db = Database.db;
 
                 //create list containing the user
                 ArrayList<String> members = new ArrayList<String>(1);

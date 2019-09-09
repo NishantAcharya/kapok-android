@@ -29,13 +29,13 @@ public class JoinTeamActivity extends AppCompatActivity {
         edit_team_code = findViewById(R.id.teamCode);
         joinTeam = findViewById(R.id.joinRequest);
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
 
         joinTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                FirebaseFirestore db = Database.db;
                 DocumentReference docRef = db.collection("Teams").document(edit_team_code.getText().toString());
                 docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override

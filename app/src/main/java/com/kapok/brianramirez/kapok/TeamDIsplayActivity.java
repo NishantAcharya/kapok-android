@@ -20,9 +20,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 public class TeamDIsplayActivity extends AppCompatActivity {
     Button addLogListView;
@@ -38,9 +36,9 @@ public class TeamDIsplayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_team_display);
         lv = findViewById(R.id.listView);
         addLogListView = findViewById(R.id.addLogListView);
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = Database.mAuth;
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseFirestore db = Database.db;
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
