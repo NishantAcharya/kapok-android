@@ -88,6 +88,10 @@
             android:name=".JoinWaitActivity"
             android:label="Waiting Screen"
             android:theme="@style/FullScreen" />
+        <activity
+            android:name=".EditNotesActivity"
+            android:label="Edit note Screen"
+            android:theme="@style/FullScreen" />
     </application>
 
 </manifest>

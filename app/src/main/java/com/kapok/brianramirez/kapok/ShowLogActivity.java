@@ -3,11 +3,9 @@ package com.kapok.brianramirez.kapok;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RatingBar;
@@ -20,17 +18,20 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ShowLogActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-
     Map<String, Object> log;
     int logPos;
     float floatval;
+    boolean result;
+    TextView notesText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +43,13 @@ public class ShowLogActivity extends AppCompatActivity {
         mAuth = Database.mAuth;
         TextView locationText = findViewById(R.id.location_txt_display);
         TextView categoryText = findViewById(R.id.category_txt_display);
-        TextView notesText = findViewById(R.id.notes_txt_display);
+        notesText = findViewById(R.id.notes_txt_display);
         TextView creatorText = findViewById(R.id.creator_txt_display);
         RatingBar Rating = findViewById(R.id.ratingBar);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = Database.db;
+        can_edit(logPos);
 
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -119,7 +121,7 @@ public class ShowLogActivity extends AppCompatActivity {
         int id = item.getItemId();
         Intent intent;
             if (id == R.id.menu_add_notes) {
-            if (can_edit(logPos)==true) {
+            if (result==true) {
                 intent = new Intent(ShowLogActivity.this, EditNotesActivity.class);
                 ShowLogActivity.this.startActivityForResult(intent, 2);
             }
@@ -128,27 +130,72 @@ public class ShowLogActivity extends AppCompatActivity {
         }
 
         if (id == R.id.menu_delete) {
-            if (can_edit(logPos)==true)
+            if (result==true)
                 Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
             else
                 Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
         }
 
         if (id == R.id.menu_edit_priority) {
-            if (can_edit(logPos)==true)
+            if (result==true) {
                 Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
-            else
-                Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
                 ShowDialog();
+            }
+
+            else {
+                Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
+            }
         }
         return super.onOptionsItemSelected(item);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseFirestore db = Database.db;
         if (requestCode == 2) {
             String message = data.getStringExtra("MESSAGE");
-            Toast.makeText(ShowLogActivity.this, message, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(ShowLogActivity.this, message, Toast.LENGTH_SHORT).show();
+            DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
+            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    ArrayList<String> location = new ArrayList<>();
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                            String TeamCode = userCurrentTeam.get(0);
+                            DocumentReference docRef = db.collection("Teams").document(TeamCode);
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
+                                            log = locations.get(logPos);
+                                            Map<String, Object> log2 = new HashMap<>();
+                                            log2.put("creator", log.get("creator").toString());
+                                            log2.put("location", log.get("location").toString());
+                                            log2.put("category", log.get("creator").toString());
+                                            log2.put("info", message);
+                                            log2.put("Log Rating", log.get("Log Rating").toString());
+                                            log2.put("time", log.get("time").toString());
+                                            log2.put("point", log.get("point"));
+                                            docRef.update("logs", FieldValue.arrayRemove(log));
+                                            docRef.update("logs", FieldValue.arrayUnion(log2));
+                                            notesText.setText(message);
+
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+            });
+
         }
 
     }
@@ -187,13 +234,10 @@ public class ShowLogActivity extends AppCompatActivity {
         popDialog.show();
     }
 
-    public boolean can_edit(int index) {
-        final boolean[] result = new boolean[1];
+    public void can_edit(int index) {
         mAuth = Database.mAuth;
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = Database.db;
-
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -216,9 +260,9 @@ public class ShowLogActivity extends AppCompatActivity {
                                         String admin = (String) document.get("admin");
                                         String currentUserEmail = currentUser.getEmail();
                                         if (currentUserEmail.equals(creator) || currentUserEmail.equals(admin))
-                                            result[0] = true;
+                                            result = true;
                                         else
-                                            result[0] = false;
+                                            result = false;
 
                                     }
 
@@ -232,6 +276,5 @@ public class ShowLogActivity extends AppCompatActivity {
                 }
             }
         });
-        return result[0];
     }
 }
