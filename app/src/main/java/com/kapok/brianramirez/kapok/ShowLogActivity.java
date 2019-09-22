@@ -1,9 +1,13 @@
 package com.kapok.brianramirez.kapok;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RatingBar;
@@ -26,6 +30,7 @@ public class ShowLogActivity extends AppCompatActivity {
 
     Map<String, Object> log;
     int logPos;
+    float floatval;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +75,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                         double lat = (double) currPoint.get("latitude");
                                         double lon = (double) currPoint.get("longitude");
                                         String val = (String)(log.get("Log Rating"));
-                                        float floatval = Float.parseFloat(val);
+                                        floatval = Float.parseFloat(val);
 
 
 
@@ -112,10 +117,13 @@ public class ShowLogActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Intent intent;
             if (id == R.id.menu_add_notes) {
-            if (can_edit(logPos)==true)
-                Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
-            else
+            if (can_edit(logPos)==true) {
+                intent = new Intent(ShowLogActivity.this, EditNotesActivity.class);
+                ShowLogActivity.this.startActivityForResult(intent, 2);
+            }
+                else
                 Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
         }
 
@@ -131,8 +139,52 @@ public class ShowLogActivity extends AppCompatActivity {
                 Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
             else
                 Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
+                ShowDialog();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2) {
+            String message = data.getStringExtra("MESSAGE");
+            Toast.makeText(ShowLogActivity.this, message, Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    public void ShowDialog()
+    {
+        AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
+        final RatingBar rating = new RatingBar(this);
+        rating.setRating(floatval);
+        rating.setNumStars(5);
+        float val = rating.getNumStars();
+        popDialog.setIcon(android.R.drawable.btn_star_big_on);
+        popDialog.setTitle("New rating:");
+        popDialog.setView(rating);
+// Button OK
+        popDialog.setPositiveButton(android.R.string.ok,
+        new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                double result = rating.getProgress(); //put this on the database
+                dialog.dismiss();
+            }
+
+        })
+
+
+// Button Cancel
+                .setNegativeButton("Cancel",
+
+        new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+
+        popDialog.create();
+        popDialog.show();
     }
 
     public boolean can_edit(int index) {

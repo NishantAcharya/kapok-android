@@ -32,7 +32,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="191dp"
-        android:text="Your account is all set up. Now it’s time to create a team or join one. If you have a team code, tap join a team! Otherwise, tap the create a team button. "
+        android:text="Your account is all set up. Now it’s time to create a team or join one. If you have a team code, tap join a team! Otherwise, tap the 'CREATE A NEW TEAM' button. "
         android:textAlignment="center" />
 
     <ImageView

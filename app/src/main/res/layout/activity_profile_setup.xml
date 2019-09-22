@@ -22,7 +22,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
-        android:text="Hey! We need few details from you before you start using Kapok" />
+        android:text="Hey! Your team administrator need few details from you before you start using Kapok" />
 
     <EditText
         android:id="@+id/contact_info_text_field"
