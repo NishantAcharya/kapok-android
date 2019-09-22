@@ -15,9 +15,8 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".TeamJoinRequestActivity"
-            android:label="@string/title_activity_team_join_request"
-            android:parentActivityName=".MapActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="Requests"
+            android:parentActivityName=".MapActivity" />
 
         <activity android:name=".Splash"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">

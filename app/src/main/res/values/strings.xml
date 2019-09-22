@@ -4,4 +4,18 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="title_activity_team_join_request">TeamJoinRequestActivity</string>
+
+
+    <string name="category_name">Category</string>
+
+    <string-array name="Categories">
+        <item>Choose a Category</item>
+        <item>Construction</item>
+        <item>Electrical</item>
+        <item>Engineer</item>
+        <item>Medical</item>
+        <item>Plumbing</item>
+        <item>Transportation</item>
+    </string-array>
+
 </resources>

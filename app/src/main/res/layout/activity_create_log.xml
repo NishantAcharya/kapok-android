@@ -27,8 +27,7 @@
         android:hint="Location"
         android:inputType="textEmailAddress" />
 
-
-    <EditText
+    <Spinner
         android:id="@+id/category_txt"
         android:layout_gravity="center"
         android:layout_width="352dp"
@@ -36,9 +35,9 @@
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="Category"
+        android:entries="@array/Categories"
+        android:prompt="@string/category_name"
         android:inputType="textEmailAddress" />
-
-
 
     <EditText
         android:id="@+id/notes_txt"
@@ -60,7 +59,7 @@
         android:layout_gravity="center"
         android:layout_alignParentTop="@+id/notes_txt"
         android:layout_alignParentBottom="true"
-        android:text="*Make sure to not include any sensitive information in this section"
+        android:text="*Make sure to not include any protected health information(PHI) in this section"
         android:textAlignment="center"
         android:textSize="10dp" />
 

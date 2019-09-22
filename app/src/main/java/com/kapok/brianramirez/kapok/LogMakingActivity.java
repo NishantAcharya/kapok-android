@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,7 +30,7 @@ import java.util.Random;
 public class LogMakingActivity extends AppCompatActivity {
 
     EditText locationTxtField;
-    EditText categoryTxtField;
+    Spinner categoryTxtField;
     EditText infoTxtField;
 
     RatingBar LogPriority;
@@ -53,7 +54,7 @@ public class LogMakingActivity extends AppCompatActivity {
                 Map<String, Object> log = new HashMap<>();
                 log.put("creator", currentUser);
                 log.put("location", locationTxtField.getText().toString());
-                log.put("category", categoryTxtField.getText().toString());
+                log.put("category", String.valueOf(categoryTxtField.getSelectedItem()));
                 log.put("info", infoTxtField.getText().toString());
                 log.put("Log Rating", String.valueOf(LogPriority.getRating()));
                 log.put("time", System.currentTimeMillis());
