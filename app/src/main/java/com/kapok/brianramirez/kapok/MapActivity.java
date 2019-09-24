@@ -63,7 +63,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private String currentUser;
     private ArrayList<Marker> curMarkers;
     int numOfReq;
-
+    String teamcode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -408,9 +408,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     public void removeFromTeam() {
-        //TODO
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userProf = db.collection("Profiles").document(currentUser);
+        FirebaseFirestore db = Database.db;
+        DocumentReference userProf = db.collection("Profiles").document(currentUser.toString());
         AlertDialog.Builder a = new AlertDialog.Builder(MapActivity.this);
         a.setMessage("Are you sure you want to leave the team").setCancelable(true)
                 .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
@@ -425,19 +424,22 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists()) {
                                         ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
+                                        teamcode=team.get(0);
                                         DocumentReference teamRef = db.collection("Teams").document(team.get(0));
                                         teamRef.update("members", FieldValue.arrayRemove(currentUser));
                                     }
                                 }
                                 userProf.update("status", "none");
-                                userProf.update("Teams", FieldValue.arrayRemove());
-                                Intent intent = new Intent(MapActivity.this, TeamDIsplayActivity.class);
+                                userProf.update("team", FieldValue.arrayRemove(teamcode));
+                                Intent intent = new Intent(MapActivity.this, TeamWelcomeActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
                         });
                     }
                 });
+        a.create();
+        a.show();
     }
 
     private void refreshMarkers(){
