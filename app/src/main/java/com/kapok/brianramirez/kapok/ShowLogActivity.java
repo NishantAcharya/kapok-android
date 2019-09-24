@@ -123,6 +123,7 @@ public class ShowLogActivity extends AppCompatActivity {
             if (id == R.id.menu_add_notes) {
             if (result==true) {
                 intent = new Intent(ShowLogActivity.this, EditNotesActivity.class);
+                //intent.putExtra("prev", )
                 ShowLogActivity.this.startActivityForResult(intent, 2);
             }
                 else
