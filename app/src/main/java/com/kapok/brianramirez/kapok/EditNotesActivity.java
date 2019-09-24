@@ -10,6 +10,7 @@ import android.widget.EditText;
 public class EditNotesActivity extends AppCompatActivity {
     String log;
     EditText currentNotes;
+    String result ;
     Button editlogBtn;
 
     @Override
@@ -17,7 +18,10 @@ public class EditNotesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_notes);
         currentNotes = findViewById(R.id.currentnotes);
+        result = getIntent().getStringExtra("prev");
+        currentNotes.setText(result);
         editlogBtn = findViewById(R.id.editLogBtn);
+
         editlogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

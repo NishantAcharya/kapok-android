@@ -1,13 +1,18 @@
 package com.kapok.brianramirez.kapok;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.Rating;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +37,9 @@ public class ShowLogActivity extends AppCompatActivity {
     float floatval;
     boolean result;
     TextView notesText;
+    RatingBar ratingBar;
+    String note;
+    RatingBar Rating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +53,7 @@ public class ShowLogActivity extends AppCompatActivity {
         TextView categoryText = findViewById(R.id.category_txt_display);
         notesText = findViewById(R.id.notes_txt_display);
         TextView creatorText = findViewById(R.id.creator_txt_display);
-        RatingBar Rating = findViewById(R.id.ratingBar);
+        Rating = findViewById(R.id.ratingBar);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = Database.db;
@@ -93,6 +101,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                                         locationText.setText(lat + "," + lon);
                                                         creatorText.setText(creatorName + "\n" + "Email:" + creator);
                                                         categoryText.setText(category);
+                                                        note = notes;
                                                         notesText.setText(notes);
                                                         Rating.setRating(floatval);
                                                     }
@@ -123,7 +132,7 @@ public class ShowLogActivity extends AppCompatActivity {
             if (id == R.id.menu_add_notes) {
             if (result==true) {
                 intent = new Intent(ShowLogActivity.this, EditNotesActivity.class);
-                //intent.putExtra("prev", )
+                intent.putExtra("prev", note);
                 ShowLogActivity.this.startActivityForResult(intent, 2);
             }
                 else
@@ -140,7 +149,8 @@ public class ShowLogActivity extends AppCompatActivity {
         if (id == R.id.menu_edit_priority) {
             if (result==true) {
                 Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
-                ShowDialog();
+                float curr = Rating.getRating();
+                ShowDialog(curr);
             }
 
             else {
@@ -201,38 +211,73 @@ public class ShowLogActivity extends AppCompatActivity {
 
     }
 
-    public void ShowDialog()
+    public void ShowDialog(float curr)
     {
-        AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
-        final RatingBar rating = new RatingBar(this);
-        rating.setRating(floatval);
-        rating.setNumStars(5);
-        float val = rating.getNumStars();
-        popDialog.setIcon(android.R.drawable.btn_star_big_on);
-        popDialog.setTitle("New rating:");
-        popDialog.setView(rating);
-// Button OK
-        popDialog.setPositiveButton(android.R.string.ok,
-        new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                double result = rating.getProgress(); //put this on the database
-                dialog.dismiss();
-            }
 
-        })
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_custom_with_rating);
+        RatingBar ratingBar2 = dialog.findViewById(R.id.ratingBar2);
+        ratingBar2.setRating(curr);
+        Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+        Button dialogButton2 = (Button) dialog.findViewById(R.id.dialogButtonOK2);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                FirebaseFirestore db = Database.db;
 
-// Button Cancel
-                .setNegativeButton("Cancel",
+                DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        ArrayList<String> location = new ArrayList<>();
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                                String TeamCode = userCurrentTeam.get(0);
+                                DocumentReference docRef = db.collection("Teams").document(TeamCode);
+                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot document = task.getResult();
+                                            if (document.exists()) {
+                                                ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
+                                                log = locations.get(logPos);
+                                                Map<String, Object> log2 = new HashMap<>();
+                                                log2.put("creator", log.get("creator").toString());
+                                                log2.put("location", log.get("location").toString());
+                                                log2.put("category", log.get("creator").toString());
+                                                log2.put("info", log.get("info").toString());
+                                                log2.put("Log Rating", ratingBar2.getRating());
+                                                log2.put("time", log.get("time").toString());
+                                                log2.put("point", log.get("point"));
+                                                docRef.update("logs", FieldValue.arrayRemove(log));
+                                                docRef.update("logs", FieldValue.arrayUnion(log2));
+                                                ratingBar.setRating(ratingBar2.getRating());
+                                                dialog.dismiss();
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
 
-        new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
             }
         });
 
-        popDialog.create();
-        popDialog.show();
+        dialogButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     public void can_edit(int index) {
