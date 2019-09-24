@@ -32,6 +32,7 @@ public class ShowLogActivity extends AppCompatActivity {
     float floatval;
     boolean result;
     TextView notesText;
+    String Note;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +94,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                                         locationText.setText(lat + "," + lon);
                                                         creatorText.setText(creatorName + "\n" + "Email:" + creator);
                                                         categoryText.setText(category);
+                                                        Note = notes;
                                                         notesText.setText(notes);
                                                         Rating.setRating(floatval);
                                                     }
@@ -123,7 +125,6 @@ public class ShowLogActivity extends AppCompatActivity {
             if (id == R.id.menu_add_notes) {
             if (result==true) {
                 intent = new Intent(ShowLogActivity.this, EditNotesActivity.class);
-                //intent.putExtra("prev", )
                 ShowLogActivity.this.startActivityForResult(intent, 2);
             }
                 else

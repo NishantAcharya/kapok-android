@@ -23,7 +23,7 @@ public class Splash extends AppCompatActivity {
             public void run() {
                 String team = database.getUserTeam();
                 if (team == null){
-                    Intent i = new Intent(Splash.this, JoinTeamActivity.class);
+                    Intent i = new Intent(Splash.this, TeamWelcomeActivity.class);
                     startActivity(i);
                 }
                 else if(team.equals("nouser")){

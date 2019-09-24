@@ -32,7 +32,10 @@ public class Database {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
                             ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
-                            team[0] = userCurrentTeam.get(0);
+                            if(!userCurrentTeam.isEmpty())
+                                currentTeam = userCurrentTeam.get(0);
+                            else
+                                currentTeam = null;
                         }
 
                     }
@@ -41,7 +44,6 @@ public class Database {
             });
 
         }
-        currentTeam = team[0];
     }
 
     public String getUserTeam(){
