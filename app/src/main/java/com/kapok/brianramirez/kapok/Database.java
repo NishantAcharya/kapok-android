@@ -15,12 +15,13 @@ import java.util.ArrayList;
 public class Database {
     public static FirebaseAuth mAuth;
     public static FirebaseFirestore db;
-    private FirebaseUser currentUser;
-    private String currentTeam;
+    public FirebaseUser currentUser;
+    public String currentTeam;
     Database(){
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
+
         final String[] team = {"nouser"};
         if (currentUser != null) {
 

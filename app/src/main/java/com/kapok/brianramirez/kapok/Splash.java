@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,9 +23,14 @@ public class Splash extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                FirebaseUser user = database.currentUser;
+                if (user == null){
+                    Intent i = new Intent(Splash.this, WelcomeActivity.class);
+                    startActivity(i);
+                }
                 String team = database.getUserTeam();
                 if (team == null){
-                    Intent i = new Intent(Splash.this, TeamWelcomeActivity.class);
+                    Intent i = new Intent(Splash.this, WelcomeActivity.class);
                     startActivity(i);
                 }
                 else if(team.equals("nouser")){
