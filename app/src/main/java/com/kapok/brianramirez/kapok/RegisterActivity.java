@@ -101,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
                                                 });
 
                                         AlertDialog.Builder a = new AlertDialog.Builder(RegisterActivity.this);
-                                        a.setMessage("Complete email verification and then click ok").setCancelable(true)
+                                        a.setMessage("Please check your email for further instructions. Click 'Accept' when done!").setCancelable(true)
                                                 .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
 
                                                     //If user accepts the request
