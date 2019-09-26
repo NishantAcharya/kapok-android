@@ -94,8 +94,8 @@ public class LogListViewActivity extends AppCompatActivity {
         if (id == R.id.sort_newest) {
             Comparator<Map<String, Object>> logComparator = new Comparator<Map<String, Object>>() {
                 public int compare(Map<String, Object> log1, Map<String, Object> log2) {
-                    long time1 = Long.parseLong((String) log1.get("time"));
-                    long time2 = Long.parseLong((String) log2.get("time"));
+                    long time1 = (Long) log1.get("time");
+                    long time2 = (Long) log2.get("time");
                     if(time1 >= time2)
                         return 1;
                     else
@@ -119,8 +119,8 @@ public class LogListViewActivity extends AppCompatActivity {
         if (id == R.id.sort_oldest) {
             Comparator<Map<String, Object>> logComparator = new Comparator<Map<String, Object>>() {
                 public int compare(Map<String, Object> log1, Map<String, Object> log2) {
-                    long time1 = (long) log1.get("time");
-                    long time2 = (long) log2.get("time");
+                    long time1 = (Long)log1.get("time");
+                    long time2 = (Long)log2.get("time");
                     if(time1 >= time2)
                         return -1;
                     else
@@ -143,6 +143,28 @@ public class LogListViewActivity extends AppCompatActivity {
         }
 
         if (id == R.id.sort_rating) {
+            Comparator<Map<String, Object>> logComparator = new Comparator<Map<String, Object>>() {
+                public int compare(Map<String, Object> log1, Map<String, Object> log2) {
+                    float time1 = Float.parseFloat((String)log1.get("Log Rating"));
+                    float time2 = Float.parseFloat((String)log2.get("Log Rating"));
+                    if(time1 >= time2)
+                        return -1;
+                    else
+                        return 1;
+                }
+            };
+            Collections.sort(baseLog, logComparator);
+            ArrayList<String> location = new ArrayList<>();
+            for (Map<String, Object> currLog : baseLog) {
+                location.add((String) currLog.get("location"));
+            }
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(LogListViewActivity.this, android.R.layout.simple_list_item_1, location);
+            lv.setAdapter(arrayAdapter);
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    openLogView(position);
+                }
+            });
 
         }
         return super.onOptionsItemSelected(item);
