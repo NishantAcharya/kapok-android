@@ -51,13 +51,12 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
 
-                logInBtn.setOnClickListener(new View.OnClickListener() {
+        logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String email = emailField.getText().toString();
                 String password = passwordField.getText().toString();
-
-                if (isValidRequest(email, password)){
+                if (isValidRequest(email, password)) {
                     mAuth.signInWithEmailAndPassword(email, password)
                             .addOnCompleteListener(LogInActivity.this, new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -78,13 +77,12 @@ public class LogInActivity extends AppCompatActivity {
                                                     if (document.exists()) {
                                                         ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
 
-                                                        if (userCurrentTeam.get(0) != null){
+                                                        if (userCurrentTeam.get(0) != null) {
                                                             Intent i = new Intent(LogInActivity.this, MapActivity.class);
                                                             startActivity(i);
                                                         }
 
-                                                    }
-                                                    else {
+                                                    } else {
                                                         Intent i = new Intent(LogInActivity.this, TeamWelcomeActivity.class);
                                                         startActivity(i);
                                                     }
@@ -111,14 +109,11 @@ public class LogInActivity extends AppCompatActivity {
 
     }
 
-    public static boolean isValidRequest(String email, String password){
+    public static boolean isValidRequest(String email, String password) {
         //TODO: Return true if both fields are not empty and are larget than length 5
+
         return true;
     }
-
-
-
-
 
 
 

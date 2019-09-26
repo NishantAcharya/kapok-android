@@ -49,7 +49,8 @@
             android:label="Teams" />
         <activity
             android:name=".CreateTeamActivity"
-            android:label="CreateTeam" />
+            android:label="CreateTeam"
+            android:parentActivityName=".TeamWelcomeActivity"/>
         <activity
             android:name=".MapActivity"
             android:label="Map" />
@@ -86,7 +87,8 @@
             android:label="Team Code" />
         <activity
             android:name=".JoinTeamActivity"
-            android:label="Join Team" />
+            android:label="Join Team"
+            android:parentActivityName=".TeamWelcomeActivity"/>
         <activity
             android:name=".JoinWaitActivity"
             android:label="Waiting Screen"

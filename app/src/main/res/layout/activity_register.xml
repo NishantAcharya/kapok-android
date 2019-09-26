@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".RegisterActivity">
+    android:layout_height="match_parent">
+
+
 
     <ImageView
         android:id="@+id/imageView"
@@ -16,31 +16,54 @@
         android:layout_marginTop="33dp"
         app:srcCompat="@drawable/logo" />
 
+
     <EditText
         android:id="@+id/email_text_field"
         android:layout_width="339dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/password_text_field"
+        android:layout_marginTop="250dp"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress" />
 
+
+
     <EditText
         android:id="@+id/password_text_field"
         android:layout_width="339dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="300dp"
+        android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword" />
 
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="339dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="340dp"
+        android:progress="0" />
+
+
+    <TextView
+        android:id="@+id/password_strength"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="350dp"
+        android:textAlignment="center"
+        android:text="Weak" />
+
     <EditText
         android:id="@+id/confirm_pass_text_field"
         android:layout_width="339dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/password_text_field"
         android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="390dp"
         android:ems="10"
         android:hint="Confirm Password"
         android:inputType="textPassword" />
@@ -59,3 +82,4 @@
 
 
 </RelativeLayout>
+
