@@ -1,11 +1,11 @@
 package com.kapok.brianramirez.kapok;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,7 +27,7 @@ import java.util.regex.Pattern;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class RegisterActivity extends Activity implements TextWatcher {
+public class RegisterActivity extends AppCompatActivity implements TextWatcher {
     EditText emailField;
     EditText passwordField;
     EditText confirmPassField;

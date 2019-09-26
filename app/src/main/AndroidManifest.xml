@@ -39,6 +39,7 @@
         <activity
             android:name=".RegisterActivity"
             android:label="Register"
+            android:theme="@style/AppTheme"
             android:parentActivityName=".WelcomeActivity" />
         <activity
             android:name=".ProfileSetupActivity"

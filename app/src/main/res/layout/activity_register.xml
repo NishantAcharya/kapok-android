@@ -1,27 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".RegisterActivity">
 
 
 
-    <ImageView
+<ImageView
         android:id="@+id/imageView"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="33dp"
-        app:srcCompat="@drawable/logo" />
+        android:visibility="visible"
+        app:srcCompat="@drawable/logo"
+        tools:visibility="visible" />
 
 
     <EditText
         android:id="@+id/email_text_field"
         android:layout_width="339dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
+        android:layout_marginTop="200dp"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="Email"
@@ -33,7 +36,7 @@
         android:id="@+id/password_text_field"
         android:layout_width="339dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="240dp"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="Password"
@@ -46,7 +49,7 @@
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="340dp"
+        android:layout_marginTop="280dp"
         android:progress="0" />
 
 
@@ -54,7 +57,7 @@
         android:id="@+id/password_strength"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="350dp"
+        android:layout_marginTop="300dp"
         android:textAlignment="center"
         android:text="Weak" />
 
@@ -63,7 +66,7 @@
         android:layout_width="339dp"
         android:layout_centerHorizontal="true"
         android:layout_height="wrap_content"
-        android:layout_marginTop="390dp"
+        android:layout_marginTop="330dp"
         android:ems="10"
         android:hint="Confirm Password"
         android:inputType="textPassword" />

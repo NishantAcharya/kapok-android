@@ -29,15 +29,16 @@
 
     <Spinner
         android:id="@+id/category_txt"
-        android:layout_gravity="center"
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
         android:ems="10"
-        android:hint="Category"
         android:entries="@array/Categories"
-        android:prompt="@string/category_name"
-        android:inputType="textEmailAddress" />
+        android:hint="Category"
+        android:inputType="textEmailAddress"
+        android:prompt="@string/category_name" />
 
     <EditText
         android:id="@+id/notes_txt"

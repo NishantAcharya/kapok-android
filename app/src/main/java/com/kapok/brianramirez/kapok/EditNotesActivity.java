@@ -37,4 +37,9 @@ public class EditNotesActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        //DO NOTHING
+    }
 }
