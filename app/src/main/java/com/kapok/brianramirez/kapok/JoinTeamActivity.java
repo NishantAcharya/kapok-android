@@ -28,7 +28,6 @@ public class JoinTeamActivity extends AppCompatActivity {
         setContentView(R.layout.activity_join_team);
         edit_team_code = findViewById(R.id.teamCode);
         joinTeam = findViewById(R.id.joinRequest);
-
         mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
 
@@ -60,6 +59,7 @@ public class JoinTeamActivity extends AppCompatActivity {
             }
         });
     }
+
     public void openJoinWait(String team){
         Intent i = new Intent(this, JoinWaitActivity.class).putExtra("teamid", team);
         startActivity(i);

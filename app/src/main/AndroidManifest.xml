@@ -55,13 +55,15 @@
             android:label="Map" />
         <activity
             android:name=".TeamDIsplayActivity"
-            android:label="Team Members" />
+            android:label="Team Members"
+            android:parentActivityName=".MapActivity"/>
         <activity
             android:name=".LogListViewActivity"
             android:label="Log: List View"
             android:parentActivityName=".MapActivity"/>
         <activity
             android:name=".LogMakingActivity"
+            android:parentActivityName=".MapActivity"
             android:label="Log Maker" />
         <activity android:name=".ForgotPasswordActivity"
             android:label="Forgot Password"
@@ -77,7 +79,8 @@
             android:parentActivityName=".TeamDIsplayActivity"/>
         <activity
             android:name=".TeamCodeDisplayActivity"
-            android:label="Team Code" />
+            android:label="Team Code"
+            android:parentActivityName=".MapActivity" />
         <activity
             android:name=".WaitingScreenActivity"
             android:label="Team Code" />

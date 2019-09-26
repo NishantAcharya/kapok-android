@@ -38,7 +38,6 @@ public class ProfileSetupActivity extends AppCompatActivity {
         contactInfoField = findViewById(R.id.contact_info_text_field);
         aboutMeField = findViewById(R.id.about_me_text_field);
         finishProfileBtn = findViewById(R.id.finish_profile_btn);
-
         mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
 
