@@ -1,12 +1,14 @@
 package com.kapok.brianramirez.kapok;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +24,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class RegisterActivity extends Activity implements TextWatcher {
     EditText emailField;
@@ -86,7 +90,49 @@ public class RegisterActivity extends Activity implements TextWatcher {
                                         // Sign in success
                                     } else {
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                        goToProfileSetup();
+                                        user.sendEmailVerification()
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Log.d(TAG, "Email sent.");
+                                                        }
+                                                    }
+                                                });
+
+                                        AlertDialog.Builder a = new AlertDialog.Builder(RegisterActivity.this);
+                                        a.setMessage("Complete email verification and then click ok").setCancelable(true)
+                                                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+
+                                                    //If user accepts the request
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        runOnUiThread(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                mAuth.getCurrentUser().reload();
+                                                            }
+                                                        });
+                                                        mAuth.signOut();
+                                                        mAuth.signInWithEmailAndPassword(email, password)
+                                                                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                                                    @Override
+                                                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                        FirebaseUser fu = mAuth.getCurrentUser();
+                                                                        if(fu.isEmailVerified()){
+                                                                            goToProfileSetup();
+                                                                            finish();
+
+                                                                        }
+                                                                        else {
+                                                                            fu.delete();
+                                                                        }
+                                                                    }
+                                                                });
+                                                    }
+                                                });
+                                        a.create();
+                                        a.show();
                                     }
                                 }
                             });
