@@ -1,10 +1,13 @@
 package com.kapok.brianramirez.kapok;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -132,8 +135,10 @@ public class ShowLogActivity extends AppCompatActivity {
         }
 
         if (id == R.id.menu_delete) {
-            if (result==true)
+            if (result==true){
                 Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
+                deletelog(logPos);
+            }
             else
                 Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
         }
@@ -270,6 +275,63 @@ public class ShowLogActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    public void deletelog(int logPos) {
+        FirebaseFirestore db = Database.db;
+        mAuth = Database.mAuth;
+        String currentUser = mAuth.getCurrentUser().getEmail();
+        DocumentReference userProf = db.collection("Profiles").document(currentUser);
+        AlertDialog.Builder a = new AlertDialog.Builder(ShowLogActivity.this);
+        a.setMessage("Are you sure you want to delete this log").setCancelable(true)
+                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+
+                    //If user accepts the request
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
+                                        DocumentReference teamRef = db.collection("Teams").document(team.get(0));
+                                        teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                DocumentSnapshot doc = task.getResult();
+                                                if (task.isSuccessful()){
+                                                    ArrayList<HashMap<String,Object>> logs = (ArrayList<HashMap<String, Object>>) doc.getData().get("logs");
+                                                    teamRef.update("logs", FieldValue.arrayRemove(logs.get(logPos)));
+                                                }
+
+                                            }
+                                        });
+                                    }
+                                }
+                                Intent intent = new Intent(ShowLogActivity.this, LogListViewActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+                    }
+                });
+        a.create();
+        a.show();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (keyCode == KeyEvent.KEYCODE_BACK ) {
+            Intent intent = new Intent(ShowLogActivity.this, LogListViewActivity.class);
+            startActivity(intent);
+            finish();
+            // do something on back.
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 
     public void can_edit(int index) {
