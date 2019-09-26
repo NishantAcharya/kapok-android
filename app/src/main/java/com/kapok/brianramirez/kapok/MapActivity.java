@@ -85,6 +85,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         displayListViewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                refreshMarkers();
                 Intent intent = new Intent(MapActivity.this, LogListViewActivity.class);
                 startActivity(intent);
             }
