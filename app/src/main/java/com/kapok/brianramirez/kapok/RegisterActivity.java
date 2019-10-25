@@ -91,7 +91,13 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
                                     } else {
                                         Intent goToProfileSetupIntent = new Intent(RegisterActivity.this, userVerifyActivity.class);
                                         startActivity(goToProfileSetupIntent);
-//                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Log.d(TAG, "Email sent.");
+                                            }
+                                        });
 //                                                if (task.isSuccessful()) {
 //                                                            user.sendEmailVerification()
 //                                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
