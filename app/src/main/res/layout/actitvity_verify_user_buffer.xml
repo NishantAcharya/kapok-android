@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="339dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="420dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="Log-In"
+            android:textColor="?attr/colorBackgroundFloating" />
+
+
+        <Button
+            android:id="@+id/resend_btn"
+            android:layout_width="339dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop = "480dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="Resend Confirmation link"
+            android:textColor="@color/colorPrimary" />
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="352dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="191dp"
+            android:text="We have sent you an email with verification instructions. Click on the log-in button after verifying your email.  "
+            android:textAlignment="center" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="33dp"
+            app:srcCompat="@drawable/logo" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="33dp"
+            app:srcCompat="@drawable/logo" />
+
+    </RelativeLayout>
+</ScrollView>
