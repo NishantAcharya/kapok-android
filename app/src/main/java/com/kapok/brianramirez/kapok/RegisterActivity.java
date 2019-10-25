@@ -91,13 +91,26 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
                                     }
 
                                     else {
+                                        mAuth.getCurrentUser().sendEmailVerification()
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        if (task.isSuccessful()) {
+                                                            Toast.makeText(RegisterActivity.this, "Email Sent",
+                                                                    Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    }
+                                                });
                                         Intent goToProfileSetupIntent = new Intent(RegisterActivity.this, userVerifyActivity.class);
                                         startActivity(goToProfileSetupIntent);
                                     }
                                 }
                             });
 
-                } else {
+
+
+
+                    } else {
                     //TODO: show error saying pass don't match or email is too short
                 }
             }
