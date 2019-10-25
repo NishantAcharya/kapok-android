@@ -40,6 +40,7 @@ public class Splash extends AppCompatActivity {
 
                 else if (user.isEmailVerified()){
                     String team = database.getUserTeam();
+                    String status = database.getUserStatus();
 
                     if(team == null && !Database.hasProfile){
                         Intent i = new Intent(Splash.this, ProfileSetupActivity.class);
@@ -51,11 +52,24 @@ public class Splash extends AppCompatActivity {
                         startActivity(i);
                     }
 
-                    else if (team != null && Database.hasProfile){
+
+                    if (team != null && Database.hasProfile && status.equals("rejected")){
+                        Intent i = new Intent(Splash.this, TeamWelcomeActivity.class);
+                        startActivity(i);
+                    }
+
+
+                    if (team != null && Database.hasProfile && status.equals("pending")){
+                        Intent i = new Intent(Splash.this, WaitingScreenActivity.class);
+                        startActivity(i);
+                    }
+
+                    else if (team != null && Database.hasProfile && status.equals("accepted")){
                         Intent i = new Intent(Splash.this, MapActivity.class);
                         startActivity(i);
-
                     }
+
+
                 }
 
             }

@@ -40,7 +40,6 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
         setContentView(R.layout.activity_register);
         mAuth = Database.mAuth;
 
-
         emailField = (EditText) findViewById(R.id.email_text_field);
         passwordField = (EditText) findViewById(R.id.password_text_field);
         confirmPassField = (EditText) findViewById(R.id.confirm_pass_text_field);
@@ -59,7 +58,6 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
                         pass.show();
                         count--;
                     }
-
                 PasswordStrength str = PasswordStrength.calculateStrength(password);
 
                 if (str.getText(RegisterActivity.this).equals("Weak")) {
@@ -117,22 +115,28 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
         });
     }
 
-    public void goToProfileSetup() {
+    public void goToProfileSetup()
+    {
         Intent goToProfileSetupIntent = new Intent(this, ProfileSetupActivity.class);
         startActivity(goToProfileSetupIntent);
     }
 
     @Override
-    public void afterTextChanged(Editable s) {
+    public void afterTextChanged(Editable s)
+    {
+
     }
 
     @Override
     public void beforeTextChanged(
-            CharSequence s, int start, int count, int after) {
+            CharSequence s, int start, int count, int after)
+    {
+
     }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    public void onTextChanged(CharSequence s, int start, int before, int count)
+    {
         updatePasswordStrengthView(s.toString());
 
     }
@@ -158,13 +162,20 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
         strengthView.setTextColor(str.getColor());
 
         progressBar1.getProgressDrawable().setColorFilter(str.getColor(), android.graphics.PorterDuff.Mode.SRC_IN);
-        if (str.getText(this).equals("Weak")) {
+        if (str.getText(this).equals("Weak"))
+        {
             progressBar1.setProgress(25);
-        } else if (str.getText(this).equals("Medium")) {
+        }
+        else if (str.getText(this).equals("Medium"))
+        {
             progressBar1.setProgress(50);
-        } else if (str.getText(this).equals("Strong")) {
+        }
+        else if (str.getText(this).equals("Strong"))
+        {
             progressBar1.setProgress(75);
-        } else {
+        }
+        else
+        {
             progressBar1.setProgress(100);
         }
     }

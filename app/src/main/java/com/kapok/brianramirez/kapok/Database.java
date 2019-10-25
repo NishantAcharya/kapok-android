@@ -17,7 +17,11 @@ public class Database {
     public static FirebaseFirestore db;
     public FirebaseUser currentUser;
     public String currentTeam;
+    public String currentStatus;
     public static boolean hasProfile;
+
+
+
     Database(){
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -33,8 +37,11 @@ public class Database {
                         if (document.exists()) {
                             hasProfile = true;
                             ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                            ArrayList<String> userCurrentStatus = (ArrayList<String>) document.getData().get("requests");
                             if(!userCurrentTeam.isEmpty())
                                 currentTeam = userCurrentTeam.get(0);
+                            if(!userCurrentStatus.isEmpty())
+                                currentStatus = userCurrentStatus.get(0);
                             else
                                 currentTeam = null;
                         }
@@ -56,6 +63,7 @@ public class Database {
     public String getUserTeam(){
         return currentTeam;
     }
+    public String getUserStatus() {return currentStatus; }
     public void updateProfile(String key, String value){
 
     }
