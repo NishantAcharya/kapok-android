@@ -20,7 +20,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="420dp"
             android:backgroundTint="@color/colorPrimary"
-            android:text="Log-In"
+            android:text="Proceed with profile setup"
             android:textColor="?attr/colorBackgroundFloating" />
 
 
