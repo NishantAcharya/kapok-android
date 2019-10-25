@@ -13,12 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".userVerifyActivity"></activity>
         <activity
             android:name=".TeamJoinRequestActivity"
             android:label="Requests"
             android:parentActivityName=".MapActivity" />
-
-        <activity android:name=".Splash"
+        <activity
+            android:name=".Splash"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,12 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".WelcomeActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        </activity>
-
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name=".LogInActivity"
             android:label="Log In"
@@ -39,8 +37,8 @@
         <activity
             android:name=".RegisterActivity"
             android:label="Register"
-            android:theme="@style/AppTheme"
-            android:parentActivityName=".WelcomeActivity" />
+            android:parentActivityName=".WelcomeActivity"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ProfileSetupActivity"
             android:label="Profile Setup"
@@ -51,34 +49,34 @@
         <activity
             android:name=".CreateTeamActivity"
             android:label="CreateTeam"
-            android:parentActivityName=".TeamWelcomeActivity"/>
+            android:parentActivityName=".TeamWelcomeActivity" />
         <activity
             android:name=".MapActivity"
             android:label="Map" />
         <activity
             android:name=".TeamDIsplayActivity"
             android:label="Team Members"
-            android:parentActivityName=".MapActivity"/>
+            android:parentActivityName=".MapActivity" />
         <activity
             android:name=".LogListViewActivity"
             android:label="Log: List View"
-            android:parentActivityName=".MapActivity"/>
+            android:parentActivityName=".MapActivity" />
         <activity
             android:name=".LogMakingActivity"
-            android:parentActivityName=".MapActivity"
-            android:label="Log Maker" />
-        <activity android:name=".ForgotPasswordActivity"
+            android:label="Log Maker"
+            android:parentActivityName=".MapActivity" />
+        <activity
+            android:name=".ForgotPasswordActivity"
             android:label="Forgot Password"
-            android:parentActivityName=".LogInActivity"/>
-
+            android:parentActivityName=".LogInActivity" />
         <activity
             android:name=".ShowLogActivity"
             android:label="Log"
-            android:parentActivityName=".LogListViewActivity"/>
+            android:parentActivityName=".LogListViewActivity" />
         <activity
             android:name=".ShowMemberActivity"
             android:label="Member Info"
-            android:parentActivityName=".TeamDIsplayActivity"/>
+            android:parentActivityName=".TeamDIsplayActivity" />
         <activity
             android:name=".TeamCodeDisplayActivity"
             android:label="Team Code"
@@ -89,7 +87,7 @@
         <activity
             android:name=".JoinTeamActivity"
             android:label="Join Team"
-            android:parentActivityName=".TeamWelcomeActivity"/>
+            android:parentActivityName=".TeamWelcomeActivity" />
         <activity
             android:name=".JoinWaitActivity"
             android:label="Waiting Screen"

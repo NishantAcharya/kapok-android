@@ -89,50 +89,60 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
                                                 Toast.LENGTH_SHORT).show();
                                         // Sign in success
                                     } else {
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        user.sendEmailVerification()
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            Log.d(TAG, "Email sent.");
-                                                        }
-                                                    }
-                                                });
+                                        Intent goToProfileSetupIntent = new Intent(RegisterActivity.this, ProfileSetupActivity.class);
+                                        startActivity(goToProfileSetupIntent);
+//                                        FirebaseUser user = mAuth.getCurrentUser();
+//                                                if (task.isSuccessful()) {
+//                                                            user.sendEmailVerification()
+//                                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                                        @Override
+//                                                                        public void onComplete(@NonNull Task<Void> task) {
+//                                                                            Log.d(TAG, "Email sent.");
+//                                                        }
+//                                                    }
+//                                                });
+//
 
-                                        AlertDialog.Builder a = new AlertDialog.Builder(RegisterActivity.this);
-                                        a.setMessage("Please check your email for further instructions. Click 'Accept' when done!").setCancelable(true)
-                                                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
-
-                                                    //If user accepts the request
-                                                    @Override
-                                                    public void onClick(DialogInterface dialog, int which) {
-                                                        runOnUiThread(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                                mAuth.getCurrentUser().reload();
-                                                            }
-                                                        });
-                                                        mAuth.signOut();
-                                                        mAuth.signInWithEmailAndPassword(email, password)
-                                                                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                                                                    @Override
-                                                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                                                        FirebaseUser fu = mAuth.getCurrentUser();
-                                                                        if(fu.isEmailVerified()){
-                                                                            goToProfileSetup();
-                                                                            finish();
-
-                                                                        }
-                                                                        else {
-                                                                            fu.delete();
-                                                                        }
-                                                                    }
-                                                                });
-                                                    }
-                                                });
-                                        a.create();
-                                        a.show();
+//                                        AlertDialog.Builder a = new AlertDialog.Builder(RegisterActivity.this);
+//                                        a.setMessage("Please check your email for further instructions. Click 'Accept' when done!").setCancelable(true)
+//                                                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+//
+//                                                        //If user accepts the request
+//                                                    @Override
+//                                                    public void onClick(DialogInterface dialog, int which) {
+//                                                        runOnUiThread(new Runnable() {
+//                                                            @Override
+//                                                            public void run() {
+//                                                                mAuth.getCurrentUser().reload();
+//                                                            }
+//                                                        });
+//                                                        mAuth.signOut();
+//                                                        mAuth.signInWithEmailAndPassword(email, password)
+//                                                                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+//                                                                    @Override
+//                                                                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                                                                        FirebaseUser fu = mAuth.getCurrentUser();
+//                                                                        if(fu.isEmailVerified()){
+//                                                                            goToProfileSetup();
+//                                                                            finish();
+//                                                                        }
+//                                                                        else {
+//                                                                            fu.delete()
+//                                                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                                                                        @Override
+//                                                                                        public void onComplete(@NonNull Task<Void> task) {
+//                                                                                            if (task.isSuccessful()) {
+//                                                                                                Log.d(TAG, "User account deleted.");
+//                                                                                            }
+//                                                                                        }
+//                                                                                    });
+//                                                                        }
+//                                                                    }
+//                                                                });
+//                                                    }
+//                                                });
+//                                        a.create();
+//                                        a.show();
                                     }
                                 }
                             });

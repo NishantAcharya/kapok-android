@@ -58,7 +58,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private MapView mapView;
     private Marker featureMarker;
     private MapboxMap mapboxMap;
-
+    private boolean isAdmin;
     private FirebaseAuth mAuth;
     private String currentUser;
     private ArrayList<Marker> curMarkers;
@@ -71,7 +71,20 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mAuth = Database.mAuth;
         currentUser = mAuth.getCurrentUser().getEmail();
         FirebaseFirestore db = Database.db;
+        DocumentReference docRef = db.collection("cities").document("SF");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                       isAdmin = (Boolean)document.get("isAdmin");
+                    }
+                } else {
 
+                }
+            }
+        });
         Button displayListViewBtn = findViewById(R.id.listView);
         FloatingActionButton refresh = findViewById(R.id.refreshButton);
 
@@ -147,8 +160,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         break;
 
                     case R.id.navLeaveTeam:
-                        removeFromTeam();
-
+                        if(isAdmin){
+                            Toast.makeText(MapActivity.this, "Sorry, but at the moment the admin can't leave team",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            removeFromTeam();
+                        }
                         break;
 
 
