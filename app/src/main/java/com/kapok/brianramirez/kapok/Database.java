@@ -21,8 +21,6 @@ public class Database {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
-
-        final String[] team = {"nouser"};
         if (currentUser != null) {
 
             DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
@@ -44,6 +42,9 @@ public class Database {
                 }
             });
 
+        }
+        else{
+            currentTeam = "noUser";
         }
     }
 
