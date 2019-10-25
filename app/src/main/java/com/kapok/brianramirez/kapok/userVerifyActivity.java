@@ -18,6 +18,7 @@ public class userVerifyActivity extends AppCompatActivity {
     Button verify;
     Button resend;
     private FirebaseAuth mAuth;
+    FirebaseUser fu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,10 +27,17 @@ public class userVerifyActivity extends AppCompatActivity {
         resend = (Button) findViewById(R.id.resend_btn);
         mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
-        FirebaseUser fu = mAuth.getCurrentUser();
+        fu = mAuth.getCurrentUser();
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAuth.getCurrentUser().reload();
+                    }
+                });
+                fu = mAuth.getCurrentUser();
                 if(fu.isEmailVerified()){
                     Intent goToProfileSetupIntent = new Intent(userVerifyActivity.this, ProfileSetupActivity.class);
                     startActivity(goToProfileSetupIntent);
