@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".RegisterActivity">
-
-
 
 <ImageView
         android:id="@+id/imageView"
@@ -75,14 +81,16 @@
         android:id="@+id/register_btn"
         android:layout_width="339dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50dp"
+        android:layout_marginTop="600dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="Register"
-        android:textColor="?attr/colorBackgroundFloating" />
+        android:textColor="?attr/colorBackgroundFloating"
 
+        />
 
 
 </RelativeLayout>
+</ScrollView>
+
 

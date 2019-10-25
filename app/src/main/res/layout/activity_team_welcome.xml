@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
+
+
+<RelativeLayout
+
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <Button
         android:id="@+id/cteam_btn"
         android:layout_width="339dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="121dp"
+        android:layout_marginTop = "480dp"
         android:backgroundTint="#FFFFFF"
         android:text="Create New Team"
         android:textColor="@color/colorPrimary" />
@@ -18,9 +27,8 @@
         android:id="@+id/jteam_btn"
         android:layout_width="339dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="189dp"
+        android:layout_marginTop="420dp"
         android:backgroundTint="@color/colorPrimary"
         android:text="Join a team"
         android:textColor="?attr/colorBackgroundFloating" />
@@ -54,3 +62,4 @@
         app:srcCompat="@drawable/logo" />
 
 </RelativeLayout>
+</ScrollView>

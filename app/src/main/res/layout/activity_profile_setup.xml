@@ -1,8 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+
+<RelativeLayout
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="321dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="Hey! Your team administrator need few details from you before you start using Kapok" />
+
+    <EditText
+        android:id="@+id/full_name_text_field"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_marginTop="90dp"
+        android:ems="10"
+        android:hint="Full Name"
+        android:inputType="textPersonName" />
+
+
+    <EditText
+        android:id="@+id/occupation_text_field"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:ems="10"
+        android:hint="Occupation"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/contact_info_text_field"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="210dp"
+        android:ems="10"
+        android:hint="Contact Information"
+        android:inputType="textPersonName" />
+
+
+    <EditText
+        android:id="@+id/about_me_text_field"
+        android:layout_width="322dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_marginTop = "270dp"
+        android:ems="10"
+        android:hint="About Me"
+        android:inputType="textMultiLine" />
+
 
     <Button
         android:id="@+id/finish_profile_btn"
@@ -15,57 +76,5 @@
         android:text="Finish Profile"
         android:textColor="?attr/colorBackgroundFloating" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="321dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="28dp"
-        android:text="Hey! Your team administrator need few details from you before you start using Kapok" />
-
-    <EditText
-        android:id="@+id/contact_info_text_field"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="219dp"
-        android:ems="10"
-        android:hint="Contact Information"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/occupation_text_field"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="158dp"
-        android:ems="10"
-        android:hint="Occupation"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/full_name_text_field"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_marginTop="93dp"
-        android:ems="10"
-        android:hint="Full Name"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/about_me_text_field"
-        android:layout_width="322dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignStart="@+id/textView4"
-        android:layout_marginBottom="170dp"
-        android:ems="10"
-        android:hint="About Me"
-        android:inputType="textMultiLine" />
-
 </RelativeLayout>
+</ScrollView>
