@@ -2,6 +2,7 @@ package com.kapok.brianramirez.kapok;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,25 +37,25 @@ public class Splash extends AppCompatActivity {
                     Intent i = new Intent(Splash.this, userVerifyActivity.class);
                     startActivity(i);
                 }
-                else{
-                    if(!Database.hasProfile){
+
+                else if (user.isEmailVerified()){
+                    String team = database.getUserTeam();
+
+                    if(team == null && !Database.hasProfile){
                         Intent i = new Intent(Splash.this, ProfileSetupActivity.class);
                         startActivity(i);
                     }
-                }
 
-                String team = database.getUserTeam();
-                if (team == null){
-                    Intent i = new Intent(Splash.this, TeamWelcomeActivity.class);
-                    startActivity(i);
-                }
-//                else if(team.equals("nouser")){
-//                    Intent i = new Intent(Splash.this, WelcomeActivity.class);
-//                    startActivity(i);
-//                }
-                else{
-                    Intent i = new Intent(Splash.this, MapActivity.class);
-                    startActivity(i);
+                    if (team == null && Database.hasProfile){
+                        Intent i = new Intent(Splash.this, TeamWelcomeActivity.class);
+                        startActivity(i);
+                    }
+
+                    else if (team != null && Database.hasProfile){
+                        Intent i = new Intent(Splash.this, MapActivity.class);
+                        startActivity(i);
+
+                    }
                 }
 
             }
