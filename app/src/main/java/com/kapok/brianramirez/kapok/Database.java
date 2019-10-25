@@ -17,6 +17,7 @@ public class Database {
     public static FirebaseFirestore db;
     public FirebaseUser currentUser;
     public String currentTeam;
+    public static boolean hasProfile;
     Database(){
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -30,11 +31,15 @@ public class Database {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
+                            hasProfile = true;
                             ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
                             if(!userCurrentTeam.isEmpty())
                                 currentTeam = userCurrentTeam.get(0);
                             else
                                 currentTeam = null;
+                        }
+                        else{
+                            hasProfile = false;
                         }
 
                     }

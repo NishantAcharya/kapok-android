@@ -36,15 +36,22 @@ public class Splash extends AppCompatActivity {
                     Intent i = new Intent(Splash.this, userVerifyActivity.class);
                     startActivity(i);
                 }
+                else{
+                    if(!Database.hasProfile){
+                        Intent i = new Intent(Splash.this, ProfileSetupActivity.class);
+                        startActivity(i);
+                    }
+                }
+
                 String team = database.getUserTeam();
                 if (team == null){
                     Intent i = new Intent(Splash.this, TeamWelcomeActivity.class);
                     startActivity(i);
                 }
-                else if(team.equals("nouser")){
-                    Intent i = new Intent(Splash.this, WelcomeActivity.class);
-                    startActivity(i);
-                }
+//                else if(team.equals("nouser")){
+//                    Intent i = new Intent(Splash.this, WelcomeActivity.class);
+//                    startActivity(i);
+//                }
                 else{
                     Intent i = new Intent(Splash.this, MapActivity.class);
                     startActivity(i);
