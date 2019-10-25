@@ -89,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
                                                 Toast.LENGTH_SHORT).show();
                                         // Sign in success
                                     } else {
-                                        Intent goToProfileSetupIntent = new Intent(RegisterActivity.this, ProfileSetupActivity.class);
+                                        Intent goToProfileSetupIntent = new Intent(RegisterActivity.this, userVerifyActivity.class);
                                         startActivity(goToProfileSetupIntent);
 //                                        FirebaseUser user = mAuth.getCurrentUser();
 //                                                if (task.isSuccessful()) {

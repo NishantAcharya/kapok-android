@@ -19,6 +19,7 @@ public class Splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         database = new Database();
 
+
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
