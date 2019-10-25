@@ -14,6 +14,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.concurrent.TimeUnit;
+
 public class userVerifyActivity extends AppCompatActivity {
     Button verify;
     Button resend;
@@ -35,18 +37,30 @@ public class userVerifyActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         mAuth.getCurrentUser().reload();
+                        try
+                        {
+                            Thread.sleep(2000);
+                        }
+                        catch(InterruptedException ex)
+                        {
+                            Thread.currentThread().interrupt();
+                        }
                     }
                 });
+
                 fu = mAuth.getCurrentUser();
+
                 if(fu.isEmailVerified()){
                     Intent goToProfileSetupIntent = new Intent(userVerifyActivity.this, ProfileSetupActivity.class);
                     startActivity(goToProfileSetupIntent);
                 }
-                else{
+
+                else if(!fu.isEmailVerified()){
                     Toast.makeText(userVerifyActivity.this, "Verification failed.",
                             Toast.LENGTH_SHORT).show();
                 }
             }
+
         });
         resend.setOnClickListener(new View.OnClickListener() {
             @Override
