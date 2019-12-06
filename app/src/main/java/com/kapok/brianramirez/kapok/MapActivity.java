@@ -499,6 +499,41 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapView.onSaveInstanceState(outState);
     }
 
+    public void adminLeave(){
+        FirebaseFirestore db = Database.db;
+        DocumentReference userProf = db.collection("Profiles").document(currentUser.toString());
+        AlertDialog.Builder a = new AlertDialog.Builder(MapActivity.this);
+        a.setMessage("Are you sure you want to leave the team").setCancelable(true)
+                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+
+                    //If user accepts the request
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
+                                        teamcode=team.get(0);
+                                        DocumentReference teamRef = db.collection("Teams").document(team.get(0));
+                                        teamRef.update("members", FieldValue.arrayRemove(currentUser));
+                                    }
+                                }
+                                userProf.update("status", "none");
+                                userProf.update("team", FieldValue.arrayRemove(teamcode));
+                                Intent intent = new Intent(MapActivity.this, TeamWelcomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+                    }
+                });
+        a.create();
+        a.show();
+    }
+
     public void removeFromTeam() {
         FirebaseFirestore db = Database.db;
         DocumentReference userProf = db.collection("Profiles").document(currentUser.toString());
