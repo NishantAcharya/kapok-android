@@ -15,57 +15,9 @@ import java.util.ArrayList;
 public class Database {
     public static FirebaseAuth mAuth;
     public static FirebaseFirestore db;
-    public FirebaseUser currentUser;
-    public String currentTeam;
-    public String currentStatus;
+    public static FirebaseUser currentUser;
+    public static String currentTeam;
+    public static String currentStatus;
     public static boolean hasProfile;
-
-
-
-    Database(){
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-        db = FirebaseFirestore.getInstance();
-        if (currentUser != null) {
-
-            DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            hasProfile = true;
-                            ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
-                            ArrayList<String> userCurrentStatus = (ArrayList<String>) document.getData().get("requests");
-                            if(!userCurrentTeam.isEmpty())
-                                currentTeam = userCurrentTeam.get(0);
-                            if(!userCurrentStatus.isEmpty())
-                                currentStatus = userCurrentStatus.get(0);
-                            else
-                                currentTeam = null;
-                        }
-                        else{
-                            hasProfile = false;
-                        }
-
-                    }
-
-                }
-            });
-
-        }
-        else{
-            currentTeam = "noUser";
-        }
-    }
-
-    public String getUserTeam(){
-        return currentTeam;
-    }
-    public String getUserStatus() {return currentStatus; }
-    public void updateProfile(String key, String value){
-
-    }
 
 }
