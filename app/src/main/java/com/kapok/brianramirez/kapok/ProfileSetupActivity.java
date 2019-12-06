@@ -56,7 +56,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 user.put("about", aboutMeField.getText().toString());
                 user.put("isAdmin", false);
                 user.put("team", team);
-                user.put("status", "None");
+                user.put("status", "none");
                 user.put("recentMapPoint", null);
                 user.put("requests", new ArrayList<String>(1));
 
