@@ -1,9 +1,13 @@
 package com.kapok.brianramirez.kapok;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -12,11 +16,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 public class ShowMemberActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     String member;
+    String teamcode;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -60,5 +69,64 @@ public class ShowMemberActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_logout, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.kickOut) {
+            removeFromTeam();
+            Intent intent = new Intent(ShowMemberActivity.this, TeamDIsplayActivity.class);
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void removeFromTeam() {
+        FirebaseFirestore db = Database.db;
+        DocumentReference userProf = db.collection("Profiles").document(member);
+        AlertDialog.Builder a = new AlertDialog.Builder(ShowMemberActivity.this);
+        a.setMessage("Are you sure you want to kick this member out of the team?").setCancelable(true)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+                    //If user accepts the request
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
+                                        teamcode=team.get(0);
+                                        DocumentReference teamRef = db.collection("Teams").document(team.get(0));
+                                        teamRef.update("members", FieldValue.arrayRemove(member));
+                                    }
+                                }
+                                userProf.update("status", "none");
+                                userProf.update("team", FieldValue.arrayRemove(teamcode));
+                                Intent intent = new Intent(ShowMemberActivity.this, TeamWelcomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
+                    }
+                });
+        a.create();
+        a.show();
+    }
+    public  void openJoinTeam(){
+        Intent intent = new Intent(this, JoinTeamActivity.class);
+        startActivity(intent);
+    }
+
 }
 

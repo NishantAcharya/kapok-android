@@ -29,14 +29,22 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.mapbox.android.core.permissions.PermissionsListener;
+import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.geojson.Feature;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Marker;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
 import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.location.LocationComponent;
+import com.mapbox.mapboxsdk.location.modes.CameraMode;
+import com.mapbox.mapboxsdk.location.modes.RenderMode;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
+import com.mapbox.mapboxsdk.maps.Style;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +53,9 @@ import java.util.Map;
 /**
  * Display map property information for a clicked map feature
  */
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback,
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener,
         MapboxMap.OnMapClickListener {
+    private PermissionsManager permissionsManager;
     private ListView mDrawerList;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
@@ -67,6 +76,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Mapbox.getInstance(this, "pk.eyJ1Ijoia2Fwb2stZGV2ZWxvcGVyIiwiYSI6ImNqbzFscjE2ejBjd2Mza210amdtN252OXYifQ.0gR_XnITpdJF-RquzFfIcQ");
         setContentView(R.layout.activity_map);
         mAuth = Database.mAuth;
         currentUser = mAuth.getCurrentUser().getEmail();
@@ -103,6 +113,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 startActivity(intent);
             }
         });
+
+
 
 
         DocumentReference userProf = db.collection("Profiles").document(currentUser);
@@ -182,7 +194,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 // Mapbox access token is configured here. This needs to be called either in your application
 // object or in the same activity which contains the mapview.
-        Mapbox.getInstance(this, "pk.eyJ1Ijoia2Fwb2stZGV2ZWxvcGVyIiwiYSI6ImNqbzFscjE2ejBjd2Mza210amdtN252OXYifQ.0gR_XnITpdJF-RquzFfIcQ");
+
 
 // This contains the MapView in XML and needs to be called after the access token is configured.
 
@@ -190,6 +202,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+
+
+        FloatingActionButton findMe = findViewById(R.id.findmeButton);
+        findMe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            onMapReady(MapActivity.this.mapboxMap);
+            }
+        });
 
     }
 
@@ -212,14 +233,74 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     //MAPBOX METHODS///////////////////////////////////////////////////////////////
 
     @Override
-    public void onMapReady(MapboxMap mapboxMap) {
+    public void onMapReady(@NonNull final MapboxMap mapboxMap) {
         MapActivity.this.mapboxMap = mapboxMap;
+        mapboxMap.setStyle(new Style.Builder().fromUri("mapbox://styles/mapbox/cjerxnqt3cgvp2rmyuxbeqme7"),
+                new Style.OnStyleLoaded() {
+                    @Override
+                    public void onStyleLoaded(@NonNull Style style) {
+                        enableLocationComponent(style);
+                    }
+                });
+
         mapboxMap.addOnMapClickListener(this);
         refreshMarkers();
     }
 
+    @SuppressWarnings( {"MissingPermission"})
+    private void enableLocationComponent(@NonNull Style loadedMapStyle) {
+// Check if permissions are enabled and if not request
+        if (PermissionsManager.areLocationPermissionsGranted(this)) {
+
+// Get an instance of the component
+            LocationComponent locationComponent = mapboxMap.getLocationComponent();
+
+// Activate with options
+            locationComponent.activateLocationComponent(
+                    LocationComponentActivationOptions.builder(this, loadedMapStyle).build());
+
+// Enable to make component visible
+            locationComponent.setLocationComponentEnabled(true);
+
+// Set the component's camera mode
+            locationComponent.setCameraMode(CameraMode.TRACKING);
+
+// Set the component's render mode
+            locationComponent.setRenderMode(RenderMode.COMPASS);
+            locationComponent.zoomWhileTracking(20);
+        } else {
+            permissionsManager = new PermissionsManager(this);
+            permissionsManager.requestLocationPermissions(this);
+        }
+    }
+
     @Override
-    public void onMapClick(@NonNull LatLng point) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    public void onExplanationNeeded(List<String> permissionsToExplain) {
+        Toast.makeText(this, R.string.user_location_permission_explanation, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onPermissionResult(boolean granted) {
+        if (granted) {
+            mapboxMap.getStyle(new Style.OnStyleLoaded() {
+                @Override
+                public void onStyleLoaded(@NonNull Style style) {
+                    enableLocationComponent(style);
+                }
+            });
+        } else {
+            Toast.makeText(this, R.string.user_location_permission_not_granted, Toast.LENGTH_LONG).show();
+            finish();
+        }
+    }
+
+    @Override
+    public boolean onMapClick(@NonNull LatLng point) {
 
 
         if (featureMarker != null) {
@@ -245,16 +326,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             StringBuilder stringBuilder = new StringBuilder();
             if (feature.properties() != null) {
-//                for (int i = 0; i < 100; i++) {
-//                    featureMarker = mapboxMap.addMarker(new MarkerOptions()
-//                            .position(point)
-//                            .title("Location:")
-//                            .snippet(point.getLatitude() + "," + point.getLongitude())
-//                    );
-//
-//                    //  openLogMaker();
-//                }
-
                 featureMarker = mapboxMap.addMarker(new MarkerOptions()
                         .position(point)
                         .title("Location:")
@@ -265,6 +336,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapboxMap.selectMarker(featureMarker);
         refreshMarkers();
         startOpenLog();
+        return true;
     }
 
 
@@ -290,6 +362,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
+    @SuppressWarnings( {"MissingPermission"})
     protected void onStart() {
         super.onStart();
         mapView.onStart();

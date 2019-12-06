@@ -12,9 +12,11 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        mapbox:mapbox_cameraZoom="12"
         mapbox:mapbox_cameraTargetLat="40.73581"
-        mapbox:mapbox_cameraTargetLng="-73.99155"
-        mapbox:mapbox_styleUrl="@string/mapbox_style_mapbox_streets">
+        mapbox:mapbox_cameraTargetLng="-73.99155">
+
+
     </com.mapbox.mapboxsdk.maps.MapView>
 
     <RelativeLayout
@@ -30,6 +32,19 @@
             android:backgroundTint="@color/colorPrimary"
             android:text="List View"
             android:textColor="@android:color/background_light" />
+
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/findmeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight = "25dp"
+            android:layout_marginTop = "45dp"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            app:srcCompat="@android:drawable/ic_menu_mylocation" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/refreshButton"
