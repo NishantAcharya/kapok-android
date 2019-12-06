@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".userVerifyActivity"></activity>
+        <activity android:name=".AdminChangeActivity"></activity>
+        <activity android:name=".userVerifyActivity" />
         <activity
             android:name=".TeamJoinRequestActivity"
             android:label="Requests"
@@ -29,7 +30,7 @@
         </activity>
         <activity
             android:name=".WelcomeActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".LogInActivity"
             android:label="Log In"
@@ -42,7 +43,6 @@
         <activity
             android:name=".ProfileSetupActivity"
             android:label="Profile Setup" />
-
         <activity
             android:name=".TeamWelcomeActivity"
             android:label="Teams" />

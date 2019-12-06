@@ -15,9 +15,6 @@
             android:id="@+id/navLogOut"
             android:title="Log Out" />
         <item
-            android:id="@+id/transferAdmin"
-            android:title="Change Admin" />
-        <item
             android:id="@+id/navLeaveTeam"
             android:title="Leave Team" />
     </group>

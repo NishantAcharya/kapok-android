@@ -8,6 +8,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,12 +21,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Ref;
 import java.util.ArrayList;
 
 public class ShowMemberActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     String member;
     String teamcode;
+    ArrayList<String> requests;
 
 
     @Override
@@ -41,12 +45,13 @@ public class ShowMemberActivity extends AppCompatActivity {
         TextView contactInfoText = findViewById(R.id.contact_info_text_field);
         TextView aboutText = findViewById(R.id.about_me_text_field);
         TextView registeredEmailText = findViewById(R.id.registered_email_text_field);
+        Button makeAdmin = findViewById(R.id.makeAdmin);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = Database.db;
 
-        DocumentReference docRef = db.collection("Profiles").document(member);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        DocumentReference memberRef = db.collection("Profiles").document(member);
+        memberRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -66,6 +71,32 @@ public class ShowMemberActivity extends AppCompatActivity {
 
                     }
                 }
+            }
+        });
+        makeAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DocumentReference userRef = db.collection("Profiles").document(Database.currentUser.getEmail());
+                userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                requests = (ArrayList<String>) document.get("requests");
+                            }
+                        }
+                    }
+                });
+                userRef.update("isAdmin", false);
+
+
+                DocumentReference userProf = db.collection("Profiles").document(member);
+                // Set the admin field of the current user to true
+                userProf.update("requests", FieldValue.arrayUnion(requests));
+                userProf.update("isAdmin", true);
+
+                userRef.update("requests", FieldValue.arrayRemove(requests));
             }
         });
     }
@@ -113,7 +144,7 @@ public class ShowMemberActivity extends AppCompatActivity {
                                 }
                                 userProf.update("status", "none");
                                 userProf.update("team", FieldValue.arrayRemove(teamcode));
-                                Intent intent = new Intent(ShowMemberActivity.this, TeamWelcomeActivity.class);
+                                Intent intent = new Intent(ShowMemberActivity.this, TeamDIsplayActivity.class);
                                 startActivity(intent);
                                 finish();
                             }
