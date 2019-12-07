@@ -29,6 +29,7 @@ public class ShowMemberActivity extends AppCompatActivity {
     String member;
     String teamcode;
     ArrayList<String> requests;
+    FirebaseFirestore db = Database.db;
 
 
     @Override
@@ -45,10 +46,9 @@ public class ShowMemberActivity extends AppCompatActivity {
         TextView contactInfoText = findViewById(R.id.contact_info_text_field);
         TextView aboutText = findViewById(R.id.about_me_text_field);
         TextView registeredEmailText = findViewById(R.id.registered_email_text_field);
-        Button makeAdmin = findViewById(R.id.makeAdmin);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        FirebaseFirestore db = Database.db;
+
 
         DocumentReference memberRef = db.collection("Profiles").document(member);
         memberRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -73,32 +73,6 @@ public class ShowMemberActivity extends AppCompatActivity {
                 }
             }
         });
-        makeAdmin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DocumentReference userRef = db.collection("Profiles").document(Database.currentUser.getEmail());
-                userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                requests = (ArrayList<String>) document.get("requests");
-                            }
-                        }
-                    }
-                });
-                userRef.update("isAdmin", false);
-
-
-                DocumentReference userProf = db.collection("Profiles").document(member);
-                // Set the admin field of the current user to true
-                userProf.update("requests", FieldValue.arrayUnion(requests));
-                userProf.update("isAdmin", true);
-
-                userRef.update("requests", FieldValue.arrayRemove(requests));
-            }
-        });
     }
 
 
@@ -116,6 +90,31 @@ public class ShowMemberActivity extends AppCompatActivity {
             Intent intent = new Intent(ShowMemberActivity.this, TeamDIsplayActivity.class);
             startActivity(intent);
         }
+
+        if (id == R.id.makeAdmin) {
+            DocumentReference userRef = db.collection("Profiles").document(Database.currentUser.getEmail());
+            userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            requests = (ArrayList<String>) document.get("requests");
+                        }
+                    }
+                }
+            });
+            userRef.update("isAdmin", false);
+
+
+            DocumentReference userProf = db.collection("Profiles").document(member);
+            // Set the admin field of the current user to true
+            userProf.update("requests", FieldValue.arrayUnion(requests));
+            userProf.update("isAdmin", true);
+
+            userRef.update("requests", FieldValue.arrayRemove(requests));
+        }
+
 
         return super.onOptionsItemSelected(item);
     }

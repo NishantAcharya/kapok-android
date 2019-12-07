@@ -5,4 +5,9 @@
         android:orderInCategory="100"
         android:title="Kick this member out" />
 
+    <item
+        android:id="@+id/makeAdmin"
+        android:orderInCategory="100"
+        android:title="Make Admin" />
+
 </menu>

@@ -1,6 +1,7 @@
 package com.kapok.brianramirez.kapok;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -114,6 +115,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private String currentUser;
     private ArrayList<Marker> curMarkers;
     int numOfReq;
+    final Context context = this;
     String teamcode;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,9 +213,47 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         goToTeamJoinRequest();
                         break;
 
-
+                        //Alert box....
                     case R.id.navLeaveTeam:
                         if(isAdmin()){
+                            if(hasMembers()) {
+
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+
+                                // set title
+                                //alertDialogBuilder.setTitle("Your Title");
+
+                                // set dialog message
+                                alertDialogBuilder
+                                        .setMessage("You are the admin of the team, you have to perform either one of the activity before proceeding to leave the team!")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Close this activity and choose a new team admin", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // if this button is clicked, close
+                                                // current activity
+                                                dialog.cancel();
+                                            }
+                                        })
+                                        .setNegativeButton("I wish to dissolve the team regardless", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                // if this button is clicked, just close
+                                                // the dialog box and do nothing
+                                                removeFromTeam();
+                                                //DISSOLVE IT....
+                                            }
+                                        });
+
+                                // create alert dialog
+                                AlertDialog alertDialog = alertDialogBuilder.create();
+
+                                // show it
+                                alertDialog.show();
+                            }
+
+                            else if (!hasMembers()){
+                                removeFromTeam();
+
+                            }
 
                         }
                         else {
@@ -624,31 +664,48 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-/*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public boolean member_check = false;
 
-        //noinspection SimplifiableIfStatement
+    public boolean hasMembers(){
 
-        switch (id)
-        {
-            case R.id.navLogOut:
-                logOutOption();
-                break;
-        }
+        FirebaseFirestore db = Database.db;
+        DocumentReference userProf = db.collection("Profiles").document(currentUser);
+        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task)
+            {
+                if (task.isSuccessful())
+                {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists())
+                    {
+                        ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
 
-        // Activate the navigation drawer toggle
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
+                        DocumentReference docRef = db.collection("Teams").document(team.get(0));
+//
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot teamDoc = task.getResult();
+                                    if (teamDoc.exists()) {
+                                        ArrayList<String> members = (ArrayList<String>) teamDoc.get("members");
+                                        if (members.size() > 1) {
+                                            member_check = true;
 
-        return super.onOptionsItemSelected(item);
+                                        }
+                                    } else {
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+    });
+        return member_check;
     }
-*/
+
     public void logOutOption() {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             mAuth.signOut();
