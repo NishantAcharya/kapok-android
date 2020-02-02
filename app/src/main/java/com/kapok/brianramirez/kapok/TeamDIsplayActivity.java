@@ -33,12 +33,16 @@ public class TeamDIsplayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Setting uo the UI
         setContentView(R.layout.activity_team_display);
         lv = findViewById(R.id.listView);
         addLogListView = findViewById(R.id.addLogListView);
+
+        //FireBase Instance
         mAuth = Database.mAuth;
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = mAuth.getCurrentUser(); //Current User
         FirebaseFirestore db = Database.db;
+
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

@@ -99,6 +99,13 @@ public class ShowLogActivity extends AppCompatActivity {
                                                         note = notes;
                                                         notesText.setText(notes);
                                                         Rating.setRating(floatval);
+
+                                                        locationText.setOnClickListener(new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View view) {
+                                                                openMapDisplay();
+                                                            }
+                                                        });
                                                     }
                                                 }
                                             }
@@ -376,5 +383,11 @@ public class ShowLogActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void openMapDisplay(){
+        Intent i = new Intent(this, MapActivity.class);
+        finish();
+        startActivity(i);
     }
 }
