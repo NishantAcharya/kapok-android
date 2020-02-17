@@ -125,7 +125,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mAuth = Database.mAuth;
         currentUser = mAuth.getCurrentUser().getEmail();
         FirebaseFirestore db = Database.db;
-        DocumentReference docRef = db.collection("cities").document("SF");
+        DocumentReference docRef = db.collection("Profiles").document(currentUser);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -296,7 +296,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private boolean isAdmin() {
         FirebaseFirestore db = Database.db;
-        DocumentReference docRef = db.collection("cities").document("SF");
+        DocumentReference docRef = db.collection("Profiles").document(currentUser);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -315,7 +315,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private boolean isTeamEmpty(){
         FirebaseFirestore db = Database.db;
-        DocumentReference docRef = db.collection("cities").document("SF");
+        DocumentReference docRef = db.collection("Profiles").document("SF");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
