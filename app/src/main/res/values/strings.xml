@@ -27,4 +27,24 @@
     <string name="password_strength_strong">Strong</string>
     <string name="password_strength_very_strong">Very Strong</string>
 
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="slide_1_title">Welcome to Kapok</string>
+    <string name="slide_1_desc">Manage your response team on the go!</string>
+
+    <string name="slide_2_title">Create Markers</string>
+    <string name="slide_2_desc">Drop pins for tasks that need attention!</string>
+
+    <string name="slide_3_title">Low Internet Mode</string>
+    <string name="slide_3_desc">Keep connected with your team even during attention shortage!</string>
+
+    <string name="slide_4_title">Disaster Response</string>
+    <string name="slide_4_desc">Create an account now and allocate your time and energy more efficiently!</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+
 </resources>

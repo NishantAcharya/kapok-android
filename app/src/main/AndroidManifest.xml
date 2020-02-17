@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Splash"></activity>
         <activity android:name=".AdminChangeActivity"></activity>
         <activity android:name=".userVerifyActivity" />
         <activity
@@ -20,7 +21,7 @@
             android:label="Requests"
             android:parentActivityName=".MapActivity" />
         <activity
-            android:name=".Splash"
+            android:name=".Intro"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
