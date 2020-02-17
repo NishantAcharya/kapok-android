@@ -20,6 +20,7 @@ import static com.mapbox.mapboxsdk.style.expressions.Expression.toNumber;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -132,6 +133,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Mapbox.getInstance(this, "pk.eyJ1Ijoia2Fwb2stZGV2ZWxvcGVyIiwiYSI6ImNqbzFscjE2ejBjd2Mza210amdtN252OXYifQ.0gR_XnITpdJF-RquzFfIcQ");
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         setContentView(R.layout.activity_map);
         mAuth = Database.mAuth;
         currentUser = mAuth.getCurrentUser().getEmail();
@@ -229,6 +235,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     case R.id.navTeamCode:
                         goToTeamCodeDisplay();
+                        break;
+
+                    case R.id.navChangeTheme:
+                        changeTheme();
                         break;
 
                     case R.id.navLogOut:
@@ -830,6 +840,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void goToTeamDisplay() {
         Intent intent = new Intent(this, TeamDIsplayActivity.class);
         startActivity(intent);
+    }
+
+    public void changeTheme(){
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+
+        finish();
+        startActivity(new Intent(MapActivity.this, MapActivity.this.getClass()));
     }
 
     public void goToTeamCodeDisplay() {
