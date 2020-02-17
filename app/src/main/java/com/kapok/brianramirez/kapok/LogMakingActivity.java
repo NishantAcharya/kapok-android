@@ -57,7 +57,7 @@ public class LogMakingActivity extends AppCompatActivity {
                 log.put("category", String.valueOf(categoryTxtField.getSelectedItem()));
                 log.put("info", infoTxtField.getText().toString());
                 log.put("Log Rating", String.valueOf(LogPriority.getRating()));
-                log.put("time", System.currentTimeMillis());
+                log.put("time", String.valueOf(System.currentTimeMillis()));
                 FirebaseFirestore db = Database.db;
                 DocumentReference userProf = db.collection("Profiles").document(currentUser);
                 userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

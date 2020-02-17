@@ -1,6 +1,7 @@
 package com.kapok.brianramirez.kapok;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,6 +36,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.geojson.Feature;
@@ -59,10 +63,15 @@ import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
+import java.sql.Ref;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -117,6 +126,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     int numOfReq;
     final Context context = this;
     String teamcode;
+    private JsonObject logs;
+    private JsonArray features;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,6 +137,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         currentUser = mAuth.getCurrentUser().getEmail();
         FirebaseFirestore db = Database.db;
         DocumentReference docRef = db.collection("Profiles").document(currentUser);
+        logs = new JsonObject();
+        logs.addProperty("type", "FeatureCollection");
+        features = new JsonArray();
+        logs.add("features", new JsonArray());
+
+
+
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -133,17 +151,25 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                        isAdmin = (Boolean)document.get("isAdmin");
+                       teamcode = ((ArrayList<String>)document.get("team")).get(0);
                     }
                 }
             }
         });
+
+        logs.remove("features");
+        features = new JsonArray();
+
+
         Button displayListViewBtn = findViewById(R.id.listView);
         FloatingActionButton refresh = findViewById(R.id.refreshButton);
 
         refresh.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            refreshMarkers();
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
         }
         });
 
@@ -304,6 +330,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         isAdmin = (Boolean)document.get("isAdmin");
+
                     }
                 } else {
 
@@ -384,84 +411,171 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private void addClusteredGeoJsonSource(@NonNull Style loadedMapStyle) {
 
         // Add a new source from the GeoJSON data and set the 'cluster' option to true.
-        try {
-            loadedMapStyle.addSource(
-                    // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes from
-                    // 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-                    new GeoJsonSource("earthquakes",
-                            new URI("https://www.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"),
-                            new GeoJsonOptions()
-                                    .withCluster(true)
-                                    .withClusterMaxZoom(14)
-                                    .withClusterRadius(50)
-                    )
-            );
-        } catch (URISyntaxException uriSyntaxException) {
-            Timber.e("Check the URL %s", uriSyntaxException.getMessage());
-        }
+//        try {
+//            updateJson(teamcode);
+//            Gson gson = new Gson();
+//            loadedMapStyle.addSource(
+//                    // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes from
+//                    // 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
+//                    new GeoJsonSource("earthquakes",
+//                            new URI("https://www.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"),
+//                            new GeoJsonOptions()
+//                                    .withCluster(true)
+//                                    .withClusterMaxZoom(14)
+//                                    .withClusterRadius(50)
+//                    )
+//            );
+//        } catch (URISyntaxException uriSyntaxException) {
+//            Timber.e("Check the URL %s", uriSyntaxException.getMessage());
+//        }
 
+        FirebaseFirestore db = Database.db;
+        DocumentReference docRef = db.collection("Profiles").document(currentUser);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        isAdmin = (Boolean)document.get("isAdmin");
+                        teamcode = ((ArrayList<String>)document.get("team")).get(0);
+                        DocumentReference teamRef = db.collection("Teams").document(teamcode);
+                        teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
+                                        for(Map<String, Object> log: locations){
+                                            JsonObject logJson = new JsonObject();
+                                            logJson.addProperty("type", "Feature");
+                                            JsonObject geo = new JsonObject();
+                                            geo.addProperty("type", "Point");
+                                            JsonArray coor = new JsonArray();
+                                            HashMap<String, Float> point = (HashMap<String, Float>) log.get("point");
+                                            coor.add(point.get("longitude"));
+                                            coor.add(point.get("latitude"));
+                                            geo.add("coordinates", coor);
+                                            JsonObject prop = new JsonObject();
+                                            prop.addProperty("time", log.get("time").toString());
+                                            prop.addProperty("Log Rating", (String)log.get("Log Rating"));
+                                            prop.addProperty("category", (String)log.get("category"));
+                                            prop.addProperty("creator", (String)log.get("creator"));
+                                            prop.addProperty("info", (String)log.get("info"));
+                                            prop.addProperty("location", (String)log.get("location"));
+                                            logJson.add("properties", prop);
+                                            logJson.add("geometry", geo);
+                                            features.add(logJson.deepCopy());
+                                        }
+                                        logs.add("features", features);
+                                        Gson gson = new Gson();
+                                        loadedMapStyle.addSource(
+                                                // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes from
+                                                // 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
+                                                new GeoJsonSource("earthquakes",
+                                                        gson.toJson(logs),
+                                                        new GeoJsonOptions()
+                                                                .withCluster(true)
+                                                                .withClusterMaxZoom(14)
+                                                                .withClusterRadius(50)
+                                                )
+                                        );
+                                        SymbolLayer count = new SymbolLayer("count", "earthquakes");
+                                        count.setProperties(
+                                                textField(Expression.toString((Expression) get("point_count"))),
+                                                textSize(20f),
+                                                textColor(ContextCompat.getColor(context, R.color.colorPrimary)),
+                                                textIgnorePlacement(true),
+                                                textAllowOverlap(true)
+                                        );
+                                        loadedMapStyle.addLayer(count);
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+//        logs.remove("features");
+//        features = new JsonArray();
+
+
+//        Gson gson = new Gson();
+//        loadedMapStyle.addSource(
+//                // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes from
+//                // 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
+//                new GeoJsonSource("earthquakes",
+//                        gson.toJson(logs),
+//                        new GeoJsonOptions()
+//                                .withCluster(true)
+//                                .withClusterMaxZoom(14)
+//                                .withClusterRadius(50)
+//                )
+//        );
         //Creating a marker layer for single data points
-        SymbolLayer unclustered = new SymbolLayer("unclustered-points", "earthquakes");
+//        SymbolLayer unclustered = new SymbolLayer("unclustered-points", "earthquakes");
+//
+//        unclustered.setProperties(
+//                iconImage("cross-icon-id"),
+//                iconSize(
+//                        division(
+//                                (Expression) get("mag"), literal(4.0f)
+//                        )
+//                ),
+//                iconColor(
+//                        interpolate(exponential(1), get("mag"),
+//                                stop(2.0, rgb(0, 255, 0)),
+//                                stop(4.5, rgb(0, 0, 255)),
+//                                stop(7.0, rgb(255, 0, 0))
+//                        )
+//                )
+//        );
+        //unclustered.setFilter(has("mag"));
+//        loadedMapStyle.addLayer(unclustered);
+//
+//        // Use the earthquakes GeoJSON source to create three layers: One layer for each cluster category.
+//        // Each point range gets a different fill color.
+//        int[][] layers = new int[][] {
+//                new int[] {150, ContextCompat.getColor(this, R.color.mapboxRed)},
+//                new int[] {20, ContextCompat.getColor(this, R.color.mapboxGreen)},
+//                new int[] {0, ContextCompat.getColor(this, R.color.mapbox_blue)}
+//        };
 
-        unclustered.setProperties(
-                iconImage("cross-icon-id"),
-                iconSize(
-                        division(
-                                (Expression) get("mag"), literal(4.0f)
-                        )
-                ),
-                iconColor(
-                        interpolate(exponential(1), get("mag"),
-                                stop(2.0, rgb(0, 255, 0)),
-                                stop(4.5, rgb(0, 0, 255)),
-                                stop(7.0, rgb(255, 0, 0))
-                        )
-                )
-        );
-        unclustered.setFilter(has("mag"));
-        loadedMapStyle.addLayer(unclustered);
-
-        // Use the earthquakes GeoJSON source to create three layers: One layer for each cluster category.
-        // Each point range gets a different fill color.
-        int[][] layers = new int[][] {
-                new int[] {150, ContextCompat.getColor(this, R.color.mapboxRed)},
-                new int[] {20, ContextCompat.getColor(this, R.color.mapboxGreen)},
-                new int[] {0, ContextCompat.getColor(this, R.color.mapbox_blue)}
-        };
-
-        for (int i = 0; i < layers.length; i++) {
-            //Add clusters' circles
-            CircleLayer circles = new CircleLayer("cluster-" + i, "earthquakes");
-            circles.setProperties(
-                    circleColor(layers[i][1]),
-                    circleRadius(18f)
-            );
-
-            Expression pointCount = toNumber((Expression) get("point_count"));
-
-            // Add a filter to the cluster layer that hides the circles based on "point_count"
-            circles.setFilter(
-                    i == 0
-                            ? all(has("point_count"),
-                            gte(pointCount, literal(layers[i][0]))
-                    ) : all(has("point_count"),
-                            gte(pointCount, literal(layers[i][0])),
-                            lt(pointCount, literal(layers[i - 1][0]))
-                    )
-            );
-            loadedMapStyle.addLayer(circles);
-        }
+//        for (int i = 0; i < layers.length; i++) {
+//            //Add clusters' circles
+//            CircleLayer circles = new CircleLayer("cluster-" + i, "earthquakes");
+//            circles.setProperties(
+//                    circleColor(layers[i][1]),
+//                    circleRadius(18f)
+//            );
+//
+//            Expression pointCount = toNumber((Expression) get("point_count"));
+//
+//            // Add a filter to the cluster layer that hides the circles based on "point_count"
+//            circles.setFilter(
+//                    i == 0
+//                            ? all(has("point_count"),
+//                            gte(pointCount, literal(layers[i][0]))
+//                    ) : all(has("point_count"),
+//                            gte(pointCount, literal(layers[i][0])),
+//                            lt(pointCount, literal(layers[i - 1][0]))
+//                    )
+//            );
+//            loadedMapStyle.addLayer(circles);
+//        }
 
         //Add the count labels
-        SymbolLayer count = new SymbolLayer("count", "earthquakes");
-        count.setProperties(
-                textField(Expression.toString((Expression) get("point_count"))),
-                textSize(12f),
-                textColor(Color.WHITE),
-                textIgnorePlacement(true),
-                textAllowOverlap(true)
-        );
-        loadedMapStyle.addLayer(count);
+//        SymbolLayer count = new SymbolLayer("count", "earthquakes");
+//        count.setProperties(
+//                textField(Expression.toString((Expression) get("point_count"))),
+//                textSize(12f),
+//                textColor(Color.WHITE),
+//                textIgnorePlacement(true),
+//                textAllowOverlap(true)
+//        );
+//        loadedMapStyle.addLayer(count);
     }
 
 
@@ -768,6 +882,61 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 });
         a.create();
         a.show();
+    }
+    private void updateJson(String team){
+        mAuth = Database.mAuth;
+        currentUser = mAuth.getCurrentUser().getEmail();
+        FirebaseFirestore db = Database.db;
+        DocumentReference docRef = db.collection("Profiles").document(currentUser);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        isAdmin = (Boolean)document.get("isAdmin");
+                        teamcode = ((ArrayList<String>)document.get("team")).get(0);
+                    }
+                }
+            }
+        });
+        logs.remove("features");
+        features = new JsonArray();
+
+        docRef = db.collection("Teams").document(team);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
+                        for(Map<String, Object> log: locations){
+                            JsonObject logJson = new JsonObject();
+                            logJson.addProperty("type", "Feature");
+                            JsonObject geo = new JsonObject();
+                            geo.addProperty("type", "Point");
+                            JsonArray coor = new JsonArray();
+                            HashMap<String, Float> point = (HashMap<String, Float>) log.get("point");
+                            coor.add(point.get("longitude"));
+                            coor.add(point.get("latitude"));
+                            geo.add("coordinates", coor);
+                            JsonObject prop = new JsonObject();
+                            prop.addProperty("time", log.get("time").toString());
+                            prop.addProperty("Log Rating", (String)log.get("Log Rating"));
+                            prop.addProperty("category", (String)log.get("category"));
+                            prop.addProperty("creator", (String)log.get("creator"));
+                            prop.addProperty("info", (String)log.get("info"));
+                            prop.addProperty("location", (String)log.get("location"));
+                            logJson.add("properties", prop);
+                            logJson.add("geometry", geo);
+                            features.add(logJson.deepCopy());
+                        }
+                        logs.add("features", features);
+                    }
+                }
+            }
+        });
     }
 
     private void refreshMarkers(){
