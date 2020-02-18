@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#038649</color>
     <color name="colorAccent">#05C46B</color>
 
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGrey">#aeaeae</color>
+    <color name="colorBlack">#000000</color>
+
     <color name="screen1">#f74e4e</color>
 
     <color name="mapboxRed">#f74e4e</color>
