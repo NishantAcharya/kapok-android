@@ -6,6 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAltText">@color/colorBlack</item>
+        <item name="colorText">@color/colorWhite</item>
+        <item name="colorHint">@color/colorGrey</item>
+        <item name="colorSpinner">@color/colorWhite</item>
     </style>
 
     <!-- Dark theme -->
@@ -14,6 +18,10 @@
         <item name="colorPrimary">@color/colorBlack</item>
         <item name="colorPrimaryDark">@color/colorGrey</item>
         <item name="colorAccent">@color/colorWhite</item>
+        <item name="colorAltText">@color/colorWhite</item>
+        <item name="colorText">@color/colorBlack</item>
+        <item name="colorHint">@color/colorGrey</item>
+        <item name="colorSpinner">@color/colorGrey</item>
     </style>
 
 

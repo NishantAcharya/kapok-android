@@ -10,6 +10,7 @@
 
 
     <RelativeLayout
+        android:background="?attr/colorText"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -19,9 +20,9 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="420dp"
-            android:backgroundTint="@color/colorPrimary"
+            android:backgroundTint="?attr/colorAccent"
             android:text="Proceed with profile setup"
-            android:textColor="?attr/colorBackgroundFloating" />
+            android:textColor="?attr/colorText" />
 
 
         <Button
@@ -32,7 +33,7 @@
             android:layout_marginTop = "480dp"
             android:backgroundTint="#FFFFFF"
             android:text="Resend Confirmation link"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="?attr/colorPrimary" />
 
 
         <TextView
@@ -42,6 +43,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="191dp"
+            android:textColor="?attr/colorAltText"
             android:text="We have sent you an email with verification instructions. Click on the log-in button after verifying your email.  "
             android:textAlignment="center" />
 

@@ -9,6 +9,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/colorText"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     tools:context=".LogInActivity">
@@ -20,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
+        android:textColor="?attr/colorAltText"
         android:text="Tell us as much as you can about what's happening at this location."
         android:textAlignment="center" />
 
@@ -30,7 +32,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:ems="10"
+        android:backgroundTint="?attr/colorHint"
         android:hint="Location"
+        android:textColorHint="?attr/colorHint"
         android:inputType="textEmailAddress" />
 
     <Spinner
@@ -41,6 +45,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:ems="10"
+        android:background = "?attr/colorSpinner"
         android:entries="@array/Categories"
         android:hint="Category"
         android:inputType="textEmailAddress"
@@ -54,7 +59,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp"
         android:ems="10"
+        android:textColorHint="?attr/colorHint"
         android:hint="Notes"
+        android:backgroundTint="?attr/colorHint"
         android:inputType="textMultiLine" />
 
 
@@ -66,6 +73,7 @@
         android:layout_gravity="center"
         android:layout_alignParentTop="@+id/notes_txt"
         android:layout_alignParentBottom="true"
+        android:textColor="?attr/colorAltText"
         android:text="*Make sure to not include any protected health information(PHI) in this section"
         android:textAlignment="center"
         android:textSize="10dp" />
@@ -75,6 +83,7 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="?attr/colorSpinner"
         android:layout_centerHorizontal="true"
         />
 
@@ -83,6 +92,7 @@
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:text="Log Priority"
+        android:textColor="?attr/colorAltText"
         android:layout_centerHorizontal="true"
         />
 
@@ -93,9 +103,9 @@
         android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="?attr/colorAccent"
         android:text="Create Log"
-        android:textColor="@android:color/background_light" />
+        android:textColor="?attr/colorText" />
 
 </LinearLayout>
 </ScrollView>

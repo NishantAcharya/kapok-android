@@ -3,8 +3,7 @@
     android:id="@+id/nav_header"
     android:layout_width="match_parent"
     android:layout_height="244dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:background="@color/colorAccent"
+    android:background="?attr/colorPrimary"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -24,6 +23,7 @@
         android:layout_width="185dp"
         android:layout_height="30dp"
         android:paddingTop="10dp"
+        android:textColor="@color/colorWhite"
         android:text="Name Point"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -32,6 +32,7 @@
         android:layout_width="185dp"
         android:layout_height="30dp"
         android:paddingTop="10dp"
+        android:textColor="@color/colorWhite"
         android:text="Email Point"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 

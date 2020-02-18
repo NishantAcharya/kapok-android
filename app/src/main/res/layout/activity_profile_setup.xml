@@ -9,7 +9,8 @@
 
 <RelativeLayout
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorText">
 
 
     <TextView
@@ -19,6 +20,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
+        android:textColor="?attr/colorAltText"
         android:text="Hey! Your team administrator need few details from you before you start using Kapok" />
 
     <EditText
@@ -29,7 +31,9 @@
         android:layout_alignStart="@+id/textView4"
         android:layout_marginTop="90dp"
         android:ems="10"
+        android:textColorHint="?attr/colorHint"
         android:hint="Full Name"
+        android:backgroundTint="?attr/colorHint"
         android:inputType="textPersonName" />
 
 
@@ -40,7 +44,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="150dp"
         android:ems="10"
+        android:textColorHint="?attr/colorHint"
         android:hint="Occupation"
+        android:backgroundTint="?attr/colorHint"
         android:inputType="textPersonName" />
 
     <EditText
@@ -50,7 +56,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="210dp"
         android:ems="10"
+        android:textColorHint="?attr/colorHint"
         android:hint="Contact Information"
+        android:backgroundTint="?attr/colorHint"
         android:inputType="textPersonName" />
 
 
@@ -61,7 +69,9 @@
         android:layout_alignStart="@+id/textView4"
         android:layout_marginTop = "270dp"
         android:ems="10"
+        android:textColorHint="?attr/colorHint"
         android:hint="About Me"
+        android:backgroundTint="?attr/colorHint"
         android:inputType="textMultiLine" />
 
 
@@ -72,9 +82,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="?attr/colorAccent"
         android:text="Finish Profile"
-        android:textColor="?attr/colorBackgroundFloating" />
+        android:textColor="?attr/colorText" />
 
 </RelativeLayout>
 </ScrollView>

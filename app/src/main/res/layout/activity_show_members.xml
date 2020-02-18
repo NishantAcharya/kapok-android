@@ -9,13 +9,14 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
+        android:textColor="?attr/colorAltText"
         android:text="Member Profile"
         android:textAlignment="center" />
 
 
     <TextView
         android:layout_width="352dp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="?attr/colorAccent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:layout_centerHorizontal="true"
@@ -28,13 +29,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="110dp"
         android:layout_centerHorizontal="true"
+        android:textColor="?attr/colorAltText"
         android:id="@+id/full_name_text_field"
         android:textSize="20dp"/>
 
     <TextView
         android:layout_width="352dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorPrimary"
+        android:textColor="?attr/colorAccent"
         android:layout_marginTop="140dp"
         android:layout_centerHorizontal="true"
         android:text="Contact Info:"
@@ -46,13 +48,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="170dp"
         android:textSize="20dp"
+        android:textColor="?attr/colorAltText"
         android:layout_centerHorizontal="true"
         android:id="@+id/contact_info_text_field"/>
 
 
     <TextView
         android:layout_width="352dp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="?attr/colorAccent"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:layout_centerHorizontal="true"
@@ -64,6 +67,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="230dp"
+        android:textColor="?attr/colorAltText"
         android:layout_centerHorizontal="true"
         android:id="@+id/occupation_text_field"
         android:textSize="20dp"/>
@@ -74,13 +78,14 @@
         android:layout_marginTop="260dp"
         android:layout_centerHorizontal="true"
         android:text="Registered Email"
-        android:textColor="@color/colorPrimary"
+        android:textColor="?attr/colorAccent"
         android:textSize="20dp"/>
 
     <TextView
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="290dp"
+        android:textColor="?attr/colorAltText"
         android:layout_centerHorizontal="true"
         android:id="@+id/registered_email_text_field"
         android:textSize="20dp"/>
@@ -92,7 +97,7 @@
         android:layout_marginTop="320dp"
         android:layout_centerHorizontal="true"
         android:text="About:"
-        android:textColor="@color/colorPrimary"
+        android:textColor="?attr/colorAccent"
         android:textSize="20dp" />
 
     <TextView
@@ -100,6 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="350dp"
         android:textSize="20dp"
+        android:textColor="?attr/colorAltText"
         android:layout_centerHorizontal="true"
         android:id="@+id/about_me_text_field"/>
 
