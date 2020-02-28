@@ -12,8 +12,10 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +41,8 @@ public class ShowLogActivity extends AppCompatActivity {
     TextView notesText;
     String note;
     RatingBar Rating;
-    private ArrayList<String> teamMates;
+    private ArrayList<String> teamMates = new ArrayList<String>(1);;
+    private ArrayList<String> teamEmails;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,7 @@ public class ShowLogActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_show_log);
 
+        getTeam();
         Intent intent = getIntent();
         logPos = intent.getIntExtra("Log Position", 0);
         mAuth = Database.mAuth;
@@ -168,6 +172,80 @@ public class ShowLogActivity extends AppCompatActivity {
                 Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
             }
         }
+
+        if(id == R.id.assign_task){
+            if(result == true){
+                Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
+                final Dialog dialog = new Dialog(this);
+                dialog.setContentView(R.layout.log_view_alert);
+                Spinner spinner = dialog.findViewById(R.id.assignee);
+                Button assign = dialog.findViewById(R.id.alert_assign);
+                Button cancel = dialog.findViewById(R.id.alert_cancel);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,teamMates);
+                spinner.setAdapter(adapter);
+
+                assign.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FirebaseUser currentUser = mAuth.getCurrentUser();
+                        FirebaseFirestore db = Database.db;
+
+                        DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                ArrayList<String> location = new ArrayList<>();
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                                        String TeamCode = userCurrentTeam.get(0);
+                                        DocumentReference docRef = db.collection("Teams").document(TeamCode);
+                                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if(task.isSuccessful()){
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if(document.exists()){
+                                                        ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
+                                                        log = locations.get(logPos);
+                                                        Map<String, Object> log2 = new HashMap<>();
+                                                        log2.put("creator", log.get("creator").toString());
+                                                        log2.put("location", log.get("location").toString());
+                                                        log2.put("category", log.get("creator").toString());
+                                                        log2.put("info", log.get("info").toString());
+                                                        log2.put("Log Rating", log.get("Log Rating"));
+                                                        log2.put("time", log.get("time").toString());
+                                                        log2.put("point", log.get("point"));
+                                                        log2.put("assignment",String.valueOf(spinner.getSelectedItem()));
+                                                        docRef.update("logs", FieldValue.arrayRemove(log));
+                                                        docRef.update("logs", FieldValue.arrayUnion(log2));
+                                                        dialog.dismiss();
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+            else{
+                Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
+            }
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -205,6 +283,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                             log2.put("Log Rating", log.get("Log Rating")).toString();
                                             log2.put("time", log.get("time").toString());
                                             log2.put("point", log.get("point"));
+                                            log2.put("assignment",log.get("assignment"));
                                             docRef.update("logs", FieldValue.arrayRemove(log));
                                             docRef.update("logs", FieldValue.arrayUnion(log2));
                                             notesText.setText(message);
@@ -265,6 +344,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                                 log2.put("Log Rating", String.valueOf(ratingBar2.getRating()));
                                                 log2.put("time", log.get("time").toString());
                                                 log2.put("point", log.get("point"));
+                                                log2.put("assignment",log.get("assignment"));
                                                 docRef.update("logs", FieldValue.arrayRemove(log));
                                                 docRef.update("logs", FieldValue.arrayUnion(log2));
                                                 Rating.setRating(ratingBar2.getRating());
@@ -413,7 +493,21 @@ public class ShowLogActivity extends AppCompatActivity {
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists()) {
 
-                                        teamMates = ((ArrayList<String>) document.getData().get("members"));
+                                        teamEmails = ((ArrayList<String>) document.getData().get("members"));
+                                        for(int i = 0; i < teamEmails.size(); i++){
+                                            DocumentReference docRef = db.collection("Profiles").document(teamEmails.get(i));
+                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if(task.isSuccessful()){
+                                                        DocumentSnapshot document = task.getResult();
+                                                        if(document.exists()){
+                                                            teamMates.add((String)document.getData().get("name"));
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        }
                                     }
                                 }
                             }

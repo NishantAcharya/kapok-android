@@ -13,8 +13,11 @@
         android:title="Edit Priority"
         app:showAsAction="never" />
 
-
-
+    <item
+        android:id="@+id/assign_task"
+        android:orderInCategory="100"
+        android:title="Assign Task"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/menu_delete"

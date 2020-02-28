@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class TeamJoinRequestActivity extends AppCompatActivity {
 
     private ArrayList<String> allRequests;
-    private ArrayList<String> allNames = new ArrayList<String>(1);;
+    private ArrayList<String> allNames = new ArrayList<String>(1);
     private FirebaseAuth mAuth;
     private ListView lv;
     private ArrayList<String> teamId;
