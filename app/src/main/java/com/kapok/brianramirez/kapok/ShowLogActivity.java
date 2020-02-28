@@ -43,6 +43,7 @@ public class ShowLogActivity extends AppCompatActivity {
     RatingBar Rating;
     private ArrayList<String> teamMates = new ArrayList<String>(1);;
     private ArrayList<String> teamEmails;
+    private boolean isAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +135,9 @@ public class ShowLogActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.log_menu, menu);
+        if(isAdmin()) {
+            getMenuInflater().inflate(R.menu.log_menu, menu);
+        }
         return true;
     }
 
@@ -247,6 +250,27 @@ public class ShowLogActivity extends AppCompatActivity {
             }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private boolean isAdmin() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseFirestore db = Database.db;
+        DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        isAdmin = (Boolean)document.get("isAdmin");
+
+                    }
+                } else {
+
+                }
+            }
+        });
+        return isAdmin;
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
