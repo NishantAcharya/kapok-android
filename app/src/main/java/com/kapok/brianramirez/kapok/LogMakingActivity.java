@@ -64,6 +64,7 @@ public class LogMakingActivity extends AppCompatActivity {
                 log.put("info", infoTxtField.getText().toString());
                 log.put("Log Rating", String.valueOf(LogPriority.getRating()));
                 log.put("time", String.valueOf(System.currentTimeMillis()));
+                log.put("assignment", "");// can be "needs an assignment" or "doesn't need one". depending on the slider
                 FirebaseFirestore db = Database.db;
                 DocumentReference userProf = db.collection("Profiles").document(currentUser);
                 userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
