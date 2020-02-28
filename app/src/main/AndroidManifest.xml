@@ -13,8 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Intro"></activity>
-        <activity android:name=".AdminChangeActivity"></activity>
+        <service
+            android:name=".DatabaseListener"
+            android:enabled="true"
+            android:exported="true"></service>
+
+        <activity android:name=".Intro" />
+        <activity android:name=".AdminChangeActivity" />
         <activity android:name=".userVerifyActivity" />
         <activity
             android:name=".TeamJoinRequestActivity"
