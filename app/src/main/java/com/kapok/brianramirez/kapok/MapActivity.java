@@ -2,6 +2,7 @@ package com.kapok.brianramirez.kapok;
 
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,7 +11,6 @@ import android.graphics.Color;
 import android.graphics.PointF;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
@@ -29,12 +29,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -128,8 +130,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private ArrayList<Marker> curMarkers;
     private String usrEmail;
     private String usrName;
+    private ArrayList<String> teamEmails;
     int numOfReq;
-    private ArrayList<String> teamMates;
+    private ArrayList<String> teamMates = new ArrayList<String>(1);
     final Context context = this;
     String teamcode;
     private JsonObject logs;
@@ -152,7 +155,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         logs.addProperty("type", "FeatureCollection");
         features = new JsonArray();
         logs.add("features", new JsonArray());
-        getTeam();
 
 
 
@@ -275,12 +277,67 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         goToTeamJoinRequest();
                         break;
 
+                    case R.id.navAssigned:
+                        ArrayList<String> Assigned = new ArrayList<String>(1);
+                        DocumentReference docRef = db.collection("Profiles").document(currentUser);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                ArrayList<String> location = new ArrayList<>();
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if(document.exists()){
+                                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                                        String TeamCode = userCurrentTeam.get(0);
+                                        DocumentReference docRef = db.collection("Teams").document(TeamCode);
+                                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if(task.isSuccessful()){
+                                                    DocumentSnapshot document = task.getResult();
+                                                    if(document.exists()){
+                                                        ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
+                                                        for(Map<String, Object> loc:locations){
+                                                            if(loc.get("assignment").equals(usrName)){
+                                                                Assigned.add((String) loc.get("location"));
+                                                            }
+                                                        }
+                                                        final Dialog dialog = new Dialog(MapActivity.this);
+                                                        dialog.setContentView(R.layout.assign_show);
+                                                        Spinner spinner = dialog.findViewById(R.id.assigned);
+                                                        Button cancel = dialog.findViewById(R.id.alert_close);
+
+                                                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapActivity.this,android.R.layout.simple_spinner_dropdown_item,Assigned);
+                                                        spinner.setAdapter(adapter);
+
+
+
+                                                        cancel.setOnClickListener(new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View v) {
+                                                                dialog.dismiss();
+                                                            }
+
+                                                        });
+
+                                                        dialog.show();
+                                                    }
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        });
+
+
+
+                        break;
 
                         //Alert box....
                     case R.id.navLeaveTeam:
                         if(isAdmin()){
-
-                            if(teamMates.size()>1) {
+                            if(hasMembers()) {
 
                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -358,6 +415,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
+
     private boolean isAdmin() {
         FirebaseFirestore db = Database.db;
         DocumentReference docRef = db.collection("Profiles").document(currentUser);
@@ -378,6 +436,24 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         return isAdmin;
     }
 
+    private boolean isTeamEmpty(){
+        FirebaseFirestore db = Database.db;
+        DocumentReference docRef = db.collection("Profiles").document("SF");
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()){
+                    }
+                } else {
+
+                }
+            }
+        });
+        return isAdmin;
+
+    }
 
 
 
@@ -429,6 +505,25 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void addClusteredGeoJsonSource(@NonNull Style loadedMapStyle) {
+
+        // Add a new source from the GeoJSON data and set the 'cluster' option to true.
+//        try {
+//            updateJson(teamcode);
+//            Gson gson = new Gson();
+//            loadedMapStyle.addSource(
+//                    // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes from
+//                    // 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
+//                    new GeoJsonSource("earthquakes",
+//                            new URI("https://www.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"),
+//                            new GeoJsonOptions()
+//                                    .withCluster(true)
+//                                    .withClusterMaxZoom(14)
+//                                    .withClusterRadius(50)
+//                    )
+//            );
+//        } catch (URISyntaxException uriSyntaxException) {
+//            Timber.e("Check the URL %s", uriSyntaxException.getMessage());
+//        }
 
         FirebaseFirestore db = Database.db;
         DocumentReference docRef = db.collection("Profiles").document(currentUser);
@@ -499,7 +594,84 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         });
+//        logs.remove("features");
+//        features = new JsonArray();
 
+
+//        Gson gson = new Gson();
+//        loadedMapStyle.addSource(
+//                // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes from
+//                // 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
+//                new GeoJsonSource("earthquakes",
+//                        gson.toJson(logs),
+//                        new GeoJsonOptions()
+//                                .withCluster(true)
+//                                .withClusterMaxZoom(14)
+//                                .withClusterRadius(50)
+//                )
+//        );
+        //Creating a marker layer for single data points
+//        SymbolLayer unclustered = new SymbolLayer("unclustered-points", "earthquakes");
+//
+//        unclustered.setProperties(
+//                iconImage("cross-icon-id"),
+//                iconSize(
+//                        division(
+//                                (Expression) get("mag"), literal(4.0f)
+//                        )
+//                ),
+//                iconColor(
+//                        interpolate(exponential(1), get("mag"),
+//                                stop(2.0, rgb(0, 255, 0)),
+//                                stop(4.5, rgb(0, 0, 255)),
+//                                stop(7.0, rgb(255, 0, 0))
+//                        )
+//                )
+//        );
+        //unclustered.setFilter(has("mag"));
+//        loadedMapStyle.addLayer(unclustered);
+//
+//        // Use the earthquakes GeoJSON source to create three layers: One layer for each cluster category.
+//        // Each point range gets a different fill color.
+//        int[][] layers = new int[][] {
+//                new int[] {150, ContextCompat.getColor(this, R.color.mapboxRed)},
+//                new int[] {20, ContextCompat.getColor(this, R.color.mapboxGreen)},
+//                new int[] {0, ContextCompat.getColor(this, R.color.mapbox_blue)}
+//        };
+
+//        for (int i = 0; i < layers.length; i++) {
+//            //Add clusters' circles
+//            CircleLayer circles = new CircleLayer("cluster-" + i, "earthquakes");
+//            circles.setProperties(
+//                    circleColor(layers[i][1]),
+//                    circleRadius(18f)
+//            );
+//
+//            Expression pointCount = toNumber((Expression) get("point_count"));
+//
+//            // Add a filter to the cluster layer that hides the circles based on "point_count"
+//            circles.setFilter(
+//                    i == 0
+//                            ? all(has("point_count"),
+//                            gte(pointCount, literal(layers[i][0]))
+//                    ) : all(has("point_count"),
+//                            gte(pointCount, literal(layers[i][0])),
+//                            lt(pointCount, literal(layers[i - 1][0]))
+//                    )
+//            );
+//            loadedMapStyle.addLayer(circles);
+//        }
+
+        //Add the count labels
+//        SymbolLayer count = new SymbolLayer("count", "earthquakes");
+//        count.setProperties(
+//                textField(Expression.toString((Expression) get("point_count"))),
+//                textSize(12f),
+//                textColor(Color.WHITE),
+//                textIgnorePlacement(true),
+//                textAllowOverlap(true)
+//        );
+//        loadedMapStyle.addLayer(count);
     }
 
 
@@ -730,6 +902,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                         ArrayList<String> members = (ArrayList<String>) teamDoc.get("members");
                                         if (members.size() > 1) {
                                             member_check = true;
+
                                         }
                                     } else {
                                     }
@@ -775,8 +948,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Intent intent = new Intent(this, TeamJoinRequestActivity.class);
         startActivity(intent);
     }
-
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -929,7 +1100,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     void getTeam(){
-        DocumentReference docRef = Database.db.collection("Profiles").document(currentUser);
+        mAuth = Database.mAuth;
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseFirestore db = Database.db;
+        DocumentReference docRef = Database.db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -946,8 +1120,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists()) {
 
-                                        teamMates = ((ArrayList<String>) document.getData().get("members"));
-
+                                        teamEmails = ((ArrayList<String>) document.getData().get("members"));
+                                        for(int i = 0; i < teamEmails.size(); i++){
+                                            DocumentReference docRef = db.collection("Profiles").document(teamEmails.get(i));
+                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if(task.isSuccessful()){
+                                                        DocumentSnapshot document = task.getResult();
+                                                        if(document.exists()){
+                                                            teamMates.add((String)document.getData().get("name"));
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        }
                                     }
                                 }
                             }
