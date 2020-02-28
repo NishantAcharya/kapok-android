@@ -88,7 +88,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                         Map<String, Object> currPoint = (Map<String, Object>) log.get("point");
                                         double lat = (double) currPoint.get("latitude");
                                         double lon = (double) currPoint.get("longitude");
-                                        String val = (String)(log.get("Log Rating").toString());
+                                        String val = (log.get("Log Rating").toString());
                                         floatval = Float.parseFloat(val);
 
                                         DocumentReference docRef = db.collection("Profiles").document(creator);
@@ -201,7 +201,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                             log2.put("location", log.get("location").toString());
                                             log2.put("category", log.get("creator").toString());
                                             log2.put("info", message);
-                                            log2.put("Log Rating", log.get("Log Rating").toString());
+                                            log2.put("Log Rating", log.get("Log Rating")).toString();
                                             log2.put("time", log.get("time").toString());
                                             log2.put("point", log.get("point"));
                                             docRef.update("logs", FieldValue.arrayRemove(log));
@@ -261,7 +261,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                                 log2.put("location", log.get("location").toString());
                                                 log2.put("category", log.get("creator").toString());
                                                 log2.put("info", log.get("info").toString());
-                                                log2.put("Log Rating", ratingBar2.getRating());
+                                                log2.put("Log Rating", String.valueOf(ratingBar2.getRating()));
                                                 log2.put("time", log.get("time").toString());
                                                 log2.put("point", log.get("point"));
                                                 docRef.update("logs", FieldValue.arrayRemove(log));

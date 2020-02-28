@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -93,8 +94,6 @@ public class ShowMemberActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.kickOut) {
             removeFromTeam();
-            Intent intent = new Intent(ShowMemberActivity.this, TeamDIsplayActivity.class);
-            startActivity(intent);
         }
 
         if (id == R.id.makeAdmin) {
@@ -105,7 +104,9 @@ public class ShowMemberActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            requests = (ArrayList<String>) document.get("requests");
+                            teamcode = ((ArrayList<String>) document.get("team")).get(0);
+                            DocumentReference teamref = db.collection("Teams").document(teamcode);
+                            teamref.update("admin", member);
                         }
                     }
                 }
@@ -148,16 +149,22 @@ public class ShowMemberActivity extends AppCompatActivity {
                                     }
                                 }
                                 userProf.update("status", "none");
-                                userProf.update("team", FieldValue.arrayRemove(teamcode));
-                                Intent intent = new Intent(ShowMemberActivity.this, TeamDIsplayActivity.class);
-                                startActivity(intent);
-                                finish();
+                                userProf.update("team", FieldValue.arrayRemove(teamcode)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Intent intent = new Intent(ShowMemberActivity.this, TeamDIsplayActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
+                                });
+
                             }
                         });
                     }
                 });
         a.create();
         a.show();
+
     }
     public  void openJoinTeam(){
         Intent intent = new Intent(this, JoinTeamActivity.class);
