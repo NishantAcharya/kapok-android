@@ -86,9 +86,7 @@ public class ShowMemberActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(isAdmin()) {
-            getMenuInflater().inflate(R.menu.member_kickout, menu);
-        }
+        getMenuInflater().inflate(R.menu.member_kickout, menu);
         return true;
     }
 
@@ -173,7 +171,9 @@ public class ShowMemberActivity extends AppCompatActivity {
 
     private boolean isAdmin() {
         FirebaseFirestore db = Database.db;
-        DocumentReference docRef = db.collection("Profiles").document(member);
+        mAuth = Database.mAuth;
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

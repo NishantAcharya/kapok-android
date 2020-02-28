@@ -275,6 +275,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         goToTeamJoinRequest();
                         break;
 
+
                         //Alert box....
                     case R.id.navLeaveTeam:
                         if(isAdmin()){
@@ -774,6 +775,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Intent intent = new Intent(this, TeamJoinRequestActivity.class);
         startActivity(intent);
     }
+
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

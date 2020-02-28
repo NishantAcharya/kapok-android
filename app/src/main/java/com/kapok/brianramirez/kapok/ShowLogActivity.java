@@ -135,9 +135,7 @@ public class ShowLogActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        if(isAdmin()) {
-            getMenuInflater().inflate(R.menu.log_menu, menu);
-        }
+        getMenuInflater().inflate(R.menu.log_menu, menu);
         return true;
     }
 
@@ -253,8 +251,9 @@ public class ShowLogActivity extends AppCompatActivity {
     }
 
     private boolean isAdmin() {
-        FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = Database.db;
+        mAuth = Database.mAuth;
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
