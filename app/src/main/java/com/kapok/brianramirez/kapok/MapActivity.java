@@ -29,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -125,12 +126,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private FirebaseAuth mAuth;
     private String currentUser;
     private ArrayList<Marker> curMarkers;
+    private String usrEmail;
+    private String usrName;
     int numOfReq;
+    private ArrayList<String> teamMates;
     final Context context = this;
     String teamcode;
     private JsonObject logs;
     private JsonArray features;
-    private ArrayList<String> teamMates;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -225,7 +228,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         t.syncState();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         navView = (NavigationView)findViewById(R.id.navListAdmin);
+        View header = navView.getHeaderView(0);
+        TextView userName = header.findViewById(R.id.nav_header_name);
+        TextView userMail = header.findViewById(R.id.nav_header_email);
+        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()){
+                        usrName = document.getData().get("name").toString();
+                        usrEmail = currentUser;
+
+                        userName.setText(usrName);
+                        userMail.setText(usrEmail);
+                        
+                    }
+                }
+            }
+        });
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {

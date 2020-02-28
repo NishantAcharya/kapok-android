@@ -13,7 +13,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".RegisterActivity">
+    tools:context=".RegisterActivity"
+    android:background="?attr/colorText">
 
 <ImageView
         android:id="@+id/imageView"
@@ -33,7 +34,9 @@
         android:layout_marginTop="200dp"
         android:layout_centerHorizontal="true"
         android:ems="10"
+        android:textColorHint="?attr/colorHint"
         android:hint="Email"
+        android:backgroundTint="?attr/colorHint"
         android:inputType="textEmailAddress" />
 
 
@@ -45,7 +48,9 @@
         android:layout_marginTop="240dp"
         android:layout_centerHorizontal="true"
         android:ems="10"
+        android:textColorHint="?attr/colorHint"
         android:hint="Password"
+        android:backgroundTint="?attr/colorHint"
         android:inputType="textPassword" />
 
     <ProgressBar
@@ -56,6 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="280dp"
+        android:backgroundTint="@color/colorGrey"
         android:progress="0" />
 
 
@@ -65,6 +71,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="300dp"
         android:textAlignment="center"
+        android:textColor="?attr/colorAltText"
         android:text="Weak" />
 
     <EditText
@@ -74,7 +81,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="330dp"
         android:ems="10"
+        android:textColorHint="?attr/colorHint"
         android:hint="Confirm Password"
+        android:backgroundTint="?attr/colorHint"
         android:inputType="textPassword" />
 
     <Button
@@ -83,9 +92,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="600dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="?attr/colorAccent"
         android:text="Register"
-        android:textColor="?attr/colorBackgroundFloating"
+        android:textColor="?attr/colorText"
 
         />
 

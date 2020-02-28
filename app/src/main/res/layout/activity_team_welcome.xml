@@ -11,7 +11,8 @@
 
 <RelativeLayout
 
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="?attr/colorText">
 
     <Button
         android:id="@+id/cteam_btn"
@@ -19,9 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop = "480dp"
-        android:backgroundTint="#FFFFFF"
+        android:backgroundTint="?attr/colorAccent"
         android:text="Create New Team"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="?attr/colorText" />
 
     <Button
         android:id="@+id/jteam_btn"
@@ -29,9 +30,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="420dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="?attr/colorAccent"
         android:text="Join a team"
-        android:textColor="?attr/colorBackgroundFloating" />
+        android:textColor="?attr/colorText" />
 
     <TextView
         android:id="@+id/textView"
@@ -40,6 +41,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="191dp"
+        android:textColor="?attr/colorAltText"
         android:text="Your account is all set up. Now it’s time to create a team or join one. If you have a team code, tap to join a team! Otherwise, tap the 'CREATE A NEW TEAM' button. "
         android:textAlignment="center" />
 

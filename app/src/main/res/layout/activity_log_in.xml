@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".LogInActivity">
+    tools:context=".LogInActivity"
+    android:background="?attr/colorText">
 
 
     <ImageView
@@ -25,7 +26,9 @@
         android:layout_above="@+id/password_text_field"
         android:layout_centerHorizontal="true"
         android:ems="10"
+        android:textColorHint="?attr/colorHint"
         android:hint="Email"
+        android:backgroundTint="?attr/colorHint"
         android:inputType="textEmailAddress" />
 
     <EditText
@@ -34,7 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:ems="10"
+        android:textColorHint="?attr/colorHint"
         android:hint="Password"
+        android:backgroundTint="?attr/colorHint"
         android:inputType="textPassword" />
 
     <Button
@@ -44,9 +49,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="80dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="?attr/colorAccent"
         android:text="Log In"
-        android:textColor="@android:color/background_light" />
+        android:textColor="?attr/colorText" />
 
     <Button
         android:id="@+id/resetBtn"
@@ -55,9 +60,9 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40dp"
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="?attr/colorAccent"
         android:text="Forgot Password"
-        android:textColor="@android:color/background_light" />
+        android:textColor="?attr/colorText" />
 
 
 </RelativeLayout>
