@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.PointF;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
@@ -151,6 +152,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         logs.addProperty("type", "FeatureCollection");
         features = new JsonArray();
         logs.add("features", new JsonArray());
+        getTeam();
 
 
 
@@ -276,7 +278,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         //Alert box....
                     case R.id.navLeaveTeam:
                         if(isAdmin()){
-                            if(hasMembers()) {
+
+                            if(teamMates.size()>1) {
 
                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -374,24 +377,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         return isAdmin;
     }
 
-    private boolean isTeamEmpty(){
-        FirebaseFirestore db = Database.db;
-        DocumentReference docRef = db.collection("Profiles").document("SF");
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()){
-                    }
-                } else {
-
-                }
-            }
-        });
-        return isAdmin;
-
-    }
 
 
 
@@ -443,25 +428,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void addClusteredGeoJsonSource(@NonNull Style loadedMapStyle) {
-
-        // Add a new source from the GeoJSON data and set the 'cluster' option to true.
-//        try {
-//            updateJson(teamcode);
-//            Gson gson = new Gson();
-//            loadedMapStyle.addSource(
-//                    // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes from
-//                    // 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-//                    new GeoJsonSource("earthquakes",
-//                            new URI("https://www.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"),
-//                            new GeoJsonOptions()
-//                                    .withCluster(true)
-//                                    .withClusterMaxZoom(14)
-//                                    .withClusterRadius(50)
-//                    )
-//            );
-//        } catch (URISyntaxException uriSyntaxException) {
-//            Timber.e("Check the URL %s", uriSyntaxException.getMessage());
-//        }
 
         FirebaseFirestore db = Database.db;
         DocumentReference docRef = db.collection("Profiles").document(currentUser);
@@ -532,84 +498,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         });
-//        logs.remove("features");
-//        features = new JsonArray();
 
-
-//        Gson gson = new Gson();
-//        loadedMapStyle.addSource(
-//                // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes from
-//                // 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-//                new GeoJsonSource("earthquakes",
-//                        gson.toJson(logs),
-//                        new GeoJsonOptions()
-//                                .withCluster(true)
-//                                .withClusterMaxZoom(14)
-//                                .withClusterRadius(50)
-//                )
-//        );
-        //Creating a marker layer for single data points
-//        SymbolLayer unclustered = new SymbolLayer("unclustered-points", "earthquakes");
-//
-//        unclustered.setProperties(
-//                iconImage("cross-icon-id"),
-//                iconSize(
-//                        division(
-//                                (Expression) get("mag"), literal(4.0f)
-//                        )
-//                ),
-//                iconColor(
-//                        interpolate(exponential(1), get("mag"),
-//                                stop(2.0, rgb(0, 255, 0)),
-//                                stop(4.5, rgb(0, 0, 255)),
-//                                stop(7.0, rgb(255, 0, 0))
-//                        )
-//                )
-//        );
-        //unclustered.setFilter(has("mag"));
-//        loadedMapStyle.addLayer(unclustered);
-//
-//        // Use the earthquakes GeoJSON source to create three layers: One layer for each cluster category.
-//        // Each point range gets a different fill color.
-//        int[][] layers = new int[][] {
-//                new int[] {150, ContextCompat.getColor(this, R.color.mapboxRed)},
-//                new int[] {20, ContextCompat.getColor(this, R.color.mapboxGreen)},
-//                new int[] {0, ContextCompat.getColor(this, R.color.mapbox_blue)}
-//        };
-
-//        for (int i = 0; i < layers.length; i++) {
-//            //Add clusters' circles
-//            CircleLayer circles = new CircleLayer("cluster-" + i, "earthquakes");
-//            circles.setProperties(
-//                    circleColor(layers[i][1]),
-//                    circleRadius(18f)
-//            );
-//
-//            Expression pointCount = toNumber((Expression) get("point_count"));
-//
-//            // Add a filter to the cluster layer that hides the circles based on "point_count"
-//            circles.setFilter(
-//                    i == 0
-//                            ? all(has("point_count"),
-//                            gte(pointCount, literal(layers[i][0]))
-//                    ) : all(has("point_count"),
-//                            gte(pointCount, literal(layers[i][0])),
-//                            lt(pointCount, literal(layers[i - 1][0]))
-//                    )
-//            );
-//            loadedMapStyle.addLayer(circles);
-//        }
-
-        //Add the count labels
-//        SymbolLayer count = new SymbolLayer("count", "earthquakes");
-//        count.setProperties(
-//                textField(Expression.toString((Expression) get("point_count"))),
-//                textSize(12f),
-//                textColor(Color.WHITE),
-//                textIgnorePlacement(true),
-//                textAllowOverlap(true)
-//        );
-//        loadedMapStyle.addLayer(count);
     }
 
 
@@ -840,7 +729,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                         ArrayList<String> members = (ArrayList<String>) teamDoc.get("members");
                                         if (members.size() > 1) {
                                             member_check = true;
-
                                         }
                                     } else {
                                     }
@@ -1056,6 +944,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     if (document.exists()) {
 
                                         teamMates = ((ArrayList<String>) document.getData().get("members"));
+
                                     }
                                 }
                             }
