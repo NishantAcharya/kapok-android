@@ -32,6 +32,7 @@ public class ShowMemberActivity extends AppCompatActivity {
     String teamcode;
     ArrayList<String> requests;
     FirebaseFirestore db = Database.db;
+    private boolean isAdmin;
 
 
     @Override
@@ -85,7 +86,9 @@ public class ShowMemberActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.member_kickout, menu);
+        if(isAdmin()) {
+            getMenuInflater().inflate(R.menu.member_kickout, menu);
+        }
         return true;
     }
 
@@ -125,6 +128,7 @@ public class ShowMemberActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 
     public void removeFromTeam() {
         FirebaseFirestore db = Database.db;
@@ -166,6 +170,28 @@ public class ShowMemberActivity extends AppCompatActivity {
         a.show();
 
     }
+
+    private boolean isAdmin() {
+        FirebaseFirestore db = Database.db;
+        DocumentReference docRef = db.collection("Profiles").document(member);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        isAdmin = (Boolean)document.get("isAdmin");
+
+                    }
+                } else {
+
+                }
+            }
+        });
+        return isAdmin;
+    }
+
+
     public  void openJoinTeam(){
         Intent intent = new Intent(this, JoinTeamActivity.class);
         startActivity(intent);
