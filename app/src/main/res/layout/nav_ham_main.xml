@@ -24,7 +24,6 @@
         android:layout_height="30dp"
         android:paddingTop="10dp"
         android:textColor="@color/colorWhite"
-        android:text="Name Point"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
@@ -33,7 +32,6 @@
         android:layout_height="30dp"
         android:paddingTop="10dp"
         android:textColor="@color/colorWhite"
-        android:text="Email Point"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 

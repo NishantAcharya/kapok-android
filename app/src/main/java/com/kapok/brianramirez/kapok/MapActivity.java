@@ -128,6 +128,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private String usrEmail;
     private String usrName;
     int numOfReq;
+    private ArrayList<String> teamMates;
     final Context context = this;
     String teamcode;
     private JsonObject logs;
@@ -237,7 +238,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
                         usrName = document.getData().get("name").toString();
-                        usrName = currentUser;
+                        usrEmail = currentUser;
+
+                        userName.setText(usrName);
+                        userMail.setText(usrEmail);
                         
                     }
                 }
@@ -1028,6 +1032,35 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     }
                 } else {
+                }
+            }
+        });
+    }
+
+    void getTeam(){
+        DocumentReference docRef = Database.db.collection("Profiles").document(currentUser);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                        String TeamCode = userCurrentTeam.get(0);
+                        DocumentReference docRef = Database.db.collection("Teams").document(TeamCode);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+
+                                        teamMates = ((ArrayList<String>) document.getData().get("members"));
+                                    }
+                                }
+                            }
+                        });
+                    }
                 }
             }
         });
