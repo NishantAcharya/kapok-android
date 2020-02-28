@@ -129,6 +129,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     String teamcode;
     private JsonObject logs;
     private JsonArray features;
+    private ArrayList<String> teamMates;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -1008,6 +1009,35 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                     }
                 } else {
+                }
+            }
+        });
+    }
+
+    void getTeam(){
+        DocumentReference docRef = Database.db.collection("Profiles").document(currentUser);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                        String TeamCode = userCurrentTeam.get(0);
+                        DocumentReference docRef = Database.db.collection("Teams").document(TeamCode);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+
+                                        teamMates = ((ArrayList<String>) document.getData().get("members"));
+                                    }
+                                }
+                            }
+                        });
+                    }
                 }
             }
         });
