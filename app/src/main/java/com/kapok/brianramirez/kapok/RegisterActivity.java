@@ -67,7 +67,7 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
                 PasswordStrength str = PasswordStrength.calculateStrength(password);
 
                 if (str.getText(RegisterActivity.this).equals("Weak")) {
-                    Toast pass = Toast.makeText(RegisterActivity.this, "Make a stronger password!", Toast.LENGTH_SHORT);
+                    Toast pass = Toast.makeText(RegisterActivity.this, "Password strength must be medium", Toast.LENGTH_SHORT);
                     pass.show();
                     count--;
                 }

@@ -86,6 +86,7 @@
         android:backgroundTint="?attr/colorHint"
         android:inputType="textPassword" />
 
+
     <Button
         android:id="@+id/register_btn"
         android:layout_width="339dp"
@@ -97,6 +98,14 @@
         android:textColor="?attr/colorText"
 
         />
+    <TextView
+        android:id="@+id/asterisk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp"
+        android:textAlignment="center"
+        android:textColor="?attr/colorAltText"
+        android:text="*Password Strength needs to be medium at least" />
 
 
 </RelativeLayout>

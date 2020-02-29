@@ -68,6 +68,7 @@ public class ShowLogActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = Database.db;
         can_edit(logPos);
+        isAdmin();
 
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

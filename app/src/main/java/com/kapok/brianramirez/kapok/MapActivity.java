@@ -149,15 +149,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
         mAuth = Database.mAuth;
         currentUser = mAuth.getCurrentUser().getEmail();
+
+
         FirebaseFirestore db = Database.db;
         DocumentReference docRef = db.collection("Profiles").document(currentUser);
+
         logs = new JsonObject();
         logs.addProperty("type", "FeatureCollection");
         features = new JsonArray();
         logs.add("features", new JsonArray());
 
 
-
+        getTeam();
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -170,6 +173,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         });
+
 
         logs.remove("features");
         features = new JsonArray();
@@ -337,7 +341,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         //Alert box....
                     case R.id.navLeaveTeam:
                         if(isAdmin()){
-                            if(hasMembers()) {
+                            if(teamMates.size()>1) {
 
                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
 
@@ -425,11 +429,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        isAdmin = (Boolean)document.get("isAdmin");
+                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                        String TeamCode = userCurrentTeam.get(0);
+                        DocumentReference docRef = db.collection("Teams").document(TeamCode);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()){
+                                        String currentAdmin = document.getData().get("admin").toString();
+                                        isAdmin = currentUser.equals(currentAdmin);
+                                    }
+                                }
+                            }
+                        });
 
                     }
-                } else {
-
                 }
             }
         });

@@ -56,6 +56,7 @@ public class ShowMemberActivity extends AppCompatActivity {
         TextView registeredEmailText = findViewById(R.id.registered_email_text_field);
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        isAdmin();
 
 
         DocumentReference memberRef = db.collection("Profiles").document(member);
