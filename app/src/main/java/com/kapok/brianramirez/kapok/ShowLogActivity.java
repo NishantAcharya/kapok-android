@@ -56,9 +56,11 @@ public class ShowLogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_log);
 
         getTeam();
+        isAdmin();
         Intent intent = getIntent();
         logPos = intent.getIntExtra("Log Position", 0);
         mAuth = Database.mAuth;
+
         TextView locationText = findViewById(R.id.location_txt_display);
         TextView categoryText = findViewById(R.id.category_txt_display);
         notesText = findViewById(R.id.notes_txt_display);
@@ -68,7 +70,7 @@ public class ShowLogActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = Database.db;
         can_edit(logPos);
-        isAdmin();
+
 
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -145,19 +147,29 @@ public class ShowLogActivity extends AppCompatActivity {
         int id = item.getItemId();
         Intent intent;
             if (id == R.id.menu_add_notes) {
-            if (result==true) {
-                intent = new Intent(ShowLogActivity.this, EditNotesActivity.class);
-                intent.putExtra("prev", note);
-                ShowLogActivity.this.startActivityForResult(intent, 2);
+                if (result==true) {
+                    if(isAdmin()) {
+                        intent = new Intent(ShowLogActivity.this, EditNotesActivity.class);
+                        intent.putExtra("prev", note);
+                        ShowLogActivity.this.startActivityForResult(intent, 2);
+                    }
+                    else{
+                        Toast.makeText(ShowLogActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                    else
+                    Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
             }
-                else
-                Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
-        }
 
         if (id == R.id.menu_delete) {
             if (result==true){
-                Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
-                deletelog(logPos);
+                if(isAdmin()) {
+                    Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
+                    deletelog(logPos);
+                }
+                else{
+                    Toast.makeText(ShowLogActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
+                }
             }
             else
                 Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
@@ -165,9 +177,14 @@ public class ShowLogActivity extends AppCompatActivity {
 
         if (id == R.id.menu_edit_priority) {
             if (result==true) {
-                Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
-                float curr = Rating.getRating();
-                ShowDialog(curr);
+                if(isAdmin()) {
+                    Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
+                    float curr = Rating.getRating();
+                    ShowDialog(curr);
+                }
+                else{
+                    Toast.makeText(ShowLogActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
+                }
             }
 
             else {
@@ -176,73 +193,78 @@ public class ShowLogActivity extends AppCompatActivity {
         }
 
         if(id == R.id.assign_task){
-            if(result == true){
-                Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
-                final Dialog dialog = new Dialog(this);
-                dialog.setContentView(R.layout.log_view_alert);
-                Spinner spinner = dialog.findViewById(R.id.assignee);
-                Button assign = dialog.findViewById(R.id.alert_assign);
-                Button cancel = dialog.findViewById(R.id.alert_cancel);
+            if(result == true) {
+                if (isAdmin()) {
+                    Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
+                    final Dialog dialog = new Dialog(this);
+                    dialog.setContentView(R.layout.log_view_alert);
+                    Spinner spinner = dialog.findViewById(R.id.assignee);
+                    Button assign = dialog.findViewById(R.id.alert_assign);
+                    Button cancel = dialog.findViewById(R.id.alert_cancel);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,teamMates);
-                spinner.setAdapter(adapter);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, teamMates);
+                    spinner.setAdapter(adapter);
 
-                assign.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        FirebaseUser currentUser = mAuth.getCurrentUser();
-                        FirebaseFirestore db = Database.db;
+                    assign.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            FirebaseFirestore db = Database.db;
 
-                        DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
-                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                ArrayList<String> location = new ArrayList<>();
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
-                                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
-                                        String TeamCode = userCurrentTeam.get(0);
-                                        DocumentReference docRef = db.collection("Teams").document(TeamCode);
-                                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                if(task.isSuccessful()){
-                                                    DocumentSnapshot document = task.getResult();
-                                                    if(document.exists()){
-                                                        ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
-                                                        log = locations.get(logPos);
-                                                        Map<String, Object> log2 = new HashMap<>();
-                                                        log2.put("creator", log.get("creator").toString());
-                                                        log2.put("location", log.get("location").toString());
-                                                        log2.put("category", log.get("creator").toString());
-                                                        log2.put("info", log.get("info").toString());
-                                                        log2.put("Log Rating", log.get("Log Rating"));
-                                                        log2.put("time", log.get("time").toString());
-                                                        log2.put("point", log.get("point"));
-                                                        log2.put("assignment",String.valueOf(spinner.getSelectedItem()));
-                                                        docRef.update("logs", FieldValue.arrayRemove(log));
-                                                        docRef.update("logs", FieldValue.arrayUnion(log2));
-                                                        dialog.dismiss();
+                            DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    ArrayList<String> location = new ArrayList<>();
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                                            String TeamCode = userCurrentTeam.get(0);
+                                            DocumentReference docRef = db.collection("Teams").document(TeamCode);
+                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        DocumentSnapshot document = task.getResult();
+                                                        if (document.exists()) {
+                                                            ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
+                                                            log = locations.get(logPos);
+                                                            Map<String, Object> log2 = new HashMap<>();
+                                                            log2.put("creator", log.get("creator").toString());
+                                                            log2.put("location", log.get("location").toString());
+                                                            log2.put("category", log.get("creator").toString());
+                                                            log2.put("info", log.get("info").toString());
+                                                            log2.put("Log Rating", log.get("Log Rating"));
+                                                            log2.put("time", log.get("time").toString());
+                                                            log2.put("point", log.get("point"));
+                                                            log2.put("assignment", String.valueOf(spinner.getSelectedItem()));
+                                                            docRef.update("logs", FieldValue.arrayRemove(log));
+                                                            docRef.update("logs", FieldValue.arrayUnion(log2));
+                                                            dialog.dismiss();
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        });
+                                            });
+                                        }
                                     }
                                 }
-                            }
-                        });
-                    }
-                });
+                            });
+                        }
+                    });
 
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
 
-                dialog.show();
+                    dialog.show();
+                }
+                else{
+                    Toast.makeText(ShowLogActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
+                }
             }
             else{
                 Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
@@ -252,21 +274,33 @@ public class ShowLogActivity extends AppCompatActivity {
     }
 
     private boolean isAdmin() {
-        FirebaseFirestore db = Database.db;
         mAuth = Database.mAuth;
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
+        String currentUser = mAuth.getCurrentUser().getEmail();
+        FirebaseFirestore db = Database.db;
+        DocumentReference docRef = db.collection("Profiles").document(currentUser);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        isAdmin = (Boolean)document.get("isAdmin");
+                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                        String TeamCode = userCurrentTeam.get(0);
+                        DocumentReference docRef = db.collection("Teams").document(TeamCode);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()){
+                                        String currentAdmin = document.getData().get("admin").toString();
+                                        isAdmin = currentUser.equals(currentAdmin);
+                                    }
+                                }
+                            }
+                        });
 
                     }
-                } else {
-
                 }
             }
         });

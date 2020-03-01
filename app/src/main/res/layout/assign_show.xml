@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/assign_text"
         android:textStyle="normal|bold"
-        android:textSize="18sp"
+        android:textSize="17sp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/alert_image"
         android:layout_toEndOf="@+id/alert_image"

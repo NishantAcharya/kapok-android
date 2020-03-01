@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -31,8 +32,8 @@ public class ShowMemberActivity extends AppCompatActivity {
     String member;
     String teamcode;
     ArrayList<String> requests;
-    FirebaseFirestore db = Database.db;
     private boolean isAdmin;
+    private String currentUser;
 
 
     @Override
@@ -45,9 +46,12 @@ public class ShowMemberActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_show_members);
 
+
         Intent intent = getIntent();
+        FirebaseFirestore db = Database.db;
         member = intent.getStringExtra("Member");
         mAuth = Database.mAuth;
+
 
         TextView nameText = findViewById(R.id.full_name_text_field);
         TextView occupationText = findViewById(R.id.occupation_text_field);
@@ -55,8 +59,9 @@ public class ShowMemberActivity extends AppCompatActivity {
         TextView aboutText = findViewById(R.id.about_me_text_field);
         TextView registeredEmailText = findViewById(R.id.registered_email_text_field);
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser().getEmail();
         isAdmin();
+
 
 
         DocumentReference memberRef = db.collection("Profiles").document(member);
@@ -95,33 +100,44 @@ public class ShowMemberActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.kickOut) {
-            removeFromTeam();
+            if(isAdmin()) {
+                    removeFromTeam();
+            }
+            else{
+                Toast.makeText(ShowMemberActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
+            }
         }
 
         if (id == R.id.makeAdmin) {
-            DocumentReference userRef = db.collection("Profiles").document(Database.currentUser.getEmail());
-            userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            teamcode = ((ArrayList<String>) document.get("team")).get(0);
-                            DocumentReference teamref = db.collection("Teams").document(teamcode);
-                            teamref.update("admin", member);
+            if (isAdmin()) {
+                FirebaseFirestore db = Database.db;
+                    DocumentReference userRef = db.collection("Profiles").document(Database.currentUser.getEmail());
+                    userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    teamcode = ((ArrayList<String>) document.get("team")).get(0);
+                                    DocumentReference teamref = db.collection("Teams").document(teamcode);
+                                    teamref.update("admin", member);
+                                }
+                            }
                         }
-                    }
-                }
-            });
-            userRef.update("isAdmin", false);
+                    });
+                    userRef.update("isAdmin", false);
 
 
-            DocumentReference userProf = db.collection("Profiles").document(member);
-            // Set the admin field of the current user to true
-            userProf.update("requests", FieldValue.arrayUnion(requests));
-            userProf.update("isAdmin", true);
+                    DocumentReference userProf = db.collection("Profiles").document(member);
+                    // Set the admin field of the current user to true
+                    userProf.update("requests", FieldValue.arrayUnion(requests));
+                    userProf.update("isAdmin", true);
 
-            userRef.update("requests", FieldValue.arrayRemove(requests));
+                    userRef.update("requests", FieldValue.arrayRemove(requests));
+            }
+            else{
+                Toast.makeText(ShowMemberActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
+            }
         }
 
 
@@ -170,22 +186,34 @@ public class ShowMemberActivity extends AppCompatActivity {
 
     }
 
+
+
     private boolean isAdmin() {
         FirebaseFirestore db = Database.db;
-        mAuth = Database.mAuth;
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
+        DocumentReference docRef = db.collection("Profiles").document(currentUser);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        isAdmin = (Boolean)document.get("isAdmin");
+                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                        String TeamCode = userCurrentTeam.get(0);
+                        DocumentReference docRef = db.collection("Teams").document(TeamCode);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()){
+                                        String currentAdmin = document.getData().get("admin").toString();
+                                        isAdmin = currentUser.equals(currentAdmin);
+                                    }
+                                }
+                            }
+                        });
 
                     }
-                } else {
-
                 }
             }
         });

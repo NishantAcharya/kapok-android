@@ -30,6 +30,7 @@
         android:id="@+id/text"
         android:textStyle="normal|bold"
         android:textSize="18sp"
+        android:textColor="@color/colorBlack"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/image"
         android:layout_toEndOf="@+id/image"

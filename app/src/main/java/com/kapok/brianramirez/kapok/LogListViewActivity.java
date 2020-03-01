@@ -237,7 +237,6 @@ public class LogListViewActivity extends AppCompatActivity {
     public void openLogView (int position){
         Intent i = new Intent(this, ShowLogActivity.class).putExtra("Log Position", position);
         startActivity(i);
-        finish();
     }
 
 
