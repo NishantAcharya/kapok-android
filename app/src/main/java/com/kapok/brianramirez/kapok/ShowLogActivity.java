@@ -307,6 +307,7 @@ public class ShowLogActivity extends AppCompatActivity {
         return isAdmin;
     }
 
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         FirebaseUser currentUser = mAuth.getCurrentUser();

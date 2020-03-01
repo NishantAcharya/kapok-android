@@ -34,6 +34,7 @@ public class ShowMemberActivity extends AppCompatActivity {
     ArrayList<String> requests;
     private boolean isAdmin;
     private String currentUser;
+    private String currentAdmin;
 
 
     @Override
@@ -61,7 +62,7 @@ public class ShowMemberActivity extends AppCompatActivity {
 
         currentUser = mAuth.getCurrentUser().getEmail();
         isAdmin();
-
+        getAdmin();
 
 
         DocumentReference memberRef = db.collection("Profiles").document(member);
@@ -101,7 +102,12 @@ public class ShowMemberActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.kickOut) {
             if(isAdmin()) {
+                if(!getAdmin().equals(member)) {
                     removeFromTeam();
+                }
+                else{
+                    Toast.makeText(ShowMemberActivity.this, "You are already the Administrator", Toast.LENGTH_SHORT).show();
+                }
             }
             else{
                 Toast.makeText(ShowMemberActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
@@ -110,7 +116,8 @@ public class ShowMemberActivity extends AppCompatActivity {
 
         if (id == R.id.makeAdmin) {
             if (isAdmin()) {
-                FirebaseFirestore db = Database.db;
+                if (!getAdmin().equals(member)) {
+                    FirebaseFirestore db = Database.db;
                     DocumentReference userRef = db.collection("Profiles").document(Database.currentUser.getEmail());
                     userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                         @Override
@@ -134,11 +141,15 @@ public class ShowMemberActivity extends AppCompatActivity {
                     userProf.update("isAdmin", true);
 
                     userRef.update("requests", FieldValue.arrayRemove(requests));
+                }
+                else{
+                    Toast.makeText(ShowMemberActivity.this, "You are already the Administrator", Toast.LENGTH_SHORT).show();
+                }
             }
-            else{
-                Toast.makeText(ShowMemberActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
+            else {
+                    Toast.makeText(ShowMemberActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
+                }
             }
-        }
 
 
         return super.onOptionsItemSelected(item);
@@ -206,7 +217,7 @@ public class ShowMemberActivity extends AppCompatActivity {
                                 if(task.isSuccessful()){
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists()){
-                                        String currentAdmin = document.getData().get("admin").toString();
+                                        currentAdmin = document.getData().get("admin").toString();
                                         isAdmin = currentUser.equals(currentAdmin);
                                     }
                                 }
@@ -220,6 +231,36 @@ public class ShowMemberActivity extends AppCompatActivity {
         return isAdmin;
     }
 
+    private String getAdmin(){
+        FirebaseFirestore db = Database.db;
+        DocumentReference docRef = db.collection("Profiles").document(currentUser);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                        String TeamCode = userCurrentTeam.get(0);
+                        DocumentReference docRef = db.collection("Teams").document(TeamCode);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()){
+                                        currentAdmin = document.getData().get("admin").toString();
+                                    }
+                                }
+                            }
+                        });
+
+                    }
+                }
+            }
+        });
+        return currentAdmin;
+    }
 
     public  void openJoinTeam(){
         Intent intent = new Intent(this, JoinTeamActivity.class);

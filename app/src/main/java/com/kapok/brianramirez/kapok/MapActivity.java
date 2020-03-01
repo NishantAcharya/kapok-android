@@ -1160,4 +1160,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
     }
+
+    public void openLogView (int position){
+        Intent i = new Intent(this, AssignedLogActivity.class).putExtra("Log Position", position);
+        startActivity(i);
+    }
 }
