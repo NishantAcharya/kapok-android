@@ -116,12 +116,6 @@ public class AssignedLogActivity extends AppCompatActivity {
                                                         notesText.setText(notes);
                                                         Rating.setRating(floatval);
 
-                                                        locationText.setOnClickListener(new View.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(View view) {
-                                                                openMapDisplay();
-                                                            }
-                                                        });
                                                     }
                                                 }
                                             }
@@ -341,7 +335,7 @@ public class AssignedLogActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            Intent intent = new Intent(AssignedLogActivity.this, LogListViewActivity.class);
+            Intent intent = new Intent(AssignedLogActivity.this, MapActivity.class);
             startActivity(intent);
             finish();
             // do something on back.

@@ -131,6 +131,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private String usrEmail;
     private String usrName;
     private ArrayList<String> teamEmails;
+    private int positionNum;
     int numOfReq;
     private ArrayList<String> teamMates = new ArrayList<String>(1);
     final Context context = this;
@@ -310,11 +311,36 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                                         dialog.setContentView(R.layout.assign_show);
                                                         Spinner spinner = dialog.findViewById(R.id.assigned);
                                                         Button cancel = dialog.findViewById(R.id.alert_close);
+                                                        Button open = dialog.findViewById(R.id.assign_open);
+
 
                                                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapActivity.this,android.R.layout.simple_spinner_dropdown_item,Assigned);
                                                         spinner.setAdapter(adapter);
+                                                        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                            @Override
+                                                            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                                                                positionNum = position;
 
+                                                            }
 
+                                                            @Override
+                                                            public void onNothingSelected(AdapterView<?> adapterView) {
+                                                                positionNum = -1;
+                                                            }
+                                                        });
+
+                                                        open.setOnClickListener(new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View view) {
+                                                                if(positionNum != -1){
+                                                                    openAssignView(positionNum);
+                                                                    dialog.dismiss();
+                                                                }
+                                                                else{
+                                                                    Toast.makeText(MapActivity.this, "No Item selected", Toast.LENGTH_SHORT).show();
+                                                                }
+                                                            }
+                                                        });
 
                                                         cancel.setOnClickListener(new View.OnClickListener() {
                                                             @Override
@@ -1161,7 +1187,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
     }
 
-    public void openLogView (int position){
+    public void openAssignView (int position){
         Intent i = new Intent(this, AssignedLogActivity.class).putExtra("Log Position", position);
         startActivity(i);
     }

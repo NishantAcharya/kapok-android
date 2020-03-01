@@ -58,6 +58,19 @@
         android:background = "?attr/colorSpinner"
         android:inputType="textEmailAddress"
         />
+    <Button
+        android:id="@+id/assign_open"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="58dp"
+        android:layout_below="@+id/alert_image"
+        android:layout_alignStart="@+id/alert_image"
+        android:layout_alignLeft="@+id/alert_image"
+        android:layout_marginTop="60dp"
+        android:paddingRight="5dp"
+        android:text="Open"
+        android:textSize="18sp"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
 
 
 

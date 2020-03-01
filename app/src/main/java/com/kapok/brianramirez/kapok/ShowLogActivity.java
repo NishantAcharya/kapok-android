@@ -115,12 +115,6 @@ public class ShowLogActivity extends AppCompatActivity {
                                                         notesText.setText(notes);
                                                         Rating.setRating(floatval);
 
-                                                        locationText.setOnClickListener(new View.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(View view) {
-                                                                openMapDisplay();
-                                                            }
-                                                        });
                                                     }
                                                 }
                                             }
