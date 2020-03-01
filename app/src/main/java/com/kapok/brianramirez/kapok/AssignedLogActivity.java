@@ -132,6 +132,7 @@ public class AssignedLogActivity extends AppCompatActivity {
     }
 
 
+
     private boolean isAdmin() {
         mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
@@ -196,7 +197,7 @@ public class AssignedLogActivity extends AppCompatActivity {
                                             Map<String, Object> log2 = new HashMap<>();
                                             log2.put("creator", log.get("creator").toString());
                                             log2.put("location", log.get("location").toString());
-                                            log2.put("category", log.get("creator").toString());
+                                            log2.put("category", log.get("category").toString());
                                             log2.put("info", message);
                                             log2.put("Log Rating", log.get("Log Rating")).toString();
                                             log2.put("time", log.get("time").toString());
@@ -256,7 +257,7 @@ public class AssignedLogActivity extends AppCompatActivity {
                                                 Map<String, Object> log2 = new HashMap<>();
                                                 log2.put("creator", log.get("creator").toString());
                                                 log2.put("location", log.get("location").toString());
-                                                log2.put("category", log.get("creator").toString());
+                                                log2.put("category", log.get("category").toString());
                                                 log2.put("info", log.get("info").toString());
                                                 log2.put("Log Rating", String.valueOf(ratingBar2.getRating()));
                                                 log2.put("time", log.get("time").toString());

@@ -227,7 +227,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                                             Map<String, Object> log2 = new HashMap<>();
                                                             log2.put("creator", log.get("creator").toString());
                                                             log2.put("location", log.get("location").toString());
-                                                            log2.put("category", log.get("creator").toString());
+                                                            log2.put("category", log.get("category").toString());
                                                             log2.put("info", log.get("info").toString());
                                                             log2.put("Log Rating", log.get("Log Rating"));
                                                             log2.put("time", log.get("time").toString());
