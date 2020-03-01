@@ -1,0 +1,109 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorText">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:textColor="?attr/colorAltText"
+            android:text="Here is the selected log!"
+            android:textAlignment="center" />
+
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="?attr/colorAccent"
+            android:text="Location:"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="110dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="?attr/colorAltText"
+            android:id="@+id/location_txt_display"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorAccent"
+            android:layout_marginTop="170dp"
+            android:layout_centerHorizontal="true"
+            android:text="Category:"
+            android:textSize="20dp"
+            />
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:textSize="20dp"
+            android:textColor="?attr/colorAltText"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/category_txt_display"/>
+
+
+        <TextView
+            android:layout_width="300dp"
+            android:textColor="?attr/colorAccent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="230dp"
+            android:layout_centerHorizontal="true"
+            android:textSize="20dp"
+            android:text="Notes:"
+            />
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="260dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="?attr/colorAltText"
+            android:id="@+id/notes_txt_display"
+            android:textSize="20dp"/>
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="410dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="?attr/colorAccent"
+            android:text="Creator:"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="440dp"
+            android:textSize="20dp"
+            android:textColor="?attr/colorAltText"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/creator_txt_display"/>
+
+
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/ratingBar"
+            android:isIndicator="true"
+            android:layout_marginTop="510dp"
+
+            />
+    </RelativeLayout>
+</ScrollView>
