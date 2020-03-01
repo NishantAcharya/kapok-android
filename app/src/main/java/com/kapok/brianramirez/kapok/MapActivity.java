@@ -369,7 +369,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         if(isAdmin()){
                             if(teamMates.size()>1) {
 
-                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context,R.style.AlertDialog);
 
                                 // set title
                                 //alertDialogBuilder.setTitle("Your Title");
@@ -623,7 +623,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                         count.setProperties(
                                                 textField(Expression.toString((Expression) get("point_count"))),
                                                 textSize(20f),
-                                                textColor(ContextCompat.getColor(context, R.color.colorPrimary)),
+                                                textColor(ContextCompat.getColor(context, R.color.colorBlack)),
                                                 textIgnorePlacement(true),
                                                 textAllowOverlap(true)
                                         );
@@ -1001,7 +1001,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void removeFromTeam() {
         FirebaseFirestore db = Database.db;
         DocumentReference userProf = db.collection("Profiles").document(currentUser.toString());
-        AlertDialog.Builder a = new AlertDialog.Builder(MapActivity.this);
+        AlertDialog.Builder a = new AlertDialog.Builder(MapActivity.this,R.style.AlertDialog);
         a.setMessage("Are you sure you want to leave the team").setCancelable(true)
                 .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
 

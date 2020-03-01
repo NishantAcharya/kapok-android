@@ -50,6 +50,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="82dp"
+        android:backgroundTint="@color/colorWhite"
+        android:textColor="@color/colorAccent"
         android:text="Create an account" />
 </RelativeLayout>
 

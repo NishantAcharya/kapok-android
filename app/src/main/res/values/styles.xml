@@ -24,6 +24,13 @@
         <item name="colorSpinner">@color/colorGrey</item>
     </style>
 
+    <!--Dark theme alert box-->
+    <style name="AlertDialog" parent="Base.Theme.AppCompat.Light.Dialog">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textColorPrimary">@color/colorBlack</item>
+        <item name="android:colorAccent">@color/colorGrey</item>
+    </style>
+
 
     <!-- Base application theme. -->
     <style name="FullScreen" parent="Theme.AppCompat.Light.NoActionBar">

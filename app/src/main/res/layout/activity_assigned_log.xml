@@ -103,6 +103,7 @@
             android:id="@+id/ratingBar"
             android:isIndicator="true"
             android:layout_marginTop="510dp"
+            android:backgroundTint="?attr/colorSpinner"
 
             />
     </RelativeLayout>

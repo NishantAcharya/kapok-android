@@ -31,9 +31,10 @@
     <EditText
         android:layout_width="352dp"
         android:layout_height="wrap_content"
-        android:textColorHint="?attr/colorAltText"
+        android:textColorHint="?attr/colorHint"
+        android:textColor = "?attr/colorAltText"
         android:hint="Team Name"
-        android:backgroundTint="?attr/colorAltText"
+        android:backgroundTint="?attr/colorHint"
         android:layout_marginTop="210dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/teamName"/>
@@ -41,9 +42,10 @@
     <EditText
         android:layout_width="352dp"
         android:layout_height="wrap_content"
-        android:textColorHint="?attr/colorAltText"
+        android:textColorHint="?attr/colorHint"
+        android:textColor = "?attr/colorAltText"
         android:hint="Location"
-        android:backgroundTint="?attr/colorAltText"
+        android:backgroundTint="?attr/colorHint"
         android:layout_marginTop="300dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/location"/>

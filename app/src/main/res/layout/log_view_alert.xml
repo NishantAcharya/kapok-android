@@ -20,6 +20,7 @@
         android:paddingRight="5dp"
         android:text="Cancel"
         android:textSize="18sp"
+        android:backgroundTint="?attr/colorPrimary"
         tools:ignore="RtlHardcoded,RtlSymmetry" />
 
     <TextView
@@ -71,6 +72,7 @@
         android:paddingRight="5dp"
         android:text="Assign"
         android:textSize="18sp"
+        android:backgroundTint="?attr/colorPrimary"
         tools:ignore="RtlHardcoded,RtlSymmetry" />
 
 </RelativeLayout>

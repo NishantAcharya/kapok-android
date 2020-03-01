@@ -30,6 +30,7 @@
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:textColorHint="?attr/colorHint"
+        android:textColor = "?attr/colorAltText"
         android:hint="Team Code"
         android:backgroundTint="?attr/colorHint"
         android:maxLength="7"

@@ -20,6 +20,7 @@
         android:clickable="true"
         android:cursorVisible="true"
         android:backgroundTint="?attr/colorHint"
+        android:textColor = "?attr/colorAltText"
         />
 
     <Button

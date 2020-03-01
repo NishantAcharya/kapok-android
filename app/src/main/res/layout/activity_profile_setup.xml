@@ -32,6 +32,7 @@
         android:layout_marginTop="90dp"
         android:ems="10"
         android:textColorHint="?attr/colorHint"
+        android:textColor = "?attr/colorAltText"
         android:hint="Full Name"
         android:backgroundTint="?attr/colorHint"
         android:inputType="textPersonName" />
@@ -45,6 +46,7 @@
         android:layout_marginTop="150dp"
         android:ems="10"
         android:textColorHint="?attr/colorHint"
+        android:textColor = "?attr/colorAltText"
         android:hint="Occupation"
         android:backgroundTint="?attr/colorHint"
         android:inputType="textPersonName" />
@@ -57,6 +59,7 @@
         android:layout_marginTop="210dp"
         android:ems="10"
         android:textColorHint="?attr/colorHint"
+        android:textColor = "?attr/colorAltText"
         android:hint="Contact Information"
         android:backgroundTint="?attr/colorHint"
         android:inputType="textPersonName" />
@@ -70,6 +73,7 @@
         android:layout_marginTop = "270dp"
         android:ems="10"
         android:textColorHint="?attr/colorHint"
+        android:textColor = "?attr/colorAltText"
         android:hint="About Me"
         android:backgroundTint="?attr/colorHint"
         android:inputType="textMultiLine" />

@@ -429,7 +429,7 @@ public class ShowLogActivity extends AppCompatActivity {
         mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
         DocumentReference userProf = db.collection("Profiles").document(currentUser);
-        AlertDialog.Builder a = new AlertDialog.Builder(ShowLogActivity.this);
+        AlertDialog.Builder a = new AlertDialog.Builder(ShowLogActivity.this,R.style.AlertDialog);
         a.setMessage("Are you sure you want to delete this log").setCancelable(true)
                 .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
 

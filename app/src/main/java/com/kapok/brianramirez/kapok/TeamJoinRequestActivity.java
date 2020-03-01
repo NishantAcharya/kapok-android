@@ -79,7 +79,7 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
                                             //On Request Click
                                             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                                    AlertDialog.Builder a = new AlertDialog.Builder(TeamJoinRequestActivity.this);
+                                                    AlertDialog.Builder a = new AlertDialog.Builder(TeamJoinRequestActivity.this,R.style.AlertDialog);
                                                     a.setMessage("This member wants to join the team").setCancelable(true)
                                                             .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
 

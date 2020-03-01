@@ -159,7 +159,7 @@ public class ShowMemberActivity extends AppCompatActivity {
     public void removeFromTeam() {
         FirebaseFirestore db = Database.db;
         DocumentReference userProf = db.collection("Profiles").document(member);
-        AlertDialog.Builder a = new AlertDialog.Builder(ShowMemberActivity.this);
+        AlertDialog.Builder a = new AlertDialog.Builder(ShowMemberActivity.this,R.style.AlertDialog);
         a.setMessage("Are you sure you want to kick this member out of the team?").setCancelable(true)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
