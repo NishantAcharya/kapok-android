@@ -3,6 +3,7 @@ package com.kapok.brianramirez.kapok;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Build;
@@ -10,6 +11,7 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +23,7 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
+import java.sql.Ref;
 import java.util.ArrayList;
 
 import static android.support.constraint.Constraints.TAG;
@@ -43,6 +46,17 @@ public class DatabaseListener extends Service {
                 if (task.isSuccessful()) {
                     // Document found in the offline cache
                     prevUserSnap = task.getResult();
+                    team = ((ArrayList<String>) task.getResult().get("team")).get(0);
+                    DocumentReference teamRef = db.collection("Teams").document(team);
+                    teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                // Document found in the offline cache
+                                prevTeamSnap = task.getResult();
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -62,14 +76,22 @@ public class DatabaseListener extends Service {
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
                                     ArrayList<String> requests = (ArrayList<String>)document.get("requests");
-                                    ArrayList<String> prevrequests = (ArrayList<String>)prevUserSnap.get("request");
+                                    ArrayList<String> prevrequests = (ArrayList<String>)prevUserSnap.get("requests");
                                     if(requests.size()>prevrequests.size()){
                                         //make notification
-                                        Notification notification = new NotificationCompat.Builder(DatabaseListener.this, "kapok")
-                                                .setContentTitle("New Messages")
-                                                .setSmallIcon(R.drawable.ic_launcher_background)
-                                                .setNumber(requests.size())
-                                                .build();
+                                        createNotificationChannel();
+                                        int notificationId = 10;
+                                        NotificationCompat.Builder builder = new NotificationCompat.Builder(DatabaseListener.this, "Kapok")
+                                                .setSmallIcon(R.drawable.logo)
+                                                .setContentTitle("New Requests")
+                                                .setContentText("New Requests")
+                                                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(DatabaseListener.this);
+
+// notificationId is a unique int for each notification that you must define
+                                        notificationManager.notify(notificationId, builder.build());
+
                                     }
                                     prevUserSnap = document;
                                 }
@@ -79,6 +101,7 @@ public class DatabaseListener extends Service {
                 }
             }
         });
+
     }
 
     private void createNotificationChannel() {
@@ -95,6 +118,8 @@ public class DatabaseListener extends Service {
             // or other notification behaviors after this
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
+
+
         }
     }
 

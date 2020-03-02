@@ -160,7 +160,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         features = new JsonArray();
         logs.add("features", new JsonArray());
 
-
+        Intent i = new Intent(this, DatabaseListener.class);
+        startService(i);
         getTeam();
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
