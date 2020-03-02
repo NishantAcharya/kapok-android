@@ -99,6 +99,18 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
                                                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                 @Override
                                                                                 public void onSuccess(Void aVoid) {
+                                                                                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                                                        @Override
+                                                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                                                            if (task.isSuccessful()) {
+                                                                                                DocumentSnapshot document = task.getResult();
+                                                                                                String name = (String) document.getData().get("name");
+                                                                                                DocumentReference teamRef = db.collection("Teams").document(teamId.get(0));
+                                                                                                teamRef.update("membersn", FieldValue.arrayUnion(name));
+                                                                                            }
+
+                                                                                        }
+                                                                                    });
                                                                                     DocumentReference teamRef = db.collection("Teams").document(teamId.get(0));
 
                                                                                     //Removing from the requests
@@ -109,7 +121,7 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
                                                                                                 DocumentSnapshot document = task.getResult();
                                                                                                 String admin = (String) document.getData().get("admin");
                                                                                                 DocumentReference docRefAdmin = db.collection("Profiles").document(admin);
-                                                                                                docRefAdmin.update("requests", FieldValue.arrayRemove(requester));
+                                                                                                docRefAdmin.update("requests", FieldValue.arrayRemove());
                                                                                             }
                                                                                         }
                                                                                     });
@@ -124,6 +136,7 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
                                                                                                             Toast.LENGTH_SHORT).show();
                                                                                                 }
                                                                                             });
+                                                                                    teamRef.update("membersn", FieldValue.arrayUnion());
                                                                                 }
                                                                             })
 

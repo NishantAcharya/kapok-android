@@ -42,7 +42,6 @@ public class AssignedLogActivity extends AppCompatActivity {
     String note;
     RatingBar Rating;
     private ArrayList<String> teamMates = new ArrayList<String>(1);
-    ;
     private ArrayList<String> teamEmails;
     private boolean isAdmin;
 

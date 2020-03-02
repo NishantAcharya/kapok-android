@@ -30,8 +30,9 @@ public class TeamDIsplayActivity extends AppCompatActivity {
     private ArrayList<String> memberName = new ArrayList<String>(1);
     String clickedMember;
     ArrayAdapter<String> arrayAdapter;
-    List<String> members = null;
+    ArrayList<String> members = new ArrayList<String>(1);
     private FirebaseAuth mAuth;
+    private int index = 0;
 
 
     @Override
@@ -71,23 +72,16 @@ public class TeamDIsplayActivity extends AppCompatActivity {
                                     if (document.exists()) {
 
 
-                                        members = (List<String>) document.getData().get("members");
-
-                                        for (int i = 0; i < members.size(); i++) {
-                                            DocumentReference docRef = db.collection("Profiles").document(members.get(i));
-                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                    if (task.isSuccessful()) {
-                                                        DocumentSnapshot document = task.getResult();
-                                                        if (document.exists()) {
-                                                            memberName.add((String)document.getData().get("name"));
-
-                                                        }
-                                                    }
-                                                }
-                                            });
-                                        }
+                                        members = (ArrayList<String>) document.getData().get("members");
+                                        memberName = (ArrayList<String>) document.getData().get("membersn");
+                                        arrayAdapter = new ArrayAdapter<String>(TeamDIsplayActivity.this, android.R.layout.simple_list_item_1, memberName);
+                                        lv.setAdapter(arrayAdapter);
+                                        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                clickedMember = members.get(position);
+                                                openMemberView(clickedMember);
+                                            }
+                                        });
                                     }
                                 }
                             }
@@ -96,23 +90,6 @@ public class TeamDIsplayActivity extends AppCompatActivity {
                 }
             }
         });
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-
-                arrayAdapter = new ArrayAdapter<String>(TeamDIsplayActivity.this, android.R.layout.simple_list_item_1, memberName);
-                lv.setAdapter(arrayAdapter);
-                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        clickedMember = members.get(position);
-                        openMemberView(clickedMember);
-
-
-                    }
-                });
-            }
-        }, 1000 );
 
 
     }

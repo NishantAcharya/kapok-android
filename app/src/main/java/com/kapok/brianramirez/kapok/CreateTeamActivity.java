@@ -59,42 +59,58 @@ public class CreateTeamActivity extends AppCompatActivity {
 
                 //create list containing the user
                 ArrayList<String> members = new ArrayList<String>(1);
+                ArrayList<String> membersn = new ArrayList<String>(1);
                 members.add(currentUser);
-                teamID = genTeamCode(db);
-                ArrayList<Map<String, Object>> logs = new ArrayList<Map<String, Object>>(1);
+                DocumentReference teamRef = db.collection("Profiles").document(currentUser);
 
-                // Create a new user with a first and last name
-                Map<String, Object> team = new HashMap<>();
-                team.put("name", team_name.getText().toString());
-                team.put("location", team_location.getText().toString());
-                team.put("members", members);
-                team.put("id", teamID);
-                team.put("logs", logs);
-                team.put("admin",currentUser);
+                //Removing from the requests
+                teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            String admin = (String) document.getData().get("name");
+                            membersn.add(admin);
+                            teamID = genTeamCode(db);
+                            ArrayList<Map<String, Object>> logs = new ArrayList<Map<String, Object>>(1);
 
-                db.collection("Teams").document(teamID)
-                        .set(team)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                DocumentReference userProf = db.collection("Profiles").document(currentUser);
-                                // Set the admin field of the current user to true
-                                userProf
-                                        .update("isAdmin", true);
-                                userProf
-                                        .update("team", FieldValue.arrayUnion(teamID));
-                                userProf
-                                        .update("status", "accepted");
-                                openCodeDisplay();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(CreateTeamActivity.this, "Team Setup failed.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                            // Create a new user with a first and last name
+                            Map<String, Object> team = new HashMap<>();
+                            team.put("name", team_name.getText().toString());
+                            team.put("location", team_location.getText().toString());
+                            team.put("members", members);
+                            team.put("membersn", membersn);
+                            team.put("id", teamID);
+                            team.put("logs", logs);
+                            team.put("admin",currentUser);
+
+                            db.collection("Teams").document(teamID)
+                                    .set(team)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            DocumentReference userProf = db.collection("Profiles").document(currentUser);
+                                            // Set the admin field of the current user to true
+                                            userProf
+                                                    .update("isAdmin", true);
+                                            userProf
+                                                    .update("team", FieldValue.arrayUnion(teamID));
+                                            userProf
+                                                    .update("status", "accepted");
+                                            openCodeDisplay();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(CreateTeamActivity.this, "Team Setup failed.",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    }
+                });
+
                 }
             });
         }
