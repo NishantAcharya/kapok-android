@@ -185,6 +185,32 @@ public class LogListViewActivity extends AppCompatActivity {
             });
 
         }
+
+        if (id == R.id.sort_category) {
+            Comparator<Map<String, Object>> logComparator = new Comparator<Map<String, Object>>() {
+                public int compare(Map<String, Object> log1, Map<String, Object> log2) {
+                    String time1 = (String)log1.get("category");
+                    String time2 = (String)log2.get("Log Rating");
+                    if(time1.compareToIgnoreCase(time2) > 0)
+                        return -1;
+                    else
+                        return 1;
+                }
+            };
+            Collections.sort(baseLog, logComparator);
+            ArrayList<String> location = new ArrayList<>();
+            for (Map<String, Object> currLog : baseLog) {
+                location.add((String) currLog.get("location"));
+            }
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(LogListViewActivity.this, android.R.layout.simple_list_item_1, location);
+            lv.setAdapter(arrayAdapter);
+            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    openLogView(position);
+                }
+            });
+
+        }
         return super.onOptionsItemSelected(item);
     }
 

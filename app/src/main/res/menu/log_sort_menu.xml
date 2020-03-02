@@ -18,4 +18,9 @@
         android:orderInCategory="100"
         android:title="Sort by rating"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/sort_category"
+        android:orderInCategory="100"
+        android:title="Sort by category"
+        app:showAsAction="never" />
 </menu>
