@@ -140,9 +140,9 @@ public class LogListViewActivity extends AppCompatActivity {
                     long time1 = Long.parseLong((String)log1.get("time"));
                     long time2 = Long.parseLong((String)log2.get("time"));
                     if(time1 >= time2)
-                        return 1;
-                    else
                         return -1;
+                    else
+                        return 1;
                 }
             };
             Collections.sort(baseLog, logComparator);
@@ -166,9 +166,9 @@ public class LogListViewActivity extends AppCompatActivity {
                     float time1 = Float.parseFloat((String)log1.get("Log Rating"));
                     float time2 = Float.parseFloat((String)log2.get("Log Rating"));
                     if(time1 >= time2)
-                        return -1;
-                    else
                         return 1;
+                    else
+                        return -1;
                 }
             };
             Collections.sort(baseLog, logComparator);
