@@ -53,6 +53,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 ArrayList<String> team = new ArrayList<String>(1);
                 FirebaseFirestore db = Database.db;
+                ArrayList<Map<String, Object>> logs = new ArrayList<Map<String, Object>>(1);
 
                 // Create a new user with a first and last name
                 Map<String, Object> user = new HashMap<>();
@@ -65,6 +66,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 user.put("status", "none");
                 user.put("recentMapPoint", null);
                 user.put("requests", new ArrayList<String>(1));
+                user.put("assignments", logs);
 
                 db.collection("Profiles").document(currentUser)
                         .set(user)

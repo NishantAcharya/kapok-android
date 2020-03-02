@@ -28,6 +28,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -215,8 +216,8 @@ public class ShowLogActivity extends AppCompatActivity {
                                         if (document.exists()) {
                                             ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
                                             String TeamCode = userCurrentTeam.get(0);
-                                            DocumentReference docRef = db.collection("Teams").document(TeamCode);
-                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                            DocumentReference teamRef = db.collection("Teams").document(TeamCode);
+                                            teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                     if (task.isSuccessful()) {
@@ -233,8 +234,9 @@ public class ShowLogActivity extends AppCompatActivity {
                                                             log2.put("time", log.get("time").toString());
                                                             log2.put("point", log.get("point"));
                                                             log2.put("assignment", String.valueOf(spinner.getSelectedItem()));
-                                                            docRef.update("logs", FieldValue.arrayRemove(log));
-                                                            docRef.update("logs", FieldValue.arrayUnion(log2));
+                                                            teamRef.update("logs", FieldValue.arrayRemove(log));
+                                                            teamRef.update("logs", FieldValue.arrayUnion(log2));
+                                                            docRef.update("assignments", FieldValue.arrayUnion(log2));
                                                             dialog.dismiss();
                                                         }
                                                     }

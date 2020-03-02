@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.sql.Ref;
 import java.util.ArrayList;
+import java.util.Map;
 
 import static android.support.constraint.Constraints.TAG;
 
@@ -77,6 +78,8 @@ public class DatabaseListener extends Service {
                                 if (document.exists()) {
                                     ArrayList<String> requests = (ArrayList<String>)document.get("requests");
                                     ArrayList<String> prevrequests = (ArrayList<String>)prevUserSnap.get("requests");
+                                    ArrayList<Map<String, Object>> logs = (ArrayList<Map<String, Object>>)document.get("assignments");
+                                    ArrayList<Map<String, Object>> prevlogs = (ArrayList<Map<String, Object>>)prevUserSnap.get("assignments");
                                     if(requests.size()>prevrequests.size()){
                                         //make notification
                                         createNotificationChannel();
@@ -92,6 +95,10 @@ public class DatabaseListener extends Service {
 // notificationId is a unique int for each notification that you must define
                                         notificationManager.notify(notificationId, builder.build());
 
+                                    }
+                                    if(logs.size()>prevlogs.size()){
+                                        //Todo
+                                        //Notification for log assigned
                                     }
                                     prevUserSnap = document;
                                 }
