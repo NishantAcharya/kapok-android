@@ -20,7 +20,7 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".Intro" />
+        <activity android:name=".Splash" />
         <activity android:name=".AdminChangeActivity" />
         <activity android:name=".userVerifyActivity" />
         <activity
@@ -28,7 +28,7 @@
             android:label="Requests"
             android:parentActivityName=".MapActivity" />
         <activity
-            android:name=".Splash"
+            android:name=".Intro"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -285,82 +285,89 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         break;
 
                     case R.id.navAssigned:
-                        ArrayList<String> Assigned = new ArrayList<String>(1);
-                        DocumentReference docRef = db.collection("Profiles").document(currentUser);
-                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                ArrayList<String> location = new ArrayList<>();
-                                if(task.isSuccessful()){
-                                    DocumentSnapshot document = task.getResult();
-                                    if(document.exists()){
-                                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
-                                        String TeamCode = userCurrentTeam.get(0);
-                                        DocumentReference docRef = db.collection("Teams").document(TeamCode);
-                                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                if(task.isSuccessful()){
-                                                    DocumentSnapshot document = task.getResult();
-                                                    if(document.exists()){
-                                                        ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
-                                                        for(Map<String, Object> loc:locations){
-                                                            if(loc.get("assignment").equals(usrName)){
-                                                                Assigned.add((String) loc.get("location"));
+                            ArrayList<String> Assigned = new ArrayList<String>(1);
+                            DocumentReference docRef = db.collection("Profiles").document(currentUser);
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    ArrayList<String> location = new ArrayList<>();
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                                            String TeamCode = userCurrentTeam.get(0);
+                                            DocumentReference docRef = db.collection("Teams").document(TeamCode);
+                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if (task.isSuccessful()) {
+                                                        DocumentSnapshot document = task.getResult();
+                                                        if (document.exists()) {
+                                                            ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
+                                                            for (Map<String, Object> loc : locations) {
+                                                                if (loc.get("assignment").equals(usrName)) {
+                                                                    Assigned.add((String) loc.get("location"));
+                                                                }
                                                             }
-                                                        }
-                                                        final Dialog dialog = new Dialog(MapActivity.this);
-                                                        dialog.setContentView(R.layout.assign_show);
-                                                        Spinner spinner = dialog.findViewById(R.id.assigned);
-                                                        Button cancel = dialog.findViewById(R.id.alert_close);
-                                                        Button open = dialog.findViewById(R.id.assign_open);
+                                                            if(Assigned.size() > 0){
+                                                            final Dialog dialog = new Dialog(MapActivity.this);
+                                                            dialog.setContentView(R.layout.assign_show);
+                                                            Spinner spinner = dialog.findViewById(R.id.assigned);
+                                                            Button cancel = dialog.findViewById(R.id.alert_close);
+                                                            Button open = dialog.findViewById(R.id.assign_open);
 
 
-                                                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapActivity.this,android.R.layout.simple_spinner_dropdown_item,Assigned);
-                                                        spinner.setAdapter(adapter);
-                                                        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                                            @Override
-                                                            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                                                                positionNum = position;
+                                                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapActivity.this, android.R.layout.simple_spinner_dropdown_item, Assigned);
 
-                                                            }
+                                                            spinner.setAdapter(adapter);
+                                                            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                                @Override
+                                                                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                                                                    positionNum = position;
 
-                                                            @Override
-                                                            public void onNothingSelected(AdapterView<?> adapterView) {
-                                                                positionNum = -1;
-                                                            }
-                                                        });
+                                                                }
 
-                                                        open.setOnClickListener(new View.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(View view) {
-                                                                if(positionNum != -1){
-                                                                    openAssignView(positionNum);
+                                                                @Override
+                                                                public void onNothingSelected(AdapterView<?> adapterView) {
+                                                                    positionNum = -1;
+                                                                }
+                                                            });
+
+
+                                                            open.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View view) {
+                                                                    if (positionNum != -1) {
+                                                                        openAssignView(positionNum);
+                                                                        dialog.dismiss();
+                                                                    } else {
+                                                                        Toast.makeText(MapActivity.this, "No Item selected", Toast.LENGTH_SHORT).show();
+                                                                    }
+                                                                }
+                                                            });
+
+                                                            cancel.setOnClickListener(new View.OnClickListener() {
+                                                                @Override
+                                                                public void onClick(View v) {
                                                                     dialog.dismiss();
                                                                 }
-                                                                else{
-                                                                    Toast.makeText(MapActivity.this, "No Item selected", Toast.LENGTH_SHORT).show();
-                                                                }
+
+                                                            });
+
+                                                            dialog.show();
                                                             }
-                                                        });
-
-                                                        cancel.setOnClickListener(new View.OnClickListener() {
-                                                            @Override
-                                                            public void onClick(View v) {
-                                                                dialog.dismiss();
+                                                            else{
+                                                                Toast.makeText(MapActivity.this, "You Don't Have Any Tasks!", Toast.LENGTH_SHORT).show();
                                                             }
-
-                                                        });
-
-                                                        dialog.show();
+                                                        }
                                                     }
                                                 }
-                                            }
-                                        });
+                                            });
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
+
 
 
 

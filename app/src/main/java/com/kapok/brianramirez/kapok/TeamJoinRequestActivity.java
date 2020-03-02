@@ -30,6 +30,7 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
     private ArrayList<String> allNames = new ArrayList<String>(1);
     private FirebaseAuth mAuth;
     private ListView lv;
+    private boolean isAdmin;
     private ArrayList<String> teamId;
 
     @Override
@@ -53,6 +54,7 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
 
         //Current User
         String currentUser = mAuth.getCurrentUser().getEmail();
+        isAdmin();
 
         DocumentReference userProf = db.collection("Profiles").document(currentUser);
         userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -79,7 +81,8 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
                                             //On Request Click
                                             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                                    AlertDialog.Builder a = new AlertDialog.Builder(TeamJoinRequestActivity.this,R.style.AlertDialog);
+                                                    if (isAdmin()){
+                                                        AlertDialog.Builder a = new AlertDialog.Builder(TeamJoinRequestActivity.this, R.style.AlertDialog);
                                                     a.setMessage("This member wants to join the team").setCancelable(true)
                                                             .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
 
@@ -182,6 +185,10 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
                                                                 }
                                                             }).show();
                                                 }
+                                                    else {
+                                                        Toast.makeText(TeamJoinRequestActivity.this, "You are not the Administrator!", Toast.LENGTH_SHORT).show();
+                                                    }
+                                            }
                                             });
                                         }
                                     }
@@ -194,6 +201,40 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private boolean isAdmin() {
+        mAuth = Database.mAuth;
+        String currentUser = mAuth.getCurrentUser().getEmail();
+        FirebaseFirestore db = Database.db;
+        DocumentReference docRef = db.collection("Profiles").document(currentUser);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                        String TeamCode = userCurrentTeam.get(0);
+                        DocumentReference docRef = db.collection("Teams").document(TeamCode);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()){
+                                        String currentAdmin = document.getData().get("admin").toString();
+                                        isAdmin = currentUser.equals(currentAdmin);
+                                    }
+                                }
+                            }
+                        });
+
+                    }
+                }
+            }
+        });
+        return isAdmin;
     }
 
 }

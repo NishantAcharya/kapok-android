@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RatingBar;
@@ -45,6 +46,7 @@ public class ShowLogActivity extends AppCompatActivity {
     private ArrayList<String> teamMates = new ArrayList<String>(1);;
     private ArrayList<String> teamEmails;
     private boolean isAdmin;
+    private String member;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,6 +201,17 @@ public class ShowLogActivity extends AppCompatActivity {
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, teamMates);
                     spinner.setAdapter(adapter);
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            member = teamEmails.get(i);
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                            Toast.makeText(ShowLogActivity.this, "Please Select Something!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
                     assign.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -236,7 +249,8 @@ public class ShowLogActivity extends AppCompatActivity {
                                                             log2.put("assignment", String.valueOf(spinner.getSelectedItem()));
                                                             teamRef.update("logs", FieldValue.arrayRemove(log));
                                                             teamRef.update("logs", FieldValue.arrayUnion(log2));
-                                                            docRef.update("assignments", FieldValue.arrayUnion(log2));
+                                                            DocumentReference teriRef = db.collection("Profiles").document(member);
+                                                            teriRef.update("assignments", FieldValue.arrayUnion(log2));
                                                             dialog.dismiss();
                                                         }
                                                     }

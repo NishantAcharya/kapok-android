@@ -99,6 +99,18 @@ public class DatabaseListener extends Service {
                                     if(logs.size()>prevlogs.size()){
                                         //Todo
                                         //Notification for log assigned
+                                        createNotificationChannel();
+                                        int notificationId = 11; //This unique
+                                        NotificationCompat.Builder builder = new NotificationCompat.Builder(DatabaseListener.this, "Kapok")
+                                                .setSmallIcon(R.drawable.logo)
+                                                .setContentTitle("New Tasks")
+                                                .setContentText("New Tasks")
+                                                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(DatabaseListener.this);
+
+// notificationId is a unique int for each notification that you must define
+                                        notificationManager.notify(notificationId, builder.build());
                                     }
                                     prevUserSnap = document;
                                 }

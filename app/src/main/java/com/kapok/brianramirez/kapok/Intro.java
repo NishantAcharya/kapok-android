@@ -46,11 +46,6 @@ import android.widget.TextView;
                 getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             }
 
-            if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-                setTheme(R.style.DarkTheme);
-            } else {
-                setTheme(R.style.AppTheme);
-            }
 
             setContentView(R.layout.activity_sec_welcome);
 
@@ -126,7 +121,7 @@ import android.widget.TextView;
 
         private void launchHomeScreen() {
             prefManager.setFirstTimeLaunch(false);
-            startActivity(new Intent(Intro.this, WelcomeActivity.class));
+            startActivity(new Intent(Intro.this, Splash.class));
             finish();
         }
 
