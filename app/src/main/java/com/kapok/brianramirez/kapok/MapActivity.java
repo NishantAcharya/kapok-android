@@ -162,6 +162,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
         getTeam();
+
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {

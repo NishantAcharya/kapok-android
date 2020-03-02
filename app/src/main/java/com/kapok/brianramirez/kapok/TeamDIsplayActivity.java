@@ -2,6 +2,7 @@ package com.kapok.brianramirez.kapok;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,8 @@ public class TeamDIsplayActivity extends AppCompatActivity {
     private ListView lv;
     private ArrayList<String> memberName = new ArrayList<String>(1);
     String clickedMember;
+    ArrayAdapter<String> arrayAdapter;
+    List<String> members = null;
     private FirebaseAuth mAuth;
 
 
@@ -53,6 +56,7 @@ public class TeamDIsplayActivity extends AppCompatActivity {
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
@@ -66,7 +70,8 @@ public class TeamDIsplayActivity extends AppCompatActivity {
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists()) {
 
-                                        List<String> members = (List<String>) document.getData().get("members");
+
+                                        members = (List<String>) document.getData().get("members");
 
                                         for (int i = 0; i < members.size(); i++) {
                                             DocumentReference docRef = db.collection("Profiles").document(members.get(i));
@@ -77,17 +82,7 @@ public class TeamDIsplayActivity extends AppCompatActivity {
                                                         DocumentSnapshot document = task.getResult();
                                                         if (document.exists()) {
                                                             memberName.add((String)document.getData().get("name"));
-                                                            ArrayAdapter<String> arrayAdapter;
-                                                            arrayAdapter = new ArrayAdapter<String>(TeamDIsplayActivity.this, android.R.layout.simple_list_item_1, memberName);
-                                                            lv.setAdapter(arrayAdapter);
-                                                            lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                                                    clickedMember = members.get(position);
-                                                                    openMemberView(clickedMember);
 
-
-                                                                }
-                                                            });
                                                         }
                                                     }
                                                 }
@@ -101,6 +96,25 @@ public class TeamDIsplayActivity extends AppCompatActivity {
                 }
             }
         });
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+
+                arrayAdapter = new ArrayAdapter<String>(TeamDIsplayActivity.this, android.R.layout.simple_list_item_1, memberName);
+                lv.setAdapter(arrayAdapter);
+                lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        clickedMember = members.get(position);
+                        openMemberView(clickedMember);
+
+
+                    }
+                });
+            }
+        }, 1000 );
+
+
     }
     public void openMemberView (String clickedMember){
         Intent i = new Intent(this, ShowMemberActivity.class).putExtra("Member", clickedMember);
