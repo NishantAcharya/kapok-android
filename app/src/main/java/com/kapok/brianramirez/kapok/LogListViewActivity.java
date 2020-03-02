@@ -112,8 +112,8 @@ public class LogListViewActivity extends AppCompatActivity {
         if (id == R.id.sort_newest) {
             Comparator<Map<String, Object>> logComparator = new Comparator<Map<String, Object>>() {
                 public int compare(Map<String, Object> log1, Map<String, Object> log2) {
-                    long time1 = (Long) log1.get("time");
-                    long time2 = (Long) log2.get("time");
+                    long time1 = Long.parseLong((String)log1.get("time"));
+                    long time2 = Long.parseLong((String)log1.get("time"));
                     if(time1 >= time2)
                         return 1;
                     else
@@ -137,8 +137,8 @@ public class LogListViewActivity extends AppCompatActivity {
         if (id == R.id.sort_oldest) {
             Comparator<Map<String, Object>> logComparator = new Comparator<Map<String, Object>>() {
                 public int compare(Map<String, Object> log1, Map<String, Object> log2) {
-                    long time1 = (Long)log1.get("time");
-                    long time2 = (Long)log2.get("time");
+                    long time1 = Long.parseLong((String)log1.get("time"));
+                    long time2 = Long.parseLong((String)log2.get("time"));
                     if(time1 >= time2)
                         return -1;
                     else
