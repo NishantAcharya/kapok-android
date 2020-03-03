@@ -121,7 +121,7 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
                                                                                                 DocumentSnapshot document = task.getResult();
                                                                                                 String admin = (String) document.getData().get("admin");
                                                                                                 DocumentReference docRefAdmin = db.collection("Profiles").document(admin);
-                                                                                                docRefAdmin.update("requests", FieldValue.arrayRemove());
+                                                                                                docRefAdmin.update("requests", FieldValue.arrayRemove(requester));
                                                                                             }
                                                                                         }
                                                                                     });
