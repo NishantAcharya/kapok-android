@@ -34,6 +34,7 @@ public class LogInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
@@ -43,12 +44,13 @@ public class LogInActivity extends AppCompatActivity {
 
         mAuth = Database.mAuth;
 
+        //Setting up views
         emailField = findViewById(R.id.email_text_field);
         passwordField = findViewById(R.id.password_text_field);
         logInBtn = findViewById(R.id.log_in_btn);
         resetBtn = findViewById(R.id.resetBtn);
 
-
+        //Reset button leads to forgot password activity
         resetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,6 +60,7 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
 
+        //Login button working
         logInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
