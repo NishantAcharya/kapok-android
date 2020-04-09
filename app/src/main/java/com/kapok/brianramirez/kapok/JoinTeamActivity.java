@@ -26,17 +26,23 @@ public class JoinTeamActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
             setTheme(R.style.AppTheme);
         }
         setContentView(R.layout.activity_join_team);
+
+        //Setting up text views
         edit_team_code = findViewById(R.id.teamCode);
         joinTeam = findViewById(R.id.joinRequest);
+
+        //Getting user data
         mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
 
+        //Join button working
         joinTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +54,7 @@ public class JoinTeamActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
+                                //Updating the request information for admins for the user
                                 String admin = (String) document.getData().get("admin");
                                 DocumentReference adminRef = db.collection("Profiles").document(admin);
                                 adminRef.update("requests", FieldValue.arrayUnion(currentUser));
@@ -66,6 +73,7 @@ public class JoinTeamActivity extends AppCompatActivity {
         });
     }
 
+    //Opens the join wait screen
     public void openJoinWait(String team){
         Intent i = new Intent(this, JoinWaitActivity.class).putExtra("teamid", team);
         startActivity(i);
