@@ -24,6 +24,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
@@ -31,10 +32,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_reset_password);
 
+        //Setting up the activity
         inputEmail = (EditText) findViewById(R.id.email_text_field);
         btnReset = (Button) findViewById(R.id.forgotPswdBtn);
         auth = Database.mAuth;
 
+        //Reset button working
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +48,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     return;
                 }
 
+                //Sends authentication email to the given email
                 auth.sendPasswordResetEmail(email)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
