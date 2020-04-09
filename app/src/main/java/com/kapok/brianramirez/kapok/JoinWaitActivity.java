@@ -19,12 +19,14 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.ArrayList;
 
+//The wait screen for joining
 public class JoinWaitActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
@@ -32,10 +34,12 @@ public class JoinWaitActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_waiting_to_join);
 
+        //Getting data
         mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
         FirebaseFirestore db = Database.db;
 
+        //staying until request gets accepted else opening map activty
         DocumentReference docRef = db.collection("Profiles").document(currentUser);
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -62,11 +66,13 @@ public class JoinWaitActivity extends AppCompatActivity {
         });
     }
 
+    //The back press is empty, this is for what need sto happen when you press back
     @Override
     public void onBackPressed() {
         //DO NOTHING
     }
 
+    //opens map activty
     public void openMaps(){
         Intent intent = new Intent(this,MapActivity.class);
         startActivity(intent);
