@@ -2,6 +2,7 @@ package com.kapok.brianramirez.kapok;
 
 import android.graphics.Color;
 
+// A set of values to define the password strength
 public enum  PasswordStrength {
 
         WEAK(R.string.password_strength_weak, Color.RED),
@@ -33,6 +34,7 @@ public enum  PasswordStrength {
             return color;
         }
 
+        //Method to calculate password strength and return a string in the textview
         public static PasswordStrength calculateStrength(String password) {
             int currentScore = 0;
             boolean sawUpper = false;
