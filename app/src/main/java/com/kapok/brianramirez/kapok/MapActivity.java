@@ -111,7 +111,9 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.textSize;
  * Display map property information for a clicked map feature
  */
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener,
+        //Listener for all things related to clicking on the map
         MapboxMap.OnMapClickListener {
+    //All the variables needed in the map activity
     private PermissionsManager permissionsManager;
     private ListView mDrawerList;
     private DrawerLayout dl;
@@ -138,37 +140,48 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     String teamcode;
     private JsonObject logs;
     private JsonArray features;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Getting the current version of the map
         Mapbox.getInstance(this, "pk.eyJ1Ijoia2Fwb2stZGV2ZWxvcGVyIiwiYSI6ImNqbzFscjE2ejBjd2Mza210amdtN252OXYifQ.0gR_XnITpdJF-RquzFfIcQ");
+       //setting the theme according to the option selected
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
             setTheme(R.style.AppTheme);
         }
         setContentView(R.layout.activity_map);
+        //Getting user data
         mAuth = Database.mAuth;
         currentUser = mAuth.getCurrentUser().getEmail();
 
-
+        //getting database data of the user
         FirebaseFirestore db = Database.db;
         DocumentReference docRef = db.collection("Profiles").document(currentUser);
 
+        //Initializing log related objects
         logs = new JsonObject();
         logs.addProperty("type", "FeatureCollection");
         features = new JsonArray();
         logs.add("features", new JsonArray());
 
+        //Getting data from the service for notifications
         Intent i = new Intent(this, DatabaseListener.class);
         startService(i);
+
+        //Initializing user's team data in respective variables
         getTeam();
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
+                    //Getting a version of the Profiles
                     DocumentSnapshot document = task.getResult();
+                    //Doing Admin and team checks and filling data
                     if (document.exists()) {
                        isAdmin = (Boolean)document.get("isAdmin");
                        teamcode = ((ArrayList<String>)document.get("team")).get(0);
@@ -177,16 +190,18 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-
+        //*No Idea what this is
         logs.remove("features");
         features = new JsonArray();
 
-
+        //Displaying the List view and refresh buttons
         Button displayListViewBtn = findViewById(R.id.listView);
         FloatingActionButton refresh = findViewById(R.id.refreshButton);
 
+        //The working of the refresh button is defined here
         refresh.setOnClickListener(new View.OnClickListener() {
         @Override
+        //Restarting the given activity on clicking
         public void onClick(View view) {
             Intent intent = getIntent();
             finish();
@@ -194,6 +209,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
         });
 
+        //The working of the listView button, starts the log list view activity
         displayListViewBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -205,21 +221,24 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
 
+       //Getting Profiles table in the database
+      DocumentReference userProf = db.collection("Profiles").document(currentUser);
+      //This fills up numOf req on profiles which is always 1 not needed for now
+//        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    //Filling in the request size
+//                    if (document.exists()) {
+//                        numOfReq = ((ArrayList<String>)document.getData().get("requests")).size();
+//
+//                    }
+//                }
+//            }
+//        });
 
-        DocumentReference userProf = db.collection("Profiles").document(currentUser);
-        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        numOfReq = ((ArrayList<String>)document.getData().get("requests")).size();
-
-                    }
-                }
-            }
-        });
-
+        //This is the section related to the navigation drawer, the place where navigation menu will go
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
 
@@ -238,12 +257,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //This is the navigation menu setup
         navView = (NavigationView)findViewById(R.id.navListAdmin);
         View header = navView.getHeaderView(0);
         TextView userName = header.findViewById(R.id.nav_header_name);
         TextView userMail = header.findViewById(R.id.nav_header_email);
+
         userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
+            //This is set of statements that define the username and email on the header of nav menu
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
@@ -258,6 +280,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         });
+        //This is the functions related to each option in the nav view
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -283,14 +306,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     case R.id.navRequests:
                         goToTeamJoinRequest();
                         break;
-
+                    //This is navAssigned(Need to put in a function)
                     case R.id.navAssigned:
                             ArrayList<String> Assigned = new ArrayList<String>(1);
                             DocumentReference docRef = db.collection("Profiles").document(currentUser);
+
                             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
+                                //Getting to logs in Teams table
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    ArrayList<String> location = new ArrayList<>();
+
                                     if (task.isSuccessful()) {
                                         DocumentSnapshot document = task.getResult();
                                         if (document.exists()) {
@@ -299,62 +324,64 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                             DocumentReference docRef = db.collection("Teams").document(TeamCode);
                                             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                 @Override
+                                                //Making a dialog box for the assigned task
                                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                     if (task.isSuccessful()) {
                                                         DocumentSnapshot document = task.getResult();
                                                         if (document.exists()) {
+                                                            //Filling up the array of assigned logs
                                                             ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
                                                             for (Map<String, Object> loc : locations) {
                                                                 if (loc.get("assignment").equals(usrName)) {
                                                                     Assigned.add((String) loc.get("location"));
                                                                 }
                                                             }
+
                                                             if(Assigned.size() > 0){
-                                                            final Dialog dialog = new Dialog(MapActivity.this);
-                                                            dialog.setContentView(R.layout.assign_show);
-                                                            Spinner spinner = dialog.findViewById(R.id.assigned);
-                                                            Button cancel = dialog.findViewById(R.id.alert_close);
-                                                            Button open = dialog.findViewById(R.id.assign_open);
+                                                                final Dialog dialog = new Dialog(MapActivity.this);
+                                                                dialog.setContentView(R.layout.assign_show);
+                                                                Spinner spinner = dialog.findViewById(R.id.assigned);
+                                                                Button cancel = dialog.findViewById(R.id.alert_close);
+                                                                Button open = dialog.findViewById(R.id.assign_open);
 
 
-                                                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapActivity.this, android.R.layout.simple_spinner_dropdown_item, Assigned);
+                                                                ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapActivity.this, android.R.layout.simple_spinner_dropdown_item, Assigned);
 
-                                                            spinner.setAdapter(adapter);
-                                                            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                                                @Override
-                                                                public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-                                                                    positionNum = position;
+                                                                spinner.setAdapter(adapter);
+                                                                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                                    @Override
+                                                                    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                                                                        positionNum = position;
 
-                                                                }
+                                                                 }
 
-                                                                @Override
-                                                                public void onNothingSelected(AdapterView<?> adapterView) {
-                                                                    positionNum = -1;
-                                                                }
-                                                            });
-
-
-                                                            open.setOnClickListener(new View.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(View view) {
-                                                                    if (positionNum != -1) {
-                                                                        openAssignView(positionNum);
-                                                                        dialog.dismiss();
-                                                                    } else {
-                                                                        Toast.makeText(MapActivity.this, "No Item selected", Toast.LENGTH_SHORT).show();
+                                                                 @Override
+                                                                    public void onNothingSelected(AdapterView<?> adapterView) {
+                                                                        positionNum = -1;
                                                                     }
-                                                                }
-                                                            });
+                                                                });
 
-                                                            cancel.setOnClickListener(new View.OnClickListener() {
-                                                                @Override
-                                                                public void onClick(View v) {
-                                                                    dialog.dismiss();
-                                                                }
 
-                                                            });
+                                                                open.setOnClickListener(new View.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(View view) {
+                                                                        if (positionNum != -1) {
+                                                                            openAssignView(positionNum);
+                                                                            dialog.dismiss();
+                                                                        } else {
+                                                                            Toast.makeText(MapActivity.this, "No Item selected", Toast.LENGTH_SHORT).show();
+                                                                        }
+                                                                    }
+                                                                });
 
-                                                            dialog.show();
+                                                                cancel.setOnClickListener(new View.OnClickListener() {
+                                                                    @Override
+                                                                    public void onClick(View v) {
+                                                                        dialog.dismiss();
+                                                                    }
+                                                                });
+
+                                                                dialog.show();
                                                             }
                                                             else{
                                                                 Toast.makeText(MapActivity.this, "You Don't Have Any Tasks!", Toast.LENGTH_SHORT).show();
@@ -367,13 +394,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     }
                                 }
                             });
-
-
-
-
                         break;
 
                         //Alert box....
+                        //This is the leave team option's working
                     case R.id.navLeaveTeam:
                         if(isAdmin()){
                             if(teamMates.size()>1) {
