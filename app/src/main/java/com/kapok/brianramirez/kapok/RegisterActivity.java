@@ -38,19 +38,25 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
             setTheme(R.style.AppTheme);
         }
         setContentView(R.layout.activity_register);
+
+        //getting user data
         mAuth = Database.mAuth;
 
+        //Setting activity vies
         emailField = (EditText) findViewById(R.id.email_text_field);
         passwordField = (EditText) findViewById(R.id.password_text_field);
         confirmPassField = (EditText) findViewById(R.id.confirm_pass_text_field);
         registerBtn = (Button) findViewById(R.id.register_btn);
+
         passwordField.addTextChangedListener(this);
+        //Checks password strength and email validity
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
