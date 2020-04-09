@@ -38,6 +38,7 @@ public class TeamDIsplayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
@@ -53,6 +54,7 @@ public class TeamDIsplayActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser(); //Current User
         FirebaseFirestore db = Database.db;
 
+        //Putting the memebres in the listview activity here
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
