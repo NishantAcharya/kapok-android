@@ -51,6 +51,7 @@ public class ShowLogActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
@@ -58,18 +59,21 @@ public class ShowLogActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_show_log);
 
+        //Setting values of the team and admin and getting other user related stuff(and intent)
         getTeam();
         isAdmin();
         Intent intent = getIntent();
         logPos = intent.getIntExtra("Log Position", 0);
         mAuth = Database.mAuth;
 
+        //View setup
         TextView locationText = findViewById(R.id.location_txt_display);
         TextView categoryText = findViewById(R.id.category_txt_display);
         notesText = findViewById(R.id.notes_txt_display);
         TextView creatorText = findViewById(R.id.creator_txt_display);
         Rating = findViewById(R.id.ratingBar);
 
+        //Database values setup
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = Database.db;
         can_edit(logPos);
@@ -78,6 +82,7 @@ public class ShowLogActivity extends AppCompatActivity {
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
+            //getting to teams(We need to get there because logs are there)
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 ArrayList<String> location = new ArrayList<>();
                 if (task.isSuccessful()) {
@@ -136,56 +141,63 @@ public class ShowLogActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.log_menu, menu);
+        //changes,need to consult
+//        if(!isAdmin()){
+//            menu.findItem(R.id.menu_add_notes).setVisible(false);
+//            menu.findItem(R.id.menu_delete).setVisible(false);
+//            menu.findItem(R.id.menu_edit_priority).setVisible(false);
+//           menu.findItem(R.id.assign_task).setVisible(false);
+//            this.invalidateOptionsMenu();
+//        }
         return true;
     }
 
+    //working of the hamburger menu and each option in it
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         Intent intent;
             if (id == R.id.menu_add_notes) {
-                if (result==true) {
-                    if(isAdmin()) {
+                if(result == true) {
+                    if (isAdmin()) {
                         intent = new Intent(ShowLogActivity.this, EditNotesActivity.class);
                         intent.putExtra("prev", note);
                         ShowLogActivity.this.startActivityForResult(intent, 2);
-                    }
-                    else{
+                    } else {
                         Toast.makeText(ShowLogActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
                     }
                 }
-                    else
-                    Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
+                else{
+                    Toast.makeText(ShowLogActivity.this, "You are not the Administrator or Creator", Toast.LENGTH_SHORT).show();
+                }
             }
 
         if (id == R.id.menu_delete) {
-            if (result==true){
-                if(isAdmin()) {
+            if(result == true) {
+                if (isAdmin()) {
                     Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
                     deletelog(logPos);
-                }
-                else{
+                } else {
                     Toast.makeText(ShowLogActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
                 }
             }
-            else
-                Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
+            else{
+                Toast.makeText(ShowLogActivity.this, "You are not the Administrator or Creator", Toast.LENGTH_SHORT).show();
+            }
         }
 
         if (id == R.id.menu_edit_priority) {
-            if (result==true) {
-                if(isAdmin()) {
+            if(result == true) {
+                if (isAdmin()) {
                     Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
                     float curr = Rating.getRating();
                     ShowDialog(curr);
-                }
-                else{
+                } else {
                     Toast.makeText(ShowLogActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
                 }
             }
-
-            else {
-                Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
+            else{
+                Toast.makeText(ShowLogActivity.this, "You are not the Administrator or Creator", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -271,15 +283,13 @@ public class ShowLogActivity extends AppCompatActivity {
                     });
 
                     dialog.show();
-                }
-                else{
+                } else {
                     Toast.makeText(ShowLogActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
                 }
+            } else{
+                Toast.makeText(ShowLogActivity.this, "You are not the Administrator or Creator", Toast.LENGTH_SHORT).show();
             }
-            else{
-                Toast.makeText(ShowLogActivity.this, "This sucks!", Toast.LENGTH_SHORT).show();
             }
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -317,14 +327,13 @@ public class ShowLogActivity extends AppCompatActivity {
         return isAdmin;
     }
 
-
+//update the log after returning to this activity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = Database.db;
         if (requestCode == 2) {
             String message = data.getStringExtra("MESSAGE");
-            //Toast.makeText(ShowLogActivity.this, message, Toast.LENGTH_SHORT).show();
             DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
@@ -369,7 +378,7 @@ public class ShowLogActivity extends AppCompatActivity {
         }
 
     }
-
+//this shows a dialog box for editing
     public void ShowDialog(float curr)
     {
 
@@ -496,7 +505,7 @@ public class ShowLogActivity extends AppCompatActivity {
 
         return super.onKeyDown(keyCode, event);
     }
-
+// only creator or admin can edit the log, this ensures that
     public void can_edit(int index) {
         mAuth = Database.mAuth;
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -540,7 +549,7 @@ public class ShowLogActivity extends AppCompatActivity {
             }
         });
     }
-
+//get team value
     void getTeam(){
         mAuth = Database.mAuth;
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -587,9 +596,4 @@ public class ShowLogActivity extends AppCompatActivity {
         });
     }
 
-//    public void openMapDisplay(){
-//        Intent i = new Intent(this, MapActivity.class);
-//        finish();
-//        startActivity(i);
-//    }
 }

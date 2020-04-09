@@ -181,9 +181,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if (task.isSuccessful()) {
                     //Getting a version of the Profiles
                     DocumentSnapshot document = task.getResult();
-                    //Doing Admin and team checks and filling data
+                    //Doing  team checks and filling data
                     if (document.exists()) {
-                       isAdmin = (Boolean)document.get("isAdmin");
+                        isAdmin = isAdmin();
                        teamcode = ((ArrayList<String>)document.get("team")).get(0);
                     }
                 }
@@ -465,6 +465,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 //This checks for isAdmin in the database in the teams
     private boolean isAdmin() {
         FirebaseFirestore db = Database.db;
+        String currentUse = mAuth.getCurrentUser().getEmail();
         DocumentReference docRef = db.collection("Profiles").document(currentUser);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -482,7 +483,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists()){
                                         String currentAdmin = document.getData().get("admin").toString();
-                                        isAdmin = currentUser.equals(currentAdmin);
+                                        isAdmin = currentUse.equals(currentAdmin);
                                     }
                                 }
                             }
@@ -556,7 +557,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        isAdmin = (Boolean)document.get("isAdmin");
+                        isAdmin = isAdmin();
                         teamcode = ((ArrayList<String>)document.get("team")).get(0);
                         DocumentReference teamRef = db.collection("Teams").document(teamcode);
                         teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -915,7 +916,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        isAdmin = (Boolean)document.get("isAdmin");
+                        isAdmin = isAdmin();
                         teamcode = ((ArrayList<String>)document.get("team")).get(0);
                     }
                 }
