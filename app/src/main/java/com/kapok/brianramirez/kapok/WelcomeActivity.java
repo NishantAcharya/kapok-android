@@ -44,7 +44,7 @@ public class WelcomeActivity extends AppCompatActivity {
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
+//Checks if the user is already signed in
         if (currentUser != null) {
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
@@ -86,6 +86,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 }
             });
         } else {
+            //If not then sign in route to map activity is taken via register activity
             signInBtn = findViewById(R.id.sign_in_btn);
             registerBtn = findViewById(R.id.register_btn);
 

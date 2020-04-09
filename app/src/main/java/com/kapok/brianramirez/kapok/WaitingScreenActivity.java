@@ -13,15 +13,18 @@ public class WaitingScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+//Theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
             setTheme(R.style.AppTheme);
         }
         setContentView(R.layout.activity_code_display);
+     //Getting intent data from the last activity
         Intent intent = getIntent();
         teamCodeDisplay = intent.getStringExtra("Team Code");
+
+        //Team coed display waiting screen initialized here
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -32,6 +35,7 @@ public class WaitingScreenActivity extends AppCompatActivity {
         TextView myText = (TextView)findViewById(R.id.teamCodeDisplay);
         myText.setText(teamCodeDisplay);
     }
+    //Leads to ap avtivity
         public void openMaps(String teamCode){
         Intent intent = new Intent(this, MapActivity.class).putExtra("team_join_id", teamCode);
         startActivity(intent);

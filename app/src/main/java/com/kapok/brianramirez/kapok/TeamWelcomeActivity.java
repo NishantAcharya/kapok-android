@@ -27,7 +27,7 @@ public class TeamWelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+//Theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
@@ -37,14 +37,14 @@ public class TeamWelcomeActivity extends AppCompatActivity {
 
         cteamBtn = findViewById(R.id.cteam_btn);
         jteamBtn = findViewById(R.id.jteam_btn);
-
+//Create team button working
         cteamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { openCreateTeam(); }
         });
 
 
-
+//Join team button working
         jteamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,6 +61,7 @@ public class TeamWelcomeActivity extends AppCompatActivity {
     }
 
     @Override
+    //Hamburger menu working, mainly signing out
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.logOut) {

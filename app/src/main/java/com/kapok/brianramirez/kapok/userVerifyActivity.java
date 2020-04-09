@@ -25,18 +25,21 @@ public class userVerifyActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+//Theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
             setTheme(R.style.AppTheme);
         }
         setContentView(R.layout.activity_user_verify);
+
         verify = (Button) findViewById(R.id.login_btn);
         resend = (Button) findViewById(R.id.resend_btn);
+
         mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
         fu = mAuth.getCurrentUser();
+        //User verification is done here
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,12 +59,12 @@ public class userVerifyActivity extends AppCompatActivity {
                 });
 
                 fu = mAuth.getCurrentUser();
-
+//Leads to profilesetup activity
                 if(fu.isEmailVerified()){
                     Intent goToProfileSetupIntent = new Intent(userVerifyActivity.this, ProfileSetupActivity.class);
                     startActivity(goToProfileSetupIntent);
                 }
-
+//Try again text
                 else if(!fu.isEmailVerified()){
                     Toast.makeText(userVerifyActivity.this, "Verification failed.",
                             Toast.LENGTH_SHORT).show();
@@ -70,6 +73,7 @@ public class userVerifyActivity extends AppCompatActivity {
 
         });
         resend.setOnClickListener(new View.OnClickListener() {
+            //Resends email to the given mail address
             @Override
             public void onClick(View view) {
                 fu.sendEmailVerification()
