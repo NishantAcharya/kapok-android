@@ -95,6 +95,7 @@ public class TeamDIsplayActivity extends AppCompatActivity {
 
 
     }
+    //opens show member activity
     public void openMemberView (String clickedMember){
         Intent i = new Intent(this, ShowMemberActivity.class).putExtra("Member", clickedMember);
         startActivity(i);
