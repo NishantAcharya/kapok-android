@@ -152,7 +152,7 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
         updatePasswordStrengthView(s.toString());
 
     }
-
+//This method updates the graphical progress bar accoroding to the size of the password
     private void updatePasswordStrengthView(String pass1) {
 
         ProgressBar progressBar1 = (ProgressBar) findViewById(R.id.progress);
@@ -191,7 +191,7 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
             progressBar1.setProgress(100);
         }
     }
-
+//check for email validity via regex
     public boolean emailisValid(String emailstr) {
         Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         Matcher matcher = pattern.matcher(emailstr);
@@ -205,7 +205,7 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
             return true;
         }
     }
-
+    //checks for password validity
     public boolean passisValid(String password, String confirmPass) {
         if (password.equals(confirmPass))
             return true;
