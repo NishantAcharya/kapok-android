@@ -36,6 +36,7 @@ public class CreateTeamActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Theme Change
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
@@ -43,6 +44,7 @@ public class CreateTeamActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_create_team);
 
+        //Setting up the textviews
         team_name = findViewById(R.id.teamName);
         team_location = findViewById(R.id.location);
         confirmTeam = findViewById(R.id.create_NewTeam);
@@ -50,7 +52,7 @@ public class CreateTeamActivity extends AppCompatActivity {
         mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
 
-
+    //Working of the button
         confirmTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,12 +116,13 @@ public class CreateTeamActivity extends AppCompatActivity {
                 }
             });
         }
-
+        //Leads to wait screen
     public void openCodeDisplay(){
         Intent i = new Intent(this, WaitingScreenActivity.class).putExtra("Team Code", teamID);
         startActivity(i);
     }
 
+    //gets the team code for the newly created team
     private String genTeamCode(FirebaseFirestore db){
         do{
             Random rand = new Random();
