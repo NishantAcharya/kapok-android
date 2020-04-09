@@ -24,6 +24,7 @@ public class Splash extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    //Initialized the data variables to default values
     protected void initialize(){
         Database.mAuth = FirebaseAuth.getInstance();
         Database.currentUser = Database.mAuth.getCurrentUser();
@@ -61,6 +62,7 @@ public class Splash extends AppCompatActivity {
     @Override
     protected  void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        //Theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
@@ -69,7 +71,7 @@ public class Splash extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         initialize();
 
-
+//Determining where to go from the splash screen
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
