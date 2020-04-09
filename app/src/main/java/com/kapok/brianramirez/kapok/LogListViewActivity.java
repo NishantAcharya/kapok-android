@@ -38,27 +38,29 @@ public class LogListViewActivity extends AppCompatActivity {
     private ArrayList<String> teamMates = new ArrayList<String>(1);
     private ArrayList<String> teamEmails;
     ArrayList<Map<String, Object>> baseLog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
             setTheme(R.style.AppTheme);
         }
         setContentView(R.layout.activity_log_list_view);
+        //Filling in team values
         getTeam();
 
         lv = findViewById(R.id.LogListView);
+        //Getting user data
         mAuth = Database.mAuth;
-
-
-
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = Database.db;
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
+            //Getting to teams table
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 ArrayList<String> location = new ArrayList<>();
                 ArrayList<String> assignment = new ArrayList<>();
@@ -70,6 +72,7 @@ public class LogListViewActivity extends AppCompatActivity {
                         DocumentReference docRef = db.collection("Teams").document(TeamCode);
                         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
+                            //Getting data of the log
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot document = task.getResult();
@@ -81,7 +84,7 @@ public class LogListViewActivity extends AppCompatActivity {
                                             assignment.add((String)currLog.get("assignment"));
                                         }
                                         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(LogListViewActivity.this, android.R.layout.simple_list_item_1, location);
-                                        //Change the color here
+                                        //Change the color of the logs here in the future
 
                                         lv.setAdapter(arrayAdapter);
                                         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -106,6 +109,7 @@ public class LogListViewActivity extends AppCompatActivity {
         return true;
     }
 
+    //Sorting menu working, basically sorts the logs according to the item selected
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -214,6 +218,7 @@ public class LogListViewActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Fills in team data for the current user
     void getTeam(){
         mAuth = Database.mAuth;
         FirebaseUser currentUser = mAuth.getCurrentUser();
