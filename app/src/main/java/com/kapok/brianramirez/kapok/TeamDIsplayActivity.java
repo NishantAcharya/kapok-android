@@ -32,7 +32,7 @@ public class TeamDIsplayActivity extends AppCompatActivity {
     ArrayAdapter<String> arrayAdapter;
     ArrayList<String> members = new ArrayList<String>(1);
     private FirebaseAuth mAuth;
-    private int index = 0;
+
 
 
     @Override

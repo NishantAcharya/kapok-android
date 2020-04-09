@@ -44,6 +44,7 @@ public class EditNotesActivity extends AppCompatActivity {
 
     }
 
+    //Dunno If I should remove this
     @Override
     public void onBackPressed() {
         //DO NOTHING

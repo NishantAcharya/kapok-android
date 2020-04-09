@@ -23,7 +23,6 @@ public class TeamWelcomeActivity extends AppCompatActivity {
 
     Button cteamBtn;
     Button jteamBtn;
-    Button logOutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

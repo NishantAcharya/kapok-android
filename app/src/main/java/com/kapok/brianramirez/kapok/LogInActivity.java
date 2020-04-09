@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+//Going over this
 public class LogInActivity extends AppCompatActivity {
 
     EditText emailField;

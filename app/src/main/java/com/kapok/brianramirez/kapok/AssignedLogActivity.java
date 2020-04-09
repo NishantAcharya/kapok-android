@@ -220,74 +220,74 @@ public class AssignedLogActivity extends AppCompatActivity {
 
     }
 
-    public void ShowDialog(float curr) {
-
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_custom_with_rating);
-        RatingBar ratingBar2 = dialog.findViewById(R.id.ratingBar2);
-        ratingBar2.setRating(curr);
-        Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
-        Button dialogButton2 = (Button) dialog.findViewById(R.id.dialogButtonOK2);
-        dialogButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                FirebaseUser currentUser = mAuth.getCurrentUser();
-                FirebaseFirestore db = Database.db;
-
-                DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        ArrayList<String> location = new ArrayList<>();
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
-                                String TeamCode = userCurrentTeam.get(0);
-                                DocumentReference docRef = db.collection("Teams").document(TeamCode);
-                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            DocumentSnapshot document = task.getResult();
-                                            if (document.exists()) {
-                                                ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
-                                                log = locations.get(logPos);
-                                                Map<String, Object> log2 = new HashMap<>();
-                                                log2.put("creator", log.get("creator").toString());
-                                                log2.put("location", log.get("location").toString());
-                                                log2.put("category", log.get("category").toString());
-                                                log2.put("info", log.get("info").toString());
-                                                log2.put("Log Rating", String.valueOf(ratingBar2.getRating()));
-                                                log2.put("time", log.get("time").toString());
-                                                log2.put("point", log.get("point"));
-                                                log2.put("assignment", log.get("assignment"));
-                                                docRef.update("logs", FieldValue.arrayRemove(log));
-                                                docRef.update("logs", FieldValue.arrayUnion(log2));
-                                                Rating.setRating(ratingBar2.getRating());
-                                                dialog.dismiss();
-                                            }
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    }
-                });
-
-            }
-        });
-
-        dialogButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-    }
+//    public void ShowDialog(float curr) {
+//
+//        final Dialog dialog = new Dialog(this);
+//        dialog.setContentView(R.layout.dialog_custom_with_rating);
+//        RatingBar ratingBar2 = dialog.findViewById(R.id.ratingBar2);
+//        ratingBar2.setRating(curr);
+//        Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+//        Button dialogButton2 = (Button) dialog.findViewById(R.id.dialogButtonOK2);
+//        dialogButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                FirebaseUser currentUser = mAuth.getCurrentUser();
+//                FirebaseFirestore db = Database.db;
+//
+//                DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
+//                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        ArrayList<String> location = new ArrayList<>();
+//                        if (task.isSuccessful()) {
+//                            DocumentSnapshot document = task.getResult();
+//                            if (document.exists()) {
+//                                ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+//                                String TeamCode = userCurrentTeam.get(0);
+//                                DocumentReference docRef = db.collection("Teams").document(TeamCode);
+//                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                                        if (task.isSuccessful()) {
+//                                            DocumentSnapshot document = task.getResult();
+//                                            if (document.exists()) {
+//                                                ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
+//                                                log = locations.get(logPos);
+//                                                Map<String, Object> log2 = new HashMap<>();
+//                                                log2.put("creator", log.get("creator").toString());
+//                                                log2.put("location", log.get("location").toString());
+//                                                log2.put("category", log.get("category").toString());
+//                                                log2.put("info", log.get("info").toString());
+//                                                log2.put("Log Rating", String.valueOf(ratingBar2.getRating()));
+//                                                log2.put("time", log.get("time").toString());
+//                                                log2.put("point", log.get("point"));
+//                                                log2.put("assignment", log.get("assignment"));
+//                                                docRef.update("logs", FieldValue.arrayRemove(log));
+//                                                docRef.update("logs", FieldValue.arrayUnion(log2));
+//                                                Rating.setRating(ratingBar2.getRating());
+//                                                dialog.dismiss();
+//                                            }
+//                                        }
+//                                    }
+//                                });
+//                            }
+//                        }
+//                    }
+//                });
+//
+//            }
+//        });
+//
+//        dialogButton2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        dialog.show();
+//    }
 
 //    public void deletelog(int logPos) {
 //        FirebaseFirestore db = Database.db;
@@ -339,7 +339,6 @@ public class AssignedLogActivity extends AppCompatActivity {
             Intent intent = new Intent(AssignedLogActivity.this, MapActivity.class);
             startActivity(intent);
             finish();
-            // do something on back.
             return true;
         }
 
@@ -436,9 +435,9 @@ public class AssignedLogActivity extends AppCompatActivity {
         });
     }
 
-    public void openMapDisplay() {
-        Intent i = new Intent(this, MapActivity.class);
-        finish();
-        startActivity(i);
-    }
+//    public void openMapDisplay() {
+//        Intent i = new Intent(this, MapActivity.class);
+//        finish();
+//        startActivity(i);
+//    }
 }

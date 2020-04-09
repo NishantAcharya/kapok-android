@@ -587,9 +587,9 @@ public class ShowLogActivity extends AppCompatActivity {
         });
     }
 
-    public void openMapDisplay(){
-        Intent i = new Intent(this, MapActivity.class);
-        finish();
-        startActivity(i);
-    }
+//    public void openMapDisplay(){
+//        Intent i = new Intent(this, MapActivity.class);
+//        finish();
+//        startActivity(i);
+//    }
 }

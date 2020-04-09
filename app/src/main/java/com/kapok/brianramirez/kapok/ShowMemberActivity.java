@@ -262,10 +262,10 @@ public class ShowMemberActivity extends AppCompatActivity {
         return currentAdmin;
     }
 
-    public  void openJoinTeam(){
-        Intent intent = new Intent(this, JoinTeamActivity.class);
-        startActivity(intent);
-    }
+//    public  void openJoinTeam(){
+//        Intent intent = new Intent(this, JoinTeamActivity.class);
+//        startActivity(intent);
+//    }
 
 }
 
