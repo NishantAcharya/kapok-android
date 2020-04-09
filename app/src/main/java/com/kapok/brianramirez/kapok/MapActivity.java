@@ -223,20 +223,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
        //Getting Profiles table in the database
       DocumentReference userProf = db.collection("Profiles").document(currentUser);
-      //This fills up numOf req on profiles which is always 1 not needed for now
-//        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    //Filling in the request size
-//                    if (document.exists()) {
-//                        numOfReq = ((ArrayList<String>)document.getData().get("requests")).size();
-//
-//                    }
-//                }
-//            }
-//        });
 
         //This is the section related to the navigation drawer, the place where navigation menu will go
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -509,26 +495,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         return isAdmin;
     }
 
-//    private boolean isTeamEmpty(){
-//        FirebaseFirestore db = Database.db;
-//        DocumentReference docRef = db.collection("Profiles").document("SF");
-//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    DocumentSnapshot document = task.getResult();
-//                    if (document.exists()){
-//                    }
-//                } else {
-//
-//                }
-//            }
-//        });
-//        return isAdmin;
-//
-//    }
-
-
 
 
     @Override
@@ -577,6 +543,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
 
+    //Clustering happens here
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void addClusteredGeoJsonSource(@NonNull Style loadedMapStyle) {
 
@@ -707,6 +674,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
+    //What to do when there is a click on the map
     public boolean onMapClick(@NonNull LatLng point) {
 
 
@@ -747,14 +715,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
 
-
+    //One off methods
     void LoglistOpen(){
         Intent i = new Intent(this, LogListViewActivity.class);
         startActivity(i);
     }
     void startOpenLog(){
-    Intent i = new Intent(this, LogMakingActivity.class);
-    startActivity(i);
+        Intent i = new Intent(this, LogMakingActivity.class);
+        startActivity(i);
     }
 
     void openLogMaker(){
@@ -802,44 +770,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapView.onDestroy();
     }
 
-
-    private void addDrawerItems() {
-        String[] osArray = { "Team", "Team Code", "Requests", "Settings", "Log Out" };
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
-        mDrawerList.setAdapter(mAdapter);
-
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MapActivity .this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
-    private void setupDrawer() {
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle("Feed");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(mActivityTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-    }
-
-
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -853,6 +783,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    //Checking for leave team for admin, if the team has more than 1 memeber
     public boolean member_check = false;
 
     public boolean hasMembers(){
@@ -895,6 +826,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         return member_check;
     }
 
+    //Leading to different activty methods
     public void logOutOption() {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             mAuth.signOut();
@@ -929,12 +861,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     }
 
     @Override
+    //Mapview method
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
 
-
+    //Method to remove from team uses hasMemebers
     public void removeFromTeam() {
         FirebaseFirestore db = Database.db;
         DocumentReference userProf = db.collection("Profiles").document(currentUser.toString());
@@ -969,6 +902,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         a.create();
         a.show();
     }
+
+    //Dunno what this does,didn't remove
     private void updateJson(String team){
         mAuth = Database.mAuth;
         currentUser = mAuth.getCurrentUser().getEmail();
@@ -1025,6 +960,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
     }
 
+    //Method to refresh markers
     private void refreshMarkers(){
 
         mapboxMap.clear();
@@ -1078,6 +1014,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
     }
 
+    //This gets the user's team
     void getTeam(){
         mAuth = Database.mAuth;
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -1124,6 +1061,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         });
     }
 
+//Method leading to assgin view
     public void openAssignView (int position){
         Intent i = new Intent(this, AssignedLogActivity.class).putExtra("Log Position", position);
         startActivity(i);
