@@ -40,6 +40,7 @@ public class ShowMemberActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
@@ -47,25 +48,27 @@ public class ShowMemberActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_show_members);
 
-
+        //user data get
         Intent intent = getIntent();
         FirebaseFirestore db = Database.db;
         member = intent.getStringExtra("Member");
         mAuth = Database.mAuth;
 
-
+        //View set
         TextView nameText = findViewById(R.id.full_name_text_field);
         TextView occupationText = findViewById(R.id.occupation_text_field);
         TextView contactInfoText = findViewById(R.id.contact_info_text_field);
         TextView aboutText = findViewById(R.id.about_me_text_field);
         TextView registeredEmailText = findViewById(R.id.registered_email_text_field);
 
+        //Profile varialbles get
         currentUser = mAuth.getCurrentUser().getEmail();
         isAdmin();
         getAdmin();
 
 
         DocumentReference memberRef = db.collection("Profiles").document(member);
+        //Showing memeber values here by setting in the texxt view
         memberRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -98,6 +101,7 @@ public class ShowMemberActivity extends AppCompatActivity {
     }
 
     @Override
+    //Admin features here, menu working
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.kickOut) {
@@ -262,10 +266,7 @@ public class ShowMemberActivity extends AppCompatActivity {
         return currentAdmin;
     }
 
-//    public  void openJoinTeam(){
-//        Intent intent = new Intent(this, JoinTeamActivity.class);
-//        startActivity(intent);
-//    }
+
 
 }
 
