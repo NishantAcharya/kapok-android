@@ -17,17 +17,20 @@ public class EditNotesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
             setTheme(R.style.AppTheme);
         }
         setContentView(R.layout.activity_edit_notes);
+        //Setting up the editing activty
         currentNotes = findViewById(R.id.currentnotes);
         result = getIntent().getStringExtra("prev");
         currentNotes.setText(result);
         editlogBtn = findViewById(R.id.editLogBtn);
 
+        //Edit button, which updates the notes on a log
         editlogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -44,7 +47,6 @@ public class EditNotesActivity extends AppCompatActivity {
 
     }
 
-    //Dunno If I should remove this
     @Override
     public void onBackPressed() {
         //DO NOTHING
