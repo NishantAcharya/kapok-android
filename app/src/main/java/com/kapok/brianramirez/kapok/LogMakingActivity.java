@@ -39,23 +39,29 @@ public class LogMakingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Theme set here
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
             setTheme(R.style.AppTheme);
         }
         setContentView(R.layout.activity_create_log);
+
+        //Setting up the views
         locationTxtField = findViewById(R.id.location_txt);
         categoryTxtField= findViewById(R.id.category_txt);
         infoTxtField= findViewById(R.id.notes_txt);
         LogPriority = findViewById(R.id.ratingBar);
+
+        //getting user data
         mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
 
-
+        //Working of the log create button
         Button btn = (Button) findViewById(R.id.create_log);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
+            //Putting the values of the log in the categories in the database
             public void onClick(View v) {
                 Map<String, Object> log = new HashMap<>();
                 log.put("creator", currentUser);
@@ -69,6 +75,7 @@ public class LogMakingActivity extends AppCompatActivity {
                 DocumentReference userProf = db.collection("Profiles").document(currentUser);
                 userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
+                    //Getting the latitude and longitude from the profiles tab;e
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
@@ -105,6 +112,7 @@ public class LogMakingActivity extends AppCompatActivity {
         });
     }
 
+    //Opens Map activty
     public void openMapDisplay(){
         Intent i = new Intent(this, MapActivity.class);
         startActivity(i);
