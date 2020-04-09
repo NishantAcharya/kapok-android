@@ -333,9 +333,4 @@ public class AssignedLogActivity extends AppCompatActivity {
         });
     }
 
-//    public void openMapDisplay() {
-//        Intent i = new Intent(this, MapActivity.class);
-//        finish();
-//        startActivity(i);
-//    }
 }

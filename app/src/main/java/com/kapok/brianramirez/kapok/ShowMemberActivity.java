@@ -97,6 +97,11 @@ public class ShowMemberActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.member_kickout, menu);
+        if(!isAdmin()){
+            menu.findItem(R.id.kickOut).setVisible(false);
+            menu.findItem(R.id.makeAdmin).setVisible(false);
+
+        }
         return true;
     }
 
@@ -105,21 +110,16 @@ public class ShowMemberActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.kickOut) {
-            if(isAdmin()) {
                 if(!getAdmin().equals(member)) {
                     removeFromTeam();
                 }
                 else{
                     Toast.makeText(ShowMemberActivity.this, "You are already the Administrator", Toast.LENGTH_SHORT).show();
                 }
-            }
-            else{
-                Toast.makeText(ShowMemberActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
-            }
         }
 
         if (id == R.id.makeAdmin) {
-            if (isAdmin()) {
+
                 if (!getAdmin().equals(member)) {
                     FirebaseFirestore db = Database.db;
                     DocumentReference userRef = db.collection("Profiles").document(Database.currentUser.getEmail());
@@ -148,10 +148,6 @@ public class ShowMemberActivity extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(ShowMemberActivity.this, "You are already the Administrator", Toast.LENGTH_SHORT).show();
-                }
-            }
-            else {
-                    Toast.makeText(ShowMemberActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
                 }
             }
 

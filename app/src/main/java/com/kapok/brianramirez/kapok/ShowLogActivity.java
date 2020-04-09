@@ -141,14 +141,14 @@ public class ShowLogActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.log_menu, menu);
-        //changes,need to consult
-//        if(!isAdmin()){
-//            menu.findItem(R.id.menu_add_notes).setVisible(false);
-//            menu.findItem(R.id.menu_delete).setVisible(false);
-//            menu.findItem(R.id.menu_edit_priority).setVisible(false);
-//           menu.findItem(R.id.assign_task).setVisible(false);
-//            this.invalidateOptionsMenu();
-//        }
+
+        if(!isAdmin()){
+            menu.findItem(R.id.menu_add_notes).setVisible(false);
+            menu.findItem(R.id.menu_delete).setVisible(false);
+            menu.findItem(R.id.menu_edit_priority).setVisible(false);
+           menu.findItem(R.id.assign_task).setVisible(false);
+
+        }
         return true;
     }
 
@@ -174,12 +174,10 @@ public class ShowLogActivity extends AppCompatActivity {
 
         if (id == R.id.menu_delete) {
             if(result == true) {
-                if (isAdmin()) {
+
                     Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
                     deletelog(logPos);
-                } else {
-                    Toast.makeText(ShowLogActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
-                }
+
             }
             else{
                 Toast.makeText(ShowLogActivity.this, "You are not the Administrator or Creator", Toast.LENGTH_SHORT).show();
@@ -188,13 +186,11 @@ public class ShowLogActivity extends AppCompatActivity {
 
         if (id == R.id.menu_edit_priority) {
             if(result == true) {
-                if (isAdmin()) {
-                    Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
+
+
                     float curr = Rating.getRating();
                     ShowDialog(curr);
-                } else {
-                    Toast.makeText(ShowLogActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
-                }
+
             }
             else{
                 Toast.makeText(ShowLogActivity.this, "You are not the Administrator or Creator", Toast.LENGTH_SHORT).show();
@@ -202,7 +198,7 @@ public class ShowLogActivity extends AppCompatActivity {
         }
 
         if(id == R.id.assign_task){
-            if(result == true) {
+
                 if (isAdmin()) {
                     Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
                     final Dialog dialog = new Dialog(this);
@@ -283,9 +279,7 @@ public class ShowLogActivity extends AppCompatActivity {
                     });
 
                     dialog.show();
-                } else {
-                    Toast.makeText(ShowLogActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
-                }
+
             } else{
                 Toast.makeText(ShowLogActivity.this, "You are not the Administrator or Creator", Toast.LENGTH_SHORT).show();
             }

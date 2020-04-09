@@ -23,6 +23,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -245,6 +246,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         //This is the navigation menu setup
         navView = (NavigationView)findViewById(R.id.navListAdmin);
+        //Admin check for hamburger menu
+        if(!isAdmin()) {
+            Menu nav_Menu = navView.getMenu();
+            nav_Menu.findItem(R.id.navRequests).setVisible(false);
+        }
         View header = navView.getHeaderView(0);
         TextView userName = header.findViewById(R.id.nav_header_name);
         TextView userMail = header.findViewById(R.id.nav_header_email);
