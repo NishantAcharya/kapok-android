@@ -9,11 +9,16 @@ public class AdminChangeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //changing the theme
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
             setTheme(R.style.AppTheme);
         }
+        //code for changing theme ends
+
+        //Layout set here from the xml files
         setContentView(R.layout.activity_admin_change);
     }
 }

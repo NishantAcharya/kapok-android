@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AssignedLogActivity extends AppCompatActivity {
+
     private FirebaseAuth mAuth;
     Map<String, Object> log;
     int logPos;
@@ -43,7 +44,7 @@ public class AssignedLogActivity extends AppCompatActivity {
     RatingBar Rating;
     private ArrayList<String> teamMates = new ArrayList<String>(1);
     private ArrayList<String> teamEmails;
-    private boolean isAdmin;
+    private boolean isAdmin; //Value for the Admin Check
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -288,49 +289,49 @@ public class AssignedLogActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public void deletelog(int logPos) {
-        FirebaseFirestore db = Database.db;
-        mAuth = Database.mAuth;
-        String currentUser = mAuth.getCurrentUser().getEmail();
-        DocumentReference userProf = db.collection("Profiles").document(currentUser);
-        AlertDialog.Builder a = new AlertDialog.Builder(AssignedLogActivity.this,R.style.AlertDialog);
-        a.setMessage("Are you sure you want to delete this log").setCancelable(true)
-                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
-
-                    //If user accepts the request
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
-                                        ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
-                                        DocumentReference teamRef = db.collection("Teams").document(team.get(0));
-                                        teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                                DocumentSnapshot doc = task.getResult();
-                                                if (task.isSuccessful()) {
-                                                    ArrayList<HashMap<String, Object>> logs = (ArrayList<HashMap<String, Object>>) doc.getData().get("logs");
-                                                    teamRef.update("logs", FieldValue.arrayRemove(logs.get(logPos)));
-                                                }
-
-                                            }
-                                        });
-                                    }
-                                }
-                                Intent intent = new Intent(AssignedLogActivity.this, LogListViewActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
-                    }
-                });
-        a.create();
-        a.show();
-    }
+//    public void deletelog(int logPos) {
+//        FirebaseFirestore db = Database.db;
+//        mAuth = Database.mAuth;
+//        String currentUser = mAuth.getCurrentUser().getEmail();
+//        DocumentReference userProf = db.collection("Profiles").document(currentUser);
+//        AlertDialog.Builder a = new AlertDialog.Builder(AssignedLogActivity.this,R.style.AlertDialog);
+//        a.setMessage("Are you sure you want to delete this log").setCancelable(true)
+//                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+//
+//                    //If user accepts the request
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                                if (task.isSuccessful()) {
+//                                    DocumentSnapshot document = task.getResult();
+//                                    if (document.exists()) {
+//                                        ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
+//                                        DocumentReference teamRef = db.collection("Teams").document(team.get(0));
+//                                        teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                                            @Override
+//                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                                                DocumentSnapshot doc = task.getResult();
+//                                                if (task.isSuccessful()) {
+//                                                    ArrayList<HashMap<String, Object>> logs = (ArrayList<HashMap<String, Object>>) doc.getData().get("logs");
+//                                                    teamRef.update("logs", FieldValue.arrayRemove(logs.get(logPos)));
+//                                                }
+//
+//                                            }
+//                                        });
+//                                    }
+//                                }
+//                                Intent intent = new Intent(AssignedLogActivity.this, LogListViewActivity.class);
+//                                startActivity(intent);
+//                                finish();
+//                            }
+//                        });
+//                    }
+//                });
+//        a.create();
+//        a.show();
+//    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
