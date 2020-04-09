@@ -29,6 +29,7 @@ import java.util.Map;
 
 import static android.support.constraint.Constraints.TAG;
 
+//This is a service manager responsible for notifications
 public class DatabaseListener extends Service {
     private FirebaseAuth mAuth;
     private DocumentSnapshot prevUserSnap;
