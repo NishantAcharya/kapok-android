@@ -49,6 +49,7 @@ public class AssignedLogActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Theme set and change
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
@@ -56,12 +57,16 @@ public class AssignedLogActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_show_log);
 
+        //filling up admin and team data
         getTeam();
         isAdmin();
+
+        //Getting data from map activity to locate the correct log
         Intent intent = getIntent();
         logPos = intent.getIntExtra("Log Position", 0);
         mAuth = Database.mAuth;
 
+        //Initializing the activity page
         TextView locationText = findViewById(R.id.location_txt_display);
         TextView categoryText = findViewById(R.id.category_txt_display);
         notesText = findViewById(R.id.notes_txt_display);
@@ -73,9 +78,11 @@ public class AssignedLogActivity extends AppCompatActivity {
         can_edit(logPos);
 
 
+        //Filling in the text view and other values from the database
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
+            //getting to the team table
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 ArrayList<String> location = new ArrayList<>();
                 if (task.isSuccessful()) {
@@ -89,6 +96,7 @@ public class AssignedLogActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot document = task.getResult();
+                                    //getting the values of the fields
                                     if (document.exists()) {
                                         ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
                                         log = locations.get(logPos);
@@ -104,6 +112,7 @@ public class AssignedLogActivity extends AppCompatActivity {
                                         DocumentReference docRef = db.collection("Profiles").document(creator);
                                         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                             @Override
+                                            //Filling in the text view with the previous values
                                             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                                 if (task.isSuccessful()) {
                                                     DocumentSnapshot document = task.getResult();
@@ -132,7 +141,7 @@ public class AssignedLogActivity extends AppCompatActivity {
     }
 
 
-
+//Is Admin check
     private boolean isAdmin() {
         mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
@@ -167,7 +176,7 @@ public class AssignedLogActivity extends AppCompatActivity {
         return isAdmin;
     }
 
-
+//Updating the database on editing the log by making a new log and replacing the old one with it
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -220,119 +229,7 @@ public class AssignedLogActivity extends AppCompatActivity {
 
     }
 
-//    public void ShowDialog(float curr) {
-//
-//        final Dialog dialog = new Dialog(this);
-//        dialog.setContentView(R.layout.dialog_custom_with_rating);
-//        RatingBar ratingBar2 = dialog.findViewById(R.id.ratingBar2);
-//        ratingBar2.setRating(curr);
-//        Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
-//        Button dialogButton2 = (Button) dialog.findViewById(R.id.dialogButtonOK2);
-//        dialogButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                FirebaseUser currentUser = mAuth.getCurrentUser();
-//                FirebaseFirestore db = Database.db;
-//
-//                DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
-//                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                        ArrayList<String> location = new ArrayList<>();
-//                        if (task.isSuccessful()) {
-//                            DocumentSnapshot document = task.getResult();
-//                            if (document.exists()) {
-//                                ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
-//                                String TeamCode = userCurrentTeam.get(0);
-//                                DocumentReference docRef = db.collection("Teams").document(TeamCode);
-//                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                                        if (task.isSuccessful()) {
-//                                            DocumentSnapshot document = task.getResult();
-//                                            if (document.exists()) {
-//                                                ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
-//                                                log = locations.get(logPos);
-//                                                Map<String, Object> log2 = new HashMap<>();
-//                                                log2.put("creator", log.get("creator").toString());
-//                                                log2.put("location", log.get("location").toString());
-//                                                log2.put("category", log.get("category").toString());
-//                                                log2.put("info", log.get("info").toString());
-//                                                log2.put("Log Rating", String.valueOf(ratingBar2.getRating()));
-//                                                log2.put("time", log.get("time").toString());
-//                                                log2.put("point", log.get("point"));
-//                                                log2.put("assignment", log.get("assignment"));
-//                                                docRef.update("logs", FieldValue.arrayRemove(log));
-//                                                docRef.update("logs", FieldValue.arrayUnion(log2));
-//                                                Rating.setRating(ratingBar2.getRating());
-//                                                dialog.dismiss();
-//                                            }
-//                                        }
-//                                    }
-//                                });
-//                            }
-//                        }
-//                    }
-//                });
-//
-//            }
-//        });
-//
-//        dialogButton2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        dialog.show();
-//    }
-
-//    public void deletelog(int logPos) {
-//        FirebaseFirestore db = Database.db;
-//        mAuth = Database.mAuth;
-//        String currentUser = mAuth.getCurrentUser().getEmail();
-//        DocumentReference userProf = db.collection("Profiles").document(currentUser);
-//        AlertDialog.Builder a = new AlertDialog.Builder(AssignedLogActivity.this,R.style.AlertDialog);
-//        a.setMessage("Are you sure you want to delete this log").setCancelable(true)
-//                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
-//
-//                    //If user accepts the request
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                                if (task.isSuccessful()) {
-//                                    DocumentSnapshot document = task.getResult();
-//                                    if (document.exists()) {
-//                                        ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
-//                                        DocumentReference teamRef = db.collection("Teams").document(team.get(0));
-//                                        teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//                                            @Override
-//                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                                                DocumentSnapshot doc = task.getResult();
-//                                                if (task.isSuccessful()) {
-//                                                    ArrayList<HashMap<String, Object>> logs = (ArrayList<HashMap<String, Object>>) doc.getData().get("logs");
-//                                                    teamRef.update("logs", FieldValue.arrayRemove(logs.get(logPos)));
-//                                                }
-//
-//                                            }
-//                                        });
-//                                    }
-//                                }
-//                                Intent intent = new Intent(AssignedLogActivity.this, LogListViewActivity.class);
-//                                startActivity(intent);
-//                                finish();
-//                            }
-//                        });
-//                    }
-//                });
-//        a.create();
-//        a.show();
-//    }
-
+//This tells us where to go back
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -345,6 +242,7 @@ public class AssignedLogActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    //Checking who can edit the assigned log
     public void can_edit(int index) {
         mAuth = Database.mAuth;
         FirebaseUser currentUser = mAuth.getCurrentUser();
