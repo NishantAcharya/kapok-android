@@ -336,32 +336,32 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                                                     Assigned.add((String) loc.get("location"));
                                                                 }
                                                             }
-
+                                                            //Found logs were assigned leading to dialog box making
                                                             if(Assigned.size() > 0){
+
                                                                 final Dialog dialog = new Dialog(MapActivity.this);
                                                                 dialog.setContentView(R.layout.assign_show);
                                                                 Spinner spinner = dialog.findViewById(R.id.assigned);
                                                                 Button cancel = dialog.findViewById(R.id.alert_close);
                                                                 Button open = dialog.findViewById(R.id.assign_open);
 
-
+                                                                //Making Spinner using adapterview
                                                                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(MapActivity.this, android.R.layout.simple_spinner_dropdown_item, Assigned);
 
                                                                 spinner.setAdapter(adapter);
                                                                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                                                    //Choosing the spinner position for opening assigned log activity
                                                                     @Override
                                                                     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
                                                                         positionNum = position;
-
-                                                                 }
-
-                                                                 @Override
+                                                                    }
+                                                                    @Override
                                                                     public void onNothingSelected(AdapterView<?> adapterView) {
                                                                         positionNum = -1;
                                                                     }
                                                                 });
 
-
+                                                                //Button Operations for open and close , open leading to new activty
                                                                 open.setOnClickListener(new View.OnClickListener() {
                                                                     @Override
                                                                     public void onClick(View view) {
@@ -404,8 +404,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context,R.style.AlertDialog);
 
-                                // set title
-                                //alertDialogBuilder.setTitle("Your Title");
 
                                 // set dialog message
                                 alertDialogBuilder
@@ -453,7 +451,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 return true;
             }
         });
-
+        //End of Navigation Drawer items
 
 
 // Mapbox access token is configured here. This needs to be called either in your application
@@ -462,12 +460,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 // This contains the MapView in XML and needs to be called after the access token is configured.
 
-
+        //Making/Displaying the actual map
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
 
-
+        //Assigning the find me button here
         FloatingActionButton findMe = findViewById(R.id.findmeButton);
         findMe.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -478,7 +476,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-
+//This checks for isAdmin in the database in the teams
     private boolean isAdmin() {
         FirebaseFirestore db = Database.db;
         DocumentReference docRef = db.collection("Profiles").document(currentUser);
@@ -511,24 +509,24 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         return isAdmin;
     }
 
-    private boolean isTeamEmpty(){
-        FirebaseFirestore db = Database.db;
-        DocumentReference docRef = db.collection("Profiles").document("SF");
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()){
-                    }
-                } else {
-
-                }
-            }
-        });
-        return isAdmin;
-
-    }
+//    private boolean isTeamEmpty(){
+//        FirebaseFirestore db = Database.db;
+//        DocumentReference docRef = db.collection("Profiles").document("SF");
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()){
+//                    }
+//                } else {
+//
+//                }
+//            }
+//        });
+//        return isAdmin;
+//
+//    }
 
 
 
@@ -551,6 +549,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     //MAPBOX METHODS///////////////////////////////////////////////////////////////
 
     @Override
+    //Ready the mapbox map
     public void onMapReady(@NonNull final MapboxMap mapboxMap) {
         MapActivity.this.mapboxMap = mapboxMap;
         mapboxMap.setStyle(new Style.Builder().fromUri("mapbox://styles/mapbox/cjerxnqt3cgvp2rmyuxbeqme7"),
@@ -581,24 +580,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void addClusteredGeoJsonSource(@NonNull Style loadedMapStyle) {
 
-        // Add a new source from the GeoJSON data and set the 'cluster' option to true.
-//        try {
-//            updateJson(teamcode);
-//            Gson gson = new Gson();
-//            loadedMapStyle.addSource(
-//                    // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes from
-//                    // 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-//                    new GeoJsonSource("earthquakes",
-//                            new URI("https://www.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson"),
-//                            new GeoJsonOptions()
-//                                    .withCluster(true)
-//                                    .withClusterMaxZoom(14)
-//                                    .withClusterRadius(50)
-//                    )
-//            );
-//        } catch (URISyntaxException uriSyntaxException) {
-//            Timber.e("Check the URL %s", uriSyntaxException.getMessage());
-//        }
 
         FirebaseFirestore db = Database.db;
         DocumentReference docRef = db.collection("Profiles").document(currentUser);
@@ -669,84 +650,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         });
-//        logs.remove("features");
-//        features = new JsonArray();
 
-
-//        Gson gson = new Gson();
-//        loadedMapStyle.addSource(
-//                // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes from
-//                // 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
-//                new GeoJsonSource("earthquakes",
-//                        gson.toJson(logs),
-//                        new GeoJsonOptions()
-//                                .withCluster(true)
-//                                .withClusterMaxZoom(14)
-//                                .withClusterRadius(50)
-//                )
-//        );
-        //Creating a marker layer for single data points
-//        SymbolLayer unclustered = new SymbolLayer("unclustered-points", "earthquakes");
-//
-//        unclustered.setProperties(
-//                iconImage("cross-icon-id"),
-//                iconSize(
-//                        division(
-//                                (Expression) get("mag"), literal(4.0f)
-//                        )
-//                ),
-//                iconColor(
-//                        interpolate(exponential(1), get("mag"),
-//                                stop(2.0, rgb(0, 255, 0)),
-//                                stop(4.5, rgb(0, 0, 255)),
-//                                stop(7.0, rgb(255, 0, 0))
-//                        )
-//                )
-//        );
-        //unclustered.setFilter(has("mag"));
-//        loadedMapStyle.addLayer(unclustered);
-//
-//        // Use the earthquakes GeoJSON source to create three layers: One layer for each cluster category.
-//        // Each point range gets a different fill color.
-//        int[][] layers = new int[][] {
-//                new int[] {150, ContextCompat.getColor(this, R.color.mapboxRed)},
-//                new int[] {20, ContextCompat.getColor(this, R.color.mapboxGreen)},
-//                new int[] {0, ContextCompat.getColor(this, R.color.mapbox_blue)}
-//        };
-
-//        for (int i = 0; i < layers.length; i++) {
-//            //Add clusters' circles
-//            CircleLayer circles = new CircleLayer("cluster-" + i, "earthquakes");
-//            circles.setProperties(
-//                    circleColor(layers[i][1]),
-//                    circleRadius(18f)
-//            );
-//
-//            Expression pointCount = toNumber((Expression) get("point_count"));
-//
-//            // Add a filter to the cluster layer that hides the circles based on "point_count"
-//            circles.setFilter(
-//                    i == 0
-//                            ? all(has("point_count"),
-//                            gte(pointCount, literal(layers[i][0]))
-//                    ) : all(has("point_count"),
-//                            gte(pointCount, literal(layers[i][0])),
-//                            lt(pointCount, literal(layers[i - 1][0]))
-//                    )
-//            );
-//            loadedMapStyle.addLayer(circles);
-//        }
-
-        //Add the count labels
-//        SymbolLayer count = new SymbolLayer("count", "earthquakes");
-//        count.setProperties(
-//                textField(Expression.toString((Expression) get("point_count"))),
-//                textSize(12f),
-//                textColor(Color.WHITE),
-//                textIgnorePlacement(true),
-//                textAllowOverlap(true)
-//        );
-//        loadedMapStyle.addLayer(count);
     }
 
 
