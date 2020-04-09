@@ -32,6 +32,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Theme setup
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
@@ -39,15 +40,18 @@ public class ProfileSetupActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_profile_setup);
 
+        //setting up the activity views
         fullNameField = findViewById(R.id.full_name_text_field);
         occupationField = findViewById(R.id.occupation_text_field);
         contactInfoField = findViewById(R.id.contact_info_text_field);
         aboutMeField = findViewById(R.id.about_me_text_field);
         finishProfileBtn = findViewById(R.id.finish_profile_btn);
+
+        //getting the user data
         mAuth = Database.mAuth;
         String currentUser = mAuth.getCurrentUser().getEmail();
 
-
+        //The finish button working
         finishProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,7 +59,7 @@ public class ProfileSetupActivity extends AppCompatActivity {
                 FirebaseFirestore db = Database.db;
                 ArrayList<Map<String, Object>> logs = new ArrayList<Map<String, Object>>(1);
 
-                // Create a new user with a first and last name
+                // Create a new user with a first and last name and update the given information into the databse
                 Map<String, Object> user = new HashMap<>();
                 user.put("name", fullNameField.getText().toString());
                 user.put("occupation", occupationField.getText().toString());
