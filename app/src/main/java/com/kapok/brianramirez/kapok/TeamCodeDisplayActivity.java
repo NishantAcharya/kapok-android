@@ -24,16 +24,20 @@ public class TeamCodeDisplayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Theme set
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.DarkTheme);
         } else {
             setTheme(R.style.AppTheme);
         }
         setContentView(R.layout.activity_team_code_display);
+
         TextView myText = (TextView)findViewById(R.id.teamCodeDisplay);
+
         mAuth = Database.mAuth;
         FirebaseUser currentUser = mAuth.getCurrentUser();
         FirebaseFirestore db = Database.db;
+        //Getting the team code here
         DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
