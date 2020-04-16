@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -33,6 +34,7 @@ import java.sql.Ref;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class ShowLogActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -42,7 +44,6 @@ public class ShowLogActivity extends AppCompatActivity {
     boolean result;
     TextView notesText;
     String note;
-    Button complete;
     RatingBar Rating;
     private ArrayList<String> teamMates = new ArrayList<String>(1);;
     private ArrayList<String> teamEmails;
@@ -78,7 +79,7 @@ public class ShowLogActivity extends AppCompatActivity {
         notesText = findViewById(R.id.notes_txt_display);
         TextView creatorText = findViewById(R.id.creator_txt_display);
         Rating = findViewById(R.id.ratingBar);
-        complete = (Button) findViewById(R.id.complete_task);
+
 
         //Database values setup
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -148,6 +149,7 @@ public class ShowLogActivity extends AppCompatActivity {
             }
         });
 
+        Button complete = (Button) findViewById(R.id.complete_task);
         complete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -181,7 +183,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                                 log2.put("Log Rating", log.get("Log Rating"));
                                                 log2.put("time", log.get("time").toString());
                                                 log2.put("point", log.get("point"));
-                                                log2.put("assignment", log.get("assignment").toString());
+                                                log2.put("assignment", "Completed");
                                                 log2.put("status",log.get("status").toString());
                                                 teamRef.update("logs", FieldValue.arrayRemove(log));
                                                 teamRef.update("logs", FieldValue.arrayUnion(log2));
@@ -203,13 +205,13 @@ public class ShowLogActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.log_menu, menu);
 
-        if(!isAdmin()){
+        if(!Database.isAdmin){
             menu.findItem(R.id.menu_delete).setVisible(false);
             menu.findItem(R.id.menu_edit_priority).setVisible(false);
            menu.findItem(R.id.assign_task).setVisible(false);
 
         }
-        if(!isAdmin() || !usrName.equals(assignName)){
+        if(!Database.isAdmin || !usrName.equals(assignName)){
             menu.findItem(R.id.menu_add_notes).setVisible(false);
         }
         return true;
@@ -222,7 +224,7 @@ public class ShowLogActivity extends AppCompatActivity {
         Intent intent;
             if (id == R.id.menu_add_notes) {
                 if(result == true) {
-                    if (isAdmin()) {
+                    if (Database.isAdmin) {
                         intent = new Intent(ShowLogActivity.this, EditNotesActivity.class);
                         intent.putExtra("prev", note);
                         ShowLogActivity.this.startActivityForResult(intent, 2);
@@ -265,7 +267,7 @@ public class ShowLogActivity extends AppCompatActivity {
             if(logStatus.equals("complete")){
                 Toast.makeText(ShowLogActivity.this, "The task has been completed", Toast.LENGTH_SHORT).show();
             }
-            else if (isAdmin()) {
+            else if (Database.isAdmin) {
                     Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
                     final Dialog dialog = new Dialog(this);
                     dialog.setContentView(R.layout.log_view_alert);
@@ -375,7 +377,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists()){
                                         String currentAdmin = document.getData().get("admin").toString();
-                                        isAdmin = currentUser.equals(currentAdmin);
+                                        Database.isAdmin = currentUser.equals(currentAdmin);
                                     }
                                 }
                             }

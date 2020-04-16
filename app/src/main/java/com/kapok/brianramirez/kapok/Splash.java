@@ -40,6 +40,7 @@ public class Splash extends AppCompatActivity {
                         if (document.exists()) {
                             Database.hasProfile = true;
                             ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                            Database.isAdmin = (Boolean) document.getData().get("isAdmin");
                             Database.currentStatus = (String) document.getData().get("status");
                             if(!userCurrentTeam.isEmpty())
                                 Database.currentTeam = userCurrentTeam.get(0);

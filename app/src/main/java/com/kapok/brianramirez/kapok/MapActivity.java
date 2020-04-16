@@ -175,6 +175,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         //Initializing user's team data in respective variables
         getTeam();
+        isAdmin();
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -184,7 +185,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     DocumentSnapshot document = task.getResult();
                     //Doing  team checks and filling data
                     if (document.exists()) {
-                        isAdmin = isAdmin();
                        teamcode = ((ArrayList<String>)document.get("team")).get(0);
                     }
                 }
@@ -247,7 +247,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         //This is the navigation menu setup
         navView = (NavigationView)findViewById(R.id.navListAdmin);
         //Admin check for hamburger menu
-        if(!isAdmin()) {
+        if(!Database.isAdmin) {
             Menu nav_Menu = navView.getMenu();
             nav_Menu.findItem(R.id.navRequests).setVisible(false);
         }
@@ -391,7 +391,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         //Alert box....
                         //This is the leave team option's working
                     case R.id.navLeaveTeam:
-                        if(isAdmin()){
+                        if(Database.isAdmin){
                             if(teamMates.size()>1) {
 
                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context,R.style.AlertDialog);
@@ -489,7 +489,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists()){
                                         String currentAdmin = document.getData().get("admin").toString();
-                                        isAdmin = currentUse.equals(currentAdmin);
+                                        Database.isAdmin = currentUse.equals(currentAdmin);
                                     }
                                 }
                             }
@@ -563,7 +563,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        isAdmin = isAdmin();
+                        //isAdmin = isAdmin();
                         teamcode = ((ArrayList<String>)document.get("team")).get(0);
                         DocumentReference teamRef = db.collection("Teams").document(teamcode);
                         teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -922,7 +922,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        isAdmin = isAdmin();
+                       // isAdmin = isAdmin();
                         teamcode = ((ArrayList<String>)document.get("team")).get(0);
                     }
                 }

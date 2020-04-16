@@ -81,7 +81,7 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
                                             //On Request Click
                                             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                                    if (isAdmin()){
+                                                    if (Database.isAdmin){
                                                         AlertDialog.Builder a = new AlertDialog.Builder(TeamJoinRequestActivity.this, R.style.AlertDialog);
                                                     a.setMessage("This member wants to join the team").setCancelable(true)
                                                             .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
@@ -237,7 +237,7 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists()){
                                         String currentAdmin = document.getData().get("admin").toString();
-                                        isAdmin = currentUser.equals(currentAdmin);
+                                        Database.isAdmin = currentUser.equals(currentAdmin);
                                     }
                                 }
                             }

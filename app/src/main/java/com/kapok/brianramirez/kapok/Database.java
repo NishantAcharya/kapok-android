@@ -19,5 +19,6 @@ public class Database {
     public static String currentTeam;
     public static String currentStatus;
     public static boolean hasProfile;
+    public static boolean isAdmin;
 
 }

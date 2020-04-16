@@ -163,7 +163,7 @@ public class AssignedLogActivity extends AppCompatActivity {
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists()) {
                                         String currentAdmin = document.getData().get("admin").toString();
-                                        isAdmin = currentUser.equals(currentAdmin);
+                                        Database.isAdmin = currentUser.equals(currentAdmin);
                                     }
                                 }
                             }

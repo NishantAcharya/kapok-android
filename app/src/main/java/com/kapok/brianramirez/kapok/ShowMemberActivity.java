@@ -97,7 +97,7 @@ public class ShowMemberActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.member_kickout, menu);
-        if(!isAdmin()){
+        if(!Database.isAdmin){
             menu.findItem(R.id.kickOut).setVisible(false);
             menu.findItem(R.id.makeAdmin).setVisible(false);
 
@@ -218,7 +218,7 @@ public class ShowMemberActivity extends AppCompatActivity {
                                     DocumentSnapshot document = task.getResult();
                                     if (document.exists()){
                                         currentAdmin = document.getData().get("admin").toString();
-                                        isAdmin = currentUser.equals(currentAdmin);
+                                        Database.isAdmin = currentUser.equals(currentAdmin);
                                     }
                                 }
                             }
