@@ -42,6 +42,7 @@ public class ShowLogActivity extends AppCompatActivity {
     boolean result;
     TextView notesText;
     String note;
+    Button complete;
     RatingBar Rating;
     private ArrayList<String> teamMates = new ArrayList<String>(1);;
     private ArrayList<String> teamEmails;
@@ -76,6 +77,7 @@ public class ShowLogActivity extends AppCompatActivity {
         notesText = findViewById(R.id.notes_txt_display);
         TextView creatorText = findViewById(R.id.creator_txt_display);
         Rating = findViewById(R.id.ratingBar);
+        complete = (Button) findViewById(R.id.complete_task);
 
         //Database values setup
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -142,6 +144,56 @@ public class ShowLogActivity extends AppCompatActivity {
                         });
                     }
                 }
+            }
+        });
+
+        complete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                FirebaseFirestore db = Database.db;
+
+                DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        ArrayList<String> location = new ArrayList<>();
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                                String TeamCode = userCurrentTeam.get(0);
+                                DocumentReference teamRef = db.collection("Teams").document(TeamCode);
+                                teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot document = task.getResult();
+                                            if (document.exists()) {
+                                                ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
+                                                log = locations.get(logPos);
+                                                Map<String, Object> log2 = new HashMap<>();
+                                                log2.put("creator", log.get("creator").toString());
+                                                log2.put("location", log.get("location").toString());
+                                                log2.put("category", log.get("category").toString());
+                                                log2.put("info", log.get("info").toString());
+                                                log2.put("Log Rating", log.get("Log Rating"));
+                                                log2.put("time", log.get("time").toString());
+                                                log2.put("point", log.get("point"));
+                                                log2.put("assignment", log.get("assignment").toString());
+                                                log2.put("status",log.get("status").toString());
+                                                teamRef.update("logs", FieldValue.arrayRemove(log));
+                                                teamRef.update("logs", FieldValue.arrayUnion(log2));
+                                                DocumentReference teriRef = db.collection("Profiles").document(member);
+                                                teriRef.update("assignments", FieldValue.arrayUnion(log2));
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
             }
         });
     }
@@ -268,6 +320,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                                             log2.put("time", log.get("time").toString());
                                                             log2.put("point", log.get("point"));
                                                             log2.put("assignment", String.valueOf(spinner.getSelectedItem()));
+                                                            log2.put("status",log.get("status").toString());
                                                             teamRef.update("logs", FieldValue.arrayRemove(log));
                                                             teamRef.update("logs", FieldValue.arrayUnion(log2));
                                                             DocumentReference teriRef = db.collection("Profiles").document(member);
@@ -369,6 +422,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                             log2.put("time", log.get("time").toString());
                                             log2.put("point", log.get("point"));
                                             log2.put("assignment",log.get("assignment"));
+                                            log2.put("status",log.get("status").toString());
                                             docRef.update("logs", FieldValue.arrayRemove(log));
                                             docRef.update("logs", FieldValue.arrayUnion(log2));
                                             notesText.setText(message);
@@ -430,6 +484,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                                 log2.put("time", log.get("time").toString());
                                                 log2.put("point", log.get("point"));
                                                 log2.put("assignment",log.get("assignment"));
+                                                log2.put("status",log.get("status").toString());
                                                 docRef.update("logs", FieldValue.arrayRemove(log));
                                                 docRef.update("logs", FieldValue.arrayUnion(log2));
                                                 Rating.setRating(ratingBar2.getRating());
