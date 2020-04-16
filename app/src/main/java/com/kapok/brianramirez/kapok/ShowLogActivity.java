@@ -183,12 +183,13 @@ public class ShowLogActivity extends AppCompatActivity {
                                                 log2.put("Log Rating", log.get("Log Rating"));
                                                 log2.put("time", log.get("time").toString());
                                                 log2.put("point", log.get("point"));
-                                                log2.put("assignment", "Completed");
-                                                log2.put("status",log.get("status").toString());
+                                                log2.put("assignment", log.get("assignment").toString());
+                                                log2.put("status","complete");
                                                 teamRef.update("logs", FieldValue.arrayRemove(log));
                                                 teamRef.update("logs", FieldValue.arrayUnion(log2));
-                                                DocumentReference teriRef = db.collection("Profiles").document(member);
-                                                teriRef.update("assignments", FieldValue.arrayUnion(log2));
+                                                DocumentReference teriRef = db.collection("Profiles").document(assignName);
+                                                teriRef.update("status", FieldValue.arrayUnion(log2));
+                                                //On completing exit out of the activyty, polish notes
                                             }
                                         }
                                     }
