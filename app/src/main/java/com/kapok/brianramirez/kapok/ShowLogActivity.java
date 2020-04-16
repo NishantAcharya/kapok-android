@@ -52,6 +52,7 @@ public class ShowLogActivity extends AppCompatActivity {
     private String usrName;
     private String assignName;
     private String logStatus;
+    private String status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +79,7 @@ public class ShowLogActivity extends AppCompatActivity {
         TextView categoryText = findViewById(R.id.category_txt_display);
         notesText = findViewById(R.id.notes_txt_display);
         TextView creatorText = findViewById(R.id.creator_txt_display);
+        TextView statusText = findViewById(R.id.status_txt_display);
         Rating = findViewById(R.id.ratingBar);
 
 
@@ -117,7 +119,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                         String val = (log.get("Log Rating").toString());
                                         logStatus = log.get("status").toString();
                                         floatval = Float.parseFloat(val);
-
+                                        status = log.get("status").toString();
                                         assignName = log.get("assignment").toString();
 
                                         DocumentReference docRef = db.collection("Profiles").document(creator);
@@ -134,7 +136,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                                         note = notes;
                                                         notesText.setText(notes);
                                                         Rating.setRating(floatval);
-
+                                                        statusText.setText(status);
                                                     }
                                                 }
                                             }
@@ -183,7 +185,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                                 log2.put("Log Rating", log.get("Log Rating"));
                                                 log2.put("time", log.get("time").toString());
                                                 log2.put("point", log.get("point"));
-                                                log2.put("assignment", log.get("assignment").toString());
+                                                log2.put("assignment", "Completed");
                                                 log2.put("status","complete");
                                                 teamRef.update("logs", FieldValue.arrayRemove(log));
                                                 teamRef.update("logs", FieldValue.arrayUnion(log2));
