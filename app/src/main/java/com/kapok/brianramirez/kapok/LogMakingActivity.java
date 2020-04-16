@@ -71,6 +71,7 @@ public class LogMakingActivity extends AppCompatActivity {
                 log.put("Log Rating", String.valueOf(LogPriority.getRating()));
                 log.put("time", String.valueOf(System.currentTimeMillis()));
                 log.put("assignment", "");
+                log.put("status","incomplete");
                 FirebaseFirestore db = Database.db;
                 DocumentReference userProf = db.collection("Profiles").document(currentUser);
                 userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
