@@ -47,6 +47,9 @@ public class ShowLogActivity extends AppCompatActivity {
     private ArrayList<String> teamEmails;
     private boolean isAdmin;
     private String member;
+    private String usrName;
+    private String creatorName;
+    private String logStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +63,7 @@ public class ShowLogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_log);
 
         //Setting values of the team and admin and getting other user related stuff(and intent)
+        usrName = mAuth.getCurrentUser().getEmail();
         getTeam();
         isAdmin();
         Intent intent = getIntent();
@@ -88,6 +92,7 @@ public class ShowLogActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
+                        //get your username here
                         ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
                         String TeamCode = userCurrentTeam.get(0);
                         DocumentReference docRef = db.collection("Teams").document(TeamCode);
@@ -100,12 +105,14 @@ public class ShowLogActivity extends AppCompatActivity {
                                         ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
                                         log = locations.get(logPos);
                                         String creator = log.get("creator").toString();
+                                        creatorName = creator; // getting the value fo the creator
                                         String category = log.get("category").toString();
                                         String notes = log.get("info").toString();
                                         Map<String, Object> currPoint = (Map<String, Object>) log.get("point");
                                         double lat = (double) currPoint.get("latitude");
                                         double lon = (double) currPoint.get("longitude");
                                         String val = (log.get("Log Rating").toString());
+                                        logStatus = log.get("status").toString();
                                         floatval = Float.parseFloat(val);
 
                                         DocumentReference docRef = db.collection("Profiles").document(creator);
@@ -143,11 +150,13 @@ public class ShowLogActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.log_menu, menu);
 
         if(!isAdmin()){
-            menu.findItem(R.id.menu_add_notes).setVisible(false);
             menu.findItem(R.id.menu_delete).setVisible(false);
             menu.findItem(R.id.menu_edit_priority).setVisible(false);
            menu.findItem(R.id.assign_task).setVisible(false);
 
+        }
+        if(!isAdmin() || !usrName.equals(creatorName)){
+            menu.findItem(R.id.menu_add_notes).setVisible(false);
         }
         return true;
     }
@@ -198,8 +207,11 @@ public class ShowLogActivity extends AppCompatActivity {
         }
 
         if(id == R.id.assign_task){
-
-                if (isAdmin()) {
+            //Checking if the given task is completed or not
+            if(logStatus.equals("complete")){
+                Toast.makeText(ShowLogActivity.this, "The task has been completed", Toast.LENGTH_SHORT).show();
+            }
+            else if (isAdmin()) {
                     Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
                     final Dialog dialog = new Dialog(this);
                     dialog.setContentView(R.layout.log_view_alert);
@@ -283,7 +295,7 @@ public class ShowLogActivity extends AppCompatActivity {
             } else{
                 Toast.makeText(ShowLogActivity.this, "You are not the Administrator or Creator", Toast.LENGTH_SHORT).show();
             }
-            }
+        }
         return super.onOptionsItemSelected(item);
     }
 
