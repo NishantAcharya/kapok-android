@@ -192,6 +192,9 @@ public class ShowLogActivity extends AppCompatActivity {
                                                 DocumentReference teriRef = db.collection("Profiles").document(assignName);
                                                 teriRef.update("status", FieldValue.arrayUnion(log2));
                                                 //On completing exit out of the activyty, polish notes
+                                                //add assignment removal on completeion
+                                                //refreshing the page when staus updates
+                                                //add this to assigned log
                                             }
                                         }
                                     }
