@@ -124,5 +124,16 @@
         android:layout_marginTop="550dp"
 
             />
+
+    <Button
+        android:id="@+id/complete_task"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_marginTop="600dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="?attr/colorAccent"
+        android:text="Mark as Complete"
+        android:textColor="?attr/colorText" />
 </RelativeLayout>
 </ScrollView>
