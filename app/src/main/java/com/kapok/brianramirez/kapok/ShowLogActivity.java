@@ -64,12 +64,13 @@ public class ShowLogActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_log);
 
         //Setting values of the team and admin and getting other user related stuff(and intent)
-        usrName = mAuth.getCurrentUser().getEmail();
+
         getTeam();
         isAdmin();
         Intent intent = getIntent();
         logPos = intent.getIntExtra("Log Position", 0);
         mAuth = Database.mAuth;
+        usrName = mAuth.getCurrentUser().getEmail();
 
         //View setup
         TextView locationText = findViewById(R.id.location_txt_display);
