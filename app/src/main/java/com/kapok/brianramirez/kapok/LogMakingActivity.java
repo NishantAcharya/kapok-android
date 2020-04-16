@@ -70,7 +70,7 @@ public class LogMakingActivity extends AppCompatActivity {
                 log.put("info", infoTxtField.getText().toString());
                 log.put("Log Rating", String.valueOf(LogPriority.getRating()));
                 log.put("time", String.valueOf(System.currentTimeMillis()));
-                log.put("assignment", "");
+                log.put("assignment", "No Assignment");
                 log.put("status","incomplete");
                 FirebaseFirestore db = Database.db;
                 DocumentReference userProf = db.collection("Profiles").document(currentUser);

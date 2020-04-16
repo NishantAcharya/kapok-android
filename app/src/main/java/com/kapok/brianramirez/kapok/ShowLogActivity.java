@@ -48,7 +48,7 @@ public class ShowLogActivity extends AppCompatActivity {
     private boolean isAdmin;
     private String member;
     private String usrName;
-    private String creatorName;
+    private String assignName;
     private String logStatus;
 
     @Override
@@ -105,7 +105,6 @@ public class ShowLogActivity extends AppCompatActivity {
                                         ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
                                         log = locations.get(logPos);
                                         String creator = log.get("creator").toString();
-                                        creatorName = creator; // getting the value fo the creator
                                         String category = log.get("category").toString();
                                         String notes = log.get("info").toString();
                                         Map<String, Object> currPoint = (Map<String, Object>) log.get("point");
@@ -114,6 +113,8 @@ public class ShowLogActivity extends AppCompatActivity {
                                         String val = (log.get("Log Rating").toString());
                                         logStatus = log.get("status").toString();
                                         floatval = Float.parseFloat(val);
+
+                                        assignName = log.get("assignment").toString();
 
                                         DocumentReference docRef = db.collection("Profiles").document(creator);
                                         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -155,7 +156,7 @@ public class ShowLogActivity extends AppCompatActivity {
            menu.findItem(R.id.assign_task).setVisible(false);
 
         }
-        if(!isAdmin() || !usrName.equals(creatorName)){
+        if(!isAdmin() || !usrName.equals(assignName)){
             menu.findItem(R.id.menu_add_notes).setVisible(false);
         }
         return true;
