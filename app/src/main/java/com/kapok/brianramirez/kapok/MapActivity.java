@@ -578,6 +578,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                             logJson.addProperty("type", "Feature");
                                             JsonObject geo = new JsonObject();
                                             geo.addProperty("type", "Point");
+                                            //Go here point
                                             JsonArray coor = new JsonArray();
                                             HashMap<String, Float> point = (HashMap<String, Float>) log.get("point");
                                             coor.add(point.get("longitude"));
@@ -717,6 +718,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         }
         mapboxMap.selectMarker(featureMarker);
         refreshMarkers();
+        //Make a method that loads up the logs and opens a log page if the longlat value matches
         startOpenLog();
         return true;
     }

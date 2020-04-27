@@ -185,16 +185,20 @@ public class ShowLogActivity extends AppCompatActivity {
                                                 log2.put("Log Rating", log.get("Log Rating"));
                                                 log2.put("time", log.get("time").toString());
                                                 log2.put("point", log.get("point"));
-                                                log2.put("assignment", "Completed");
+                                                log2.put("assignment", "No Assignment");
                                                 log2.put("status","complete");
                                                 teamRef.update("logs", FieldValue.arrayRemove(log));
                                                 teamRef.update("logs", FieldValue.arrayUnion(log2));
-                                                DocumentReference teriRef = db.collection("Profiles").document(assignName);
+
+                                                DocumentReference teriRef = db.collection("Profiles").document(assignName); // change this
+                                                //change assignment
                                                 teriRef.update("status", FieldValue.arrayUnion(log2));
                                                 //On completing exit out of the activyty, polish notes
                                                 //add assignment removal on completeion
                                                 //refreshing the page when staus updates
                                                 //add this to assigned log
+                                                //you can only complete assigned task
+                                                //put status checks around complete
                                             }
                                         }
                                     }
@@ -274,7 +278,6 @@ public class ShowLogActivity extends AppCompatActivity {
                 Toast.makeText(ShowLogActivity.this, "The task has been completed", Toast.LENGTH_SHORT).show();
             }
             else if (Database.isAdmin) {
-                    Toast.makeText(ShowLogActivity.this, "YAAAAS", Toast.LENGTH_SHORT).show();
                     final Dialog dialog = new Dialog(this);
                     dialog.setContentView(R.layout.log_view_alert);
                     Spinner spinner = dialog.findViewById(R.id.assignee);
