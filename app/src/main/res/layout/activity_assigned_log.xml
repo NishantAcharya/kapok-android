@@ -95,6 +95,24 @@
             android:layout_centerHorizontal="true"
             android:id="@+id/creator_txt_display"/>
 
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="510dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="?attr/colorAccent"
+            android:text="Status:"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="550dp"
+            android:textSize="20dp"
+            android:textColor="?attr/colorAltText"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/status_txt_display"/>
+
 
         <RatingBar
             android:layout_width="wrap_content"
@@ -102,7 +120,7 @@
             android:layout_centerHorizontal="true"
             android:id="@+id/ratingBar"
             android:isIndicator="true"
-            android:layout_marginTop="510dp"
+            android:layout_marginTop="600dp"
             android:backgroundTint="?attr/colorSpinner"
 
             />

@@ -25,6 +25,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
@@ -32,6 +33,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.sql.Ref;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -53,6 +55,7 @@ public class ShowLogActivity extends AppCompatActivity {
     private String assignName;
     private String logStatus;
     private String status;
+    private boolean breakout = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,10 +192,29 @@ public class ShowLogActivity extends AppCompatActivity {
                                                 log2.put("status","complete");
                                                 teamRef.update("logs", FieldValue.arrayRemove(log));
                                                 teamRef.update("logs", FieldValue.arrayUnion(log2));
+                                                //Finding the name of the  assignee
+                                                ArrayList<String> teamMembers = (ArrayList<String>) document.getData().get("members");
+                                                //Add a breakout statement in the given loop to make more efficient
+                                                for(String mem: teamMembers) {
+                                                    DocumentReference teriRef = db.collection("Profiles").document(mem);
+                                                    teriRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                            if(task.isSuccessful()){
+                                                                DocumentSnapshot document = task.getResult();
+                                                                if(document.exists()){
+                                                                    String userName = document.get("name").toString();
+                                                                    if(userName.equals(assignName)){
+                                                                        teriRef.update("assignments", FieldValue.arrayUnion(log2));
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
 
-                                                DocumentReference teriRef = db.collection("Profiles").document(assignName); // change this
                                                 //change assignment
-                                                teriRef.update("status", FieldValue.arrayUnion(log2));
+
                                                 //On completing exit out of the activyty, polish notes
                                                 //add assignment removal on completeion
                                                 //refreshing the page when staus updates

@@ -41,6 +41,7 @@ public class AssignedLogActivity extends AppCompatActivity {
     boolean result;
     TextView notesText;
     String note;
+    String status;
     RatingBar Rating;
     private ArrayList<String> teamMates = new ArrayList<String>(1);
     private ArrayList<String> teamEmails;
@@ -55,7 +56,7 @@ public class AssignedLogActivity extends AppCompatActivity {
         } else {
             setTheme(R.style.AppTheme);
         }
-        setContentView(R.layout.activity_show_log);
+        setContentView(R.layout.activity_assigned_log);
 
         //filling up admin and team data
         getTeam();
@@ -69,6 +70,7 @@ public class AssignedLogActivity extends AppCompatActivity {
         //Initializing the activity page
         TextView locationText = findViewById(R.id.location_txt_display);
         TextView categoryText = findViewById(R.id.category_txt_display);
+        TextView statusText = findViewById(R.id.status_txt_display);
         notesText = findViewById(R.id.notes_txt_display);
         TextView creatorText = findViewById(R.id.creator_txt_display);
         Rating = findViewById(R.id.ratingBar);
@@ -108,6 +110,7 @@ public class AssignedLogActivity extends AppCompatActivity {
                                         double lon = (double) currPoint.get("longitude");
                                         String val = (log.get("Log Rating").toString());
                                         floatval = Float.parseFloat(val);
+                                        status = log.get("status").toString();
 
                                         DocumentReference docRef = db.collection("Profiles").document(creator);
                                         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -121,6 +124,7 @@ public class AssignedLogActivity extends AppCompatActivity {
                                                         locationText.setText(lat + "," + lon);
                                                         creatorText.setText(creatorName + "\n" + "Email:" + creator);
                                                         categoryText.setText(category);
+                                                        statusText.setText(status);
                                                         note = notes;
                                                         notesText.setText(notes);
                                                         Rating.setRating(floatval);
