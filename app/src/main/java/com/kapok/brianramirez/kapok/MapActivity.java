@@ -267,7 +267,14 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         usrEmail = currentUser;
 
                         //Admin check here to find to add admin and responder here
-                        userName.setText(usrName);
+                        String nameText = usrName;
+                        if(!Database.isAdmin){
+                            nameText += "(Responder)";
+                        }
+                        else{
+                            nameText += "(Administrator)";
+                        }
+                        userName.setText(nameText);
                         userMail.setText(usrEmail);
                         
                     }
