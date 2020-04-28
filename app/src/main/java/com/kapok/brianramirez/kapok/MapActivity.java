@@ -175,7 +175,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         //Initializing user's team data in respective variables
         getTeam();
-        isAdmin();
+
 
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -225,6 +225,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
        //Getting Profiles table in the database
       DocumentReference userProf = db.collection("Profiles").document(currentUser);
 
+
         //This is the section related to the navigation drawer, the place where navigation menu will go
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
@@ -266,6 +267,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         usrName = document.getData().get("name").toString();
                         usrEmail = currentUser;
 
+                        if(document.getData().get("isAdmin").toString().equals("true")){
+                            Database.isAdmin = true;
+                        }
+                        else{
+                            Database.isAdmin = false;
+                        }
+
                         //Admin check here to find to add admin and responder here
                         String nameText = usrName;
                         if(!Database.isAdmin){
@@ -276,7 +284,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         }
                         userName.setText(nameText);
                         userMail.setText(usrEmail);
-                        
+                        //Map activity add on leave team
                     }
                 }
             }
@@ -918,6 +926,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     }
                                 }
                                 userProf.update("status", "none");
+                                userProf.update("isAdmin", "false");
                                 userProf.update("team", FieldValue.arrayRemove(teamcode));
                                 Intent intent = new Intent(MapActivity.this, TeamWelcomeActivity.class);
                                 startActivity(intent);
