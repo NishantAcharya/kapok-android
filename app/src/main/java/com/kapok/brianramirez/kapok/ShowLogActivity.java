@@ -205,6 +205,7 @@ public class ShowLogActivity extends AppCompatActivity {
                                                                 if(document.exists()){
                                                                     String userName = document.get("name").toString();
                                                                     if(userName.equals(assignName)){
+                                                                        teriRef.update("assignments", FieldValue.arrayRemove(log));
                                                                         teriRef.update("assignments", FieldValue.arrayUnion(log2));
                                                                     }
                                                                 }
@@ -243,7 +244,7 @@ public class ShowLogActivity extends AppCompatActivity {
            menu.findItem(R.id.assign_task).setVisible(false);
 
         }
-        if(!Database.isAdmin || !usrName.equals(assignName)){
+        if(!Database.isAdmin && !usrName.equals(assignName)){
             menu.findItem(R.id.menu_add_notes).setVisible(false);
         }
         return true;
