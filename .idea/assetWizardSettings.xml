@@ -76,6 +76,7 @@
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="ffffff" />
                                       <entry key="foregroundImage" value="$USER_HOME$/Downloads/kapoklogo.png" />
+                                      <entry key="outputName" value="logo" />
                                     </map>
                                   </option>
                                 </PersistentState>

@@ -35,6 +35,8 @@
         android:layout_toEndOf="@+id/alert_image"
         android:layout_marginLeft="21dp"
         android:layout_marginStart="21dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/colorWhite"
         android:layout_marginTop="12dp" />
 
     <ImageButton

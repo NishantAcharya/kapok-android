@@ -6,6 +6,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -14,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 
@@ -39,8 +43,60 @@ public class JoinWaitActivity extends AppCompatActivity {
         String currentUser = mAuth.getCurrentUser().getEmail();
         FirebaseFirestore db = Database.db;
 
-        //staying until request gets accepted else opening map activty
+        Intent intent = getIntent();
+        String team_id = intent.getStringExtra("teamid");
+
+        TextView teamText = findViewById(R.id.teamText);
+        Button cancel = findViewById(R.id.cancel_request);
         DocumentReference docRef = db.collection("Profiles").document(currentUser);
+        DocumentReference teamRef = db.collection("Teams").document(team_id);
+        teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()){
+                        teamText.setText(document.getData().get("name").toString());
+                    }
+                }
+            }
+        });
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            DocumentSnapshot document = task.getResult();
+                            if(document.exists()){
+                                ArrayList<String> members = (ArrayList<String>) document.get("members");
+                                String admin = members.get(0);
+                                DocumentReference adminRef = db.collection("Profiles").document(admin);
+                                adminRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if(task.isSuccessful()){
+                                            DocumentSnapshot document = task.getResult();
+                                            if(document.exists()){
+                                                docRef.update("status","none");
+                                                docRef.update("requests", FieldValue.arrayRemove(currentUser));
+
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+                finish();
+            }
+        });
+
+        //staying until request gets accepted else opening map activty
+
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot snapshot,

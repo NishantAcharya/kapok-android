@@ -116,6 +116,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         MapboxMap.OnMapClickListener {
     //All the variables needed in the map activity
     private PermissionsManager permissionsManager;
+    private int position = -1;
     private ListView mDrawerList;
     private DrawerLayout dl;
     private ActionBarDrawerToggle t;
@@ -224,6 +225,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
        //Getting Profiles table in the database
       DocumentReference userProf = db.collection("Profiles").document(currentUser);
+
+
 
 
         //This is the section related to the navigation drawer, the place where navigation menu will go
@@ -489,6 +492,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
+
 //This checks for isAdmin in the database in the teams
     private boolean isAdmin() {
         FirebaseFirestore db = Database.db;
@@ -567,6 +571,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 });
 
         mapboxMap.addOnMapClickListener(this);
+
         refreshMarkers();
     }
 
@@ -705,7 +710,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     //What to do when there is a click on the map
     public boolean onMapClick(@NonNull LatLng point) {
-
+        Map<String,Object> log;
 
         if (featureMarker != null) {
             mapboxMap.removeMarker(featureMarker);
@@ -754,6 +759,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Intent i = new Intent(this, LogMakingActivity.class);
         startActivity(i);
     }
+
 
     void openLogMaker(){
         Intent i = new Intent(this, LogMakingActivity.class);
@@ -913,26 +919,49 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     //If user accepts the request
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    DocumentSnapshot document = task.getResult();
-                                    if (document.exists()) {
-                                        ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
-                                        teamcode=team.get(0);
-                                        DocumentReference teamRef = db.collection("Teams").document(team.get(0));
-                                        teamRef.update("members", FieldValue.arrayRemove(currentUser));
+                        if(!Database.isAdmin) {
+                            userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
+                                            teamcode = team.get(0);
+                                            DocumentReference teamRef = db.collection("Teams").document(team.get(0));
+                                            teamRef.update("members", FieldValue.arrayRemove(currentUser));
+                                        }
+                                    }
+                                    userProf.update("status", "none");
+                                    userProf.update("isAdmin", "false");
+                                    userProf.update("team", FieldValue.arrayRemove(teamcode));
+                                    Intent intent = new Intent(MapActivity.this, TeamWelcomeActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+                        }
+                        else{
+                            userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
+                                            teamcode = team.get(0);
+                                            DocumentReference teamRef = db.collection("Teams").document(team.get(0));
+                                            teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                                                }
+                                            });
+                                        }
                                     }
                                 }
-                                userProf.update("status", "none");
-                                userProf.update("isAdmin", "false");
-                                userProf.update("team", FieldValue.arrayRemove(teamcode));
-                                Intent intent = new Intent(MapActivity.this, TeamWelcomeActivity.class);
-                                startActivity(intent);
-                                finish();
-                            }
-                        });
+                            });
+                        }
                     }
                 });
         a.create();
