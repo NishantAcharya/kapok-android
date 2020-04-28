@@ -954,13 +954,28 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                             teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
+                                                    if(task.isSuccessful()){
+                                                        DocumentSnapshot document = task.getResult();
+                                                        if(document.exists()){
+                                                            ArrayList<String> members = (ArrayList<String>) document.get("members");
+                                                            for(String member: members){
+                                                                teamRef.update("members", FieldValue.arrayRemove(member));
+                                                                DocumentReference usrPref = db.collection("Profiles").document(member);
+                                                                usrPref.update("status", "none");
+                                                                usrPref.update("isAdmin", "false");
+                                                                usrPref.update("team", FieldValue.arrayRemove(teamcode));
+                                                            }
+                                                        }
+                                                    }
                                                 }
                                             });
                                         }
                                     }
                                 }
                             });
+                            Intent intent = new Intent(MapActivity.this, TeamWelcomeActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
                     }
                 });
