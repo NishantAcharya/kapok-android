@@ -21,8 +21,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
+        android:textStyle="bold"
         android:textColor="?attr/colorAltText"
-        android:text="Tell us as much as you can about what's happening at this location."
+        android:text="Create Your Log"
+        android:textSize = "20dp"
         android:textAlignment="center" />
 
     <EditText

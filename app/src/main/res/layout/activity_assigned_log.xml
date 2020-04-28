@@ -16,7 +16,11 @@
             android:layout_marginTop="30dp"
             android:textColor="?attr/colorAltText"
             android:text="Here is the selected log!"
+            android:textStyle="bold"
+            android:textSize="20dp"
             android:textAlignment="center" />
+
+
 
 
         <TextView
@@ -24,17 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:layout_centerHorizontal="true"
-            android:textColor="?attr/colorAccent"
-            android:text="Location:"
-            android:textSize="20dp"
-            />
-
-        <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="110dp"
-            android:layout_centerHorizontal="true"
-            android:textColor="?attr/colorAltText"
+            android:textColor="?attr/colorPrimary"
+            android:textStyle = "bold"
             android:id="@+id/location_txt_display"
             android:textSize="20dp"/>
 
