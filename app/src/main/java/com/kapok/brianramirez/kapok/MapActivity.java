@@ -266,6 +266,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         usrName = document.getData().get("name").toString();
                         usrEmail = currentUser;
 
+                        //Admin check here to find to add admin and responder here
                         userName.setText(usrName);
                         userMail.setText(usrEmail);
                         

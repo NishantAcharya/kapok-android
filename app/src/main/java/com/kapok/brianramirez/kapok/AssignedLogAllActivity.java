@@ -84,7 +84,7 @@ public class AssignedLogAllActivity extends AppCompatActivity {
                                                 AssignedLogs.add(location + " : " + assignment);
                                             }
                                         }
-                                        arrayAdapter = new ArrayAdapter<String>(AssignedLogAllActivity.this, android.R.layout.simple_list_item_1, memberName);
+                                        arrayAdapter = new ArrayAdapter<String>(AssignedLogAllActivity.this, android.R.layout.simple_list_item_1, AssignedLogs);
                                         lv.setAdapter(arrayAdapter);
                                     }
                                 }
