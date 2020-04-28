@@ -250,6 +250,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if(!Database.isAdmin) {
             Menu nav_Menu = navView.getMenu();
             nav_Menu.findItem(R.id.navRequests).setVisible(false);
+            nav_Menu.findItem(R.id.navAssigned).setVisible(false);
         }
         View header = navView.getHeaderView(0);
         TextView userName = header.findViewById(R.id.nav_header_name);
@@ -279,6 +280,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 int id = menuItem.getItemId();
                 switch (id)
                 {
+                    case R.id.navAssigned:
+                        goToAssignedView();
+                        break;
                     case R.id.navTeam:
                         goToTeamDisplay();
                         break;
@@ -298,8 +302,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     case R.id.navRequests:
                         goToTeamJoinRequest();
                         break;
+                    //Add Assigned here.
                     //This is navAssigned(Need to put in a function)
-                    case R.id.navAssigned:
+                    case R.id.navMyTask:
                             ArrayList<String> Assigned = new ArrayList<String>(1);
                             DocumentReference docRef = db.collection("Profiles").document(currentUser);
 
@@ -578,7 +583,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                             logJson.addProperty("type", "Feature");
                                             JsonObject geo = new JsonObject();
                                             geo.addProperty("type", "Point");
-                                            //Go here point
+                                            //Go here p
                                             JsonArray coor = new JsonArray();
                                             HashMap<String, Float> point = (HashMap<String, Float>) log.get("point");
                                             coor.add(point.get("longitude"));
@@ -845,6 +850,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     public void goToTeamDisplay() {
         Intent intent = new Intent(this, TeamDIsplayActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToAssignedView(){
+        Intent intent = new Intent(this, AssignedLogAllActivity.class);
         startActivity(intent);
     }
 

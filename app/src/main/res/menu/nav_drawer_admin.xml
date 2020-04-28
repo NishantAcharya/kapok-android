@@ -17,6 +17,10 @@
             android:title="Assigned" />
 
         <item
+            android:id="@+id/navMyTask"
+            android:title="My Task" />
+
+        <item
             android:id="@+id/navChangeTheme"
             android:title="Change Theme" />
 

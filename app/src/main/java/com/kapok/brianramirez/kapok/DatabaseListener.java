@@ -75,6 +75,7 @@ public class DatabaseListener extends Service {
                         @Override
                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                             if (task.isSuccessful()) {
+                                //Fix the issue: The admin and user both get  notification, fix this
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
                                     ArrayList<String> requests = (ArrayList<String>)document.get("requests");
