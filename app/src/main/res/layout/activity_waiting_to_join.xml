@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    xmlns:tools="http://schemas.android.com/tools">
     <RelativeLayout
 
         android:layout_width="match_parent"
 
         android:background="@color/colorPrimary"
         android:layout_height="match_parent"
-        xmlns:tools="http://schemas.android.com/tools">
+        >
 
         <TextView
             android:id="@+id/textView7"
@@ -77,9 +78,9 @@
             style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="82dp"
+            android:layout_marginTop="580dp"
             android:background="@color/colorPrimaryDark"
             android:textColor="@color/colorWhite"
             android:text="Cancel Request" />

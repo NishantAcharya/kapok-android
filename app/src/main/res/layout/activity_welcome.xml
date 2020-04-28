@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    xmlns:tools="http://schemas.android.com/tools">
     <RelativeLayout
-        xmlns:tools="http://schemas.android.com/tools"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -39,9 +40,9 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="347dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="181dp"
+            android:layout_marginTop="500dp"
             android:backgroundTint="@color/colorPrimary"
             android:elevation="0dp"
             android:text="Log In"
@@ -52,9 +53,9 @@
             style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="82dp"
+            android:layout_marginTop="600dp"
             android:backgroundTint="@color/colorWhite"
             android:textColor="@color/colorAccent"
             android:text="Create an account" />
