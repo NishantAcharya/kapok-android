@@ -80,6 +80,12 @@ public class DatabaseListener extends Service {
                                 if (document.exists()) {
                                     ArrayList<String> requests = (ArrayList<String>)document.get("requests");
                                     ArrayList<String> prevrequests = (ArrayList<String>)prevUserSnap.get("requests");
+                                    String status = document.get("status").toString();
+                                    String prevstatus = prevUserSnap.get("status").toString();
+                                    Boolean isAdmin = (Boolean)document.get("isAdmin");
+                                    Boolean previsAdmin = (Boolean)prevUserSnap.get("isAdmin");
+                                    ArrayList<String> team = (ArrayList<String>)document.get("team");
+                                    ArrayList<String> prevteam = (ArrayList<String>)prevUserSnap.get("team");
                                     ArrayList<Map<String, Object>> logs = (ArrayList<Map<String, Object>>)document.get("assignments");
                                     ArrayList<Map<String, Object>> prevlogs = (ArrayList<Map<String, Object>>)prevUserSnap.get("assignments");
                                     if(requests.size()>prevrequests.size()){
@@ -89,7 +95,7 @@ public class DatabaseListener extends Service {
                                         NotificationCompat.Builder builder = new NotificationCompat.Builder(DatabaseListener.this, "Kapok")
                                                 .setSmallIcon(R.drawable.logo)
                                                 .setContentTitle("New Requests")
-                                                .setContentText("New Requests")
+                                                .setContentText("New Request from someone to join team")
                                                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
                                         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(DatabaseListener.this);
@@ -98,6 +104,66 @@ public class DatabaseListener extends Service {
                                         notificationManager.notify(notificationId, builder.build());
 
                                     }
+                                    if(prevstatus.equals("pending") && status.equals("accepted")){
+                                        //make notification
+                                        createNotificationChannel();
+                                        int notificationId = 12;
+                                        NotificationCompat.Builder builder = new NotificationCompat.Builder(DatabaseListener.this, "Kapok")
+                                                .setSmallIcon(R.drawable.logo)
+                                                .setContentTitle("Request Accepted")
+                                                .setContentText("Your request has been accepted")
+                                                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(DatabaseListener.this);
+
+// notificationId is a unique int for each notification that you must define
+                                        notificationManager.notify(notificationId, builder.build());
+                                    }
+                                    if(isAdmin && !previsAdmin){
+                                        //make notification
+                                        createNotificationChannel();
+                                        int notificationId = 13;
+                                        NotificationCompat.Builder builder = new NotificationCompat.Builder(DatabaseListener.this, "Kapok")
+                                                .setSmallIcon(R.drawable.logo)
+                                                .setContentTitle("Administator Change")
+                                                .setContentText("You are this team's new admin!")
+                                                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(DatabaseListener.this);
+
+// notificationId is a unique int for each notification that you must define
+                                        notificationManager.notify(notificationId, builder.build());
+                                    }
+                                    if(!isAdmin && previsAdmin){
+                                        //make notification
+                                        createNotificationChannel();
+                                        int notificationId = 14;
+                                        NotificationCompat.Builder builder = new NotificationCompat.Builder(DatabaseListener.this, "Kapok")
+                                                .setSmallIcon(R.drawable.logo)
+                                                .setContentTitle("Administrator Change")
+                                                .setContentText("You are no longer an Administartor!")
+                                                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(DatabaseListener.this);
+
+// notificationId is a unique int for each notification that you must define
+                                        notificationManager.notify(notificationId, builder.build());
+                                    }
+                                    if(prevteam.size() > team.size()){
+                                        //make notification
+                                        createNotificationChannel();
+                                        int notificationId = 15;
+                                        NotificationCompat.Builder builder = new NotificationCompat.Builder(DatabaseListener.this, "Kapok")
+                                                .setSmallIcon(R.drawable.logo)
+                                                .setContentTitle("Team Left")
+                                                .setContentText("You have left your current team")
+                                                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+                                        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(DatabaseListener.this);
+
+// notificationId is a unique int for each notification that you must define
+                                        notificationManager.notify(notificationId, builder.build());
+                                    }
                                     if(logs.size()>prevlogs.size()){
                                         //Todo
                                         //Notification for log assigned
@@ -105,8 +171,8 @@ public class DatabaseListener extends Service {
                                         int notificationId = 11; //This unique
                                         NotificationCompat.Builder builder = new NotificationCompat.Builder(DatabaseListener.this, "Kapok")
                                                 .setSmallIcon(R.drawable.logo)
-                                                .setContentTitle("New Tasks")
-                                                .setContentText("New Tasks")
+                                                .setContentTitle("New Task assigned")
+                                                .setContentText("New Tasks have been assigned to you")
                                                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
                                         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(DatabaseListener.this);
