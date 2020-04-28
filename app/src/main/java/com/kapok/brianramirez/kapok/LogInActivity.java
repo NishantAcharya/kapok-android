@@ -87,7 +87,7 @@ public class LogInActivity extends AppCompatActivity {
                                                     if (document.exists()) {
                                                         ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
 
-                                                        if (userCurrentTeam.get(0) != null) {
+                                                        if (!userCurrentTeam.isEmpty()) {
                                                             Intent i = new Intent(LogInActivity.this, MapActivity.class);
                                                             startActivity(i);
                                                         }
