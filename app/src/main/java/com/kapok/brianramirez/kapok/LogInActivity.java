@@ -91,10 +91,11 @@ public class LogInActivity extends AppCompatActivity {
                                                             Intent i = new Intent(LogInActivity.this, MapActivity.class);
                                                             startActivity(i);
                                                         }
+                                                        else {
+                                                            Intent i = new Intent(LogInActivity.this, TeamWelcomeActivity.class);
+                                                            startActivity(i);
+                                                        }
 
-                                                    } else {
-                                                        Intent i = new Intent(LogInActivity.this, TeamWelcomeActivity.class);
-                                                        startActivity(i);
                                                     }
 
                                                 }
