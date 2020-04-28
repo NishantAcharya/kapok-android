@@ -5,62 +5,60 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".WelcomeActivity"
-    >
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".WelcomeActivity"
+        >
 
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="66dp"
-        app:srcCompat="@drawable/logo" />
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="66dp"
+            app:srcCompat="@drawable/logo" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="352dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="217dp"
-        android:textStyle="bold"
-        android:text="Welcome to Kapok \n Create an account or sign in! Once you sign in you’ll be able to see your team or join a team."
-        android:textAlignment="center" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="352dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="217dp"
+            android:textStyle="bold"
+            android:text="Welcome to Kapok \n Create an account or sign in! Once you sign in you’ll be able to see your team or join a team."
+            android:textAlignment="center" />
 
-    <Button
-        android:id="@+id/sign_in_btn"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="347dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="181dp"
-        android:backgroundTint="@color/colorPrimary"
-        android:elevation="0dp"
-        android:text="Log In"
-        android:textColor="@android:color/background_light" />
+        <Button
+            android:id="@+id/sign_in_btn"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="347dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="181dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:elevation="0dp"
+            android:text="Log In"
+            android:textColor="@android:color/background_light" />
 
-    <Button
-        android:id="@+id/register_btn"
-        style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="82dp"
-        android:backgroundTint="@color/colorWhite"
-        android:textColor="@color/colorAccent"
-        android:text="Create an account" />
-</RelativeLayout>
+        <Button
+            android:id="@+id/register_btn"
+            style="@android:style/Widget.Material.Light.Button.Borderless.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="82dp"
+            android:backgroundTint="@color/colorWhite"
+            android:textColor="@color/colorAccent"
+            android:text="Create an account" />
+    </RelativeLayout>
 </ScrollView>
 
 

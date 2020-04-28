@@ -251,11 +251,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         //This is the navigation menu setup
         navView = (NavigationView)findViewById(R.id.navListAdmin);
         //Admin check for hamburger menu
-        if(!Database.isAdmin) {
-            Menu nav_Menu = navView.getMenu();
-            nav_Menu.findItem(R.id.navRequests).setVisible(false);
-            nav_Menu.findItem(R.id.navAssigned).setVisible(false);
-        }
+
         View header = navView.getHeaderView(0);
         TextView userName = header.findViewById(R.id.nav_header_name);
         TextView userMail = header.findViewById(R.id.nav_header_email);
@@ -292,6 +288,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 }
             }
         });
+        if(!Database.isAdmin) {
+            Menu nav_Menu = navView.getMenu();
+            nav_Menu.findItem(R.id.navRequests).setVisible(false);
+            nav_Menu.findItem(R.id.navAssigned).setVisible(false);
+        }
         //This is the functions related to each option in the nav view
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -935,6 +936,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                     userProf.update("status", "none");
                                     userProf.update("isAdmin", "false");
                                     userProf.update("team", FieldValue.arrayRemove(teamcode));
+                                    userProf.update("team",FieldValue.arrayUnion(null));
                                     Intent intent = new Intent(MapActivity.this, TeamWelcomeActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -964,6 +966,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                                                 usrPref.update("status", "none");
                                                                 usrPref.update("isAdmin", "false");
                                                                 usrPref.update("team", FieldValue.arrayRemove(teamcode));
+                                                                usrPref.update("team",FieldValue.arrayUnion(null));
                                                             }
                                                         }
                                                     }
