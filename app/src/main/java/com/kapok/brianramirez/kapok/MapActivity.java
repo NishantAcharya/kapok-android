@@ -111,7 +111,7 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.textSize;
 /**
  * Display map property information for a clicked map feature
  */
-public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener,
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener,MapboxMap.OnMarkerClickListener,
         //Listener for all things related to clicking on the map
         MapboxMap.OnMapClickListener {
     //All the variables needed in the map activity
@@ -1150,4 +1150,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Intent i = new Intent(this, AssignedLogActivity.class).putExtra("Log Position", position);
         startActivity(i);
     }
+
+    //Defining a marker click, we are going to use it to define a marker click and then direct it to assgined log activity.
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+
+        return false;
+    }
 }
+
