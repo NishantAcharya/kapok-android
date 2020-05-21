@@ -575,7 +575,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 });
 
         mapboxMap.addOnMapClickListener(this);
-        mapboxMap.setOnMarkerClickListener(this);
+        mapboxMap.setOnMarkerClickListener(this::onMarkerClick);
 
         refreshMarkers();
     }
@@ -1167,10 +1167,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 if(task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
                     if(document.exists()){
-                        logVal = (ArrayList<Map<String,Object>>)document.getData().get("logs");
+                        logVal = (ArrayList<Map<String,Object>>)document.get("logs");
                         for(int i = 0; i < logVal.size(); i++){
                             Map<String, Object> currPoint = (Map<String, Object>) logVal.get(i).get("point");
-                            if(point.equals(currPoint)){
+                            double lat = (double) currPoint.get("latitude");
+                            double lon = (double) currPoint.get("longitude");
+                            if((double)point.getLongitude() == lon && (double)point.getLatitude() == lat){
                                 openAssignView(i);
                             }
                         }
