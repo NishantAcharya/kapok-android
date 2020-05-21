@@ -136,10 +136,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private String usrName;
     private ArrayList<String> teamEmails;
     private int positionNum;
+    private ArrayList<String> team =  new ArrayList<>((1));
     int numOfReq;
     private ArrayList<String> teamMates = new ArrayList<String>(1);
     final Context context = this;
-    String teamcode;
+    private String teamcode;
+    private ArrayList<Map<String,Object>> logVal = new ArrayList<>(1);
     private JsonObject logs;
     private JsonArray features;
 
@@ -573,6 +575,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 });
 
         mapboxMap.addOnMapClickListener(this);
+        mapboxMap.setOnMarkerClickListener(this);
 
         refreshMarkers();
     }
@@ -1154,8 +1157,29 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     //Defining a marker click, we are going to use it to define a marker click and then direct it to assgined log activity.
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
+        LatLng point = marker.getPosition();
+        FirebaseFirestore db = Database.db;
 
-        return false;
+        DocumentReference docRef = db.collection("Teams").document(teamcode);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()){
+                        logVal = (ArrayList<Map<String,Object>>)document.getData().get("logs");
+                        for(int i = 0; i < logVal.size(); i++){
+                            Map<String, Object> currPoint = (Map<String, Object>) logVal.get(i).get("point");
+                            if(point.equals(currPoint)){
+                                openAssignView(i);
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        return true;
     }
 }
 
