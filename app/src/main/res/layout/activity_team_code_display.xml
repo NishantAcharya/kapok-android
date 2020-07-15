@@ -27,7 +27,7 @@
     <TextView
         android:layout_width="352dp"
         android:layout_height="wrap_content"
-        android:text="Share this team code to members who wants to join the team."
+        android:text="Share this team code to members who want to join the team."
         android:textColor="@color/colorWhite"
         android:layout_marginTop="120dp"
         android:textAlignment="center"
