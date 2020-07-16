@@ -3,6 +3,7 @@
 
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -11,8 +12,6 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".RegisterActivity"
     android:background="?attr/colorText">
 
@@ -54,6 +53,18 @@
         android:hint="Password"
         android:backgroundTint="?attr/colorHint"
         android:inputType="textPassword" />
+
+
+    <ImageButton
+        android:id="@+id/password_eye"
+        android:layout_width="47dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="240dp"
+        android:layout_marginLeft="352dp"
+        android:background="@color/colorWhite"
+        android:visibility="visible"
+        app:srcCompat="@drawable/ic_remove_red_eye_black_24dp"
+        tools:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/progress"
@@ -108,7 +119,7 @@
         android:layout_marginTop="400dp"
         android:textAlignment="center"
         android:textColor="?attr/colorAltText"
-        android:text="*Password Strength needs to be medium at least" />
+        android:text="*Medium strength is required for password" />
 
 
 </RelativeLayout>
