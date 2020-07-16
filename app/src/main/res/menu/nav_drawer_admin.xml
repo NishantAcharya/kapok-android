@@ -22,7 +22,7 @@
 
         <item
             android:id="@+id/navChangeTheme"
-            android:title="Change Theme" />
+            android:title="Change Color" />
 
         <item
             android:id="@+id/navLogOut"
