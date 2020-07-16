@@ -60,7 +60,7 @@
         android:layout_width="47dp"
         android:layout_height="34dp"
         android:layout_marginTop="240dp"
-        android:layout_marginLeft="352dp"
+        android:layout_alignParentRight="true"
         android:background="@color/colorWhite"
         android:visibility="visible"
         app:srcCompat="@drawable/ic_remove_red_eye_black_24dp"

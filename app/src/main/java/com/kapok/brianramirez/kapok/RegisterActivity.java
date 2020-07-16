@@ -8,11 +8,16 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
     EditText passwordField;
     EditText confirmPassField;
     Button registerBtn;
+    ImageButton passwordBtn;
     private FirebaseAuth mAuth;
 
     @Override
@@ -54,8 +60,26 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
         passwordField = (EditText) findViewById(R.id.password_text_field);
         confirmPassField = (EditText) findViewById(R.id.confirm_pass_text_field);
         registerBtn = (Button) findViewById(R.id.register_btn);
+        passwordBtn = (ImageButton) findViewById(R.id.password_eye);
 
         passwordField.addTextChangedListener(this);
+        //Changes the text type in the password and confirm password field
+        passwordBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(passwordField.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+                    //Show Password
+                    passwordField.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    confirmPassField.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+                else{
+                    //Hide Password
+                    passwordField.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    confirmPassField.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+                }
+            }
+        });
         //Checks password strength and email validity
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
