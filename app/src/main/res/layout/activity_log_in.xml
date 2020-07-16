@@ -44,6 +44,18 @@
         android:backgroundTint="?attr/colorHint"
         android:inputType="textPassword" />
 
+    <ImageButton
+        android:id="@+id/password_eye_login"
+        android:layout_width="47dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/email_text_field"
+        android:layout_alignParentRight="true"
+        android:background="@color/colorWhite"
+        android:visibility="visible"
+        app:srcCompat="@drawable/ic_font_awesome_5_solid_eye_slash"
+        tools:visibility="visible" />
+
+
     <Button
         android:id="@+id/log_in_btn"
         android:layout_width="347dp"

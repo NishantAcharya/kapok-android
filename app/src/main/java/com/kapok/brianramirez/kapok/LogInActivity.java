@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +31,7 @@ public class LogInActivity extends AppCompatActivity {
     EditText passwordField;
     Button logInBtn;
     Button resetBtn;
+    ImageButton passwrdBtn;
     private FirebaseAuth mAuth;
 
 
@@ -49,6 +53,26 @@ public class LogInActivity extends AppCompatActivity {
         passwordField = findViewById(R.id.password_text_field);
         logInBtn = findViewById(R.id.log_in_btn);
         resetBtn = findViewById(R.id.resetBtn);
+        passwrdBtn = findViewById(R.id.password_eye_login);
+
+        //Changes the text type in the password and confirm password field
+        passwrdBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(passwordField.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
+                    //Show Password
+                    passwrdBtn.setImageResource(R.drawable.ic_remove_red_eye_black_24dp);
+                    passwordField.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+                else{
+                    //Hide Password
+                    passwrdBtn.setImageResource(R.drawable.ic_font_awesome_5_solid_eye_slash);
+                    passwordField.setTransformationMethod(PasswordTransformationMethod.getInstance());
+
+                }
+            }
+        });
+
 
         //Reset button leads to forgot password activity
         resetBtn.setOnClickListener(new View.OnClickListener() {
