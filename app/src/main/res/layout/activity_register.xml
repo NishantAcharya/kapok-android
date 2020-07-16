@@ -63,7 +63,7 @@
         android:layout_alignParentRight="true"
         android:background="@color/colorWhite"
         android:visibility="visible"
-        app:srcCompat="@drawable/ic_remove_red_eye_black_24dp"
+        app:srcCompat="@drawable/ic_font_awesome_5_solid_eye_slash"
         tools:visibility="visible" />
 
     <ProgressBar

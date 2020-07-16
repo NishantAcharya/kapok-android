@@ -69,11 +69,13 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
             public void onClick(View view) {
                 if(passwordField.getTransformationMethod().equals(PasswordTransformationMethod.getInstance())){
                     //Show Password
+                    passwordBtn.setImageResource(R.drawable.ic_remove_red_eye_black_24dp);
                     passwordField.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                     confirmPassField.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 }
                 else{
                     //Hide Password
+                    passwordBtn.setImageResource(R.drawable.ic_font_awesome_5_solid_eye_slash);
                     passwordField.setTransformationMethod(PasswordTransformationMethod.getInstance());
                     confirmPassField.setTransformationMethod(PasswordTransformationMethod.getInstance());
 
