@@ -107,7 +107,7 @@ public class ShowMemberActivity extends AppCompatActivity {
 
     @Override
     //Admin features here, menu working
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.kickOut) {
                 if(!getAdmin().equals(member)) {

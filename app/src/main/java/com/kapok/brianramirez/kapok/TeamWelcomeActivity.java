@@ -2,6 +2,7 @@ package com.kapok.brianramirez.kapok;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.Menu;
@@ -62,7 +63,7 @@ public class TeamWelcomeActivity extends AppCompatActivity {
 
     @Override
     //Hamburger menu working, mainly signing out
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.logOut) {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();

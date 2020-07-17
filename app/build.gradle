@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'realm-android'
+//apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 28
@@ -25,9 +25,9 @@ android {
     }
 }
 
-realm {
+/*realm {
     syncEnabled = true;
-}
+}*/
 
 repositories {
     mavenCentral()
