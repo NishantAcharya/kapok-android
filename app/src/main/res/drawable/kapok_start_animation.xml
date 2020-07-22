@@ -3,19 +3,19 @@
     android:oneshot="true">
 
     <item
-        android:drawable="@drawable/ic_logoani_01__"
-        android:duration="800"
+        android:drawable="@drawable/ic_logoani_04__"
+        android:duration="1000"
         />
     <item
         android:drawable="@drawable/ic_logoani_02__"
-        android:duration="800"
+        android:duration="1000"
         />
     <item
         android:drawable="@drawable/ic_logoani_03__"
-        android:duration="800"
+        android:duration="1000"
         />
     <item
-        android:drawable="@drawable/ic_logoani_04__"
-        android:duration="800"
+        android:drawable="@drawable/ic_logoani_01__"
+        android:duration="1000"
         />
 </animation-list>
