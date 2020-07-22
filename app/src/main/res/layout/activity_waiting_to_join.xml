@@ -57,12 +57,12 @@
 
         <ImageView
             android:id="@+id/imageView2"
-            android:layout_width="60dp"
-            android:layout_height="120dp"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="300dp"
-            app:srcCompat="@drawable/wait"/>
+            />
 
         <TextView
             android:layout_width="240dp"

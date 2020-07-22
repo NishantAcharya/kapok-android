@@ -1,6 +1,7 @@
 package com.kapok.brianramirez.kapok;
 
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -26,6 +28,8 @@ import java.util.ArrayList;
 //The wait screen for joining
 public class JoinWaitActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    AnimationDrawable logoani;
+    ImageView logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +49,12 @@ public class JoinWaitActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String team_id = intent.getStringExtra("teamid");
+
+        logo = findViewById(R.id.imageView2);
+
+        //Creating the entering animation
+        logo.setBackgroundResource(R.drawable.kapok_animation_loop);
+        logoani = (AnimationDrawable) logo.getBackground();
 
         TextView teamText = findViewById(R.id.teamText);
         Button cancel = findViewById(R.id.cancel_request);
@@ -120,6 +130,13 @@ public class JoinWaitActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    //Starts the animation
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        logoani.start();
     }
 
     //The back press is empty, this is for what need sto happen when you press back
