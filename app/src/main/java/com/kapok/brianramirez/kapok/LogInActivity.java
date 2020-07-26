@@ -34,7 +34,6 @@ public class LogInActivity extends AppCompatActivity {
     Button logInBtn;
     Button resetBtn;
     ImageButton passwrdBtn;
-    ImageView logo;
     private FirebaseAuth mAuth;
 
 
@@ -147,11 +146,6 @@ public class LogInActivity extends AppCompatActivity {
 
     }
 
-   /* @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        logoani.start();
-    }*/
 
     public static boolean isValidRequest(String email, String password) {
         //TODO: Return true if both fields are not empty and are larget than length 5
