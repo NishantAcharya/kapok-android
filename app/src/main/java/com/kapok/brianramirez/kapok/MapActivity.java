@@ -194,7 +194,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        //*No Idea what this is
+        //Removing the features array from the json object
         logs.remove("features");
         features = new JsonArray();
 
@@ -609,7 +609,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                             logJson.addProperty("type", "Feature");
                                             JsonObject geo = new JsonObject();
                                             geo.addProperty("type", "Point");
-                                            //Go here p
                                             JsonArray coor = new JsonArray();
                                             HashMap<String, Float> point = (HashMap<String, Float>) log.get("point");
                                             coor.add(point.get("longitude"));
@@ -624,6 +623,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                             prop.addProperty("location", (String)log.get("location"));
                                             logJson.add("properties", prop);
                                             logJson.add("geometry", geo);
+                                            features.remove(logJson.deepCopy());
                                             features.add(logJson.deepCopy());
                                         }
                                         logs.add("features", features);
