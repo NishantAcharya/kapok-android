@@ -303,6 +303,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 int id = menuItem.getItemId();
                 switch (id)
                 {
+                    case R.id.navProfileEdit:
+                        goToProfileView();
+                        break;
+
                     case R.id.navAssigned:
                         goToAssignedView();
                         break;
@@ -877,6 +881,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     public void goToTeamDisplay() {
         Intent intent = new Intent(this, TeamDIsplayActivity.class);
+        startActivity(intent);
+    }
+
+    public void goToProfileView() {
+        Intent intent = new Intent(this, UserProfile.class);
         startActivity(intent);
     }
 

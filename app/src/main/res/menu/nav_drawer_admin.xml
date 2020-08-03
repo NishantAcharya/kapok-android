@@ -17,6 +17,10 @@
             android:title="Assigned" />
 
         <item
+            android:id="@+id/navProfileEdit"
+            android:title="Profile" />
+
+        <item
             android:id="@+id/navMyTask"
             android:title="My Task" />
 

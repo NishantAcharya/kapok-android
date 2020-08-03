@@ -65,6 +65,10 @@
             android:label = "My Logs"
             android:parentActivityName=".MapActivity" />
         <activity
+            android:name=".UserProfile"
+            android:label = "Profile"
+            android:parentActivityName=".MapActivity" />
+        <activity
             android:name=".AssignedLogAllActivity"
             android:label = "Assigned"
             android:parentActivityName=".MapActivity" />
