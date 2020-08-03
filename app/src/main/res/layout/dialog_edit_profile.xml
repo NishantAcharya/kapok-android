@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Please add the profile edits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addText"
+        android:textStyle="normal|bold"
+        android:textSize="20sp"
+        android:textColor="@color/colorBlack"
+        android:layout_centerHorizontal="true"
+        />
+
+    <EditText
+        android:id="@+id/currentEdit"
+        android:layout_width="285dp"
+        android:layout_height="74dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="?attr/colorHint"
+        android:clickable="true"
+        android:cursorVisible="true"
+        android:editable="true"
+        android:focusable="true"
+        android:inputType="text"
+        android:singleLine="true"
+        android:textColor="?attr/colorAltText"
+        android:textSize="22sp" />
+
+    <Button
+        android:id="@+id/editProfBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:backgroundTint="?attr/colorAccent"
+        android:layout_centerHorizontal="true"
+        android:text="Done Editing"
+        android:textColor="?attr/colorText"/>
+
+
+
+</RelativeLayout>
