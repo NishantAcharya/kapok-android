@@ -145,6 +145,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private ArrayList<Map<String,Object>> logVal = new ArrayList<>(1);
     private JsonObject logs;
     private JsonArray features;
+    private static boolean drawerCheck;
 
 
     @Override
@@ -234,20 +235,35 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         //This is the section related to the navigation drawer, the place where navigation menu will go
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                drawerCheck = true;
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                drawerCheck = false;
+            }
+        };
 
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
 
+        if(drawerCheck)
+            mDrawerLayout.openDrawer(GravityCompat.START); //This Line will keep the drawer opened
+        else
+            mDrawerLayout.closeDrawer(GravityCompat.START); //This Line will keep the drawer closed
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //mDrawerLayout.openDrawer(GravityCompat.START); //This Line will keep the drawer open
+
 
 
         //This is the navigation menu setup
         navView = (NavigationView)findViewById(R.id.navListAdmin);
-        //Admin check for hamburger menu
 
         View header = navView.getHeaderView(0);
         TextView userName = header.findViewById(R.id.nav_header_name);
