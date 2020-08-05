@@ -16,6 +16,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import static com.mapbox.mapboxsdk.style.expressions.Expression.toNumber;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -241,14 +242,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //mDrawerLayout.openDrawer(GravityCompat.START); //This Line will keep the drawer open
 
-        dl = (DrawerLayout)findViewById(R.id.drawer_layout);
-        t = new ActionBarDrawerToggle(this, dl,R.string.drawer_open, R.string.drawer_close);
-
-        dl.addDrawerListener(t);
-        t.syncState();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //This is the navigation menu setup
         navView = (NavigationView)findViewById(R.id.navListAdmin);
@@ -545,7 +540,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(t.onOptionsItemSelected(item))
+        if(mDrawerToggle.onOptionsItemSelected(item))
             return true;
 
         return super.onOptionsItemSelected(item);
