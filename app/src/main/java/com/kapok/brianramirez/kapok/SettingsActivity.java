@@ -29,8 +29,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         //View setup
         TextView changeThemebtn = (TextView)findViewById(R.id.change_theme_button);
-        ToggleButton notificationbtn = (ToggleButton)findViewById(R.id.notifcation_switch);
-        ToggleButton menubtn = (ToggleButton)findViewById(R.id.drawer_switch);
+        CompoundButton notificationbtn = (CompoundButton) findViewById(R.id.notifcation_switch);
+        CompoundButton menubtn = (CompoundButton) findViewById(R.id.drawer_switch);
 
         //Setting the checked value of the slider according to the status of the service
         if(isMyServiceRunning(DatabaseListener.class)){
