@@ -52,10 +52,10 @@ public class RegisterActivity extends AppCompatActivity implements TextWatcher {
         }
         setContentView(R.layout.activity_register);
 
-        //getting user data
+        //Connecting to the database
         mAuth = Database.mAuth;
 
-        //Setting activity vies
+        //Setting activity view
         emailField = (EditText) findViewById(R.id.email_text_field);
         passwordField = (EditText) findViewById(R.id.password_text_field);
         confirmPassField = (EditText) findViewById(R.id.confirm_pass_text_field);
