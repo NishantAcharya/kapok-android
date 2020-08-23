@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -49,6 +50,20 @@ class SettingsActivity extends AppCompatActivity {
                     // The toggle is disabled
                     stopService(new Intent(SettingsActivity.this, DatabaseListener.class));
                 }
+            }
+        });
+
+        changeThemebtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+
+                finish();
+                startActivity(new Intent(SettingsActivity.this, SettingsActivity.this.getClass()));
             }
         });
 

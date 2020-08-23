@@ -71,14 +71,14 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/change_theme_button"
         android:layout_width="match_parent"
         android:layout_height="34dp"
         android:layout_marginLeft="16dp"
-        android:text="Change to dark theme"
+        android:clickable="true"
+        android:text="Change Color/Theme"
         android:textColor="?attr/colorPrimary"
         android:textSize="21dp"
-        android:clickable="true"
-        android:id = "@+id/change_theme_button"
         android:textStyle="bold" />
 
 </LinearLayout>

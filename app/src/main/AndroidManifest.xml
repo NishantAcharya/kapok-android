@@ -61,6 +61,10 @@
             android:name=".MapActivity"
             android:label="Map" />
         <activity
+            android:name=".SettingsActivity"
+            android:label = "Settings"
+            android:parentActivityName=".MapActivity" />
+        <activity
             android:name=".AssignedLogActivity"
             android:label = "My Logs"
             android:parentActivityName=".MapActivity" />

@@ -329,8 +329,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         goToTeamCodeDisplay();
                         break;
 
-                    case R.id.navChangeTheme:
-                        changeTheme();
+                    case R.id.navSettings:
+
                         break;
 
                     case R.id.navLogOut:
@@ -905,15 +905,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         startActivity(intent);
     }
 
-    public void changeTheme(){
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
-
-        finish();
-        startActivity(new Intent(MapActivity.this, MapActivity.this.getClass()));
+    public void goToSettings(){
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     public void goToTeamCodeDisplay() {
