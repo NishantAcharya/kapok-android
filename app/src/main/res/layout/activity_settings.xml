@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:orientation="vertical" >
+    android:paddingRight="16dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="34dp"
         android:layout_marginTop="50dp"
         android:text="App Settings"
+        android:textColor="?attr/colorPrimary"
         android:textSize="18dp"
 
         />
@@ -18,7 +19,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,57 +27,58 @@
         android:orientation="horizontal"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
+
         <TextView
             android:layout_width="260dp"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:text="Allow Notifications"
+            android:textColor="?attr/colorPrimary"
             android:textSize="21dp"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
-            ></TextView>
+            android:textStyle="bold"></TextView>
+
         <android.support.v7.widget.SwitchCompat
-            android:layout_height="match_parent"
+            android:id="@+id/notifcation_switch"
             android:layout_width="match_parent"
-            android:id = "@+id/notifcation_switch"
-            android:textOn="ON"
+            android:layout_height="match_parent"
             android:textOff="OFF"
-            />
+            android:textOn="ON" />
 
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
+
         <TextView
             android:layout_width="260dp"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
             android:text="Allow Menu to stay open"
+            android:textColor="?attr/colorPrimary"
             android:textSize="21dp"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
-            ></TextView>
+            android:textStyle="bold"></TextView>
+
         <android.support.v7.widget.SwitchCompat
-            android:layout_height="match_parent"
+            android:id="@+id/drawer_switch"
             android:layout_width="match_parent"
-            android:id = "@+id/drawer_switch"
-            android:textOn="ON"
+            android:layout_height="match_parent"
             android:textOff="OFF"
-            />
+            android:textOn="ON" />
 
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="34dp"
-        android:text="Change to dark theme"
-        android:textStyle="bold"
-        android:textSize="21dp"
         android:layout_marginLeft="16dp"
-        android:textColor="@color/colorPrimary"
-        />
+        android:text="Change to dark theme"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="21dp"
+        android:clickable="true"
+        android:textStyle="bold" />
 
 </LinearLayout>
