@@ -15,7 +15,7 @@ class SettingsActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //Theme set
@@ -37,7 +37,7 @@ class SettingsActivity extends AppCompatActivity {
             notificationbtn.setChecked(true);
         }
         else {
-            notificationbtn.setChecked(true);
+            notificationbtn.setChecked(false);
         }
 
         //Working of the notification button

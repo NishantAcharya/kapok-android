@@ -61,10 +61,6 @@
             android:name=".MapActivity"
             android:label="Map" />
         <activity
-            android:name=".SettingsActivity"
-            android:label = "Settings"
-            android:parentActivityName=".MapActivity" />
-        <activity
             android:name=".AssignedLogActivity"
             android:label = "My Logs"
             android:parentActivityName=".MapActivity" />
@@ -115,6 +111,10 @@
             android:name=".JoinWaitActivity"
             android:label="Waiting Screen"
             android:theme="@style/FullScreen" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings"
+            android:parentActivityName=".MapActivity"/>
 
     </application>
 
