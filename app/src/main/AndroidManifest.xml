@@ -115,7 +115,6 @@
             android:name=".SettingsActivity"
             android:label="Settings"
             android:parentActivityName=".MapActivity"/>
-
     </application>
 
 </manifest>

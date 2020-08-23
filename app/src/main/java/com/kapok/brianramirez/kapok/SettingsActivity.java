@@ -11,7 +11,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
 
     @Override
