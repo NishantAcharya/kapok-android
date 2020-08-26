@@ -175,11 +175,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         features = new JsonArray();
         logs.add("features", new JsonArray());
 
-        //Getting data from the service for notifications
-        /*if(isMyServiceRunning(DatabaseListener.class)) {
-            Intent i = new Intent(this, DatabaseListener.class);
-            startService(i);
-        }*/
 
         //Initializing user's team data in respective variables
         getTeam();

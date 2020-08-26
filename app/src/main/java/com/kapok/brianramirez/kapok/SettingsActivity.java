@@ -13,7 +13,6 @@ import android.widget.ToggleButton;
 
 public class SettingsActivity extends AppCompatActivity {
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         //View setup
-        TextView changeThemebtn = (TextView)findViewById(R.id.change_theme_button);
+        CompoundButton changeThemebtn = (CompoundButton) findViewById(R.id.theme_switch);
         CompoundButton notificationbtn = (CompoundButton) findViewById(R.id.notifcation_switch);
         CompoundButton menubtn = (CompoundButton) findViewById(R.id.drawer_switch);
 
@@ -40,30 +39,39 @@ public class SettingsActivity extends AppCompatActivity {
             notificationbtn.setChecked(false);
         }
 
+        Intent notification = new Intent(SettingsActivity.this, DatabaseListener.class);;
+
         //Working of the notification button
+
         notificationbtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The toggle is enabled
-                    startService(new Intent(SettingsActivity.this, DatabaseListener.class));
+                    startService(notification);
                 } else {
                     // The toggle is disabled
-                    stopService(new Intent(SettingsActivity.this, DatabaseListener.class));
+                    stopService(notification);
                 }
             }
         });
 
-        changeThemebtn.setOnClickListener(new View.OnClickListener() {
+
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            changeThemebtn.setChecked(true);
+        }
+        else{
+            changeThemebtn.setChecked(false);
+        }
+
+        changeThemebtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view) {
-                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                } else {
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 }
-
-                finish();
-                startActivity(new Intent(SettingsActivity.this, SettingsActivity.this.getClass()));
+                else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
             }
         });
 

@@ -8,9 +8,11 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
@@ -37,6 +39,7 @@ public class DatabaseListener extends Service {
     private DocumentSnapshot prevUserSnap;
     private DocumentSnapshot prevTeamSnap;
     private String team;
+    private Handler handler = new Handler();
 
     @Override
     public void onCreate() {
@@ -210,6 +213,8 @@ public class DatabaseListener extends Service {
 
 
         }
+
+
     }
 
     @Override
@@ -221,11 +226,22 @@ public class DatabaseListener extends Service {
 
         return START_STICKY;
     }
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onDestroy() {
+
+       // handler.removeCallbacksAndMessages(null);
+        NotificationManager nMger = getSystemService(NotificationManager.class);
+        nMger.deleteNotificationChannel("Kapok");
+        nMger.deleteNotificationChannel("Kapok");
+        nMger.deleteNotificationChannel("Kapok");
+        nMger.deleteNotificationChannel("Kapok");
+        nMger.deleteNotificationChannel("Kapok");
+        nMger.deleteNotificationChannel("Kapok");
+        //stopForeground(true);
         super.onDestroy();
-        String ns = Context.NOTIFICATION_SERVICE;
-        NotificationManager nMgr = (NotificationManager) getSystemService(ns);
-        nMgr.cancelAll();
+        nMger.cancelAll();
+
     }
+
 }
