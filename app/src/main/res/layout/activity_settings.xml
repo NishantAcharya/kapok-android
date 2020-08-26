@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -146,11 +146,13 @@
     </LinearLayout>
 
     <TextView
-        android:clickable="true"
-        android:layout_width="match_parent"
+        android:id="@+id/change_lang_button"
+        android:contextClickable="true"
+        android:layout_width="240dp"
         android:layout_height="30dp"
-        android:text="Change Language"
         android:layout_marginLeft="32dp"
+        android:clickable="true"
+        android:text="Change Language"
         android:textColor="?attr/colorAltText"
         android:textSize="18dp"
         android:textStyle="bold"></TextView>
@@ -207,6 +209,100 @@
             android:textOn="ON" />
 
     </LinearLayout>
+
+    #Speacialization is their role in the team
+    <TextView
+    android:contextClickable="true"
+    android:id="@+id/change_role_button"
+    android:layout_width="240dp"
+    android:layout_height="30dp"
+    android:layout_marginLeft="32dp"
+    android:clickable="true"
+    android:text="Change Specialization"
+    android:textColor="?attr/colorAltText"
+    android:textSize="18dp"
+    android:textStyle="bold"></TextView>
+
+    #This is to deactivate your current kapok account
+    <TextView
+        android:contextClickable="true"
+        android:id="@+id/deactivate_account"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="32dp"
+        android:clickable="true"
+        android:text="Deactivate Account"
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+        android:textStyle="bold"></TextView>
+
+    #This is administrator only
+    <TextView
+        android:contextClickable="true"
+        android:id="@+id/change_admin_button"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="32dp"
+        android:clickable="true"
+        android:text="Change Administrator"
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+        android:textStyle="bold"></TextView>
+
+    #This section is admin only
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginTop="10dp"
+        android:text="Team Settings"
+        android:textSize="18dp"
+
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:contextClickable="true"
+        android:id="@+id/change_team_name"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="32dp"
+        android:clickable="true"
+        android:text="Change Team Name"
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:contextClickable="true"
+        android:id="@+id/change_team_location"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="32dp"
+        android:clickable="true"
+        android:text="Change Team Location"
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+        android:textStyle="bold"></TextView>
+
+    #This is not under team Settings
+    <TextView
+        android:contextClickable="true"
+        android:id="@+id/leave_team"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="100dp"
+        android:clickable="true"
+        android:text="Leave the current Team"
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+        android:textStyle="bold"></TextView>
 
 
 
