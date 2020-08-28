@@ -6,6 +6,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <!--rounded buttons and try to put the buttons toward the center-->
 
     <Button
         android:id="@+id/dialogButtonOK2"

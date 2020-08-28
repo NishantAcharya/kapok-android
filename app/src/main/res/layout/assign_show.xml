@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<!--rounded buttons and try to put the buttons toward the center-->
     <Button
         android:id="@+id/alert_close"
         style="@style/Widget.AppCompat.Button.Colored"

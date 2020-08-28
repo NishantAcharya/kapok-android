@@ -8,7 +8,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 
-
+    <!--Make the image longer-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

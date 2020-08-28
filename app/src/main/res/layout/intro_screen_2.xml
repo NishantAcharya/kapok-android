@@ -5,6 +5,8 @@
     android:theme = "@style/AppTheme.NoActionBar"
     android:background="@color/bg_screen2">
 
+    <!--Make background changes-->
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

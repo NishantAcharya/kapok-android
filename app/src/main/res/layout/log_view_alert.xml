@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<!-- rounded button boxes-->
     <Button
         android:id="@+id/alert_cancel"
         style="@style/Widget.AppCompat.Button.Colored"

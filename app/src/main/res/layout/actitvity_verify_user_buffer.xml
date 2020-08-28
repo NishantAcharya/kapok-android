@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
-
+<!--change font to helvetica and make all boxes round-->
 
     <RelativeLayout
         android:background="?attr/colorText"
@@ -37,23 +37,24 @@
             android:textColor="?attr/colorAccent" />
 
 
+
+        #The Logo needs to be larger
+
         <TextView
             android:id="@+id/textView"
             android:layout_width="352dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="189dp"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="294dp"
             android:text="We have sent you an email with verification instructions. Click on the log-in button after verifying your email.  "
             android:textAlignment="center"
             android:textColor="?attr/colorAltText" />
 
-
-
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="200dp"
-            android:layout_height="150dp"
+            android:layout_height="250dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="33dp"
