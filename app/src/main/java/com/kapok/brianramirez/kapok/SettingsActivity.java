@@ -3,6 +3,7 @@ package com.kapok.brianramirez.kapok;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 public class SettingsActivity extends AppCompatActivity {
+    public static boolean notificationcheck;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
         CompoundButton menubtn = (CompoundButton) findViewById(R.id.drawer_switch);
 
         //Setting the checked value of the slider according to the status of the service
-        if(isMyServiceRunning(DatabaseListener.class)){
+        if(notificationcheck){
             notificationbtn.setChecked(true);
         }
         else {
@@ -47,9 +49,11 @@ public class SettingsActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The toggle is enabled
+                    notificationcheck = true;
                     startService(notification);
                 } else {
                     // The toggle is disabled
+                    notificationcheck = false;
                     stopService(notification);
                 }
             }

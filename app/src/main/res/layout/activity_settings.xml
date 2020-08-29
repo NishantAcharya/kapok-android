@@ -60,7 +60,7 @@
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/notifcation_switch"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textOff="OFF"
             android:textOn="ON" />
@@ -99,7 +99,7 @@
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/drawer_switch"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textOff="OFF"
             android:textOn="ON" />
@@ -138,7 +138,7 @@
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/theme_switch"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textOff="OFF"
             android:textOn="ON" />
@@ -203,7 +203,7 @@
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/status_switch"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:textOff="OFF"
             android:textOn="ON" />
