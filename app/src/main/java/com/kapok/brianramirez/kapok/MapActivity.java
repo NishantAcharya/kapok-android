@@ -1196,15 +1196,5 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         return true;
     }
 
-    //Method to check if a service is running or not
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
 

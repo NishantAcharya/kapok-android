@@ -2,10 +2,12 @@ package com.kapok.brianramirez.kapok;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
@@ -16,8 +18,10 @@ import android.widget.ToggleButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -29,6 +33,11 @@ public class SettingsActivity extends AppCompatActivity {
     private String currentUser;
     private String currentAdmin;
     private boolean isAdmin;
+    private ArrayList<String> teamMates = new ArrayList<String>(1);
+    private ArrayList<String> teamEmails;
+    final Context context = this;
+    public boolean member_check = false;
+    private String teamcode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +55,7 @@ public class SettingsActivity extends AppCompatActivity {
         mAuth = Database.mAuth;
         currentUser = mAuth.getCurrentUser().getEmail();
         getAdmin();
+        getTeam();
 
 
         //View setup
@@ -57,6 +67,7 @@ public class SettingsActivity extends AppCompatActivity {
         TextView changeAdminBtn = (TextView)findViewById(R.id.change_admin_button);
         TextView changeTeamNameBtn = (TextView)findViewById(R.id.change_team_name);
         TextView changeTeamLocBtn = (TextView)findViewById(R.id.change_team_location);
+        TextView leaveTeamBtn = (TextView)findViewById(R.id.leave_team);
 
         if(!Database.isAdmin){
             adminLine1.setVisibility(View.GONE);
@@ -144,6 +155,54 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        leaveTeamBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Database.isAdmin){
+                    if(teamMates.size()>1) {
+
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context,R.style.AlertDialog);
+
+
+                        // set dialog message
+                        alertDialogBuilder
+                                .setMessage("You are the admin of the team, you have to perform either one of the activity before proceeding to leave the team!")
+                                .setCancelable(false)
+                                .setPositiveButton("Close this activity and choose a new team admin", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // if this button is clicked, close
+                                        // current activity
+                                        dialog.cancel();
+                                    }
+                                })
+                                .setNegativeButton("I wish to dissolve the team regardless", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        // if this button is clicked, just close
+                                        // the dialog box and do nothing
+                                        removeFromTeam();
+                                        //DISSOLVE IT....
+                                    }
+                                });
+
+                        // create alert dialog
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+
+                        // show it
+                        alertDialog.show();
+                    }
+
+                    else if (!hasMembers()){
+                        removeFromTeam();
+
+                    }
+
+                }
+                else {
+                    removeFromTeam();
+                }
+            }
+        });
+
 
 
 
@@ -178,6 +237,169 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
         return currentAdmin;
+    }
+
+    void getTeam(){
+        mAuth = Database.mAuth;
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseFirestore db = Database.db;
+        DocumentReference docRef = Database.db.collection("Profiles").document(currentUser.getEmail());
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                        String TeamCode = userCurrentTeam.get(0);
+                        DocumentReference docRef = Database.db.collection("Teams").document(TeamCode);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+
+                                        teamEmails = ((ArrayList<String>) document.getData().get("members"));
+                                        for(int i = 0; i < teamEmails.size(); i++){
+                                            DocumentReference docRef = db.collection("Profiles").document(teamEmails.get(i));
+                                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if(task.isSuccessful()){
+                                                        DocumentSnapshot document = task.getResult();
+                                                        if(document.exists()){
+                                                            teamMates.add((String)document.getData().get("name"));
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+
+    public boolean hasMembers(){
+
+        FirebaseFirestore db = Database.db;
+        DocumentReference userProf = db.collection("Profiles").document(currentUser);
+        userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task)
+            {
+                if (task.isSuccessful())
+                {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists())
+                    {
+                        ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
+
+                        DocumentReference docRef = db.collection("Teams").document(team.get(0));
+//
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    DocumentSnapshot teamDoc = task.getResult();
+                                    if (teamDoc.exists()) {
+                                        ArrayList<String> members = (ArrayList<String>) teamDoc.get("members");
+                                        if (members.size() > 1) {
+                                            member_check = true;
+
+                                        }
+                                    } else {
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+        return member_check;
+    }
+
+    //Method to remove from team uses hasMemebers
+    public void removeFromTeam() {
+        FirebaseFirestore db = Database.db;
+        DocumentReference userProf = db.collection("Profiles").document(currentUser.toString());
+        AlertDialog.Builder a = new AlertDialog.Builder(SettingsActivity.this,R.style.AlertDialog);
+        a.setMessage("Are you sure you want to leave the team").setCancelable(true)
+                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
+
+                    //If user accepts the request
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(!Database.isAdmin) {
+                            userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
+                                            teamcode = team.get(0);
+                                            DocumentReference teamRef = db.collection("Teams").document(team.get(0));
+                                            teamRef.update("members", FieldValue.arrayRemove(currentUser));
+                                        }
+                                    }
+                                    userProf.update("status", "none");
+                                    userProf.update("isAdmin", false);
+                                    userProf.update("team", FieldValue.arrayRemove(teamcode));
+
+                                    Intent intent = new Intent(SettingsActivity.this, TeamWelcomeActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                }
+                            });
+                        }
+                        else{
+                            userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+                                            ArrayList<String> team = (ArrayList<String>) document.getData().get("team");
+                                            teamcode = team.get(0);
+                                            DocumentReference teamRef = db.collection("Teams").document(team.get(0));
+                                            teamRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                    if(task.isSuccessful()){
+                                                        DocumentSnapshot document = task.getResult();
+                                                        if(document.exists()){
+                                                            ArrayList<String> members = (ArrayList<String>) document.get("members");
+                                                            for(String member: members){
+                                                                teamRef.update("members", FieldValue.arrayRemove(member));
+                                                                DocumentReference usrPref = db.collection("Profiles").document(member);
+                                                                usrPref.update("status", "none");
+                                                                usrPref.update("isAdmin", false);
+                                                                usrPref.update("team", FieldValue.arrayRemove(teamcode));
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                }
+                            });
+                            Intent intent = new Intent(SettingsActivity.this, TeamWelcomeActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                });
+        a.create();
+        a.show();
     }
 
 }

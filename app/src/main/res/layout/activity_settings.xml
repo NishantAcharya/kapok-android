@@ -293,13 +293,13 @@
         android:textSize="18dp"
         android:textStyle="bold"></TextView>
 
-    #This is not under team Settings
+
     <TextView
         android:contextClickable="true"
         android:id="@+id/leave_team"
         android:layout_width="240dp"
         android:layout_height="30dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="30dp"
         android:clickable="true"
         android:text="Leave the current Team"
         android:textColor="?attr/colorAltText"
