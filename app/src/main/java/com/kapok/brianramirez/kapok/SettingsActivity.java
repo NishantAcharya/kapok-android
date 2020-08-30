@@ -248,7 +248,7 @@ public class SettingsActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             if (positionNum != -1) {
-                                member = teamEmails.get(positionNum);
+                                member = teamEmails.get(teamEmails.size()-positionNum-1);
                                 if (!getAdmin().equals(member)) {
                                     FirebaseFirestore db = Database.db;
                                     DocumentReference userRef = db.collection("Profiles").document(currentUser);
@@ -279,6 +279,8 @@ public class SettingsActivity extends AppCompatActivity {
                                     Toast.makeText(SettingsActivity.this, "You are already the Administrator", Toast.LENGTH_SHORT).show();
                                 }
                                 dialog.dismiss();
+                                finish();
+                                startActivity(getIntent());
                             }
                             else {
                                 Toast.makeText(SettingsActivity.this, "No Item selected", Toast.LENGTH_SHORT).show();
