@@ -6,10 +6,9 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:text="Please add the profile edits"
+        android:text="Please add the Team edits"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/addText"
         android:textStyle="normal|bold"
         android:textSize="20sp"
         android:textColor="@color/colorBlack"
@@ -17,7 +16,7 @@
         />
 
     <EditText
-        android:id="@+id/currentEdit"
+        android:id="@+id/teamEdit"
         android:layout_width="285dp"
         android:layout_height="74dp"
         android:layout_centerHorizontal="true"
@@ -33,7 +32,7 @@
         android:textSize="22sp" />
 
     <Button
-        android:id="@+id/editProfBtn"
+        android:id="@+id/editteamBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"

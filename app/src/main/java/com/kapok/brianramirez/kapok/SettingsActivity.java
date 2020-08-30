@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -270,7 +271,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                                     DocumentReference userProf = db.collection("Profiles").document(member);
                                     // Set the admin field of the current user to true
-                                    userProf.update("requests", FieldValue.arrayUnion(requests));
+                                    userProf.update("requests", FieldValue.arrayUnion(requests)); // What's the point of this?
                                     userProf.update("isAdmin", true);
 
                                     userRef.update("requests", FieldValue.arrayRemove(requests));
@@ -299,6 +300,83 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         });
+
+//        changeTeamLocBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                final Dialog dialog = new Dialog(context);
+//                dialog.setContentView(R.layout.dialog_team_edit);
+//                EditText editBar = dialog.findViewById(R.id.teamEdit);
+//                Button dialogButton = (Button) dialog.findViewById(R.id.editteamBtn);
+//                dialogButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//
+//                        DocumentReference docRef = db.collection("Profiles").document(currentUser);
+//                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                                if (task.isSuccessful()) {
+//                                    DocumentSnapshot document = task.getResult();
+//                                    if (document.exists()) {
+//                                        DocumentReference teamref = db.collection("Teams").document(teamcode);
+//                                        teamref.update("location",editBar.getText().toString());
+//                                    }
+//                                }
+//                            }
+//                        });
+//                        dialog.dismiss();
+//                        //Refreshing activity
+//                        finish();
+//                        overridePendingTransition(0, 0);
+//                        startActivity(getIntent());
+//                        overridePendingTransition(0, 0);
+//                    }
+//                });
+//
+//                dialog.show();
+//            }
+//        });
+//
+//        changeTeamNameBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                final Dialog dialog = new Dialog(context);
+//                dialog.setContentView(R.layout.dialog_team_edit);
+//                EditText editBar = dialog.findViewById(R.id.teamEdit);
+//                Button dialogButton = (Button) dialog.findViewById(R.id.editteamBtn);
+//                dialogButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//
+//
+//                        DocumentReference docRef = db.collection("Profiles").document(currentUser);
+//                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                                if (task.isSuccessful()) {
+//                                    DocumentSnapshot document = task.getResult();
+//                                    if (document.exists()) {
+//                                        DocumentReference teamref = db.collection("Teams").document(teamcode);
+//                                        teamref.update("name",editBar.getText().toString());
+//                                    }
+//                                }
+//                            }
+//                        });
+//                        dialog.dismiss();
+//                        //Refreshing activity
+//                        finish();
+//                        overridePendingTransition(0, 0);
+//                        startActivity(getIntent());
+//                        overridePendingTransition(0, 0);
+//                    }
+//                });
+//
+//                dialog.show();
+//            }
+//        });
 
 
 

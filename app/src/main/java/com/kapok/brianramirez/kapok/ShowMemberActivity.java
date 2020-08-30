@@ -141,7 +141,7 @@ public class ShowMemberActivity extends AppCompatActivity {
 
                     DocumentReference userProf = db.collection("Profiles").document(member);
                     // Set the admin field of the current user to true
-                    userProf.update("requests", FieldValue.arrayUnion(requests));
+                    userProf.update("requests", FieldValue.arrayUnion(requests)); //what's the point of this?
                     userProf.update("isAdmin", true);
 
                     userRef.update("requests", FieldValue.arrayRemove(requests));
