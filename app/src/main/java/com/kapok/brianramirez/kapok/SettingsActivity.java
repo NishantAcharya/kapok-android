@@ -1,6 +1,7 @@
 package com.kapok.brianramirez.kapok;
 
 import android.app.ActivityManager;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,8 +12,13 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,6 +44,9 @@ public class SettingsActivity extends AppCompatActivity {
     final Context context = this;
     public boolean member_check = false;
     private String teamcode;
+    private int positionNum;
+    ArrayList<String> requests;
+    private String member;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +78,7 @@ public class SettingsActivity extends AppCompatActivity {
         TextView changeTeamLocBtn = (TextView)findViewById(R.id.change_team_location);
         TextView leaveTeamBtn = (TextView)findViewById(R.id.leave_team);
 
+        //Hiding the team options
         if(!Database.isAdmin){
             adminLine1.setVisibility(View.GONE);
             adminLine2.setVisibility(View.GONE);
@@ -97,7 +107,6 @@ public class SettingsActivity extends AppCompatActivity {
         Intent notification = new Intent(SettingsActivity.this, DatabaseListener.class);;
 
         //Working of the notification button
-
         notificationbtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -112,7 +121,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-
+        //Keeping a track of the theme
         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
             changeThemebtn.setChecked(true);
         }
@@ -120,6 +129,7 @@ public class SettingsActivity extends AppCompatActivity {
             changeThemebtn.setChecked(false);
         }
 
+        //Function of change theme button
         changeThemebtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -134,7 +144,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        //Changing menu gravity
+        //To keep a track of the slider
         if(gravity){
             menubtn.setChecked(true);
         }
@@ -142,6 +152,7 @@ public class SettingsActivity extends AppCompatActivity {
             menubtn.setChecked(false);
         }
 
+        //Button to change the menu gravity to keep it open/closed
         menubtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
@@ -155,6 +166,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //Leave team button's functions
         leaveTeamBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -203,11 +215,95 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //Button to change admin's functions
+        changeAdminBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(teamMates.size() > 0){
+
+                    final Dialog dialog = new Dialog(SettingsActivity.this);
+                    dialog.setContentView(R.layout.member_list);
+                    Spinner spinner = dialog.findViewById(R.id.members);
+                    Button cancel = dialog.findViewById(R.id.members_close);
+                    Button choose = dialog.findViewById(R.id.members_open);
+
+                    //Making Spinner using adapterview
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(SettingsActivity.this, android.R.layout.simple_spinner_dropdown_item, teamMates);
+
+                    spinner.setAdapter(adapter);
+                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        //Choosing the spinner position for opening assigned log activity
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                            positionNum = position;
+                        }
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+                            positionNum = -1;
+                        }
+                    });
+
+                    //Button Operations for open and close , open leading to new activty
+                    choose.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (positionNum != -1) {
+                                member = teamEmails.get(positionNum);
+                                if (!getAdmin().equals(member)) {
+                                    FirebaseFirestore db = Database.db;
+                                    DocumentReference userRef = db.collection("Profiles").document(currentUser);
+                                    userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                DocumentSnapshot document = task.getResult();
+                                                if (document.exists()) {
+                                                    teamcode = ((ArrayList<String>) document.get("team")).get(0);
+                                                    DocumentReference teamref = db.collection("Teams").document(teamcode);
+                                                    teamref.update("admin", member);
+                                                }
+                                            }
+                                        }
+                                    });
+                                    userRef.update("isAdmin", false);
+
+
+                                    DocumentReference userProf = db.collection("Profiles").document(member);
+                                    // Set the admin field of the current user to true
+                                    userProf.update("requests", FieldValue.arrayUnion(requests));
+                                    userProf.update("isAdmin", true);
+
+                                    userRef.update("requests", FieldValue.arrayRemove(requests));
+                                }
+                                else{
+                                    Toast.makeText(SettingsActivity.this, "You are already the Administrator", Toast.LENGTH_SHORT).show();
+                                }
+                                dialog.dismiss();
+                            }
+                            else {
+                                Toast.makeText(SettingsActivity.this, "No Item selected", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.show();
+                }
+            }
+        });
+
 
 
 
     }
 
+    //Assigning the admin value to currentAdmin
     private String getAdmin(){
         FirebaseFirestore db = Database.db;
         DocumentReference docRef = db.collection("Profiles").document(currentUser);
@@ -239,6 +335,7 @@ public class SettingsActivity extends AppCompatActivity {
         return currentAdmin;
     }
 
+    //filling the team array
     void getTeam(){
         mAuth = Database.mAuth;
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -285,6 +382,7 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
+    //Checking for members
     public boolean hasMembers(){
 
         FirebaseFirestore db = Database.db;

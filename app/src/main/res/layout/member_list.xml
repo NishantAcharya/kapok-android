@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--rounded buttons and try to put the buttons toward the center-->
+    <Button
+        android:id="@+id/members_close"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginLeft="148dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/rounded_button"
+        android:paddingRight="5dp"
+        android:text="Close"
+        android:textSize="18sp"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+    <TextView
+        android:text="Choose a member to make admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/assign_text"
+        android:textStyle="normal|bold"
+        android:textSize="15sp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="12dp" />
+
+
+
+    <Spinner
+        android:id="@+id/members"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:background = "?attr/colorSpinner"
+        android:inputType="textEmailAddress"
+        />
+    <Button
+        android:id="@+id/members_open"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@drawable/rounded_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:paddingRight="5dp"
+        android:text="Choose"
+        android:textSize="18sp"
+        tools:ignore="RtlHardcoded,RtlSymmetry" />
+
+
+
+</RelativeLayout>
