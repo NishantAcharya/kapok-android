@@ -136,10 +136,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         //Changing menu gravity
         if(gravity){
-            changeThemebtn.setChecked(true);
+            menubtn.setChecked(true);
         }
         else{
-            changeThemebtn.setChecked(false);
+            menubtn.setChecked(false);
         }
 
         menubtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
