@@ -210,7 +210,7 @@
 
     </LinearLayout>
 
-    #Speacialization is their role in the team
+    <!-- Change the role in the team-->
     <TextView
     android:contextClickable="true"
     android:id="@+id/change_role_button"
@@ -223,7 +223,7 @@
     android:textSize="18dp"
     android:textStyle="bold"></TextView>
 
-    #This is to deactivate your current kapok account
+    <!--To Deactivate the current kapok account-->
     <TextView
         android:contextClickable="true"
         android:id="@+id/deactivate_account"
@@ -237,22 +237,10 @@
         android:textSize="18dp"
         android:textStyle="bold"></TextView>
 
-    #This is administrator only
-    <TextView
-        android:contextClickable="true"
-        android:id="@+id/change_admin_button"
-        android:layout_width="240dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="32dp"
-        android:clickable="true"
-        android:text="Change Administrator"
-        android:textColor="?attr/colorAltText"
-        android:textSize="18dp"
-        android:textStyle="bold"></TextView>
 
-    #This section is admin only
+    <!--This is Admin Only-->
     <TextView
+        android:id = "@+id/admin_text_1"
         android:layout_width="match_parent"
         android:layout_height="34dp"
         android:layout_marginTop="10dp"
@@ -262,15 +250,29 @@
         />
 
     <View
+        android:id = "@+id/admin_text_2"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray" />
 
     <TextView
         android:contextClickable="true"
+        android:id="@+id/change_admin_button"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="32dp"
+        android:clickable="true"
+        android:text="Change Administrator"
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:contextClickable="true"
         android:id="@+id/change_team_name"
         android:layout_width="240dp"
         android:layout_height="30dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="32dp"
         android:clickable="true"
         android:text="Change Team Name"

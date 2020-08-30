@@ -251,7 +251,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mDrawerToggle.syncState();
 
 
-        if(drawerCheck)
+        if(drawerCheck && SettingsActivity.gravity)
             mDrawerLayout.openDrawer(GravityCompat.START); //This Line will keep the drawer opened
         else
             mDrawerLayout.closeDrawer(GravityCompat.START); //This Line will keep the drawer closed

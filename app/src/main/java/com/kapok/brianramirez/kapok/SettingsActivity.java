@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
@@ -12,8 +13,20 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+
 public class SettingsActivity extends AppCompatActivity {
     public static boolean notificationcheck;
+    public static boolean gravity;
+    private String currentUser;
+    private String currentAdmin;
+    private boolean isAdmin;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,10 +41,33 @@ public class SettingsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_settings);
 
+
         //View setup
         CompoundButton changeThemebtn = (CompoundButton) findViewById(R.id.theme_switch);
         CompoundButton notificationbtn = (CompoundButton) findViewById(R.id.notifcation_switch);
         CompoundButton menubtn = (CompoundButton) findViewById(R.id.drawer_switch);
+        TextView adminLine1 = (TextView)findViewById(R.id.admin_text_1);
+        View adminLine2 = (View)findViewById(R.id.admin_text_2);
+        TextView changeAdminBtn = (TextView)findViewById(R.id.change_admin_button);
+        TextView changeTeamNameBtn = (TextView)findViewById(R.id.change_team_name);
+        TextView changeTeamLocBtn = (TextView)findViewById(R.id.change_team_location);
+
+        if(!Database.isAdmin){
+            adminLine1.setVisibility(View.GONE);
+            adminLine2.setVisibility(View.GONE);
+            changeAdminBtn.setVisibility(View.GONE);
+            changeTeamNameBtn.setVisibility(View.GONE);
+            changeTeamLocBtn.setVisibility(View.GONE);
+        }
+        else{
+            adminLine1.setVisibility(View.VISIBLE);
+            adminLine2.setVisibility(View.VISIBLE);
+            changeAdminBtn.setVisibility(View.VISIBLE);
+            changeTeamNameBtn.setVisibility(View.VISIBLE);
+            changeTeamLocBtn.setVisibility(View.VISIBLE);
+        }
+
+
 
         //Setting the checked value of the slider according to the status of the service
         if(notificationcheck){
@@ -76,21 +112,35 @@ public class SettingsActivity extends AppCompatActivity {
                 else{
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
+                finish();
+                startActivity(getIntent());
             }
         });
 
-    }
-
-    //Method to check if a service is running or not
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
+        //Changing menu gravity
+        if(gravity){
+            changeThemebtn.setChecked(true);
         }
-        return false;
-    }
+        else{
+            changeThemebtn.setChecked(false);
+        }
 
+        changeThemebtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
+                    gravity = true;
+                }
+                else{
+                    gravity = false;
+                }
+
+            }
+        });
+
+
+
+
+    }
 
 }
