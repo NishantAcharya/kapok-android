@@ -15,6 +15,7 @@ import android.widget.ToggleButton;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 public class SettingsActivity extends AppCompatActivity {
     public static boolean notificationcheck;
     public static boolean gravity;
+    private FirebaseAuth mAuth;
     private String currentUser;
     private String currentAdmin;
     private boolean isAdmin;
@@ -40,6 +42,10 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_settings);
+        FirebaseFirestore db = Database.db;
+        mAuth = Database.mAuth;
+        currentUser = mAuth.getCurrentUser().getEmail();
+        getAdmin();
 
 
         //View setup
@@ -125,7 +131,7 @@ public class SettingsActivity extends AppCompatActivity {
             changeThemebtn.setChecked(false);
         }
 
-        changeThemebtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        menubtn.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if(isChecked){
@@ -141,6 +147,37 @@ public class SettingsActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private String getAdmin(){
+        FirebaseFirestore db = Database.db;
+        DocumentReference docRef = db.collection("Profiles").document(currentUser);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                        String TeamCode = userCurrentTeam.get(0);
+                        DocumentReference docRef = db.collection("Teams").document(TeamCode);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()){
+                                        currentAdmin = document.getData().get("admin").toString();
+                                    }
+                                }
+                            }
+                        });
+
+                    }
+                }
+            }
+        });
+        return currentAdmin;
     }
 
 }
