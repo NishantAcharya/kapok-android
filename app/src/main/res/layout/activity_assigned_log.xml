@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/seedBlue">
+        android:background="?attr/colorSeed">
 
         <TextView
             android:id="@+id/textView5"
@@ -27,8 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:layout_centerHorizontal="true"
-
-            android:textColor="?attr/colorPrimary"
+            android:textColor="?attr/colorAltText"
             android:text = "Location:"
             android:textSize="20dp"/>
 
@@ -38,7 +37,7 @@
             android:layout_marginTop="110dp"
             android:background="@drawable/rounded_background_white"
             android:layout_centerHorizontal="true"
-            android:textColor="?attr/colorPrimary"
+            android:textColor="?attr/colorAltText"
             android:textStyle = "bold"
             android:id="@+id/location_txt_display"
             />
@@ -46,7 +45,7 @@
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorAccent"
+            android:textColor="?attr/colorAltText"
             android:layout_marginTop="170dp"
             android:layout_centerHorizontal="true"
             android:text="Category:"
@@ -66,9 +65,8 @@
 
         <TextView
             android:layout_width="300dp"
-            android:textColor="?attr/colorAccent"
+            android:textColor="?attr/colorAltText"
             android:layout_height="wrap_content"
-
             android:layout_marginTop="230dp"
             android:layout_centerHorizontal="true"
             android:textSize="20dp"
@@ -90,7 +88,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="410dp"
             android:layout_centerHorizontal="true"
-            android:textColor="?attr/colorAccent"
+            android:textColor="?attr/colorAltText"
             android:text="Creator:"
             android:textSize="20dp" />
 
@@ -108,9 +106,8 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="510dp"
-
             android:layout_centerHorizontal="true"
-            android:textColor="?attr/colorAccent"
+            android:textColor="?attr/colorAltText"
             android:text="Status:"
             android:textSize="20dp" />
 

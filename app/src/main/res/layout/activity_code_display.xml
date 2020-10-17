@@ -9,14 +9,14 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent">
+    android:background="?attr/colorSeed">
 
     <TextView
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
-        android:textColor="?attr/colorText"
+        android:textColor="?attr/colorAltText"
         android:textStyle="bold"
         android:text="Hang On Tight..."
         android:textSize="30dp"
@@ -26,7 +26,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:text="We're downloading the map of your location"
-        android:textColor="?attr/colorText"
+        android:textColor="?attr/colorAltText"
         android:layout_marginTop="120dp"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"/>
@@ -40,7 +40,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:text="In the mean time, you should share this code with the members of your team"
-        android:textColor="?attr/colorText"
+        android:textColor="?attr/colorAltText"
         android:layout_marginTop="390dp"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"/>

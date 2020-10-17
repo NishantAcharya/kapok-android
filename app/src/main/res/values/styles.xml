@@ -16,11 +16,11 @@
     <!-- Dark theme -->
     <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorBlack</item>
-        <item name="colorPrimaryDark">@color/colorGrey</item>
-        <item name="colorAccent">@color/colorWhite</item>
+        <item name="colorPrimary">@color/twitterDarker</item>
+        <item name="colorPrimaryDark">@color/twitterDark</item>
+        <item name="colorAccent">@color/colorBlack</item>
         <item name="colorAltText">@color/colorWhite</item>
-        <item name="colorText">@color/colorBlack</item>
+        <item name="colorText">@color/colorWhite</item>
         <item name="colorHint">@color/colorGrey</item>
         <item name="colorSpinner">@color/colorGrey</item>
         <item name="colorSeed">@color/twitterDark</item>

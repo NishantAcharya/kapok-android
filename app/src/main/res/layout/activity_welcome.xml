@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".WelcomeActivity"
+        android:background="?attr/colorSeed"
         >
 
 
@@ -32,6 +33,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="290dp"
+            android:textColor="?attr/colorAltText"
             android:textStyle="bold"
             android:text="Welcome to Kapok \n Create an account or sign in here!"
             android:textAlignment="center" />

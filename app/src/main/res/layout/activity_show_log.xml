@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:layout_centerHorizontal="true"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="?attr/colorAltText"
         android:text = "Location:"
         android:textSize="20dp"/>
 
@@ -44,7 +44,7 @@
     <TextView
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textColor="?attr/colorAccent"
+        android:textColor="?attr/colorAltText"
         android:layout_marginTop="170dp"
         android:layout_centerHorizontal="true"
         android:text="Category:"
@@ -64,7 +64,7 @@
 
     <TextView
         android:layout_width="300dp"
-        android:textColor="?attr/colorAccent"
+        android:textColor="?attr/colorAltText"
         android:layout_height="wrap_content"
         android:layout_marginTop="230dp"
         android:layout_centerHorizontal="true"
@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="410dp"
         android:layout_centerHorizontal="true"
-        android:textColor="?attr/colorAccent"
+        android:textColor="?attr/colorAltText"
         android:text="Creator:"
         android:textSize="20dp" />
 
@@ -106,7 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="510dp"
         android:layout_centerHorizontal="true"
-        android:textColor="?attr/colorAccent"
+        android:textColor="?attr/colorAltText"
         android:text="Status:"
         android:textSize="20dp" />
 

@@ -17,6 +17,7 @@
         android:layout_height="34dp"
         android:layout_marginTop="10dp"
         android:text="App Settings"
+        android:textColor="?attr/colorAltText"
         android:textSize="18dp"
 
         />
@@ -163,6 +164,7 @@
         android:layout_height="34dp"
         android:layout_marginTop="10dp"
         android:text="Account Settings"
+        android:textColor="?attr/colorAltText"
         android:textSize="18dp"
 
         />
@@ -246,6 +248,7 @@
         android:layout_height="34dp"
         android:layout_marginTop="10dp"
         android:text="Team Settings"
+        android:textColor="?attr/colorAltText"
         android:textSize="18dp"
 
         />
@@ -295,19 +298,16 @@
         android:textStyle="bold"></TextView>
 
 
-    <TextView
-        android:contextClickable="true"
+    <Button
         android:id="@+id/leave_team"
         android:layout_width="240dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="30dp"
-        android:clickable="true"
+        android:layout_height="60dp"
+        android:contextClickable="true"
         android:text="Leave the current Team"
+        android:background = '@drawable/rounded_button'
         android:textColor="?attr/colorAltText"
         android:textSize="18dp"
-        android:textStyle="bold"></TextView>
-
-
+        android:textStyle="bold"></Button>
 
 
 </LinearLayout>

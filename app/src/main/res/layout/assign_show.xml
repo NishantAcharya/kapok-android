@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background= "?attr/colorSeed">
+    android:background= "@drawable/rounded_button_seed">
 <!--rounded buttons and try to put the buttons toward the center-->
 
     <Button
@@ -32,6 +32,7 @@
         android:id="@+id/assign_text"
         android:textStyle="normal|bold"
         android:textSize="15sp"
+        android:textColor="?attr/colorAltText"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/alert_image"
         android:layout_toEndOf="@+id/alert_image"

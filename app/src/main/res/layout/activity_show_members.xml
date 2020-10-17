@@ -22,14 +22,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:layout_centerHorizontal="true"
-        android:textColor="?attr/colorPrimary"
+        android:textColor="?attr/colorAltText"
         android:id="@+id/full_name_text_field"
         android:textSize="30dp"/>
 
     <TextView
         android:layout_width="352dp"
         android:layout_height="wrap_content"
-        android:textColor="?attr/colorAccent"
+        android:textColor="?attr/colorAltText"
         android:layout_marginTop="140dp"
         android:layout_centerHorizontal="true"
         android:text="Contact Info:"
@@ -49,7 +49,7 @@
 
     <TextView
         android:layout_width="352dp"
-        android:textColor="?attr/colorAccent"
+        android:textColor="?attr/colorAltText"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:layout_centerHorizontal="true"
@@ -73,7 +73,7 @@
         android:layout_marginTop="260dp"
         android:layout_centerHorizontal="true"
         android:text="Registered Email"
-        android:textColor="?attr/colorAccent"
+        android:textColor="?attr/colorAltText"
         android:textSize="20dp"/>
 
     <TextView
@@ -93,7 +93,7 @@
         android:layout_marginTop="320dp"
         android:layout_centerHorizontal="true"
         android:text="About:"
-        android:textColor="?attr/colorAccent"
+        android:textColor="?attr/colorAltText"
         android:textSize="20dp" />
 
     <TextView

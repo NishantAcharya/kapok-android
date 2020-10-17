@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_button_seed">
     <!--rounded buttons and try to put the buttons toward the center-->
     <Button
         android:id="@+id/members_close"
@@ -24,6 +25,7 @@
         android:text="Choose a member to make admin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="?attr/colorAltText"
         android:id="@+id/assign_text"
         android:textStyle="normal|bold"
         android:textSize="15sp"
@@ -43,6 +45,7 @@
         android:layout_marginTop="50dp"
         android:ems="10"
         android:background = "?attr/colorSpinner"
+        android:textColor="?attr/colorAltText"
         android:inputType="textEmailAddress"
         />
     <Button
