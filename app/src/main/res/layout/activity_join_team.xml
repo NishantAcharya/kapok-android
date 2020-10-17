@@ -11,7 +11,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorText">
+    android:background="?attr/colorSeed">
 
     <TextView
         android:id="@+id/textView6"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:text="Request to Join"
         android:textColor="?attr/colorText"
-        android:backgroundTint="?attr/colorAccent"
+        android:background="@drawable/rounded_button"
         android:textAlignment="center"
         android:layout_marginTop="380dp"
         tools:layout_editor_absoluteX="16dp"

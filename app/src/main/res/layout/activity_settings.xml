@@ -9,12 +9,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:paddingRight="16dp"
+    android:background="?attr/colorSeed">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="34dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:text="App Settings"
         android:textSize="18dp"
 
@@ -50,7 +51,7 @@
             <TextView
                 android:layout_width="240dp"
                 android:layout_height="20dp"
-                android:text="Do You want to get notifications from the team?"
+                android:text="Do you want to get notifications from the team?"
                 android:textColor="?attr/colorAltText"
                 android:textSize="10dp"
                 android:textStyle="normal"></TextView>
@@ -123,14 +124,14 @@
             <TextView
                 android:layout_width="240dp"
                 android:layout_height="25dp"
-                android:text="Dark Mode"
+                android:text="Change Color"
                 android:textColor="?attr/colorAltText"
                 android:textSize="18dp"
                 android:textStyle="bold"></TextView>
             <TextView
                 android:layout_width="240dp"
                 android:layout_height="25dp"
-                android:text="Apply a darker theme"
+                android:text="Apply a darker palette."
                 android:textColor="?attr/colorAltText"
                 android:textSize="10dp"
                 android:textStyle="normal"></TextView>

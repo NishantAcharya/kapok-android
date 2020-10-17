@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:theme="@style/ThemeOverlay.AppCompat.Dark"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background = "@drawable/rounded_button_seed">
 
     <TextView
         android:text="Please add additional notes"
@@ -37,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
-        android:backgroundTint="?attr/colorAccent"
+        android:background="@drawable/rounded_button"
         android:layout_centerHorizontal="true"
         android:text="Done Editing"
         android:textColor="?attr/colorText"/>

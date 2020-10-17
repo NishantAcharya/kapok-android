@@ -8,9 +8,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 <!--change font to helvetica and make all boxes round-->
-
+<!-- Center everything -->
     <RelativeLayout
-        android:background="?attr/colorText"
+        android:background="?attr/colorSeed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
@@ -20,8 +20,8 @@
             android:layout_width="339dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="420dp"
-            android:backgroundTint="?attr/colorAccent"
+            android:layout_marginTop="350dp"
+            android:background="@drawable/rounded_button"
             android:text="Proceed with profile setup"
             android:textColor="?attr/colorText" />
 
@@ -31,22 +31,22 @@
             android:layout_width="339dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop = "480dp"
-            android:backgroundTint="#FFFFFF"
+            android:layout_marginTop = "400dp"
+            android:background="@drawable/rounded_button_white"
             android:text="Resend Confirmation link"
             android:textColor="?attr/colorAccent" />
 
 
 
-        #The Logo needs to be larger
+        <!-- Reminder to change logo-->
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="352dp"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="294dp"
+            android:layout_marginTop="300dp"
             android:text="We have sent you an email with verification instructions. Click on the log-in button after verifying your email.  "
             android:textAlignment="center"
             android:textColor="?attr/colorAltText" />

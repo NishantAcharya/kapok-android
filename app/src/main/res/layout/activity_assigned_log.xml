@@ -3,10 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
+    <!--Box everything up-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorText">
+        android:background="@color/seedBlue">
 
         <TextView
             android:id="@+id/textView5"
@@ -26,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
             android:layout_centerHorizontal="true"
+
             android:textColor="?attr/colorPrimary"
             android:text = "Location:"
             android:textSize="20dp"/>
@@ -34,6 +36,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="110dp"
+            android:background="@drawable/rounded_background_white"
             android:layout_centerHorizontal="true"
             android:textColor="?attr/colorPrimary"
             android:textStyle = "bold"
@@ -55,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="200dp"
             android:textSize="20dp"
+            android:background="@drawable/rounded_background_white"
             android:textColor="?attr/colorAltText"
             android:layout_centerHorizontal="true"
             android:id="@+id/category_txt_display"/>
@@ -64,6 +68,7 @@
             android:layout_width="300dp"
             android:textColor="?attr/colorAccent"
             android:layout_height="wrap_content"
+
             android:layout_marginTop="230dp"
             android:layout_centerHorizontal="true"
             android:textSize="20dp"
@@ -76,6 +81,7 @@
             android:layout_marginTop="260dp"
             android:layout_centerHorizontal="true"
             android:textColor="?attr/colorAltText"
+            android:background="@drawable/rounded_background_white"
             android:id="@+id/notes_txt_display"
             android:textSize="20dp"/>
 
@@ -93,6 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="440dp"
             android:textSize="20dp"
+            android:background="@drawable/rounded_background_white"
             android:textColor="?attr/colorAltText"
             android:layout_centerHorizontal="true"
             android:id="@+id/creator_txt_display"/>
@@ -101,6 +108,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="510dp"
+
             android:layout_centerHorizontal="true"
             android:textColor="?attr/colorAccent"
             android:text="Status:"
@@ -113,6 +121,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="550dp"
             android:layout_centerHorizontal="true"
+            android:background="@drawable/rounded_background_white"
             android:textColor="?attr/colorAltText"
             android:textSize="20dp" />
 

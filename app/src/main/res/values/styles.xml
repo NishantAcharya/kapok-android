@@ -10,6 +10,7 @@
         <item name="colorText">@color/colorWhite</item>
         <item name="colorHint">@color/colorGrey</item>
         <item name="colorSpinner">@color/colorWhite</item>
+        <item name="colorSeed">@color/seedBlue</item>
     </style>
 
     <!-- Dark theme -->
@@ -22,6 +23,7 @@
         <item name="colorText">@color/colorBlack</item>
         <item name="colorHint">@color/colorGrey</item>
         <item name="colorSpinner">@color/colorGrey</item>
+        <item name="colorSeed">@color/twitterDark</item>
     </style>
 
     <!--Dark theme alert box-->

@@ -6,7 +6,8 @@
     android:id="@+id/drawer_layout"
     tools:context=".MapActivity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/colorSeed">
 
     <com.mapbox.mapboxsdk.maps.MapView
         android:id="@+id/mapView"
@@ -29,8 +30,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="25dp"
             android:layout_marginBottom="45dp"
-            android:backgroundTint="?attr/colorAccent"
-            android:text="List View"
+            android:background="@drawable/rounded_button"
+            android:text="Log List View"
             android:textColor="?attr/colorText" />
 
 

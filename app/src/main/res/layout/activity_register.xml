@@ -13,7 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:background="?attr/colorText">
+    android:background="?attr/colorSeed">
 
 <ImageView
         android:id="@+id/imageView"
@@ -62,7 +62,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="250dp"
         android:layout_marginRight="2dp"
-        android:background="@color/colorWhite"
+        android:background="?attr/colorSeed"
         android:visibility="visible"
         app:srcCompat="@drawable/ic_font_awesome_5_solid_eye_slash"
         tools:visibility="visible" />

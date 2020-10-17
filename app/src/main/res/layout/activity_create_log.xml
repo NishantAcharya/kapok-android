@@ -9,7 +9,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorText"
+    android:background="?attr/colorSeed"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     tools:context=".LogInActivity">
@@ -48,7 +48,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
         android:ems="10"
-        android:background = "?attr/colorSpinner"
+        android:background = "@drawable/rounded_button_white"
         android:entries="@array/Categories"
         android:hint="Category"
         android:inputType="textEmailAddress"
@@ -78,7 +78,7 @@
         android:layout_alignParentTop="@+id/notes_txt"
         android:layout_alignParentBottom="true"
         android:textColor="?attr/colorAltText"
-        android:text="*Make sure to not include any protected health information(PHI) in this section"
+        android:text="*Do not include any protected health information(PHI) in this section"
         android:textAlignment="center"
         android:textSize="10dp" />
 
@@ -87,7 +87,7 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="?attr/colorSpinner"
+        android:background = "@drawable/rounded_button_white"
         android:layout_centerHorizontal="true"
         />
 
@@ -104,10 +104,10 @@
         android:id="@+id/create_log"
         android:layout_gravity="center"
         android:layout_width="300dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop ="100dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="?attr/colorAccent"
+        android:background = "@drawable/rounded_button"
         android:text="Create Log"
         android:textColor="?attr/colorText" />
 

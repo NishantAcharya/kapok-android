@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorText">
+    android:background="?attr/colorSeed">
 
     <TextView
         android:layout_width="352dp"
@@ -57,7 +57,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="45dp"
-        android:backgroundTint="?attr/colorAccent"
+        android:background="@drawable/rounded_button"
         android:text="Get set... Go!"
         android:textColor="?attr/colorText" />
 

@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background= "?attr/colorSeed">
 <!--rounded buttons and try to put the buttons toward the center-->
+
     <Button
         android:id="@+id/alert_close"
         style="@style/Widget.AppCompat.Button.Colored"
@@ -14,10 +16,10 @@
         android:layout_below="@+id/alert_image"
         android:layout_alignStart="@+id/alert_image"
         android:layout_alignLeft="@+id/alert_image"
-        android:layout_marginStart="148dp"
-        android:layout_marginLeft="148dp"
-        android:layout_marginTop="68dp"
-        android:background="?attr/colorPrimary"
+        android:layout_marginStart="143dp"
+        android:layout_marginLeft="143dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/rounded_button"
         android:paddingRight="5dp"
         android:text="Close"
         android:textSize="18sp"
@@ -62,9 +64,9 @@
     <Button
         android:id="@+id/assign_open"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:backgroundTint="?attr/colorPrimary"
+        android:background="@drawable/rounded_button"
         android:layout_width="wrap_content"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/alert_image"
         android:layout_alignStart="@+id/alert_image"
         android:layout_alignLeft="@+id/alert_image"

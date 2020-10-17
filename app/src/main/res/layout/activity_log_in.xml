@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".LogInActivity"
-    android:background="?attr/colorText">
+    android:background="?attr/colorSeed">
 
 
     <ImageView
@@ -16,7 +16,7 @@
         android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         app:srcCompat="@drawable/ic_launcher"
          />
 
@@ -54,7 +54,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="14dp"
         android:layout_marginRight="12dp"
-        android:background="?attr/colorText"
+        android:background="?attr/colorSeed"
         android:visibility="visible"
         app:srcCompat="@drawable/ic_font_awesome_5_solid_eye_slash"
         tools:visibility="visible" />
@@ -65,8 +65,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"
-        android:backgroundTint="?attr/colorAccent"
+        android:layout_marginBottom="200dp"
+        android:background="@drawable/rounded_button"
         android:text="Log In"
         android:textColor="?attr/colorText" />
 
@@ -76,8 +76,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
-        android:backgroundTint="?attr/colorAccent"
+        android:layout_marginBottom="150dp"
+        android:background="@drawable/rounded_button"
         android:text="Forgot Password"
         android:textColor="?attr/colorText" />
 

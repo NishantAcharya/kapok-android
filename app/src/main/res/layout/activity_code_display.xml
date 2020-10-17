@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="480dp"
         android:layout_centerHorizontal="true"
-        android:background="?attr/colorSpinner"
+        android:background="@drawable/rounded_button_white"
         android:textSize="60dp"/>
 
     <TextView

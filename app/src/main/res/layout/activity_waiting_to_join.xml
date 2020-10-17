@@ -81,7 +81,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="580dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/rounded_background_white"
             android:textColor="@color/colorWhite"
             android:text="Cancel Request" />
 
