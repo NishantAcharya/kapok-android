@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="?attr/colorSeed">
 
-<!--Adjust it so that occupation edit field is in the middle-->
+<!--Push everything above profile finished and make the instructions bigger and concise-->
     <TextView
         android:id="@+id/textView4"
         android:layout_width="321dp"

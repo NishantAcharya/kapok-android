@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background = "?attr/colorSeed">
-    <!--rounded buttons and try to put the buttons toward the center-->
+    <!--Don't have dark blue background on the dialog box-->
 
     <Button
         android:id="@+id/dialogButtonOK2"
@@ -27,8 +27,10 @@
         android:textSize="18sp"
         tools:ignore="RtlHardcoded,RtlSymmetry" />
 
+    <!--Get rid of one of the buttons and change the other one to done-->
+
     <TextView
-        android:text="Edit your rating"
+        android:text="Click on star if you want to change rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/text"

@@ -7,7 +7,7 @@
     android:background = "@drawable/rounded_button_seed">
 
     <TextView
-        android:text="Please add additional notes"
+        android:text="Additional log notes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/addText"

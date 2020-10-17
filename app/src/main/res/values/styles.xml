@@ -8,9 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorAltText">@color/colorBlack</item>
         <item name="colorText">@color/colorWhite</item>
-        <item name="colorHint">@color/colorGrey</item>
+        <item name="colorHint">@color/colorPrimaryDark</item>
         <item name="colorSpinner">@color/colorWhite</item>
-        <item name="colorSeed">@color/seedBlue</item>
+        <item name="colorSeed">@color/dot_light_screen3</item>
+
     </style>
 
     <!-- Dark theme -->
@@ -21,7 +22,7 @@
         <item name="colorAccent">@color/colorBlack</item>
         <item name="colorAltText">@color/colorWhite</item>
         <item name="colorText">@color/colorWhite</item>
-        <item name="colorHint">@color/colorGrey</item>
+        <item name="colorHint">@color/colorWhite</item>
         <item name="colorSpinner">@color/colorGrey</item>
         <item name="colorSeed">@color/twitterDark</item>
     </style>

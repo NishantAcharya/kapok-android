@@ -8,7 +8,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/colorSeed">
-
+<!-- Make stars the  colorprimardyDark and add white boxes-->
     <TextView
         android:id="@+id/textView5"
         android:layout_width="300dp"

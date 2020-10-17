@@ -36,9 +36,10 @@
         android:ems="10"
         android:backgroundTint="?attr/colorHint"
         android:textColor="?attr/colorAltText"
-        android:hint="Location"
+        android:hint="Type location"
         android:textColorHint="?attr/colorHint"
         android:inputType="textEmailAddress" />
+
 
     <Spinner
         android:id="@+id/category_txt"
@@ -46,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:ems="10"
         android:background = "@drawable/rounded_button_white"
         android:entries="@array/Categories"
@@ -64,9 +65,11 @@
         android:ems="10"
         android:textColorHint="?attr/colorHint"
         android:textColor="?attr/colorAltText"
-        android:hint="Notes"
+        android:hint="Type notes"
         android:backgroundTint="?attr/colorHint"
         android:inputType="textMultiLine" />
+
+
 
 
 
@@ -87,6 +90,7 @@
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop ="40dp"
         android:background = "@drawable/rounded_button_white"
         android:layout_centerHorizontal="true"
         />
@@ -104,7 +108,7 @@
         android:id="@+id/create_log"
         android:layout_gravity="center"
         android:layout_width="300dp"
-        android:layout_marginTop ="100dp"
+        android:layout_marginTop ="70dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background = "@drawable/rounded_button"

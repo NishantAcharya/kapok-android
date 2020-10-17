@@ -20,10 +20,11 @@
             android:layout_width="339dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="350dp"
+            android:layout_marginTop="420dp"
             android:background="@drawable/rounded_button"
             android:text="Proceed with profile setup"
-            android:textColor="?attr/colorText" />
+            android:textColor="?attr/colorText"
+             />
 
 
         <Button
@@ -31,10 +32,11 @@
             android:layout_width="339dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop = "400dp"
+            android:layout_marginTop = "360dp"
             android:background="@drawable/rounded_button_white"
             android:text="Resend Confirmation link"
-            android:textColor="?attr/colorAccent" />
+            android:textColor="?attr/colorAccent"
+             />
 
 
 
