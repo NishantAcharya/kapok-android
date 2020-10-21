@@ -14,33 +14,34 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="90dp"
         android:textSize="15dp"
         android:textStyle="bold"
         android:textColor="?attr/colorAltText"
         android:text="Hey! Your team administrator needs a few details from you before you start using Kapok" />
 
+
     <EditText
         android:id="@+id/full_name_text_field"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/textView4"
-        android:layout_marginTop="110dp"
-        android:ems="10"
-        android:textColorHint="?attr/colorHint"
-        android:textColor = "?attr/colorAltText"
-        android:hint="Full Name"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="150dp"
         android:backgroundTint="?attr/colorHint"
-        android:inputType="textPersonName" />
-
+        android:ems="10"
+        android:hint="Full Name"
+        android:inputType="textPersonName"
+        android:textColor="?attr/colorAltText"
+        android:textColorHint="?attr/colorHint" />
 
     <EditText
         android:id="@+id/occupation_text_field"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="210dp"
         android:ems="10"
         android:textColorHint="?attr/colorHint"
         android:textColor = "?attr/colorAltText"
@@ -53,7 +54,7 @@
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="270dp"
         android:ems="10"
         android:textColorHint="?attr/colorHint"
         android:textColor = "?attr/colorAltText"
@@ -67,7 +68,7 @@
         android:layout_width="322dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView4"
-        android:layout_marginTop = "290dp"
+        android:layout_marginTop = "330dp"
         android:ems="10"
         android:textColorHint="?attr/colorHint"
         android:textColor = "?attr/colorAltText"

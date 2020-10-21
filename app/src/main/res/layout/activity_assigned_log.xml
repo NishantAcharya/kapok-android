@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="200dp"
             android:textSize="20dp"
-            android:background="@drawable/rounded_background_white"
+            android:background="@drawable/rounded_button_white"
             android:textColor="?attr/colorAltText"
             android:layout_centerHorizontal="true"
             android:id="@+id/category_txt_display"/>
@@ -79,7 +79,7 @@
             android:layout_marginTop="260dp"
             android:layout_centerHorizontal="true"
             android:textColor="?attr/colorAltText"
-            android:background="@drawable/rounded_background_white"
+            android:background="@drawable/rounded_button_white"
             android:id="@+id/notes_txt_display"
             android:textSize="20dp"/>
 
@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="440dp"
             android:textSize="20dp"
-            android:background="@drawable/rounded_background_white"
+            android:background="@drawable/rounded_button_white"
             android:textColor="?attr/colorAltText"
             android:layout_centerHorizontal="true"
             android:id="@+id/creator_txt_display"/>
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="550dp"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/rounded_background_white"
+            android:background="@drawable/rounded_button_white"
             android:textColor="?attr/colorAltText"
             android:textSize="20dp" />
 

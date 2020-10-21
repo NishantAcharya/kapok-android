@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
-<!--change font to helvetica and make all boxes round-->
-<!-- Center everything -->
+
     <RelativeLayout
         android:background="?attr/colorSeed"
         android:layout_width="match_parent"

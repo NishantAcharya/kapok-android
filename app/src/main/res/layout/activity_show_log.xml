@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="110dp"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/rounded_background_white"
+        android:background="@drawable/rounded_button_white"
         android:textColor="?attr/colorPrimary"
         android:id="@+id/location_txt_display"
 
@@ -57,7 +57,7 @@
         android:layout_marginTop="200dp"
         android:textSize="20dp"
         android:textColor="?attr/colorAltText"
-        android:background="@drawable/rounded_background_white"
+        android:background="@drawable/rounded_button_white"
         android:layout_centerHorizontal="true"
         android:id="@+id/category_txt_display"/>
 
@@ -79,7 +79,7 @@
         android:layout_centerHorizontal="true"
         android:textColor="?attr/colorAltText"
         android:id="@+id/notes_txt_display"
-        android:background="@drawable/rounded_background_white"
+        android:background="@drawable/rounded_button_white"
         android:textSize="20dp"/>
 
     <TextView
@@ -98,7 +98,7 @@
         android:textSize="20dp"
         android:textColor="?attr/colorAltText"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/rounded_background_white"
+        android:background="@drawable/rounded_button_white"
         android:id="@+id/creator_txt_display"/>
 
     <TextView
@@ -117,7 +117,7 @@
         android:textSize="20dp"
         android:textColor="?attr/colorAltText"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/rounded_background_white"
+        android:background="@drawable/rounded_button_white"
         android:id="@+id/status_txt_display"/>
 
 

@@ -300,13 +300,13 @@
 
     <Button
         android:id="@+id/leave_team"
-        android:layout_width="240dp"
-        android:layout_height="60dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:contextClickable="true"
         android:text="Leave the current Team"
         android:background = '@drawable/rounded_button'
-        android:textColor="?attr/colorAltText"
-        android:textSize="18dp"
+        android:textColor="?attr/colorText"
+        android:textSize="12dp"
         android:textStyle="bold"></Button>
 
 

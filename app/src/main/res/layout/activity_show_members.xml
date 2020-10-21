@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:layout_centerHorizontal="true"
+
         android:textColor="?attr/colorAltText"
         android:id="@+id/full_name_text_field"
         android:textSize="30dp"/>
@@ -42,7 +43,7 @@
         android:layout_marginTop="170dp"
         android:textSize="20dp"
         android:textColor="?attr/colorAltText"
-        android:background="@drawable/rounded_background_white"
+        android:background="@drawable/rounded_button_white"
         android:layout_centerHorizontal="true"
         android:id="@+id/contact_info_text_field"/>
 
@@ -62,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="230dp"
         android:textColor="?attr/colorAltText"
-        android:background="@drawable/rounded_background_white"
+        android:background="@drawable/rounded_button_white"
         android:layout_centerHorizontal="true"
         android:id="@+id/occupation_text_field"
         android:textSize="20dp"/>
@@ -81,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="290dp"
         android:textColor="?attr/colorAltText"
-        android:background="@drawable/rounded_background_white"
+        android:background="@drawable/rounded_button_white"
         android:layout_centerHorizontal="true"
         android:id="@+id/registered_email_text_field"
         android:textSize="20dp"/>
@@ -100,7 +101,7 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="350dp"
-        android:background="@drawable/rounded_background_white"
+        android:background="@drawable/rounded_button_white"
         android:textSize="20dp"
         android:textColor="?attr/colorAltText"
         android:layout_centerHorizontal="true"

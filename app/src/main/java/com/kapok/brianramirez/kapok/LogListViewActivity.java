@@ -83,10 +83,27 @@ public class LogListViewActivity extends AppCompatActivity {
                                             location.add((String) currLog.get("location"));
                                             assignment.add((String)currLog.get("assignment"));
                                         }
-                                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(LogListViewActivity.this, android.R.layout.simple_list_item_1, location);
+                                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(LogListViewActivity.this, android.R.layout.simple_list_item_1, location){
+                                            //This is where we change the text color for listview
+                                            @Override
+                                            public View getView(int position, View convertView, ViewGroup parent){
+                                                // Get the Item from ListView
+                                                View view = super.getView(position, convertView, parent);
+
+                                                // Initialize a TextView for ListView each Item
+                                                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                                                // Set the text color of TextView (ListView Item)
+                                                tv.setTextColor(Color.WHITE);
+
+                                                // Generate ListView Item using TextView
+                                                return view;
+                                            }
+                                        };
                                         //Change the color of the logs here in the future
 
                                         lv.setAdapter(arrayAdapter);
+
                                         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                                 openLogView(position);

@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:text="In the mean time, you should share this code with the members of your team"
         android:textColor="?attr/colorAltText"
-        android:layout_marginTop="390dp"
+        android:layout_marginTop="350dp"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"/>
     <TextView
@@ -50,7 +50,7 @@
         android:layout_width="352dp"
         android:textAlignment="center"
         android:layout_height="wrap_content"
-        android:layout_marginTop="480dp"
+        android:layout_marginTop="400dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/rounded_button_white"
         android:textSize="60dp"/>
@@ -62,7 +62,7 @@
         android:textColor="?attr/colorAltText"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="560dp"/>
+        android:layout_marginTop="500dp"/>
 
 
 </RelativeLayout>

@@ -13,7 +13,7 @@
         android:id="@+id/addText"
         android:textStyle="normal|bold"
         android:textSize="20sp"
-        android:textColor="@color/colorBlack"
+        android:textColor="?attr/colorAltText"
         android:layout_centerHorizontal="true"
         />
 

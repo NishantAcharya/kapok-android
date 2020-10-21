@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorAltText">@color/colorBlack</item>
+        <item name="colorAltText">@color/colorPrimaryDark</item>
         <item name="colorText">@color/colorWhite</item>
         <item name="colorHint">@color/colorPrimaryDark</item>
         <item name="colorSpinner">@color/colorWhite</item>
@@ -21,7 +21,7 @@
         <item name="colorPrimaryDark">@color/twitterDark</item>
         <item name="colorAccent">@color/colorBlack</item>
         <item name="colorAltText">@color/colorWhite</item>
-        <item name="colorText">@color/colorWhite</item>
+        <item name="colorText">@color/dot_light_screen3</item>
         <item name="colorHint">@color/colorWhite</item>
         <item name="colorSpinner">@color/colorGrey</item>
         <item name="colorSeed">@color/twitterDark</item>

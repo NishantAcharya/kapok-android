@@ -1,6 +1,7 @@
 package com.kapok.brianramirez.kapok;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -8,10 +9,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -84,7 +87,23 @@ public class AssignedLogAllActivity extends AppCompatActivity {
                                                 AssignedLogs.add(location + " : " + assignment);
                                             }
                                         }
-                                        arrayAdapter = new ArrayAdapter<String>(AssignedLogAllActivity.this, android.R.layout.simple_list_item_1, AssignedLogs);
+                                        arrayAdapter = new ArrayAdapter<String>(AssignedLogAllActivity.this, android.R.layout.simple_list_item_1, AssignedLogs){
+                                            //Setting the color for the list view
+                                            @Override
+                                            public View getView(int position, View convertView, ViewGroup parent){
+                                                // Get the Item from ListView
+                                                View view = super.getView(position, convertView, parent);
+
+                                                // Initialize a TextView for ListView each Item
+                                                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                                                // Set the text color of TextView (ListView Item)
+                                                tv.setTextColor(Color.WHITE);
+
+                                                // Generate ListView Item using TextView
+                                                return view;
+                                            }
+                                        };
                                         lv.setAdapter(arrayAdapter);
                                     }
                                 }
