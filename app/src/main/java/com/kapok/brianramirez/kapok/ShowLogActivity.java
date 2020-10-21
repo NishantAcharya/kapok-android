@@ -3,7 +3,9 @@ package com.kapok.brianramirez.kapok;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -231,6 +233,11 @@ public class ShowLogActivity extends AppCompatActivity {
                         }
                     }
                 });
+                //Finished activity so that the status could refresh
+                Toast.makeText(ShowLogActivity.this, "Marked as Complete!.",
+                        Toast.LENGTH_SHORT).show();
+                finish();
+
             }
         });
     }
