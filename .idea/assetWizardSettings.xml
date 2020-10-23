@@ -73,7 +73,8 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="imagePath" value="$USER_HOME$/Downloads/transparent copy.xml" />
+                                                <entry key="imagePath" value="$USER_HOME$/Downloads/unnamed.jpg" />
+                                                <entry key="scalingPercent" value="148" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -99,7 +100,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$USER_HOME$/Downloads/logoani-01 (1).png" />
+                                                <entry key="imagePath" value="$USER_HOME$/Downloads/kx_logo.png" />
+                                                <entry key="scalingPercent" value="58" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
