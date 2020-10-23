@@ -216,6 +216,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        //Fix the request button
         //Button to change admin's functions
         changeAdminBtn.setOnClickListener(new View.OnClickListener() {
             @Override

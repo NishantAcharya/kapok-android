@@ -79,23 +79,7 @@ public class TeamJoinRequestActivity extends AppCompatActivity {
                                         if(document.exists()){
                                             allNames.add((String)document.getData().get("name"));
                                             //Array Adapter of requests
-                                            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(TeamJoinRequestActivity.this, android.R.layout.simple_list_item_1, allNames){
-                                                //Setting the color
-                                                @Override
-                                                public View getView(int position, View convertView, ViewGroup parent){
-                                                    // Get the Item from ListView
-                                                    View view = super.getView(position, convertView, parent);
-
-                                                    // Initialize a TextView for ListView each Item
-                                                    TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                                                    // Set the text color of TextView (ListView Item)
-                                                    tv.setTextColor(Color.WHITE);
-
-                                                    // Generate ListView Item using TextView
-                                                    return view;
-                                                }
-                                            };
+                                            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(TeamJoinRequestActivity.this, android.R.layout.simple_list_item_1, allNames);
                                             lv.setAdapter(arrayAdapter);
                                             //On Request Click
                                             lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
