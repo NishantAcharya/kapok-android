@@ -93,6 +93,7 @@
         android:layout_marginTop ="40dp"
         android:background = "@drawable/rounded_button_white"
         android:layout_centerHorizontal="true"
+
         />
 
     <TextView
