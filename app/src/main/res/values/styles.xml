@@ -6,22 +6,25 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorAltText">@color/colorBlack</item>
+        <item name="colorAltText">@color/colorPrimaryDark</item>
         <item name="colorText">@color/colorWhite</item>
-        <item name="colorHint">@color/colorGrey</item>
+        <item name="colorHint">@color/colorPrimaryDark</item>
         <item name="colorSpinner">@color/colorWhite</item>
+        <item name="colorSeed">@color/dot_light_screen3</item>
+
     </style>
 
     <!-- Dark theme -->
     <style name="DarkTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorBlack</item>
-        <item name="colorPrimaryDark">@color/colorGrey</item>
-        <item name="colorAccent">@color/colorWhite</item>
+        <item name="colorPrimary">@color/twitterDarker</item>
+        <item name="colorPrimaryDark">@color/twitterDark</item>
+        <item name="colorAccent">@color/colorBlack</item>
         <item name="colorAltText">@color/colorWhite</item>
-        <item name="colorText">@color/colorBlack</item>
-        <item name="colorHint">@color/colorGrey</item>
+        <item name="colorText">@color/dot_light_screen3</item>
+        <item name="colorHint">@color/colorWhite</item>
         <item name="colorSpinner">@color/colorGrey</item>
+        <item name="colorSeed">@color/twitterDark</item>
     </style>
 
     <!--Dark theme alert box-->

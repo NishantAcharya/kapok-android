@@ -3,7 +3,9 @@ package com.kapok.brianramirez.kapok;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -230,6 +233,11 @@ public class ShowLogActivity extends AppCompatActivity {
                         }
                     }
                 });
+                //Finished activity so that the status could refresh
+                Toast.makeText(ShowLogActivity.this, "Marked as Complete!.",
+                        Toast.LENGTH_SHORT).show();
+                finish();
+
             }
         });
     }
@@ -258,9 +266,7 @@ public class ShowLogActivity extends AppCompatActivity {
             if (id == R.id.menu_add_notes) {
                 if(result == true) {
                     if (Database.isAdmin) {
-                        intent = new Intent(ShowLogActivity.this, EditNotesActivity.class);
-                        intent.putExtra("prev", note);
-                        ShowLogActivity.this.startActivityForResult(intent, 2);
+                        editnotes(note);
                     } else {
                         Toast.makeText(ShowLogActivity.this, "You are not the Administrator", Toast.LENGTH_SHORT).show();
                     }
@@ -540,6 +546,67 @@ public class ShowLogActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    public void editnotes(String notes){
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.activity_edit_notes);
+        EditText editBar = dialog.findViewById(R.id.currentnotes);
+        editBar.setText(notes);
+        Button dialogButton = (Button) dialog.findViewById(R.id.editLogBtn);
+        dialogButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseUser currentUser = mAuth.getCurrentUser();
+                FirebaseFirestore db = Database.db;
+
+                DocumentReference docRef = db.collection("Profiles").document(currentUser.getEmail());
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        ArrayList<String> location = new ArrayList<>();
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                ArrayList<String> userCurrentTeam = (ArrayList<String>) document.getData().get("team");
+                                String TeamCode = userCurrentTeam.get(0);
+                                DocumentReference docRef = db.collection("Teams").document(TeamCode);
+                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot document = task.getResult();
+                                            if (document.exists()) {
+                                                ArrayList<Map<String, Object>> locations = (ArrayList<Map<String, Object>>) document.get("logs");
+                                                log = locations.get(logPos);
+                                                Map<String, Object> log2 = new HashMap<>();
+                                                log2.put("creator", log.get("creator").toString());
+                                                log2.put("location", log.get("location").toString());
+                                                log2.put("category", log.get("creator").toString());
+                                                log2.put("info", editBar.getText().toString());
+                                                log2.put("Log Rating", log.get("Log Rating"));
+                                                log2.put("time", log.get("time").toString());
+                                                log2.put("point", log.get("point"));
+                                                log2.put("assignment",log.get("assignment"));
+                                                log2.put("status",log.get("status").toString());
+                                                docRef.update("logs", FieldValue.arrayRemove(log));
+                                                docRef.update("logs", FieldValue.arrayUnion(log2));
+                                                notesText.setText(editBar.getText());
+                                                dialog.dismiss();
+                                            }
+                                        }
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+
             }
         });
 

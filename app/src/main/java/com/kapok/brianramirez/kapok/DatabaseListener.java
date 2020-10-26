@@ -1,18 +1,24 @@
 package com.kapok.brianramirez.kapok;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -35,6 +41,8 @@ public class DatabaseListener extends Service {
     private DocumentSnapshot prevUserSnap;
     private DocumentSnapshot prevTeamSnap;
     private String team;
+    private Handler handler = new Handler();
+    private boolean notificationCheck;
 
     @Override
     public void onCreate() {
@@ -42,6 +50,7 @@ public class DatabaseListener extends Service {
         String currentUser = mAuth.getCurrentUser().getEmail();
         FirebaseFirestore db = Database.db;
         DocumentReference docRef = db.collection("Profiles").document(currentUser);
+
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -78,17 +87,19 @@ public class DatabaseListener extends Service {
                                 //Fix the issue: The admin and user both get  notification, fix this
                                 DocumentSnapshot document = task.getResult();
                                 if (document.exists()) {
-                                    ArrayList<String> requests = (ArrayList<String>)document.get("requests");
-                                    ArrayList<String> prevrequests = (ArrayList<String>)prevUserSnap.get("requests");
+                                    ArrayList<String> requests = (ArrayList<String>) document.get("requests");
+                                    ArrayList<String> prevrequests = (ArrayList<String>) prevUserSnap.get("requests");
                                     String status = document.get("status").toString();
                                     String prevstatus = prevUserSnap.get("status").toString();
-                                    Boolean isAdmin = (Boolean)document.get("isAdmin");
-                                    Boolean previsAdmin = (Boolean)prevUserSnap.get("isAdmin");
-                                    ArrayList<String> team = (ArrayList<String>)document.get("team");
-                                    ArrayList<String> prevteam = (ArrayList<String>)prevUserSnap.get("team");
-                                    ArrayList<Map<String, Object>> logs = (ArrayList<Map<String, Object>>)document.get("assignments");
-                                    ArrayList<Map<String, Object>> prevlogs = (ArrayList<Map<String, Object>>)prevUserSnap.get("assignments");
-                                    if(requests.size()>prevrequests.size()){
+                                    Boolean isAdmin = (Boolean) document.get("isAdmin");
+                                    Boolean previsAdmin = (Boolean) prevUserSnap.get("isAdmin");
+                                    ArrayList<String> team = (ArrayList<String>) document.get("team");
+                                    ArrayList<String> prevteam = (ArrayList<String>) prevUserSnap.get("team");
+                                    ArrayList<Map<String, Object>> logs = (ArrayList<Map<String, Object>>) document.get("assignments");
+                                    ArrayList<Map<String, Object>> prevlogs = (ArrayList<Map<String, Object>>) prevUserSnap.get("assignments");
+
+                                    if(SettingsActivity.notificationcheck){
+                                    if (requests.size() > prevrequests.size()) {
                                         //make notification
                                         createNotificationChannel();
                                         int notificationId = 10;
@@ -104,7 +115,7 @@ public class DatabaseListener extends Service {
                                         notificationManager.notify(notificationId, builder.build());
 
                                     }
-                                    if(prevstatus.equals("pending") && status.equals("accepted")){
+                                    if (prevstatus.equals("pending") && status.equals("accepted")) {
                                         //make notification
                                         createNotificationChannel();
                                         int notificationId = 12;
@@ -119,7 +130,7 @@ public class DatabaseListener extends Service {
 // notificationId is a unique int for each notification that you must define
                                         notificationManager.notify(notificationId, builder.build());
                                     }
-                                    if(isAdmin && !previsAdmin){
+                                    if (isAdmin && !previsAdmin) {
                                         //make notification
                                         createNotificationChannel();
                                         int notificationId = 13;
@@ -134,7 +145,7 @@ public class DatabaseListener extends Service {
 // notificationId is a unique int for each notification that you must define
                                         notificationManager.notify(notificationId, builder.build());
                                     }
-                                    if(!isAdmin && previsAdmin){
+                                    if (!isAdmin && previsAdmin) {
                                         //make notification
                                         createNotificationChannel();
                                         int notificationId = 14;
@@ -149,7 +160,7 @@ public class DatabaseListener extends Service {
 // notificationId is a unique int for each notification that you must define
                                         notificationManager.notify(notificationId, builder.build());
                                     }
-                                    if(prevteam.size() > team.size()){
+                                    if (prevteam.size() > team.size()) {
                                         //make notification
                                         createNotificationChannel();
                                         int notificationId = 15;
@@ -164,7 +175,7 @@ public class DatabaseListener extends Service {
 // notificationId is a unique int for each notification that you must define
                                         notificationManager.notify(notificationId, builder.build());
                                     }
-                                    if(logs.size()>prevlogs.size()){
+                                    if (logs.size() > prevlogs.size()) {
                                         //Todo
                                         //Notification for log assigned
                                         createNotificationChannel();
@@ -181,6 +192,7 @@ public class DatabaseListener extends Service {
                                         notificationManager.notify(notificationId, builder.build());
                                     }
                                     prevUserSnap = document;
+                                }
                                 }
                             }
                         }
@@ -208,11 +220,24 @@ public class DatabaseListener extends Service {
 
 
         }
+
+
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return null;
     }
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+        return START_STICKY;
+    }
+    @Override
+    public void onDestroy() {
+
+        super.onDestroy();
+
+    }
+
 }

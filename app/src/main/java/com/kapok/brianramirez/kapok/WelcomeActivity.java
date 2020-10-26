@@ -90,6 +90,7 @@ public class WelcomeActivity extends AppCompatActivity {
             signInBtn = findViewById(R.id.sign_in_btn);
             registerBtn = findViewById(R.id.register_btn);
 
+
             signInBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

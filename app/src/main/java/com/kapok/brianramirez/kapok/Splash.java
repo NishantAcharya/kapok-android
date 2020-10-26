@@ -19,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
+//Check Splash Activity
 public class Splash extends AppCompatActivity {
 
     private FirebaseAuth mAuth;

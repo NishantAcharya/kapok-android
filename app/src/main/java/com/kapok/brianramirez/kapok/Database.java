@@ -20,5 +20,6 @@ public class Database {
     public static String currentStatus;
     public static boolean hasProfile;
     public static boolean isAdmin;
+    public static boolean acceptedTerms;
 
 }

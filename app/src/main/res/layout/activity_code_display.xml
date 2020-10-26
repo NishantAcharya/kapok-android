@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent">
+    android:background="?attr/colorSeed">
+    <!--Pull the page content up-->
 
     <TextView
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
-        android:textColor="?attr/colorText"
+        android:textColor="?attr/colorAltText"
         android:textStyle="bold"
         android:text="Hang On Tight..."
         android:textSize="30dp"
@@ -26,13 +27,14 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:text="We're downloading the map of your location"
-        android:textColor="?attr/colorText"
+        android:textColor="?attr/colorAltText"
         android:layout_marginTop="120dp"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"/>
     <ImageView
         android:id = "@+id/teamCodeAnim"
         android:layout_width="200dp"
+        app:srcCompat="@drawable/ic_launcher"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="180dp"/>
@@ -40,8 +42,8 @@
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:text="In the mean time, you should share this code with the members of your team"
-        android:textColor="?attr/colorText"
-        android:layout_marginTop="390dp"
+        android:textColor="?attr/colorAltText"
+        android:layout_marginTop="350dp"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"/>
     <TextView
@@ -49,9 +51,9 @@
         android:layout_width="352dp"
         android:textAlignment="center"
         android:layout_height="wrap_content"
-        android:layout_marginTop="480dp"
+        android:layout_marginTop="400dp"
         android:layout_centerHorizontal="true"
-        android:background="?attr/colorSpinner"
+        android:background="@drawable/rounded_button_white"
         android:textSize="60dp"/>
 
     <TextView
@@ -61,7 +63,7 @@
         android:textColor="?attr/colorAltText"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="560dp"/>
+        android:layout_marginTop="500dp"/>
 
 
 </RelativeLayout>

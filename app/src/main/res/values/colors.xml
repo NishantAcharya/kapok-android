@@ -7,6 +7,10 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorGrey">#aeaeae</color>
     <color name="colorBlack">#000000</color>
+    <color name="seedBlue">#D4F8F9</color>
+    <color name="twitterDark">#243447</color>
+    <color name="twitterDarker">#141d26</color>
+
 
     <color name="screen1">#f74e4e</color>
 

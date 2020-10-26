@@ -8,9 +8,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 
-
     <RelativeLayout
-        android:background="?attr/colorText"
+        android:background="?attr/colorSeed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
@@ -21,9 +20,10 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="420dp"
-            android:backgroundTint="?attr/colorAccent"
+            android:background="@drawable/rounded_button"
             android:text="Proceed with profile setup"
-            android:textColor="?attr/colorText" />
+            android:textColor="?attr/colorText"
+             />
 
 
         <Button
@@ -31,29 +31,31 @@
             android:layout_width="339dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop = "480dp"
-            android:backgroundTint="#FFFFFF"
+            android:layout_marginTop = "360dp"
+            android:background="@drawable/rounded_button_white"
             android:text="Resend Confirmation link"
-            android:textColor="?attr/colorAccent" />
+            android:textColor="?attr/colorAccent"
+             />
 
+
+
+        <!-- Reminder to change logo-->
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="352dp"
+            android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="189dp"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="300dp"
             android:text="We have sent you an email with verification instructions. Click on the log-in button after verifying your email.  "
             android:textAlignment="center"
             android:textColor="?attr/colorAltText" />
 
-
-
         <ImageView
             android:id="@+id/imageView3"
             android:layout_width="200dp"
-            android:layout_height="150dp"
+            android:layout_height="250dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="33dp"

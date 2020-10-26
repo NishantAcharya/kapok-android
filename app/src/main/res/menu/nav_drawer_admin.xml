@@ -17,12 +17,16 @@
             android:title="Assigned" />
 
         <item
+            android:id="@+id/navProfileEdit"
+            android:title="Profile" />
+
+        <item
             android:id="@+id/navMyTask"
             android:title="My Task" />
 
         <item
-            android:id="@+id/navChangeTheme"
-            android:title="Change Color" />
+            android:id="@+id/navSettings"
+            android:title="Settings" />
 
         <item
             android:id="@+id/navLogOut"

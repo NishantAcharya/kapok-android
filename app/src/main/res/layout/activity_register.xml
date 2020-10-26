@@ -13,7 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:background="?attr/colorText">
+    android:background="?attr/colorSeed">
 
 <ImageView
         android:id="@+id/imageView"
@@ -28,7 +28,7 @@
 
     <EditText
         android:id="@+id/email_text_field"
-        android:layout_width="339dp"
+        android:layout_width="335dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:layout_centerHorizontal="true"
@@ -43,7 +43,7 @@
 
     <EditText
         android:id="@+id/password_text_field"
-        android:layout_width="339dp"
+        android:layout_width="335dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="240dp"
         android:layout_centerHorizontal="true"
@@ -57,11 +57,12 @@
 
     <ImageButton
         android:id="@+id/password_eye"
-        android:layout_width="47dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="240dp"
+        android:layout_width="37dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:background="@color/colorWhite"
+        android:layout_marginTop="250dp"
+        android:layout_marginRight="2dp"
+        android:background="?attr/colorSeed"
         android:visibility="visible"
         app:srcCompat="@drawable/ic_font_awesome_5_solid_eye_slash"
         tools:visibility="visible" />
@@ -89,16 +90,16 @@
 
     <EditText
         android:id="@+id/confirm_pass_text_field"
-        android:layout_width="339dp"
-        android:layout_centerHorizontal="true"
+        android:layout_width="335dp"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="330dp"
-        android:ems="10"
-        android:textColor="?attr/colorAltText"
-        android:textColorHint="?attr/colorHint"
-        android:hint="Confirm Password"
         android:backgroundTint="?attr/colorHint"
-        android:inputType="textPassword" />
+        android:ems="10"
+        android:hint="Confirm Password"
+        android:inputType="textPassword"
+        android:textColor="?attr/colorAltText"
+        android:textColorHint="?attr/colorHint" />
 
 
     <Button
@@ -106,8 +107,8 @@
         android:layout_width="339dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="600dp"
-        android:backgroundTint="?attr/colorAccent"
+        android:layout_marginTop="440dp"
+        android:background="@drawable/rounded_button"
         android:text="Register"
         android:textColor="?attr/colorText"
 
