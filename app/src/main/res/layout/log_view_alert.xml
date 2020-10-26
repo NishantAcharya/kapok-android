@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_button_seed">
+<!-- rounded button boxes-->
     <Button
         android:id="@+id/alert_cancel"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/alert_image"
         android:layout_alignStart="@+id/alert_image"
         android:layout_alignLeft="@+id/alert_image"
@@ -20,7 +21,7 @@
         android:paddingRight="5dp"
         android:text="Cancel"
         android:textSize="18sp"
-        android:backgroundTint="?attr/colorPrimary"
+        android:background="@drawable/rounded_button"
         tools:ignore="RtlHardcoded,RtlSymmetry" />
 
     <TextView
@@ -30,6 +31,7 @@
         android:id="@+id/alert_text"
         android:textStyle="normal|bold"
         android:textSize="18sp"
+        android:textColor="?attr/colorAltText"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/alert_image"
         android:layout_toEndOf="@+id/alert_image"
@@ -55,6 +57,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
+        android:textColor="?attr/colorAltText"
         android:ems="10"
         android:background = "?attr/colorSpinner"
         android:inputType="textEmailAddress"
@@ -64,7 +67,7 @@
         android:id="@+id/alert_assign"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
-        android:layout_height="58dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/alert_image"
         android:layout_alignStart="@+id/alert_image"
         android:layout_alignLeft="@+id/alert_image"
@@ -72,7 +75,7 @@
         android:paddingRight="5dp"
         android:text="Assign"
         android:textSize="18sp"
-        android:backgroundTint="?attr/colorPrimary"
+        android:background="@drawable/rounded_button"
         tools:ignore="RtlHardcoded,RtlSymmetry" />
 
 </RelativeLayout>

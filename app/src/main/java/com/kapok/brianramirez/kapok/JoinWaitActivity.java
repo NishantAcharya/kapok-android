@@ -53,8 +53,9 @@ public class JoinWaitActivity extends AppCompatActivity {
         logo = findViewById(R.id.imageView2);
 
         //Creating the entering animation
-        logo.setBackgroundResource(R.drawable.kapok_animation_loop);
-        logoani = (AnimationDrawable) logo.getBackground();
+       // logo.setBackgroundResource(R.drawable.kapok_animation_loop);
+        //Animation disabled for testing
+        //logoani = (AnimationDrawable) logo.getBackground();
 
         TextView teamText = findViewById(R.id.teamText);
         Button cancel = findViewById(R.id.cancel_request);
@@ -133,11 +134,11 @@ public class JoinWaitActivity extends AppCompatActivity {
     }
 
     //Starts the animation
-    @Override
+    /*@Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         logoani.start();
-    }
+    }*/
 
     //The back press is empty, this is for what need sto happen when you press back
     @Override

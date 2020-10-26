@@ -4,25 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorText">
+    android:background="?attr/colorSeed">
+
+    <!-- Center the text -->
 
     <TextView
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:text="Set Up Team"
-        android:textColor="?attr/colorAltText"
+        android:textColor="?attr/colorHint"
         android:textSize="20dp"
         android:textStyle="bold"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="120dp"/>
+
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="352dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="190dp"
         android:layout_height="wrap_content"
-        android:textColor="?attr/colorAltText"
-        android:text="Hey! We need a few details from you, also please note down your team number (displayed on the next screen)"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:textColor="?attr/colorHint"
+        android:text="List team name and its location"
         android:textAlignment="center"
         android:layout_centerHorizontal="true"
         tools:layout_editor_absoluteX="0dp"
@@ -33,9 +39,9 @@
         android:layout_height="wrap_content"
         android:textColorHint="?attr/colorHint"
         android:textColor = "?attr/colorAltText"
-        android:hint="Team Name"
+        android:hint="Team name"
         android:backgroundTint="?attr/colorHint"
-        android:layout_marginTop="210dp"
+        android:layout_marginTop="240dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/teamName"/>
 
@@ -44,7 +50,7 @@
         android:layout_height="wrap_content"
         android:textColorHint="?attr/colorHint"
         android:textColor = "?attr/colorAltText"
-        android:hint="Location"
+        android:hint="Team location"
         android:backgroundTint="?attr/colorHint"
         android:layout_marginTop="300dp"
         android:layout_centerHorizontal="true"
@@ -56,8 +62,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="45dp"
-        android:backgroundTint="?attr/colorAccent"
+        android:layout_marginBottom="180dp"
+        android:background="@drawable/rounded_button"
         android:text="Get set... Go!"
         android:textColor="?attr/colorText" />
 

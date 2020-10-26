@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/editName"
+        android:orderInCategory="100"
+        android:title="Edit User Name" />
+
+    <item
+        android:id="@+id/editContact"
+        android:orderInCategory="100"
+        android:title="Edit Contact Info" />
+
+    <item
+        android:id="@+id/editOccupation"
+        android:orderInCategory="100"
+        android:title="Edit Occupation" />
+
+    <item
+        android:id="@+id/editInfo"
+        android:orderInCategory="100"
+        android:title="Edit About" />
+
+</menu>

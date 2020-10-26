@@ -27,8 +27,9 @@ public class WaitingScreenActivity extends AppCompatActivity {
         logo = findViewById(R.id.teamCodeAnim);
 
         //Creating the entering animation
-        logo.setBackgroundResource(R.drawable.kapok_animation_loop);
-        logoani = (AnimationDrawable) logo.getBackground();
+        //logo.setBackgroundResource(R.drawable.kapok_animation_loop);
+        //Animation removed for testing
+        //logoani = (AnimationDrawable) logo.getBackground();
 
      //Getting intent data from the last activity
         Intent intent = getIntent();
@@ -47,11 +48,11 @@ public class WaitingScreenActivity extends AppCompatActivity {
     }
 
     //Starts the animation
-    @Override
+   /* @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         logoani.start();
-    }
+    }*/
 
     //Leads to ap avtivity
         public void openMaps(String teamCode){

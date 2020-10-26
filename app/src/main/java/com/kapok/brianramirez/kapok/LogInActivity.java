@@ -34,8 +34,6 @@ public class LogInActivity extends AppCompatActivity {
     Button logInBtn;
     Button resetBtn;
     ImageButton passwrdBtn;
-    AnimationDrawable logoani;
-    ImageView logo;
     private FirebaseAuth mAuth;
 
 
@@ -58,11 +56,6 @@ public class LogInActivity extends AppCompatActivity {
         logInBtn = findViewById(R.id.log_in_btn);
         resetBtn = findViewById(R.id.resetBtn);
         passwrdBtn = findViewById(R.id.password_eye_login);
-        logo = findViewById(R.id.imageView);
-
-        //Creating the entering animation
-        logo.setBackgroundResource(R.drawable.kapok_start_animation);
-        logoani = (AnimationDrawable) logo.getBackground();
 
         //Changes the text type in the password and confirm password field
         passwrdBtn.setOnClickListener(new View.OnClickListener() {
@@ -153,11 +146,6 @@ public class LogInActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        logoani.start();
-    }
 
     public static boolean isValidRequest(String email, String password) {
         //TODO: Return true if both fields are not empty and are larget than length 5

@@ -2,7 +2,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorText">
+    android:background="?attr/colorSeed">
 
     <TextView
         android:id="@+id/textView5"
@@ -22,14 +22,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:layout_centerHorizontal="true"
-        android:textColor="?attr/colorPrimary"
+
+        android:textColor="?attr/colorAltText"
         android:id="@+id/full_name_text_field"
         android:textSize="30dp"/>
 
     <TextView
         android:layout_width="352dp"
         android:layout_height="wrap_content"
-        android:textColor="?attr/colorAccent"
+        android:textColor="?attr/colorAltText"
         android:layout_marginTop="140dp"
         android:layout_centerHorizontal="true"
         android:text="Contact Info:"
@@ -42,13 +43,14 @@
         android:layout_marginTop="170dp"
         android:textSize="20dp"
         android:textColor="?attr/colorAltText"
+        android:background="@drawable/rounded_button_white"
         android:layout_centerHorizontal="true"
         android:id="@+id/contact_info_text_field"/>
 
 
     <TextView
         android:layout_width="352dp"
-        android:textColor="?attr/colorAccent"
+        android:textColor="?attr/colorAltText"
         android:layout_height="wrap_content"
         android:layout_marginTop="200dp"
         android:layout_centerHorizontal="true"
@@ -61,6 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="230dp"
         android:textColor="?attr/colorAltText"
+        android:background="@drawable/rounded_button_white"
         android:layout_centerHorizontal="true"
         android:id="@+id/occupation_text_field"
         android:textSize="20dp"/>
@@ -71,7 +74,7 @@
         android:layout_marginTop="260dp"
         android:layout_centerHorizontal="true"
         android:text="Registered Email"
-        android:textColor="?attr/colorAccent"
+        android:textColor="?attr/colorAltText"
         android:textSize="20dp"/>
 
     <TextView
@@ -79,6 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="290dp"
         android:textColor="?attr/colorAltText"
+        android:background="@drawable/rounded_button_white"
         android:layout_centerHorizontal="true"
         android:id="@+id/registered_email_text_field"
         android:textSize="20dp"/>
@@ -90,13 +94,14 @@
         android:layout_marginTop="320dp"
         android:layout_centerHorizontal="true"
         android:text="About:"
-        android:textColor="?attr/colorAccent"
+        android:textColor="?attr/colorAltText"
         android:textSize="20dp" />
 
     <TextView
         android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="350dp"
+        android:background="@drawable/rounded_button_white"
         android:textSize="20dp"
         android:textColor="?attr/colorAltText"
         android:layout_centerHorizontal="true"

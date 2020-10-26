@@ -7,4 +7,5 @@
     <attr name="colorText" format="color"/>
     <attr name="colorHint" format="color"/>
     <attr name="colorSpinner" format="color"/>
+    <attr name="colorSeed" format="color"/>
 </resources>

@@ -20,8 +20,10 @@
             android:exported="true" />
 
         <activity android:name=".Splash" />
-        <activity android:name=".AdminChangeActivity" />
-        <activity android:name=".userVerifyActivity" />
+        <activity android:name=".AdminChangeActivity"
+            android:label="Administrator Change"/>
+        <activity android:name=".userVerifyActivity"
+            android:label="User Verification"/>
         <activity
             android:name=".TeamJoinRequestActivity"
             android:label="Requests"
@@ -63,6 +65,10 @@
         <activity
             android:name=".AssignedLogActivity"
             android:label = "My Logs"
+            android:parentActivityName=".MapActivity" />
+        <activity
+            android:name=".UserProfile"
+            android:label = "Profile"
             android:parentActivityName=".MapActivity" />
         <activity
             android:name=".AssignedLogAllActivity"
@@ -108,9 +114,9 @@
             android:label="Waiting Screen"
             android:theme="@style/FullScreen" />
         <activity
-            android:name=".EditNotesActivity"
-            android:label="Edit Notes"
-            android:parentActivityName=".ShowLogActivity" />
+            android:name=".SettingsActivity"
+            android:label="Settings"
+            android:parentActivityName=".MapActivity"/>
     </application>
 
 </manifest>

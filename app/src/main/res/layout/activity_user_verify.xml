@@ -8,19 +8,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true">
 
-
+    <!--Make the image longer-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/colorText">
+        android:background="?attr/colorSeed">
 
         <Button
             android:id="@+id/login_btn"
             android:layout_width="339dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="420dp"
-            android:backgroundTint="?attr/colorAccent"
+            android:layout_marginTop="350dp"
+            android:background="@drawable/rounded_button"
             android:text="Proceed with profile setup"
             android:textColor="?attr/colorText" />
 
@@ -30,8 +30,8 @@
             android:layout_width="339dp"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop = "480dp"
-            android:backgroundTint="?attr/colorText"
+            android:layout_marginTop = "400dp"
+            android:background="@drawable/rounded_button_white"
             android:text="Resend Confirmation link"
             android:textColor="?attr/colorAccent" />
 
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="191dp"
+            android:layout_marginTop="280dp"
             android:textColor="?attr/colorAltText"
             android:text="We have sent you an email with verification instructions. Click on the log-in button after verifying your email.  "
             android:textAlignment="center" />
@@ -54,7 +54,7 @@
             android:layout_height="180dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="90dp"
             app:srcCompat= "@drawable/ic_launcher" />
 
     </RelativeLayout>

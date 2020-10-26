@@ -33,6 +33,8 @@ public class userVerifyActivity extends AppCompatActivity {
         }
         setContentView(R.layout.activity_user_verify);
 
+
+
         verify = (Button) findViewById(R.id.login_btn);
         resend = (Button) findViewById(R.id.resend_btn);
 

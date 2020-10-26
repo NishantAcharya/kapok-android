@@ -2,6 +2,7 @@ package com.kapok.brianramirez.kapok;
 
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -16,6 +17,7 @@ import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import static com.mapbox.mapboxsdk.style.expressions.Expression.toNumber;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -144,6 +146,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private ArrayList<Map<String,Object>> logVal = new ArrayList<>(1);
     private JsonObject logs;
     private JsonArray features;
+    private static boolean drawerCheck;
 
 
     @Override
@@ -172,9 +175,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         features = new JsonArray();
         logs.add("features", new JsonArray());
 
-        //Getting data from the service for notifications
-        Intent i = new Intent(this, DatabaseListener.class);
-        startService(i);
 
         //Initializing user's team data in respective variables
         getTeam();
@@ -194,7 +194,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
         });
 
-        //*No Idea what this is
+        //Removing the features array from the json object
         logs.remove("features");
         features = new JsonArray();
 
@@ -233,26 +233,35 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         //This is the section related to the navigation drawer, the place where navigation menu will go
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                drawerCheck = true;
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+                drawerCheck = false;
+            }
+        };
 
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
 
+        if(drawerCheck && SettingsActivity.gravity)
+            mDrawerLayout.openDrawer(GravityCompat.START); //This Line will keep the drawer opened
+        else
+            mDrawerLayout.closeDrawer(GravityCompat.START); //This Line will keep the drawer closed
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        dl = (DrawerLayout)findViewById(R.id.drawer_layout);
-        t = new ActionBarDrawerToggle(this, dl,R.string.drawer_open, R.string.drawer_close);
 
-        dl.addDrawerListener(t);
-        t.syncState();
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //This is the navigation menu setup
         navView = (NavigationView)findViewById(R.id.navListAdmin);
-        //Admin check for hamburger menu
 
         View header = navView.getHeaderView(0);
         TextView userName = header.findViewById(R.id.nav_header_name);
@@ -303,6 +312,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 int id = menuItem.getItemId();
                 switch (id)
                 {
+                    case R.id.navProfileEdit:
+                        goToProfileView();
+                        break;
+
                     case R.id.navAssigned:
                         goToAssignedView();
                         break;
@@ -314,8 +327,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         goToTeamCodeDisplay();
                         break;
 
-                    case R.id.navChangeTheme:
-                        changeTheme();
+                    case R.id.navSettings:
+                        goToSettings();
                         break;
 
                     case R.id.navLogOut:
@@ -541,7 +554,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(t.onOptionsItemSelected(item))
+        if(mDrawerToggle.onOptionsItemSelected(item))
             return true;
 
         return super.onOptionsItemSelected(item);
@@ -609,7 +622,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                             logJson.addProperty("type", "Feature");
                                             JsonObject geo = new JsonObject();
                                             geo.addProperty("type", "Point");
-                                            //Go here p
                                             JsonArray coor = new JsonArray();
                                             HashMap<String, Float> point = (HashMap<String, Float>) log.get("point");
                                             coor.add(point.get("longitude"));
@@ -624,6 +636,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                             prop.addProperty("location", (String)log.get("location"));
                                             logJson.add("properties", prop);
                                             logJson.add("geometry", geo);
+                                            features.remove(logJson.deepCopy());
                                             features.add(logJson.deepCopy());
                                         }
                                         logs.add("features", features);
@@ -880,20 +893,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         startActivity(intent);
     }
 
+    public void goToProfileView() {
+        Intent intent = new Intent(this, UserProfile.class);
+        startActivity(intent);
+    }
+
     public void goToAssignedView(){
         Intent intent = new Intent(this, AssignedLogAllActivity.class);
         startActivity(intent);
     }
 
-    public void changeTheme(){
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
-
-        finish();
-        startActivity(new Intent(MapActivity.this, MapActivity.this.getClass()));
+    public void goToSettings(){
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     public void goToTeamCodeDisplay() {
@@ -1183,5 +1195,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         return true;
     }
+
 }
 

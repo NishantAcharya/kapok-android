@@ -73,7 +73,8 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="imagePath" value="$USER_HOME$/Downloads/transparent copy.xml" />
+                                                <entry key="imagePath" value="$USER_HOME$/Downloads/unnamed.jpg" />
+                                                <entry key="scalingPercent" value="148" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -99,7 +100,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="$USER_HOME$/Downloads/logoani-01 (1).png" />
+                                                <entry key="imagePath" value="$USER_HOME$/Downloads/kx_logo.png" />
+                                                <entry key="scalingPercent" value="58" />
                                                 <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
@@ -327,7 +329,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_remove_red_eye_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material/icons/materialicons/arrow_forward_ios/baseline_arrow_forward_ios_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -337,9 +339,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
-                            <entry key="opacityPercent" value="54" />
-                            <entry key="outputName" value="ic_logoani_04__" />
+                            <entry key="outputName" value="ic_arrow" />
                             <entry key="sourceFile" value="$USER_HOME$/Downloads/logoani-04-_1_.svg" />
                           </map>
                         </option>

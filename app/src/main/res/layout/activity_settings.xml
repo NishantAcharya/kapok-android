@@ -1,6 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:background="?attr/colorSeed">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginTop="10dp"
+        android:text="App Settings"
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <LinearLayout
+            android:layout_width="259dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+            android:layout_width="240dp"
+            android:layout_height="25dp"
+            android:text="Allow Notifications"
+            android:textColor="?attr/colorAltText"
+            android:textSize="18dp"
+            android:textStyle="bold"></TextView>
+
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="20dp"
+                android:text="Do you want to get notifications from the team?"
+                android:textColor="?attr/colorAltText"
+                android:textSize="10dp"
+                android:textStyle="normal"></TextView>
+
+
+        </LinearLayout>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/notifcation_switch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textOff="OFF"
+            android:textOn="ON" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <LinearLayout
+            android:layout_width="259dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="240dp"
+            android:layout_height="25dp"
+            android:text="Change Gravity"
+            android:textColor="?attr/colorAltText"
+            android:textSize="18dp"
+            android:textStyle="bold"></TextView>
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="25dp"
+                android:text="Keep the navigation bar open?"
+                android:textColor="?attr/colorAltText"
+                android:textSize="10dp"
+                android:textStyle="normal"></TextView>
+        </LinearLayout>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/drawer_switch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textOff="OFF"
+            android:textOn="ON" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <LinearLayout
+            android:layout_width="259dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="25dp"
+                android:text="Change Color"
+                android:textColor="?attr/colorAltText"
+                android:textSize="18dp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="25dp"
+                android:text="Apply a darker palette."
+                android:textColor="?attr/colorAltText"
+                android:textSize="10dp"
+                android:textStyle="normal"></TextView>
+        </LinearLayout>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/theme_switch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textOff="OFF"
+            android:textOn="ON" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/change_lang_button"
+        android:contextClickable="true"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="32dp"
+        android:clickable="true"
+        android:text="Change Language"
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginTop="10dp"
+        android:text="Account Settings"
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <LinearLayout
+            android:layout_width="259dp"
+            android:layout_height="50dp"
+            android:orientation="vertical"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="25dp"
+                android:text="Active or Inactive"
+                android:textColor="?attr/colorAltText"
+                android:textSize="18dp"
+                android:textStyle="bold"></TextView>
+            <TextView
+                android:layout_width="240dp"
+                android:layout_height="25dp"
+                android:text="Set your communication preference"
+                android:textColor="?attr/colorAltText"
+                android:textSize="10dp"
+                android:textStyle="normal"></TextView>
+        </LinearLayout>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/status_switch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textOff="OFF"
+            android:textOn="ON" />
+
+    </LinearLayout>
+
+    <!-- Change the role in the team-->
+    <TextView
+    android:contextClickable="true"
+    android:id="@+id/change_role_button"
+    android:layout_width="240dp"
+    android:layout_height="30dp"
+    android:layout_marginLeft="32dp"
+    android:clickable="true"
+    android:text="Change Specialization"
+    android:textColor="?attr/colorAltText"
+    android:textSize="18dp"
+    android:textStyle="bold"></TextView>
+
+    <!--To Deactivate the current kapok account-->
+    <TextView
+        android:contextClickable="true"
+        android:id="@+id/deactivate_account"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="32dp"
+        android:clickable="true"
+        android:text="Deactivate Account"
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+        android:textStyle="bold"></TextView>
+
+
+    <!--This is Admin Only-->
+    <TextView
+        android:id = "@+id/admin_text_1"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginTop="10dp"
+        android:text="Team Settings"
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+
+        />
+
+    <View
+        android:id = "@+id/admin_text_2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray" />
+
+    <TextView
+        android:contextClickable="true"
+        android:id="@+id/change_admin_button"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="32dp"
+        android:clickable="true"
+        android:text="Change Administrator"
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:contextClickable="true"
+        android:id="@+id/change_team_name"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="32dp"
+        android:clickable="true"
+        android:text="Change Team Name"
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+        android:textStyle="bold"></TextView>
+
+    <TextView
+        android:contextClickable="true"
+        android:id="@+id/change_team_location"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="32dp"
+        android:clickable="true"
+        android:text="Change Team Location"
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+        android:textStyle="bold"></TextView>
+
+
+    <Button
+        android:id="@+id/leave_team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contextClickable="true"
+        android:text="Leave the current Team"
+        android:background = '@drawable/rounded_button'
+        android:textColor="?attr/colorText"
+        android:textSize="12dp"
+        android:textStyle="bold"></Button>
+
+
+</LinearLayout>
+</ScrollView>

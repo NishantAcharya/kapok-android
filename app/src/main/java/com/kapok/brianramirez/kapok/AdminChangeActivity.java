@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
 
 public class AdminChangeActivity extends AppCompatActivity {
-
+//What's the point of this activity?
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
