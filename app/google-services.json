@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "910607734462",
-    "firebase_url": "https://prototyping-3cc5c.firebaseio.com",
-    "project_id": "prototyping-3cc5c",
-    "storage_bucket": "prototyping-3cc5c.appspot.com"
+    "project_number": "219322609161",
+    "firebase_url": "https://kapok-beta.firebaseio.com",
+    "project_id": "kapok-beta",
+    "storage_bucket": "kapok-beta.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:910607734462:android:929060475f68d5ca",
+        "mobilesdk_app_id": "1:219322609161:android:26c4d7d76bf3258699d2d8",
         "android_client_info": {
-          "package_name": "com.kapok.brianramirez.kapok"
+          "package_name": "com.kapok.brianramirez.kapok.test"
         }
       },
       "oauth_client": [
         {
-          "client_id": "910607734462-tc6ule81p01bb8at52aflmvvn9n7nto9.apps.googleusercontent.com",
+          "client_id": "219322609161-ue902umm46luvtcnnij40j9ka6655kfd.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDlY7l73UsCLBVR2qQAZipWgTj9Uy7W7Aw"
+          "current_key": "AIzaSyAfWwhQLvKFQDsWvNOiFH4RlnFwJRORAjU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "910607734462-tc6ule81p01bb8at52aflmvvn9n7nto9.apps.googleusercontent.com",
+              "client_id": "219322609161-ue902umm46luvtcnnij40j9ka6655kfd.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

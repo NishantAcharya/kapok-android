@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.kapok.brianramirez.kapok"
+        applicationId "com.kapok.brianramirez.kapok.test"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
