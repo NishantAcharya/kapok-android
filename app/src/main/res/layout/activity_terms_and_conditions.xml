@@ -1,0 +1,404 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+    <!--Make the information text bigger-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorSeed"
+        >
+
+        <TextView
+            android:id="@+id/text32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:justificationMode="inter_word"
+            android:textStyle="bold"
+            android:text="Kapok Terms of Service"
+            android:textColor="?attr/colorAltText"
+            android:textSize="30dp" />
+        <TextView
+            android:id="@+id/text39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/text33"
+            android:justificationMode="inter_word"
+            android:text="By clicking “Yes” you acknowledge that you have read, understood, and accept the Kapok Terms of Service. Please do not click “Yes” if you have not read and understood or if you do not accept the Kapok Terms of Service."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text33"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text32"
+            android:layout_centerHorizontal="true"
+            android:text="\nPosted on October 26, 2020 \nEffective on October 26, 2020\n"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text34"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/text39"
+            android:text="These are the terms (“Terms”) that cover your use and your access to our services, software and websites ('Services'). The Privacy Policy outlines what data of yours is collected and how it is used. The Acceptable Use Policy explains your responsibilities when you use our Services. By using our Services, you are agreeing to be bound by these Terms, by the Privacy Policy and the Acceptable Use Policy. When using our Services on for an organization, you're agreeing to our Terms on their behalf.
+"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_below="@id/text34"
+            android:text="Use of Our Services"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text36"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/text35"
+            android:text="Our Services are designed for voluntary usage by people older than 13 years of age (and older in locations where laws require that). There is no guarantee of response from other users of our Services. The data accessible to users is only as reliable as the data the users provide to each other and access to it is based on network availability. Given the realities of limited cell phone coverage and cell charging capabilities in some locations and at varying times, this can impact timing and accuracy of data provided. The highest level of ethical behavior is encouraged of all who participate in sharing, responding, and using the data."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+
+        <TextView
+            android:id="@+id/text37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@id/text36"
+            android:textStyle = "bold"
+            android:text = "Your Data"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text37"
+
+            android:text = "When you use our Services, you voluntarily provide us with data such as contact information, messages, and other content. This is your data and the Terms do not assign us any rights to it except for the limited rights that make it possible for us to offer you Services. These include features such as backing up your data, sorting and organizing it, and sharing it when you ask us to do so. By using our Services you are giving us permission to do all of these things, and this permission extends to affiliates and trusted third parties with whom we work. We do not sell any data provided or shared by users of our Services."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="950dp"
+            android:text = "Security of Data"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text1"
+            android:text = "We have taken proactive and reasonable steps to seek to protect the security of the information stored and shared. However, no data transmission over the Internet can be totally secure. As a result, any information which you transmit using our Services is transmitted at your own risk. Use of our app and services allows you share your data with others. We have sought to help you minimize the chance sharing your data unintentionally. However, you are responsible outcomes arising from you sharing in an unintended manner. "
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text2"
+            android:textStyle= "bold"
+            android:text = "\nPrivacy Policy"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "We respect the privacy of every user of our Services. "
+            android:layout_below="@id/text3"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text4"
+            android:textStyle="italic"
+            android:text = "\nWhat Data We Collect\nServices as well as improve and protect them:"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text5"
+            android:text = "\nYour account\n
+We collect data from you which is associated with your account,. This can include but is not limited to your name, email address, phone number, location, and any information about your occupation or role, and your account activity. Our Services let you access and use your account and information with other service providers.
+\n\n
+Services\n
+We want it to be easy for you to store data, collaborate with others, and accomplish your tasks. To facilitate this, we store, process, and transmit data—like messages, comments, and authorizations.
+\n\n
+Usage\n
+In order to perform, protect, and improve our Services, we may collect information related to how you use them, including actions you take in your account (like sharing, editing, and viewing) and about the devices you use to access the Services. For example, things like IP addresses, the type of browser and device you use and your location information.
+\n\n
+With Whom We Share Data\n
+We may share data as outlined, but we will not sell it to anyone.\n
+\n
+Others trusted third parties\n
+To perform our Services, such as providing access to the map and backing up data we work with trusted third parties. These third parties will access your data only to perform tasks to provide you with our Services and in compliance with this Privacy Policy.
+\nOther users\nTo perform our Services, we display data such as the name, occupation or role, and email address you have provided along with the team name and number to other users.
+\nOur responsibility under the law If we determine that disclosure of your information is reasonably necessary, we may provide it to third parties to comply with the law; protect anyone from serious bodily injury or death; prevent fraud or abuse of our users or us; protect our or others’ property rights."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text6"
+            android:textStyle="bold"
+            android:text = "\nLimitation of Liability"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text7"
+            android:text = "WE DO NOT EXCLUDE OR LIMIT OUR LIABILITY TO YOU WHERE DOING SO WOULD BE ILLEGAL—AND THIS INCLUDES ANY LIABILITY FOR OUR OR OUR AFFILIATES’ FRAUD OR FRAUDULENT MISREPRESENTATION IN PROVIDING THE SERVICES. IN COUNTRIES WHERE THE FOLLOWING TYPES OF EXCLUSIONS ARE NOT ALLOWED, WE ARE RESPONSIBLE TO YOU ONLY FOR DAMAGES AND LOSSES THAT ARE A REASONABLY FORESEEABLE RESULT OF OUR FAILURE TO USE REASONABLE SKILL AND CARE OR OUR BREACH OF OUR CONTRACT WITH YOU. THIS PARAGRAPH DOES NOT AFFECT RIGHTS THAT CANNOT BE WAIVED OR LIMITED BY ANY AGREEMENT OR CONTRACT.
+\nIN COUNTRIES AND OTHER JURISDICTIONS WHERE EXCLUSIONS OR LIMITATIONS OF LIABILITY ARE ALLOWED, KAPOK AND ITS AFFILIATES WILL  NOT BE LIABLE FOR:
+\ni. ANY INDIRECT, PUNITIVE, EXEMPLARY, INCIDENTAL, SPECIAL OR CONSEQUENTIAL DAMAGES, OR
+\nii. ANY LOSS OF DATA, USE, BUSINESS, OR PROFITS, REGARDLESS OF LEGAL THEORY.
+\nTHESE EXCLUSIONS OR LIMITATIONS WILL APPLY REGARDLESS OF WHETHER OR NOT WE OR ANY OF OUR AFFILIATES HAS BEEN WARNED OF THE POSSIBILITY OF SUCH DAMAGES.
+\nIF YOU USE THE SERVICES FOR ANY BUSINESS, COMMERCIAL, OR RE-SALE PURPOSE, WE AND OUR AFFILIATES WILL HAVE NO LIABILITY TO YOU FOR ANY LOSS OF BUSINESS, BUSINESS OPPORTUNITY, PROFIT, OR FOR ANY BUSINESS INTERRUPTION. WE AND OUR AFFILIATES ARE NOT RESPONSIBLE FOR THE CONDUCT, WHETHER ONLINE OR OFFLINE, OF ANY USER OF THE SERVICES.
+\nOTHER THAN FOR THE TYPES OF LIABILITY WE CANNOT LIMIT BY LAW (AS DESCRIBED IN THIS SECTION OF THESE TERMS), WE LIMIT OUR LIABILITY TO YOU TO $20.00 UNITED STATES DOLLARS (USD)."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text8"
+            android:textStyle="bold"
+            android:text = "\nDispute Resolution"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text9"
+            android:text = "By agreeing to use our Services, you agree you will seek in good faith to resolve any disputes with us through informal dispute resolution as a first step and contact us at: Developer.kapok@gmail.com. We will to attempt to resolve the situation to your satisfaction. By using these Services, you are agreeing that if together we cannot mutually agree on a resolution, that you will participate in good faith in mediation as the next dispute resolution step; and, if that is not successful you agree to go to mandatory binding arbitration as laid out in the “Mandatory Arbitration” section below as next step for dispute resolution, unless this clause violates laws in the jurisdiction where you live. You are agreeing that any mediator or arbitrator to be used would be acceptable to both parties and function under the guidance of the Association of Conflict Resolution and the American Arbitration Association. Should a dispute proceed to a judicial process, you are agreeing that the venue and personal jurisdiction will be Hampshire County, Massachusetts, USA. The Terms of Service will be governed by Massachusetts and U.S. laws except for its conflicts of laws principles and except where this clause would override superseding laws."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text10"
+            android:textStyle="bold"
+            android:text = "\nMandatory Arbitration"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text11"
+            android:text = "You agree that if informal dispute resolution good faith efforts by both you and us do not result in an agreement, and if you are a resident of the United States, you agree to resolve any claims relating to these Terms or the Services through the use of final and binding arbitration carried out by a single human arbitrator, except as set forth under Exceptions to Agreement to Arbitrate within these Terms of Service. Disputes arising out of or relating to interpretation or application of the “Mandatory Arbitration” including its enforceability, revocability, or validity, are included in what will be arbitrated.
+\nThe arbitration will be held in Hampshire County, in the State of Massachusetts, in the United States or any other location we agree to."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text12"
+            android:textStyle="bold"
+            android:text = "\nAgreement to Arbitrate Exceptions"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text13"
+            android:text = "You or we may assert claims, if they qualify, in small claims court in Hampshire County, Massachusetts, USA. You or we may bring a lawsuit solely for the purposes of injunctive relief to stop any unauthorized use or abuse of our Services, or for any intellectual property infringement without first engaging in arbitration or the informal dispute-resolution processes described in these Terms. If it is found that the Agreement to Arbitrate does not to apply to you or your claim, you agree to the exclusive jurisdiction of the state and federal courts in Hampshire County, Massachusetts, USA to resolve your claim.
+\nYou may only resolve disputes with us on an individual basis. You may not participate in a class action against us, bringing a claim as a plaintiff or as a class member in a class, consolidated, or representative action. Class actions, class arbitrations, private attorney general actions, and consolidation with other arbitrations are not allowed. If this specific paragraph is held unenforceable, then the entirety of the Term’s section on “Provisions for Mandatory Arbitration” will be deemed void."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text14"
+            android:textStyle="bold"
+            android:text = "\nEntire Agreement"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text15"
+            android:text = "These Terms make up the entirety of the agreement between the you, the user and us, and they create no third party beneficiary rights."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text16"
+            android:textStyle="bold"
+            android:text = "\nWaiver, Severability &amp; Assignment"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text17"
+            android:text = "Any failure by us to enforce a provision of the Terms and Conditions is not a waiver of our right to enforcement at a later date. If one provision of the Terms is found to be unenforceable, all of the other Term’s remain in full effect. A user may not assign any of their rights under the Terms. We may assign our rights to any of affiliates or subsidiaries, or to any successor."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text18"
+            android:textStyle="bold"
+            android:text = "\nChanges, Improvements, and Beta Services"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text19"
+            android:text = "While we endeavor to provide effective Services, sometimes we release some Services in a beta form and they may not be as reliable as intended. It could include technical inaccuracies or errors. In such cases, we will seek to fix them as quickly as possible once we learn about them (see contact information below).
+\nWe may make changes or improvements at any time. Information on our Services and those of any of its related, affiliated, or subsidiary units or third parties, is provided with the understanding that we are not rendering professional advice or recommendations. You should not rely on any information to replace consultations with qualified professionals to meet your individual needs. If you use any of our Beta Services, you agree not to disclose any information about the Services to anyone else without our permission."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text20"
+            android:textStyle="bold"
+            android:text = "\nGeneral"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text21"
+            android:text = "We accept no liability for any failure to comply with the Terms of Service where the failure is due to circumstances beyond what is in our reasonable control. If we waive any rights available to us under these Terms at any point, that does not mean that those rights will automatically be waived at any other time. If any of these Terms are held to be invalid, unenforceable, or illegal for any reason, the remaining Terms shall continue in full force."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text23"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text22"
+            android:textStyle="bold"
+            android:text = "\nOur Services 'As Is'"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text23"
+            android:text = "To the fullest extent permissible by law, we neither express or imply any warranties for our Services’ purposes and for non-infringement. Since some locations do not allow the disclaimers in this paragraph it is possible that they may not apply to every user."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text24"
+            android:textStyle="bold"
+            android:text = "\nUser Responsibility"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text26"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text25"
+            android:text = "The user is responsible for the data they enter and share using our Services. We are not responsible for the content of what is posted and shared through the use of our Services which must comply with our Acceptable Use Policy. Code and content in the Services are protected by our and may be protected by others’ intellectual property rights and this must be respected. Copying, uploading, downloading, or sharing content must not be done unless you have the legal right to do so. By using our Services you are agreeing not to participate in or facilitate the reverse engineering or decompiling any of the software or Services.
+        \nYou should take care to protect your password to our Services as this protects your data. We are not responsible if data is misused or lost due to an unauthorized party accessing a user’s account due to the user’s failure to protect their password."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text27"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text26"
+            android:textStyle ="bold"
+            android:text = "\nAcceptable Use Policy "
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text27"
+            android:text = "Our Services can only be used as permitted under the law. This includes laws and regulations for export control.
+\nOur Services are not designed for and may not be used by anyone under the age of 13 years old (or older depending on where you live or are located). Use of our Services is a representation that the user is over 13 years of age.
+\nUsers agree not to misuse our Services or facilitate anyone else misusing them. This includes but is not limited to attempts or success at the following:
+\n•	circumventing or violating any authentication or security features or processes
+\n•	testing or taking advantage of any vulnerability of our Services
+\n•	phishing, mail-bombing, spamming, flooding, or overloading in any other way our Services in ways that interfere with or disrupt one or many users, the host, or the network
+\n•	sending messages that are or include but are not limited to: advertisements, threats, deception, untruths, abuse, violence, defamation, purposefully misleading, fraudulent, or unlawful pornography or indecency
+\n•	acting as and/or advocating hatred, violence, threats, bullying, or bigotry against any individual or group based on their actual or perceived identity
+\n•	accessing, altering, or using non-public areas or parts of our Services, or any areas of our Services that you have not been invited to utilize
+\n•	violating the privacy of others
+\n•	violating the property rights of others
+\n•	selling access to the Services or selling the Services
+\n•	creating bulk accounts or scraping
+\n•	accessing, searching, or creating accounts for our Services by processes other than the publicly supported interfaces that we have provided
+\n•	violating the law
+\nSuspension and Termination of Access
+\nUsers can stop using our Services at any time. If you breach the Terms and/or our Services in way that put others at risk, and/or are required to by law, we reserve the right to suspend or terminate your access to our Services."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text29"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text28"
+            android:textStyle="bold"
+            android:text = "Our Rights"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text29"
+            android:text = "Our Services, logos and other brand features are protected by copyright and other US and foreign laws. The Terms do not grant you any right, title, or interest in our Services, others’ content in the Services, in our copyright, logos and other brand features.
+\nWe ask that you respect our intellectual property and that of others. Concerns about alleged copyright infringement if they comply with the law should be reported using this address: Developer.kapok@gmail.com
+\nWe reserve the right to disable or delete any content that is alleged to be infringing and reserve the right to terminate the account of any user.
+\nChanges to Terms and Conditions
+\nWe reserve the right to make changes to the Terms policies and any such changes will be posted. If you do not agree to any of the Terms policies updates, we encourage you to cancel your account and not use our Services any longer. You agree to be bound by the revised Terms by using the Services after revisions come into effect."
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+        <TextView
+            android:id="@+id/text31"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text30"
+            android:text = "\nContact information
+\nYou may contact us at: developer.kapok@gmail.com"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp" />
+
+
+
+    </RelativeLayout>
+</ScrollView>

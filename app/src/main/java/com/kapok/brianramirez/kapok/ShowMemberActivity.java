@@ -26,6 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.sql.Ref;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ShowMemberActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -141,7 +142,11 @@ public class ShowMemberActivity extends AppCompatActivity {
 
                     DocumentReference userProf = db.collection("Profiles").document(member);
                     // Set the admin field of the current user to true
+                    //Fix this here, the array of requests is not getting approved
+                    //Open the snapshot here (add on complete listener) get the data in requests
+                    //Current issue is that requests array is null(not initalized and needs a value
                     userProf.update("requests", FieldValue.arrayUnion(requests)); //what's the point of this?
+                    //issue maybe ends here
                     userProf.update("isAdmin", true);
 
                     userRef.update("requests", FieldValue.arrayRemove(requests));
