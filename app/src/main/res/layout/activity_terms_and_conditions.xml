@@ -84,7 +84,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text37"
-
             android:text = "When you use our Services, you voluntarily provide us with data such as contact information, messages, and other content. This is your data and the Terms do not assign us any rights to it except for the limited rights that make it possible for us to offer you Services. These include features such as backing up your data, sorting and organizing it, and sharing it when you ask us to do so. By using our Services you are giving us permission to do all of these things, and this permission extends to affiliates and trusted third parties with whom we work. We do not sell any data provided or shared by users of our Services."
             android:textColor="?attr/colorAltText"
             android:textSize="17dp" />
@@ -93,8 +92,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:layout_marginTop="950dp"
             android:text = "Security of Data"
+            android:layout_below="@id/text38"
             android:textColor="?attr/colorAltText"
             android:textSize="17dp" />
         <TextView
@@ -398,7 +397,17 @@ To perform our Services, such as providing access to the map and backing up data
             android:textColor="?attr/colorAltText"
             android:textSize="17dp" />
 
-
+        <Button
+            android:id="@+id/terms"
+            android:layout_gravity="center"
+            android:layout_width="300dp"
+            android:layout_below="@id/text31"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="?attr/colorAccent"
+            android:background="@drawable/rounded_button"
+            android:text="Agree With the terms"
+            android:textColor="?attr/colorText" />
 
     </RelativeLayout>
 </ScrollView>

@@ -22,6 +22,20 @@
         <item>Transportation</item>
     </string-array>
 
+    <!--Links to tutorial videos-->
+    <string name="log_creation">
+        <a href = "https://youtu.be/RDeyirPu5WU">Click here to see how to create logs</a>
+    </string>
+    <string name="admin_features">
+        <a href = "https://youtu.be/H5GVIGC9mvE">Click here to see how to manage teams as an Administrator</a>
+    </string>
+    <string name="hamburger_features">
+        <a href = "https://youtu.be/_31SkuoPVp0">Click here to see how to learn how to navigate the app</a>
+    </string>
+    <string name="uninstalltion_guide">
+        <a href = "https://youtu.be/SwI6PzkOy-s">Click here to see how to uninstall the app</a>
+    </string>
+
     <string name="password_strength_weak">Weak</string>
     <string name="password_strength_medium">Medium</string>
     <string name="password_strength_strong">Strong</string>

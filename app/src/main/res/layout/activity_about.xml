@@ -1,6 +1,176 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
+    <!--Box everything up-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorSeed">
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageShow"
+            android:layout_width="200dp"
+            android:layout_height="170dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_launcher"
+            tools:visibility="visible" />
+        <TextView
+            android:id="@+id/versionInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/imageShow"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp"
+            android:text="Kapok Beta version 1.6.5"
+            />
+        <TextView
+            android:id="@+id/copyright"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/versionInfo"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAltText"
+            android:textSize="12dp"
+            android:text="© 2020 Leah Wing, Natasha Sustache, Justin Jacobeen, Brian Ramirez, Siddhartha Srivastava, Aparimit Chandra, Nishant Acharya, Shreya Murali, and Sapna Parihar"
+            />
+        <TextView
+            android:id="@+id/textviewHeader1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/copyright"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAltText"
+
+            android:textSize="24dp"
+            android:text="Who We Are"
+            />
+        <TextView
+            android:id="@+id/description1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textviewHeader1"
+            android:textStyle="bold"
+            android:background="@drawable/rounded_button_white"
+            android:textSize="17dp"
+            android:textColor="?attr/colorAltText"
+            android:text="Who We Are
+We are a multidisciplinary and multilingual team of volunteers (including software developers, RNs and medical disaster responders, online dispute resolution experts, and hurricane survivor family members).\n Inspired by the dedication and resilience of first responders and survivors, we seek to harness technology to assist in disaster prevention and response."
+            />
+        <TextView
+            android:id="@+id/textviewHeader2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/description1"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAltText"
+            android:textSize="24dp"
+            android:text="Need Help?"
+            />
+        <TextView
+            android:id="@+id/textviewHeader3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/textviewHeader2"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp"
+            android:text="The following links require internet connection"
+            />
+        <TextView
+            android:id="@+id/textviewHeader4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textviewHeader3"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp"
+            android:text="Log Creation: "
+            />
+        <TextView
+            android:id="@+id/link1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textviewHeader4"
+            android:layout_below="@+id/textviewHeader3"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp"
+            android:text="@string/log_creation"
+            />
+        <TextView
+            android:id="@+id/textviewHeader5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textviewHeader4"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp"
+            android:text="Admin Features:"
+            />
+        <TextView
+            android:id="@+id/link2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textviewHeader5"
+            android:layout_below="@+id/textviewHeader4"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp"
+            android:text="@string/admin_features"
+            />
+        <TextView
+            android:id="@+id/textviewHeader6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/link2"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp"
+            android:text="Menu Navigation: "
+            />
+        <TextView
+            android:id="@+id/link3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textviewHeader6"
+            android:layout_below="@+id/link2"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp"
+            android:text="@string/hamburger_features"
+            />
+        <TextView
+            android:id="@+id/textviewHeader7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/link3"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp"
+            android:text="Uninstallation help: "
+            />
+        <TextView
+            android:id="@+id/link4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textviewHeader7"
+            android:layout_below="@+id/link3"
+            android:textStyle="bold"
+            android:textColor="?attr/colorAltText"
+            android:textSize="17dp"
+            android:text="@string/uninstalltion_guide"
+            />
+    </RelativeLayout>
+</ScrollView>
