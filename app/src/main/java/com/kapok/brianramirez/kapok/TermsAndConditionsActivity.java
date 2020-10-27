@@ -1,6 +1,8 @@
 package com.kapok.brianramirez.kapok;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,13 +14,17 @@ import android.widget.TextView;
 public class TermsAndConditionsActivity extends AppCompatActivity {
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Checking for accepting of terms before movig forwards
+        SharedPreferences settings = getSharedPreferences("Terms", Context.MODE_PRIVATE);
+        boolean acceptedTerms = settings.getBoolean("Terms", false);
+        
 
-        if (Database.acceptedTerms == true) {
+        if (acceptedTerms) {
             launchHomeScreen();
             finish();
         }
@@ -28,7 +34,11 @@ public class TermsAndConditionsActivity extends AppCompatActivity {
         Accepting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Database.acceptedTerms = true;
+                SharedPreferences settings = getSharedPreferences("Terms", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean("Terms",true);
+                // Commit the edits!
+                editor.commit();
                 launchHomeScreen();
             }
         });
