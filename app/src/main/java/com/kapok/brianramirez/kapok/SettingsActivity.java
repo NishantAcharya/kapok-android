@@ -262,21 +262,22 @@ public class SettingsActivity extends AppCompatActivity {
                                                 if (document.exists()) {
                                                     teamcode = ((ArrayList<String>) document.get("team")).get(0);
                                                     DocumentReference teamref = db.collection("Teams").document(teamcode);
-                                                    requests = (ArrayList<String>)document.getData().get("requests");
+                                                    requests = (ArrayList<String>) document.getData().get("requests");
                                                     teamref.update("admin", member);
+
+
                                                 }
                                             }
                                         }
                                     });
                                     userRef.update("isAdmin", false);
-
-
                                     DocumentReference userProf = db.collection("Profiles").document(member);
                                     // Set the admin field of the current user to true
                                     //requests = (ArrayList<String>)document.getData().get("requests");
                                     userProf.update("requests", FieldValue.arrayUnion(requests));
                                     userProf.update("isAdmin", true);
                                     userRef.update("requests", FieldValue.arrayRemove(requests));
+
 
                                 }
                                 else{
