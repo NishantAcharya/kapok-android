@@ -145,11 +145,26 @@ public class ShowMemberActivity extends AppCompatActivity {
                     //Fix this here, the array of requests is not getting approved
                     //Open the snapshot here (add on complete listener) get the data in requests
                     //Current issue is that requests array is null(not initalized and needs a value
-                    userProf.update("requests", FieldValue.arrayUnion(requests)); //what's the point of this?
-                    //issue maybe ends here
-                    userProf.update("isAdmin", true);
+                    userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                DocumentSnapshot document = task.getResult();
+                                if (document.exists()) {
+                                    requests = (ArrayList<String>)document.getData().get("requests");
+                                    userProf.update("requests", FieldValue.arrayUnion(requests));
+                                    userProf.update("isAdmin", true);
+                                    userRef.update("requests", FieldValue.arrayRemove(requests));
 
-                    userRef.update("requests", FieldValue.arrayRemove(requests));
+                                }
+                            }
+                        }
+                    });
+                     //what's the point of this?
+                    //issue maybe ends here
+
+
+
                 }
                 else{
                     Toast.makeText(ShowMemberActivity.this, "You are already the Administrator", Toast.LENGTH_SHORT).show();

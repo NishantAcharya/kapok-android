@@ -272,10 +272,21 @@ public class SettingsActivity extends AppCompatActivity {
 
                                     DocumentReference userProf = db.collection("Profiles").document(member);
                                     // Set the admin field of the current user to true
-                                    userProf.update("requests", FieldValue.arrayUnion(requests)); // What's the point of this?
-                                    userProf.update("isAdmin", true);
+                                    userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                DocumentSnapshot document = task.getResult();
+                                                if (document.exists()) {
+                                                    requests = (ArrayList<String>)document.getData().get("requests");
+                                                    userProf.update("requests", FieldValue.arrayUnion(requests));
+                                                    userProf.update("isAdmin", true);
+                                                    userRef.update("requests", FieldValue.arrayRemove(requests));
 
-                                    userRef.update("requests", FieldValue.arrayRemove(requests));
+                                                }
+                                            }
+                                        }
+                                    });
                                 }
                                 else{
                                     Toast.makeText(SettingsActivity.this, "You are already the Administrator", Toast.LENGTH_SHORT).show();
