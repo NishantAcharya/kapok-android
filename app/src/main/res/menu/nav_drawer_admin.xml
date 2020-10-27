@@ -25,6 +25,10 @@
             android:title="My Task" />
 
         <item
+            android:id="@+id/navAboutUs"
+            android:title="About Kapok" />
+
+        <item
             android:id="@+id/navSettings"
             android:title="Settings" />
 

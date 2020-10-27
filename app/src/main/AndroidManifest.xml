@@ -117,6 +117,10 @@
             android:name=".SettingsActivity"
             android:label="Settings"
             android:parentActivityName=".MapActivity"/>
+        <activity
+            android:name=".AboutKapokActivity"
+            android:label="About Us"
+            android:parentActivityName=".MapActivity"/>
     </application>
 
 </manifest>

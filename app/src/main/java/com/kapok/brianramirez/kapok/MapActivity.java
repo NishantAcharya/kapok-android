@@ -312,6 +312,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 int id = menuItem.getItemId();
                 switch (id)
                 {
+                    case R.id.navAboutUs:
+                        goToAboutUs();
+                        break;
                     case R.id.navProfileEdit:
                         goToProfileView();
                         break;
@@ -895,6 +898,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     public void goToProfileView() {
         Intent intent = new Intent(this, UserProfile.class);
+        startActivity(intent);
+    }
+
+    public void goToAboutUs() {
+        Intent intent = new Intent(this, AboutKapokActivity.class);
         startActivity(intent);
     }
 
