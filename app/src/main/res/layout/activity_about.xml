@@ -63,8 +63,7 @@
             android:background="@drawable/rounded_button_white"
             android:textSize="17dp"
             android:textColor="?attr/colorAltText"
-            android:text="Who We Are
-We are a multidisciplinary and multilingual team of volunteers (including software developers, RNs and medical disaster responders, online dispute resolution experts, and hurricane survivor family members).\n Inspired by the dedication and resilience of first responders and survivors, we seek to harness technology to assist in disaster prevention and response."
+            android:text="We are a multidisciplinary and multilingual team of volunteers (including software developers, RNs and medical disaster responders, online dispute resolution experts, and hurricane survivor family members).\n Inspired by the dedication and resilience of first responders and survivors, we seek to harness technology to assist in disaster prevention and response."
             />
         <TextView
             android:id="@+id/textviewHeader2"
@@ -113,18 +112,18 @@ We are a multidisciplinary and multilingual team of volunteers (including softwa
             android:id="@+id/textviewHeader5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textviewHeader4"
+            android:layout_below="@+id/link1"
             android:textStyle="bold"
             android:textColor="?attr/colorAltText"
             android:textSize="17dp"
-            android:text="Admin Features:"
+            android:text="Admin Features: "
             />
         <TextView
             android:id="@+id/link2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/textviewHeader5"
-            android:layout_below="@+id/textviewHeader4"
+            android:layout_below="@+id/link1"
             android:textStyle="bold"
             android:textColor="?attr/colorAltText"
             android:textSize="17dp"

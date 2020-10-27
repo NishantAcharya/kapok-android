@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.text.method.LinkMovementMethod;
 import android.widget.TextView;
 
-class AboutKapokActivity extends AppCompatActivity {
+public class AboutKapokActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
