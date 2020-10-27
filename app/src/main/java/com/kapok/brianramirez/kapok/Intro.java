@@ -121,7 +121,7 @@ import android.widget.TextView;
 
         private void launchHomeScreen() {
             prefManager.setFirstTimeLaunch(false);
-            startActivity(new Intent(Intro.this, Splash.class));
+            startActivity(new Intent(Intro.this, TermsAndConditionsActivity.class));
             finish();
         }
 

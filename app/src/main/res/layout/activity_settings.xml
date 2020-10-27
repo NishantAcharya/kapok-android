@@ -298,16 +298,16 @@
         android:textStyle="bold"></TextView>
 
 
-    <Button
+    <TextView
         android:id="@+id/leave_team"
         android:layout_width="wrap_content"
+        android:layout_marginLeft="32dp"
         android:layout_height="wrap_content"
         android:contextClickable="true"
         android:text="Leave the current Team"
-        android:background = '@drawable/rounded_button'
-        android:textColor="?attr/colorText"
-        android:textSize="12dp"
-        android:textStyle="bold"></Button>
+        android:textColor="?attr/colorAltText"
+        android:textSize="18dp"
+        android:textStyle="bold"></TextView>
 
 
 </LinearLayout>

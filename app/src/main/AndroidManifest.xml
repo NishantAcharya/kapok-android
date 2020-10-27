@@ -45,6 +45,10 @@
             android:label="Log In"
             android:parentActivityName=".WelcomeActivity" />
         <activity
+            android:name=".TermsAndConditionsActivity"
+            android:label="Terms Of Usage"
+            />
+        <activity
             android:name=".RegisterActivity"
             android:label="Register"
             android:parentActivityName=".WelcomeActivity"
