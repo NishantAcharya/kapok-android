@@ -133,6 +133,7 @@ public class ShowMemberActivity extends AppCompatActivity {
                                     teamcode = ((ArrayList<String>) document.get("team")).get(0);
                                     DocumentReference teamref = db.collection("Teams").document(teamcode);
                                     teamref.update("admin", member);
+                                    requests = (ArrayList<String>)document.getData().get("requests");
                                 }
                             }
                         }
@@ -145,21 +146,9 @@ public class ShowMemberActivity extends AppCompatActivity {
                     //Fix this here, the array of requests is not getting approved
                     //Open the snapshot here (add on complete listener) get the data in requests
                     //Current issue is that requests array is null(not initalized and needs a value
-                    userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            if (task.isSuccessful()) {
-                                DocumentSnapshot document = task.getResult();
-                                if (document.exists()) {
-                                    requests = (ArrayList<String>)document.getData().get("requests");
-                                    userProf.update("requests", FieldValue.arrayUnion(requests));
-                                    userProf.update("isAdmin", true);
-                                    userRef.update("requests", FieldValue.arrayRemove(requests));
-
-                                }
-                            }
-                        }
-                    });
+                    userProf.update("requests", FieldValue.arrayUnion(requests));
+                    userProf.update("isAdmin", true);
+                    userRef.update("requests", FieldValue.arrayRemove(requests));
                      //what's the point of this?
                     //issue maybe ends here
 

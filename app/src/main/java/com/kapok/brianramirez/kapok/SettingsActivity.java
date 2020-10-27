@@ -250,7 +250,7 @@ public class SettingsActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View view) {
                             if (positionNum != -1) {
-                                member = teamEmails.get(teamEmails.size()-positionNum-1);
+                                member = teamEmails.get(positionNum); //teamEmails.size()-positionNum-1
                                 if (!getAdmin().equals(member)) {
                                     FirebaseFirestore db = Database.db;
                                     DocumentReference userRef = db.collection("Profiles").document(currentUser);
@@ -262,6 +262,7 @@ public class SettingsActivity extends AppCompatActivity {
                                                 if (document.exists()) {
                                                     teamcode = ((ArrayList<String>) document.get("team")).get(0);
                                                     DocumentReference teamref = db.collection("Teams").document(teamcode);
+                                                    requests = (ArrayList<String>)document.getData().get("requests");
                                                     teamref.update("admin", member);
                                                 }
                                             }
@@ -272,21 +273,11 @@ public class SettingsActivity extends AppCompatActivity {
 
                                     DocumentReference userProf = db.collection("Profiles").document(member);
                                     // Set the admin field of the current user to true
-                                    userProf.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                            if (task.isSuccessful()) {
-                                                DocumentSnapshot document = task.getResult();
-                                                if (document.exists()) {
-                                                    requests = (ArrayList<String>)document.getData().get("requests");
-                                                    userProf.update("requests", FieldValue.arrayUnion(requests));
-                                                    userProf.update("isAdmin", true);
-                                                    userRef.update("requests", FieldValue.arrayRemove(requests));
+                                    //requests = (ArrayList<String>)document.getData().get("requests");
+                                    userProf.update("requests", FieldValue.arrayUnion(requests));
+                                    userProf.update("isAdmin", true);
+                                    userRef.update("requests", FieldValue.arrayRemove(requests));
 
-                                                }
-                                            }
-                                        }
-                                    });
                                 }
                                 else{
                                     Toast.makeText(SettingsActivity.this, "You are already the Administrator", Toast.LENGTH_SHORT).show();

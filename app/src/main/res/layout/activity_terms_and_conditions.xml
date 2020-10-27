@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:textStyle="bold"
             android:layout_below="@id/text34"
-            android:text="Use of Our Services"
+            android:text="\nUse of Our Services"
             android:textColor="?attr/colorAltText"
             android:textSize="17dp" />
         <TextView
@@ -76,7 +76,7 @@
 
             android:layout_below="@id/text36"
             android:textStyle = "bold"
-            android:text = "Your Data"
+            android:text = "\nYour Data"
             android:textColor="?attr/colorAltText"
             android:textSize="17dp" />
         <TextView
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:text = "Security of Data"
+            android:text = "\nSecurity of Data"
             android:layout_below="@id/text38"
             android:textColor="?attr/colorAltText"
             android:textSize="17dp" />
